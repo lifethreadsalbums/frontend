@@ -1,0 +1,14 @@
+<section class="swatch-range-modal" trigger-on-input="true" keypress-handler="doOk()" shortcut="ENTER">
+    <header>
+        Enter {{pageType=='SpreadBased' ? 'Spreads' : 'Pages'}}
+        <div class="ngdialog-close right" ng-click="cancel()"></div>
+    </header>
+    <article>
+        <span>Example: {{pageType=='SpreadBased' ? '1,4-6,15,20-23' : '1,7-9,15,57-60,99'}}</span>
+        <input page-range-input max-pages="{{maxPages}}" type="text" name="swatch-range" ng-model="swatchRangeValue" set-focus="true">
+    </article>
+    <footer>
+        <button type="button" class="button dark" ng-click="doCancel()">Cancel</button>
+        <button type="button" class="button color" ng-disabled="!swatchRangeValue" ng-click="doOk()">Ok</button>
+    </footer>
+</section>

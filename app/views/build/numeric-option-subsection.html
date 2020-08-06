@@ -1,0 +1,24 @@
+<div class="sidebar-creator__content">
+    <header class="header-back">
+        <button ng-click="back()" class="button back big">Back</button>
+        <div>
+            <h1>{{model.label}}</h1>
+            <small>{{model.description}}</small>
+        </div>
+    </header>
+    <ul class="item-list standard">
+        <li class="item hovering-list item-counter" ng-class="{'read-only disabled':!editable}">
+
+            <div counter min="{{min}}" max="{{max}}" step="{{step}}">
+                <span class="counter-minus"><span></span></span>
+                <input type="number" class="counter-value" ng-model="product.options[optionCode]"
+                    min="{{min}}" max="{{max}}"
+                    ng-model-options="{updateOn:'blur'}"
+                    ng-change="onNumericOptionChange()" enter-as-tab/>
+                <span class="counter-title">{{label}}</span>
+                <span class="counter-plus"><span></span></span>
+            </div>
+
+        </li>
+    </ul>
+</div>

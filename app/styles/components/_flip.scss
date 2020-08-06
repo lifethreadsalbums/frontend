@@ -1,0 +1,38 @@
+//------------------------------------------------------------------
+//                     FLIP
+//------------------------------------------------------------------
+// Requires to set width and height of .flip__front & .flip__back elements
+
+// entire container, keeps perspective
+.flip__container {
+    perspective: 1000;
+    transform: perspective(1000px);
+    transform-style: preserve-3d;
+}
+
+.flip__container--hover-flip:hover .flip__flipper,
+.flip__container--fliped .flip__flipper {
+    transform: rotateY(180deg);
+}
+
+// flip speed goes here
+.flip__flipper {
+    position: relative;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+// hide back of pane during swap
+.flip__front,
+.flip__back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+// back, initially hidden pane
+.flip__back {
+    transform: rotateY(180deg);
+}

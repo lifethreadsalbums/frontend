@@ -1,0 +1,58 @@
+<section id="welcome" class="section section--bg-light section--welcome" ng-intro-oncomplete="CompletedEvent">
+    <div id="content" class="section__content section__content--top-padding section__content--no-sidebar section__content--centered-content">
+        <div class="welcome">
+            <div class="row welcome__intro">
+                <div class="medium-12 large-12 columns text-center">
+                    <br>
+                    <h1>{{welcomePage.title}}</h1>
+                    <br>
+                    <span class="welcome__take-tour">
+                        First Time here? Let us show you around!
+                        <a ui-sref="tour" class="button color welcome__take-tour-button">Take a tour</a>
+                    </span>
+                    <br>
+                    Do you want to dive right in? Choose the type of project that you want to create.
+                    <br><br>
+                </div>
+            </div>
+
+            <ul class="welcome__products row">
+                <li class="welcome__product small-4 medium-4 large-4 columns" ng-repeat="item in categories | orderBy: 'displayName'" >
+                    <div class="welcome__product-container" ng-click="selectFeatured(item)">
+                        <!-- <span ng-show="$index==0" class="promo-tag promo-green"> New </span>
+                        <span ng-show="$index>3" class="promo-tag promo-red"> 50% Off! </span>   -->
+                        <div class="welcome__product-image" >
+                           <img ng-src="{{item.params.thumbUrl}}"/>
+                        </div>
+                        <div class="welcome__product-name">
+                             <a style=" display:block; bottom:10px;">{{item.displayName}}</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="welcome__product small-4 medium-4 large-4 columns" ng-if="categories.length>0">
+                    <div class="welcome__product-container" ng-click="selectFeatured('/orders/new?prototypeId=3')">
+                        <div class="welcome__product-image" >
+                           <img src="images/welcome-custom-services.png"/>
+                        </div>
+                        <div class="welcome__product-name">
+                             <a style=" display:block; bottom:10px;">Custom Services</a>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="welcome__product small-4 medium-4 large-4 columns" ng-repeat="item in products" >
+                    <div class="welcome__product-container" ng-click="selectFeatured(item.url)">
+                        <div class="welcome__product-image" >
+                           <img ng-src="{{item.thumbUrl}}"/>
+                        </div>
+                        <div class="welcome__product-name">
+                             <a style=" display:block; bottom:10px;">{{item.name}}</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,47 @@
+<header class="clear-margin">Batches</header>
+<!-- <form> -->
+	<div class="sort-bar sort-bar--absolute" init-foundation>
+		<span class="sort-label">Sorting</span>
+		<span class="sort-button" data-dropdown="orders-sort-options">Sort</span>
+		<ul id="orders-sort-options" class="sort-options f-dropdown" data-dropdown-content>
+			<li><a href="#">Sort option 1</a></li>
+			<li><a href="#">Sort option 2</a></li>
+			<li><a href="#">Sort option 3</a></li>
+			<li><a href="#">Sort option 4</a></li>
+		</ul>
+	</div>
+
+	<div class="sidebar-projects-content batch-footer">
+
+		<a href="#/admin/orders/batches/{{batch.id}}" ng-repeat="batch in batches">
+			<div class="project-item" ng-class="{active:$state.params.batchId==batch.id}">
+
+				<div class="project-header" init-pace-tooltip>
+					<span ng-if="batch.state=='Queued'" class="project-status status-label status-label-orange">Pending</span>
+					<span ng-if="batch.state=='Processing'" class="project-status status-label status-label-orange">Processing</span>
+					<span ng-if="batch.state=='Printed'" class="project-status status-label status-label-green" >Printed</span>
+					<span class="project-name has-tip" data-pace-tooltip="{{batch.name}} data-pace" data-pace-tooltip-position="top">{{batch.name||batch.id}}</span>
+				</div>
+
+				<div class="project-footer">
+					<span class="project-date">{{batch.dateCreated | moment}}</span>
+					<span class="project-copies">{{batch.products.length}}</span>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<footer aside-footer class="batch-footer" init-foundation>
+
+		<!-- <button class="button large color half btn-new-batch" ng-click="new()"><span class="icon-add-document"></span></button>
+		<button ng-disabled="!$state.params.batchId" class="button large color half btn-batch" data-dropdown="batch-tasks">Batch tasks</button>
+		<ul id="batch-tasks" class="f-dropdown" data-dropdown-content dropdown-top>
+			<li><a href="#">Generate Bindery Sheet PDF</a></li>
+			<li><a href="#">Generate Production Sheets</a></li>
+			<li><a href="#">Generate Sheet Count</a></li>
+			<li><a ng-click="submitBatch()">Send Batch to Print</a></li>
+		</ul> -->
+
+	</footer>
+
+<!-- </form> -->

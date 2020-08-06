@@ -1,0 +1,175 @@
+//------------------------------------------------------------------
+//                       FRP - QUICK ARRANGE
+//------------------------------------------------------------------
+.frp-quick-arrange {
+    position: relative;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
+    .layout-section--top .layout-section__content--qa {
+        background: url('../images/designer-dark-pattern-bg.png') repeat;
+
+        .pagination-toolbar {
+            @include radius(4px);
+            @include box-shadow(0 2px 2px 0 rgba(map-get($colors, dark-900), 0.10));
+            margin: 0;
+            padding: 10px 15px;
+            background: rgba(map-get($colors, dark-900), 0.25);
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            .designer-pagination {
+                display: inline-block;
+            }
+        }
+    }
+
+    .scrollable-container-wrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 52px;
+
+        .book-layout {
+            height: 100%;
+        }
+
+        .scrollable-container {
+            overflow-x: scroll;
+            overflow-y: hidden;
+            width: auto;
+            height: 100%;
+            white-space: nowrap;
+
+            .spread-placeholder {
+                width: 50%;
+                display: inline-block;
+            }
+        }
+
+        .spread {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+
+            .canvas-container {
+                z-index: 3;
+            }
+
+            .canvas-wrapper .fixed-width {
+                width: auto;
+            }
+        }
+    }
+
+    .filmstrip-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        height: 100%;
+        outline: none;
+    }
+
+    #filmstrip {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 0;
+        bottom: 0;
+        background: map-get($colors, dark-900);
+        overflow: auto;
+    }
+
+    .filmstrip-item {
+        position: relative;
+        float: left;
+        display: inline-block;
+    }
+
+    :not(.cut-preview) {
+        &.spread-cut,
+        &.page-cut {
+            position: relative;
+            float: left;
+            display: inline-block;
+        }
+    }
+
+    .layout-section--top-qa {
+        height: 50%;
+
+        .layout-section__content--qa {
+            top: 40px;
+        }
+    }
+
+    .layout-section--bottom.layout-section--footer {
+        overflow: visible;
+        z-index: 10;
+    }
+
+    .divider {
+        z-index: 10;
+    }
+
+    .filmstrip-toolbar {
+        .collapse.arrow-up,
+        .collapse.arrow-down {
+            width: 32px;
+            height: 32px;
+            padding-left: 0;
+            padding-right: 0;
+
+            &:after {
+                top: -2px;
+                left: 8px;
+            }
+        }
+    }
+
+    .layout-section__footer {
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        padding: 0 10px 0 10px;
+
+        .slider-container {
+            top: -4px;
+        }
+
+        .resize-inner,
+        .resize-outer {
+            @include radius(0);
+            margin-bottom: 0;
+            width: 22px;
+            max-height: 22px;
+            padding: 0;
+            background: none;
+            top: 8px;
+        }
+
+        .bin-info {
+            margin-left: 152px;
+
+            &:before {
+                content: "";
+                display: inline-block;
+                position: relative;
+                @include designer-qa-sprite("qa-not-visible");
+                width: designer-qa-sprite-width("qa-not-visible");
+                height: designer-qa-sprite-height("qa-not-visible");
+                left: -5px;
+                top: 5px;
+            }
+        }
+    }
+}

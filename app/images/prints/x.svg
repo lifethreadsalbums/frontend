@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Delete Button</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Components" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Single-Prints-UI-Components" transform="translate(-1058.000000, -180.000000)">
+            <g id="Thumbnail---Stack" transform="translate(910.000000, 167.000000)">
+                <g id="Delete-Button" transform="translate(148.000000, 13.000000)">
+                    <ellipse id="Oval-Copy" fill="#676767" cx="7" cy="7" rx="7" ry="7"></ellipse>
+                    <polygon id="" fill="#FFFFFF" points="10.4921875 3.7109375 9.7890625 3.0078125 7 5.796875 4.2109375 3.0078125 3.5078125 3.7109375 6.296875 6.5 3.5078125 9.2890625 4.2109375 9.9921875 7 7.203125 9.7890625 9.9921875 10.4921875 9.2890625 7.703125 6.5"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,101 @@
+<div class="designer-settings-content">
+	<div class="scrollable-container">
+		<div class="row large-12 columns">
+			<h2>Baseline Grid</h2>
+			<hr/>
+			<div class="row">
+				<span class="large-3 columns">Colour:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="gridColorOptions"
+                    label-field="name" label-pre-icon="color-block"  value-field="value"
+                    ng-model="selectedGridColorOptions.value" ></dropdown-button>
+				</div>
+			</div>
+			<div class="row">
+				<span class="large-3 columns">Start:</span>
+				<div class="large-9 columns">
+					<input type="number" value="0.125" name="stroke" class="left stroke-width">
+				</div>
+			</div>
+			<div class="row">
+				<span class="large-3 columns">Relative to:<tbody></tbody></span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="relativeToOptions"
+                    label-field="name" value-field="value"
+                    ng-model="selectedRelativeToOptions" ></dropdown-button>
+				</div>
+			</div>
+			<div class="row">
+				<span class="large-3 columns">Increment every</span>
+				<div class="large-9 columns">
+					<input type="text" value="12 pt" name="stroke" class="left stroke-width">
+				</div>
+			</div>
+			<div class="row">
+				<span class="large-3 columns">View Threshold:</span>
+				<div class="large-9 columns">
+					<input type="text" value="75%" name="stroke" class="left stroke-width">
+				</div>
+			</div>
+		</div>
+		<div class="row large-12 columns">
+			<h2>Document Grid</h2>
+			<hr/>
+			<div class="row">
+				<span class="large-3 columns">Colour:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="gridColorOptions"
+                    label-field="name" label-pre-icon="color-block"  value-field="value"
+                    ng-model="selectedGridColorOptions.value" ></dropdown-button>
+				</div>
+			</div>
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="large-6 columns left">Horizontal: <hr/></div>
+				<div class="large-6 columns left">Vertical: <hr/></div>
+			</div>
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="large-6 columns">
+					<span class="large-6 left">Gridline Every:</span>
+					<div class="large-6 columns left">
+						<input type="text" value="1 in" name="stroke" class="left stroke-width">
+					</div>
+					<span class="large-6 left">Subdivisions:</span>
+					<div class="large-6 columns left">
+						<input type="number" value="8" name="stroke" class="left stroke-width">
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<span class="large-6 left">Gridline Every:</span>
+					<div class="large-6 columns left">
+						<input type="text" value="1 in" name="stroke" class="left stroke-width">
+					</div>
+					<span class="large-6 left">Subdivisions:</span>
+					<div class="large-6 columns left">
+						<input type="number" value="8" name="stroke" class="left stroke-width">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<span class="large-3 columns">Grid in Back</span>
+				<on-off class="large-9 columns left" ng-model="yes"/>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<button ng-click="reset()" ng-disabled="!isChanged()">
+			Reset
+		</button>
+		<button ng-click="save()" ng-disabled="!isChanged()" class="color">
+			Save
+		</button>
+	</footer>
+</div>

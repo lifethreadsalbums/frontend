@@ -1,0 +1,117 @@
+<section id="build" class="builder builder--sidebar-left-on" tabindex="0" ng-keydown="onKeyDown($event)">
+
+	<!-- Header -->
+	<header class="section-header section-header--builder" ng-class="{'section-header--dark': darkTheme}" init-foundation>
+
+		<dropdown-button id="products-dropdown" options="products" color="dark" class="position-left projects"
+            label="{{product.options._name}}" label-field="name"
+            ng-model="selectedProduct" on-change="selectProduct()"
+            label-pre-icon="projects"
+            scroll-disabled="true"
+            fixed-width="85%">
+        </dropdown-button>
+
+		<div class="position-right">
+            <price-button id="pricing-btn" price="product.total" color="dark"
+                direction="down" frp-nav-view="views/orders/frp-cost.html">
+            </price-button>
+            <span class="button color cart-blue-large pull-right" ng-disabled="!model.addToCartEnabled" ng-click="addToCart()"></span>
+        </div>
+
+		<ul class="header-secondary-buttons" ng-show="sections.length>1">
+			<li class="header-secondary-buttons__item" ng-repeat="section in sections" ng-class="{'header-secondary-buttons__item--active': $state.params.section == section.url}">
+				<a class="header-secondary-buttons__item-link" data-dropdown="secondary-button-dropdown-{{section.url}}" data-options="is_hover:true">
+				    {{section.displayLabel}}
+				</a>
+
+				<div id="secondary-button-dropdown-{{section.url}}" class="f-dropdown content" foundation-dropdown data-dropdown-content>
+					<a class="header-secondary-buttons__option-link" ng-repeat="item in section.requiredItems"
+                       ng-show="item.visible"
+                       ng-href="{{ getOptionUrl(section, item) }}"
+                       ng-class="{ disabled: !item.enabled }"
+                       ng-click="onOptionClick($event, section, item)">
+						<span class="item-displayLabel">
+							<span class="item-truncate">{{item.displayLabel | uppercase}}</span>
+						</span>
+						<span class="item-productOption">
+							<span class="item-truncate">{{currentProductView.options[item.prototypeProductOption.effectiveCode] || 'None selected'}}</span>
+							<i class="icon icon-bullet-gray"></i>
+						</span>
+					</a>
+
+					<div class="header-secondary-buttons__item-subsection "
+						ng-class="{ collapse: !section.optionalItemsVisible }"
+						ng-show="section.optionalItems.length>0"><!-- collapse -->
+
+						<a class="optional-addons" ng-click="section.optionalItemsVisible = !section.optionalItemsVisible">
+							<span class="label rounded">{{section.numOptionalItems}}</span> OPTIONAL {{section.numOptionalItems==1 ? 'ADD ON' : 'ADDONS'}} <i ng-class="{ 'arrow-down': section.optionalItemsVisible, 'arrow-left': !section.optionalItemsVisible }"></i>
+						</a>
+						<a class="header-secondary-buttons__option-link" ng-repeat="item in section.optionalItems"
+                           ng-show="item.visible"
+                           ng-href="{{ getOptionUrl(section, item) }}"
+                           ng-class="{ disabled: !item.enabled, optional:item.optional }"
+                           ng-click="onOptionClick($event, section, item)">
+
+							<span class="item-displayLabel">
+								<span class="item-truncate">{{item.displayLabel | uppercase}}</span>
+							</span>
+							<span class="item-productOption">
+								<span class="item-truncate">{{currentProductView.options[item.prototypeProductOption.effectiveCode] || 'None selected'}}</span>
+								<i class="icon icon-bullet-gray"></i>
+							</span>
+						</a>
+					</div>
+
+					<a class="header-secondary-buttons__option-link" ng-href="{{section.enabled ? '#/build/' + $state.params.productId + '/' + section.url: ''}}" ng-class="{ disabled: !section.enabled }">
+						<span class="header-secondary-buttons__view-all">VIEW ALL</span>
+					</a>
+				</div>
+			</li>
+		</ul>
+		<a class="button small dark header-primary-button header-secondary-buttons__controller dropdown" data-dropdown="header-steps">Steps</a>
+		<ul id="header-steps" class="header-secondary-buttons__dropdown f-dropdown" data-dropdown-content>
+			<li class="header-secondary-buttons__dropdown-item" ng-repeat="section in sections" ng-class="{active:$state.includes('build.' + section.url)}">
+				<a class="header-secondary-buttons__dropdown-link" ng-href="#/build/{{$state.params.productId}}/{{section.url}}">{{section.displayLabel}}</a>
+			</li>
+		</ul>
+	</header>
+
+	<div id="content2" class="panel-on animate-show ng-animate-enabled" style="left:0px" ng-show="model.printsOption">
+		<article class="right-view fade-animation ng-animate-enabled" ui-view="right2" ng-class="{'dark': darkTheme}"></article>
+	</div>
+
+	<!-- Sidebar -->
+	<aside class="sidebar-creator"
+           ng-class="{
+                'sidebar-creator--prints-bottom-collapsed': model.printsOption && bottomContainerState === 'collapsed',
+                'sidebar-creator--prints-bottom-expanded': model.printsOption && bottomContainerState === 'expanded',
+                'sidebar-creator--prints-bottom-normal': model.printsOption && bottomContainerState === 'normal',
+                'sidebar-creator--dark': darkTheme
+           }">
+		<div class="sidebar-creator__content-container ng-animate-enabled"
+             ui-view="left"
+             ng-class="{
+                'sidebar-creator__content-container--animate-left': model.sidebarAnimation == 'left',
+                'sidebar-creator__content-container--animate-right': model.sidebarAnimation == 'right',
+                'sidebar-creator__content-container--optional-addon': model.optionalAddOn
+             }"></div>
+
+		<footer class="sidebar-creator__footer">
+			<button class="button large color closer ng-animate-disabled" ng-show="model.optionalAddOn && editable" ng-click="removeOptionalAddon()">Remove this Option</button>
+			<button id="sidebar-next" ng-disabled="!model.nextButtonEnabled" class="button large color animate-show"
+				ng-show="model.nextButtonVisible" ng-click="next()">{{model.nextButtonLabel}}</button>
+		</footer>
+	</aside>
+
+	<!-- Content -->
+	<div id="content" class="builder__content panel-on fade-animation" ng-show="!model.printsOption">
+		<article class="builder__content-inner right-view ng-animate-enabled" ui-view="right" ng-class="{'builder__content-inner--dark': darkTheme}"></article>
+	</div>
+
+
+	<div ng-show="buildSpinner" class="spinner-overlay">
+        <spinner></spinner>
+    </div>
+
+	<frp class="frp-under-subnav"></frp>
+</section>

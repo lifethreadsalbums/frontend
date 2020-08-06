@@ -1,0 +1,44 @@
+<article class="cart__section">
+    <a ng-click="back()" class="cart__section__back button back big">Back</a>
+    <h1 class="cart__section__title">Billing Details</h1>
+    <span class="borderDefault"></span>
+
+    <panel collapsed="true" rounds="true" addresschoosing="true">
+        <panelheader title="BILLING ADDRESS">
+            <span ng-show="panelCtrl.collapsed">{{cart.getShortAddress('BillingAddress')}}</span>
+        </panelheader>
+
+        <panelcontent>
+            <addressform name="form1" ng-model="billingAddress" company-required="true"></addressform>
+        </panelcontent>
+    </panel>
+</article>
+
+<article>
+    <h1 class="cart__section__title">Shipping Details</h1>
+    <span class="borderDefault"></span>
+
+    <panel collapsed="false" rounds="true" addresschoosing="true">
+        <panelheader title="SHIP TO">
+            <div id="tab-nav" class="nav-tabs"></div>
+        </panelheader>
+
+        <panelcontent>
+            <tabs nav-container="tab-nav" ng-model="cart.shipTo" data-round="true" data-gap-bottom="false" data-gap-side="7px">
+                <tab title="Billing Address">
+                    <addressform name="form2" ng-model="billingAddress" company-disabled="true" ></addressform>
+                </tab>
+                <tab title="Shipping Address" >
+                    <div ng-if="cart.shipTo==1">
+                        <addressform name="form3" ng-model="shippingAddress" company-disabled="true"></addressform>
+                    </div>
+                </tab>
+                <tab title="Drop Shipping">
+                    <div ng-if="cart.shipTo==2">
+                        <addressform name="form4" ng-model="dropShippingAddress" company-required="false" drop-shipping="true"></addressform>
+                    </div>
+                </tab>
+            </tabs>
+        </panelcontent>
+    </panel>
+</article>

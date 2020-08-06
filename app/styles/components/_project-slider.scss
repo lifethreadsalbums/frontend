@@ -1,0 +1,177 @@
+//------------------------------------------------------------------
+//                     PROJECT SLIDER
+//------------------------------------------------------------------
+.project-slider {
+    position: relative;
+    padding: 0 32px;
+}
+
+
+//------------------------------------------------------------------
+//                     WRAPPER
+//------------------------------------------------------------------
+.project-slider__wrapper {
+    overflow: hidden;
+    position: relative;
+    height: 295px;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-slider__wrapper {
+        height: 245px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-slider__wrapper {
+        height: 305px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-slider__wrapper {
+        height: 315px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SLIDES
+//------------------------------------------------------------------
+.project-slider__slides {
+    @include transform-translate3d(0px, 0px, 0px);
+    @include transition(.4s ease all);
+    @include box-sizing("content-box");
+    display: inline-block;
+    height: 255px;
+    padding: 0;
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-slider__slides {
+        height: 205px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-slider__slides {
+        height: 265px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-slider__slides {
+        height: 275px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SLIDE
+//------------------------------------------------------------------
+.project-slider__slide {
+    display: inline-block;
+    position: relative;
+    height: 255px;
+}
+
+.project-slider__slide--has-child {
+    position: relative;
+
+    &:before {
+        @include slideHandle();
+        left: 5px;
+    }
+
+    &:after {
+        @include slideHandle();
+        right: 5px;
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-slider__slide {
+        height: 205px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-slider__slide {
+        height: 265px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-slider__slide {
+        height: 275px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SLIDE CHILD
+//------------------------------------------------------------------
+.project-slider__slide-child {
+    @include transition(.5s linear all);
+    display: inline-block;
+    opacity: 1;
+}
+
+.project-slider__slide-child.ng-hide {
+    max-width: 0;
+}
+
+.project-slider__slide-child.ng-hide-remove,
+.project-slider__slide-child.ng-hide-add-active {
+    display: inline-block !important;
+    opacity: 0;
+}
+
+.project-slider__slide-child.ng-hide-add,
+.project-slider__slide-child.ng-hide-remove-active {
+    display: inline-block !important;
+    opacity: 1;
+}
+
+
+//------------------------------------------------------------------
+//                     SLIDER NAVIGATION
+//------------------------------------------------------------------
+.project-slider .flex-direction-nav {
+    li {
+        a {
+            opacity: 1 !important;
+            outline: none;
+
+            &:before {
+                display: none;
+                content: "";
+            }
+
+            &.flex-disabled {
+                opacity: .5 !important;
+                pointer-events: none;
+            }
+
+            &.flex-prev {
+                @include dashboard-sprite("promo-carousel-nav-arrow-left");
+                width: dashboard-sprite-width("promo-carousel-nav-arrow-left");
+                height: dashboard-sprite-height("promo-carousel-nav-arrow-left");
+                top: 120px;
+                left: 10px;
+                text-indent: -999px;
+            }
+
+            &.flex-next {
+                @include dashboard-sprite("promo-carousel-nav-arrow-right");
+                width: dashboard-sprite-width("promo-carousel-nav-arrow-right");
+                height: dashboard-sprite-height("promo-carousel-nav-arrow-right");
+                top: 120px;
+                right: 10px;
+                text-indent: 999px;
+            }
+        }
+    }
+}

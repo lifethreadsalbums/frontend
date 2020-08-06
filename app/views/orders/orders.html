@@ -1,0 +1,96 @@
+<section id="orders" class="section section--orders">
+    <!-- Sidebar -->
+    <aside class="sidebar-menu__container sidebar-menu__container--orders">
+        <div>
+            <header>
+                <span class="sidebar-menu__search" pace-search>
+                    <input class="sidebar-menu__search-input" type="text" ng-model="searchQuery" ng-model-options="{ debounce: 500 }"
+                        placeholder="Search Projects" ng-change="search()" ng-keyup="paceSearchInputChanged();">
+                    <span class="sidebar-search__clear">x</span>
+                </span>
+            </header>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu__item"
+                    style="border-top: 1px solid #d6d6d6;"
+                    ng-class="{active:($state.includes('orders.create') || $state.includes('orders.new'))}">
+                    <a class="sidebar-menu__link" ng-click="create()" data-title="Create New Project">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-new-project"></span>
+                        <div class="sidebar-menu__name">Create New Project</div>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('orders.current')}">
+                    <a class="sidebar-menu__link" ui-sref="orders.current" data-title="Current Projects">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-projects"></span>
+                        <span class="sidebar-menu__badge" ng-show="productCount.count>0">{{productCount.count}}</span>
+                        <div class="sidebar-menu__name">Current Projects</div>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('orders.production')}">
+                    <a class="sidebar-menu__link" ui-sref="orders.production" data-title="Projects in Production">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--production"></div>
+                        <span class="sidebar-menu__badge" ng-show="inProductionOrders.count>0">{{inProductionOrders.count}}</span>
+                        <div class="sidebar-menu__name">In Production</div>
+                    </a>
+                </li>
+
+                <!-- <li class="sidebar-menu__item" ng-class="{active:$state.includes('orders.shipped')}">
+                    <a class="sidebar-menu__link" ui-sref="orders.shipped" data-title="Shipped Products">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--shipped"></div>
+                        <span class="sidebar-menu__badge" ng-show="shippedOrders.count>0">{{shippedOrders.itemCount}}</span>
+                        <div class="sidebar-menu__name">Shipped Projects</div>
+                    </a>
+                </li> -->
+
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('orders.completed')}">
+                    <a class="sidebar-menu__link" ui-sref="orders.completed" data-title="Completed Products">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--completed"></div>
+                        <span class="sidebar-menu__badge" ng-show="completedOrdersCount.count>0">{{completedOrdersCount.count}}</span>
+                        <div class="sidebar-menu__name">Completed</div>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('orders.history')}">
+                    <a class="sidebar-menu__link" ui-sref="orders.history" data-title="Order History">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-invoice-history"></span>
+                        <span class="sidebar-menu__badge" ng-show="inProductionOrders.count + completedOrdersCount.count>0">{{inProductionOrders.count + completedOrdersCount.count}}</span>
+                        <div class="sidebar-menu__name">Order History</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <footer class="sidebar-menu__footer" aside-footer>
+			<span collapse-sidebar class="sidebar-menu__collapse" data-target-position="#orders aside" data-target-folded="#orders">
+                <img class="sidebar-menu__collapse-icon" src="/images/sidebar/sidebar-triangle-left-blue.svg" alt="<">
+			</span>
+            <!-- <span class="sidebar-menu__search sidebar-menu__search--is-next-collapse">
+				<input class="sidebar-menu__search-input" type="text" ng-model="searchQuery" ng-model-options="{ debounce: 500 }"
+                    placeholder="Search Everything" ng-change="search()">
+
+			</span> -->
+
+            <!-- <span class="sidebar-menu__search sidebar-menu__search--is-next-collapse" pace-search>
+                    <input class="sidebar-menu__search-input" type="text" ng-model="searchQuery" ng-model-options="{ debounce: 500 }"
+                        placeholder="Search Everything" ng-change="search()" ng-keyup="paceSearchInputChanged();">
+                    <span class="sidebar-search__clear">x</span>
+                </span> -->
+        </footer>
+    </aside>
+
+    <!-- Content -->
+    <div id="content" class="section__content section__content--sidebar section__content--transition section__content--top-padding section__content--orders">
+        <aside ng-hide="leftPanelHidden" class="section__left-panel section__left-panel--orders">
+            <div class="fade-animation" ui-view="left"></div>
+        </aside>
+
+        <article ui-view="right" ng-class="{'section__main-content--left-panel': !leftPanelHidden}" class="section__main-content section__main-content--orders"></article>
+
+        <div ng-show="productDetailsSpinner" class="spinner-overlay spinner-overlay--main-content-left-panel">
+            <spinner></spinner>
+        </div>
+    </div>
+
+    <div ng-show="productSpinner" class="spinner-overlay">
+        <spinner></spinner>
+    </div>
+</section>
+

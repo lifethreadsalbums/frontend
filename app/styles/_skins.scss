@@ -1,0 +1,232 @@
+//------------------------------------------------------------------
+//                     DOCUMENTATION
+//------------------------------------------------------------------
+/*
+
+Available colors: white, black, primary, light, dark, success, warning, danger
+
+Available attributes: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900
+
+Attribute 500 is color provided in base colors, unless it was overridden
+
+Example use:
+    map-get($colors, primary-500)
+    .color--primary-500
+    .background-color--primary-500
+
+*/
+
+
+//------------------------------------------------------------------
+//                     BASE COLORS
+//------------------------------------------------------------------
+$baseColors: (
+    white #ffffff,
+    black #000000,
+    primary #34a5e1,
+    light #f8f8f8,
+    dark #535353,
+    info #34a5e1,
+    success #00bc00,
+    warning orange,
+    danger #ff0000
+);
+
+
+//------------------------------------------------------------------
+//                     BASE COLORS OVERRIDES
+//------------------------------------------------------------------
+// list items must be separated by commas
+// last item can not end with a comma
+$baseColorsOverride: (
+    primary-50 #e6f9ff,
+    primary-100 #61cff1,
+    primary-200 #78cfed,
+    primary-300 #3cd2ff,
+    primary-400 #28bef0,
+    primary-500 #34a5e1,
+    primary-600 #1f9cd8,
+    primary-700 #0d8fcf,
+    primary-800 #086595,
+    primary-900 #014b7e,
+
+    light-50 #ffffff,
+    light-100 #f8f8f8,
+    light-200 #f4f4f4,
+    light-300 #f0f0f0,
+    light-400 #e7e7e7,
+    light-500 #e1e1e1,
+    light-600 #d7d7d7,
+    light-700 #cacaca,
+    light-800 #808080,
+    light-900 #636363,
+
+    dark-50 #ebebeb,
+    dark-100 #bbbbbb,
+    dark-200 #b7b7b7,
+    dark-300 #737373,
+    dark-400 #5e5e5e,
+    dark-500 #535353,
+    dark-600 #494949,
+    dark-700 #3c3c3c,
+    dark-800 #2a2a2a,
+    dark-900 #000000,
+
+    info-50 #e6f9ff,
+    info-100 #61cff1,
+    info-200 #78cfed,
+    info-300 #3cd2ff,
+    info-400 #28bef0,
+    info-500 #34a5e1,
+    info-600 #1f9cd8,
+    info-700 #0d8fcf,
+    info-800 #086595,
+    info-900 #014b7e,
+
+    success-50 #7bd911,
+    success-100 #79cf19,
+    success-200 #74c618,
+    success-300 #70c214,
+    success-400 #00d640,
+    success-500 #00bc00,
+    success-600 #6db917,
+    success-700 #63a816,
+    success-800 #518f1f,
+    success-900 #4a7f0d,
+
+    warning-50 #fff9e6,
+    warning-800 #a36201,
+    warning-900 #7e4701,
+
+    danger-50 #f67979,
+    danger-100 #ff5959,
+    danger-200 #ff4c4c,
+    danger-300 #f14949,
+    danger-400 #ff0000,
+    danger-500 #dd1818,
+    danger-600 #d11d1d,
+    danger-700 #c61919,
+    danger-800 #a60909,
+    danger-900 #6d0000
+);
+
+
+//------------------------------------------------------------------
+//                     COLOR PALETTE GENERATOR
+//------------------------------------------------------------------
+@function colorMap($baseColors, $variations) {
+    $colorsVariations: ();
+
+    @each $j in $baseColors {
+        $color: nth($j, 1);
+        $value: nth($j, 2);
+        $maxVar: 36;
+        $mid: $variations / 2;
+        $dist: $mid - 1;
+        $step: $maxVar / $dist;
+
+        // lighten and darken
+        @for $i from 1 through $dist {
+            $percent: $maxVar - ($step * ($i - 1));
+            $darken: ($variations - $i) * 100;
+            $lighten: $i * 100;
+
+            @if map-get($baseColorsOverride, (#{$color}-#{$lighten})) {
+                $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$lighten}) map-get($baseColorsOverride, (#{$color}-#{$lighten})));
+            } @else {
+                $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$lighten}) lighten($value, $percent));
+            }
+
+            @if map-get($baseColorsOverride, (#{$color}-#{$darken})) {
+                $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$darken})map-get($baseColorsOverride, (#{$color}-#{$darken})));
+            } @else {
+                $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$darken}) darken($value, $percent));
+            }
+        }
+
+        // lowest 50
+        @if map-get($baseColorsOverride, (#{$color}-50)) {
+            $colorsVariations: map-merge($colorsVariations, (#{$color}-50) map-get($baseColorsOverride, (#{$color}-50)));
+        } @else {
+            $colorsVariations: map-merge($colorsVariations, (#{$color}-50) lighten($value, 38.7));
+        }
+
+        // middle 500
+        @if map-get($baseColorsOverride, (#{$color}-#{$variations / 2 * 100})) {
+            $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$variations / 2 * 100}) map-get($baseColorsOverride, (#{$color}-#{$variations / 2 * 100})));
+        } @else {
+            $colorsVariations: map-merge($colorsVariations, (#{$color}-#{$variations / 2 * 100}) $value);
+        }
+    }
+
+    @return $colorsVariations;
+}
+
+$colors: colorMap($baseColors, 10);
+
+@each $i in $colors {
+    $color: nth($i, 1);
+    $value: nth($i, 2);
+
+    .palette__color--#{$color} {
+        &::before {
+            content: '#{$value}';
+            float: right;
+            font-family: monospace;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        background-color: $value;
+        color: #000000;
+    }
+
+    .color--#{$color} {
+        color: $value;
+    }
+
+    .background-color--#{$color} {
+        background-color: $value;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     COLOR PALETTE PREVIEW PAGE
+//------------------------------------------------------------------
+.palette__container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.palette__swatches {
+    flex: auto;
+    margin: 20px;
+}
+
+.palette__swatch-title {
+    padding: 12px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    color: #000000;
+
+    .palette__name {
+        margin: 0 0 50px;
+        font-size: 16px;
+        font-family: 'Museo Sans 700', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        color: #000000;
+    }
+}
+
+.palette__color-swatch:nth-child(n+7) {
+    color: #ffffff !important;
+}
+
+.palette__color-swatch {
+    box-sizing: border-box;
+    min-width: 360px;
+    padding: 12px;
+    display: block;
+    font-weight: bold;
+}

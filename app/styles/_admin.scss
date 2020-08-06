@@ -1,0 +1,190 @@
+//------------------------------------------------------------------
+//                     ADMIN
+//------------------------------------------------------------------
+.section__left-panel--admin {
+	overflow-y: hidden !important;
+
+    .header {
+        border-bottom: 1px solid map-get($colors, light-700);
+    }
+
+    .dropdown-button {
+        margin-bottom: 10px;
+    }
+
+    .sort-bar {
+        height: 17px;
+        margin-bottom: 10px;
+        padding: 0;
+
+        border-bottom: none;
+
+        .sort-label {
+            color: map-get($colors, light-800);
+            font-size: 13px !important;
+        }
+    }
+}
+
+.admin-users-list {
+	.generic-list {
+		position: absolute;
+	    top: 167px !important;
+	    left: 0;
+	    right: 0;
+	    bottom: 51px !important;
+	    width: 100%;
+	    height: auto;
+	}
+
+	.ui-grid-render-container-body .ui-grid-canvas {
+		width: 100% !important;
+	}
+
+	.ui-grid-viewport {
+		overflow-x: hidden !important;
+	}
+
+	.is-batch-enabled.project-item {
+		padding-right: 5px !important;
+	}
+
+	.header {
+		width: 100%;
+		position: absolute;
+		top: 0;
+	}
+
+    .admin-user-top-left-menu {
+        background: map-get($colors, light-100);
+        width: 100%;
+        padding-top: 1rem;
+        border-bottom: 1px solid map-get($colors, light-700);
+    }
+
+    .batch-options {
+        position:relative;
+        width: 100%;
+        background: map-get($colors, light-50);
+        height: 45px;
+        border-bottom: 1px solid map-get($colors, light-700);
+        padding: 0.4em;
+        padding-left:13%;
+
+    }
+
+    .filter-button-icon {
+        &:before {
+            @include transform (translateY(-50%));
+            @include button-sprite("filter-button-icon");
+            width: button-sprite-width("filter-button-icon");
+            height: button-sprite-height("filter-button-icon");
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            left: 1em;
+        }
+    }
+
+	footer {
+		padding: 0 !important;
+		border-top: 1px solid map-get($colors, light-700);
+		height: 51px;
+	}
+
+    .admin-bottom-aside-nav-panel {
+        bottom: 0;
+        z-index: 3;
+        width: 100%;
+        background: map-get($colors, light-100);
+        padding: .5rem .4rem .4rem;
+
+        .add-user,
+        .admin-message,
+        .undo,
+        .redo {
+            float: left;
+            margin-right: 5px;
+            margin-bottom: .25rem;
+        }
+
+        .trash-darker-flat {
+            margin-bottom: .25rem;
+
+            &[disabled]:after {
+                opacity: .3;
+            }
+        }
+    }
+
+	.font-25 {
+		font-size: .25em;
+	}
+}
+
+.admin-user-form .dropdown-button.full-width {
+    width:100% !important;
+}
+
+.batch-radio {
+	width: 10px;
+	height: 10px;
+	border-radius: 1em;
+	border: 1px solid map-get($colors, dark-200);
+	position: absolute;
+	margin-top: 36px;
+	margin-left: -3px;
+	z-index: 4;
+	cursor: pointer;
+
+	&.active {
+		background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+	}
+
+	&:hover,
+	&.hover,
+	&:focus {
+		border: 1px solid map-get($colors, light-50);
+	}
+}
+
+.project-item:hover .batch-radio {
+	border-color: map-get($colors, light-50);
+}
+
+.no-background {
+	background: none;
+}
+
+.batch-edit-options {
+	margin-top: 17px;
+
+	&:hover {
+		border: 1px solid map-get($colors, dark-200);
+	}
+}
+
+.pst-verified {
+	display: flex;
+
+	input {
+		flex: 1;
+	}
+
+	img {
+		display: inline-block;
+		position: relative;
+		top: 6px;
+		width: 20px;
+		height: 20px;
+		margin-left: 10px;
+	}
+}
+
+.ace_editor {
+    height: 600px;
+}
+
+.admin_date-input {
+    width: 180px !important;
+}

@@ -1,0 +1,397 @@
+//------------------------------------------------------------------
+//                     ORDERS LEFT PANEL
+//------------------------------------------------------------------
+.section__left-panel--orders,
+.section__left-panel--admin {
+    > form {
+        margin: 0;
+    }
+
+    .large.half {
+        width: 47%;
+    }
+
+    .sidebar-projects-content,
+    .generic-list {
+        top: 34px;
+        position: absolute;
+        overflow: auto;
+        bottom: 0;
+        width: 100%;
+
+        &.batch-footer {
+            bottom: 70px;
+        }
+
+        &.jobs-footer {
+            bottom: 51px;
+        }
+
+        &.completed-orders {
+            top: 88px;
+        }
+    }
+
+    footer.batch-footer {
+        position: absolute;
+        bottom: 0;
+        height: 70px;
+        border-top: 1px solid map-get($colors, light-700);
+        padding-top: 11px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     ORDERS CONTENT
+//------------------------------------------------------------------
+.section__content--orders {
+    .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+        @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+    }
+
+    .divider {
+        @include linear-gradient(map-get($colors, light-700), map-get($colors, dark-100));
+    }
+
+    .form-element {
+        position: relative;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     ORDERS MAIN CONTENT
+//------------------------------------------------------------------
+.section__main-content--orders,
+.section__main-content--admin {
+    form {
+        position: relative;
+        height: 100%;
+    }
+
+    footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 51px;
+        padding: 10px 20px;
+        background: map-get($colors, light-200);
+        border-top: 1px solid map-get($colors, light-700);
+    }
+
+    .scrollable-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 51px;
+        right: 0;
+        overflow: auto;
+
+        &.is-to-bottom {
+            bottom: 0;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     COMPLETED ORDERS FILTER
+//------------------------------------------------------------------
+.completed-orders-filter {
+    margin: 7px 0;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 34px;
+    width: 100%;
+    height: 40px;
+
+    .button {
+        @include box-sizing(border-box);
+        @include radius(0);
+        @include linear-gradient(map-get($colors, light-300), map-get($colors, light-400));
+        margin-bottom: 0;
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-800);
+        font-size: 13px;
+
+        &.active {
+            @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-500));
+            border: none;
+            color: map-get($colors, light-50);
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .completed-orders-filter .button {
+        width: 48%;
+        max-height: 31px;
+        height: 30px;
+        font-size: 15px;
+        padding: 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     INVOICE
+//------------------------------------------------------------------
+.invoice-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 51px;
+    padding: 0;
+    background: map-get($colors, light-50);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    iframe {
+        width: calc(9in + 2px);
+        height: calc(11.5in + 2px);
+        background: map-get($colors, light-50);
+        border: none;
+    }
+}
+
+.invoice-footer {
+    height: 51px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background: map-get($colors, light-50);
+    border-top: 1px solid map-get($colors, light-700);
+    text-align: right;
+    padding: 6px 20px;
+
+    button {
+        margin: 0 0 0 10px;
+        padding-left: 36px;
+        height: 38px;
+        max-height: 38px;
+
+        &:after {
+            content: "";
+            dispplay: inline-block;
+            position: absolute;
+        }
+
+        &.mail:after {
+            left: 10px;
+            top: 13px;
+            @include orders-history-sprite("mail-icon");
+            width: orders-history-sprite-width("mail-icon");
+            height: orders-history-sprite-height("mail-icon");
+        }
+
+        &.pdf:after {
+            left: 10px;
+            top: 11px;
+            @include orders-history-sprite("pdf-page");
+            width: orders-history-sprite-width("pdf-page");
+            height: orders-history-sprite-height("pdf-page");
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     JOBS FOOTER
+//------------------------------------------------------------------
+.section__left-panel footer.jobs-footer {
+    position: absolute;
+    bottom: 0;
+    height: 51px;
+    border-top: 1px solid map-get($colors, light-700);
+    padding: 6px 10px;
+
+    &.invoice-footer {
+        text-align: right;
+
+        .icon-button {
+            padding: 8px 20px 5px 10px;
+            width: 55px;
+            text-align: left;
+            max-height: 38px;
+            height: 38px;
+            margin: 0 0 0 10px;
+
+            &:after {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                right: 8px;
+                top: 17px;
+                @include orders-history-sprite("icon-arrow-down");
+                width: orders-history-sprite-width("icon-arrow-down");
+                height: orders-history-sprite-height("icon-arrow-down");
+            }
+        }
+
+        .span-mail,
+        .span-pdf,
+        .span-pdfs {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+        }
+
+        .span-mail {
+            @include orders-history-sprite("mail-icon");
+            width: orders-history-sprite-width("mail-icon");
+            height: orders-history-sprite-height("mail-icon");
+        }
+
+        .span-pdf {
+            @include orders-history-sprite("pdf-page");
+            width: orders-history-sprite-width("pdf-page");
+            height: orders-history-sprite-height("pdf-page");
+        }
+
+        .span-pdfs {
+            @include orders-history-sprite("pdf-pages");
+            width: orders-history-sprite-width("pdf-pages");
+            height: orders-history-sprite-height("pdf-pages");
+        }
+
+        .period-total {
+            width: 40%;
+            float: left;
+            text-align: left;
+
+            p {
+                margin:0;
+                font-size: 0.8em;
+                line-height: 1.5;
+            }
+
+            p:first-child {
+                font-weight: bold;
+            }
+        }
+
+        ul {
+            border-radius: 5px;
+            border: none;
+            @include box-shadow(0 1px 2px 1px rgba(map-get($colors, dark-900),.2));
+            overflow: hidden;
+            text-align: left;
+
+            &#mail-top {
+                margin-left: -135px;
+            }
+
+            &#download-top {
+                margin-left: -115px;
+            }
+
+            &:after,
+            &:before {
+                content: none;
+            }
+
+            li {
+                font-size: 1rem;
+                padding: 10px 5px;
+                line-height: 1.2;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BATCH BUTTONS
+//------------------------------------------------------------------
+// New batch button
+.btn-new-batch {
+    width: auto !important;
+    padding: 9px 12px 10px !important;
+    vertical-align: top;
+}
+
+// Batch option dropdown
+.btn-batch {
+    width: auto !important;
+    padding: 15px 40px 15px 25px !important;
+    text-align: left;
+
+    &:after {
+        display: block;
+        width: 16px;
+        position: absolute;
+        height: 10px;
+        top: 20px;
+        right: 5px;
+        content: "";
+        background: url("../images/sprite_main.png") 0 0 no-repeat;
+    }
+}
+
+#batch-tasks.open,
+#new-button.open {
+    background: map-get($colors, primary-400);
+    border-color: map-get($colors, primary-400);
+
+    &:before {
+        display: none;
+    }
+
+    &:after {
+        top: auto;
+        bottom: -7px;
+        left: 35px;
+        border: none;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid map-get($colors, primary-400);
+    }
+
+    a {
+        color: map-get($colors, light-50);
+
+        &:hover {
+            color: map-get($colors, dark-500);
+        }
+    }
+}
+
+//------------------------------------------------------------------
+//                     WIDGETS
+//------------------------------------------------------------------
+.attachments-widget {
+    margin-top: 21px;
+
+    .attachment {
+        display: inline-block;
+        margin-right: 8px;
+        margin-top: 6px;
+
+        &.pdf {
+            @include orders-sprite("icon-pdf");
+            width: orders-sprite-width("icon-pdf");
+            height: orders-sprite-height("icon-pdf");
+        }
+
+        &.jpg {
+            @include orders-sprite("icon-jpeg");
+            width: orders-sprite-width("icon-jpeg");
+            height: orders-sprite-height("icon-jpeg");
+        }
+
+        &.zip {
+            @include orders-sprite("icon-zip");
+            width: orders-sprite-width("icon-zip");
+            height: orders-sprite-height("icon-zip");
+        }
+    }
+}
+
+.reprint-pages-widget {
+    width: 600px;
+}

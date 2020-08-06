@@ -1,0 +1,12 @@
+<section class="color-picker-content">
+    <header>
+        <div class="ngdialog-close right"></div>
+    </header>
+    <article>
+        <div id="color-selector-picker"></div>
+    </article>
+    <footer>
+        <button type="button" class="button {{color}}" ng-click="closeThisDialog()">Cancel</button>
+        <button type="button" class="button color" ng-click="selectColor(selectedColor); closeThisDialog()">Ok</button>
+    </footer>
+</section>

@@ -1,0 +1,386 @@
+<article class="cart__section">
+    <a ng-click="back()" class="cart__section__back button back big">Back</a>
+    <h1 class="cart__section__title">Order Summary</h1>
+    <span class="borderDefault"></span>
+
+    <div class="tableHolder" ng-repeat="item in cart.orderItems">
+        <header class="cart__header__table-header spo" ng-if="item.product.productType == 'SinglePrintProduct'">
+            <span class="first">PROJECT DETAILS</span>
+            <span class="second">COPIES</span>
+            <span class="spo-size">SIZE</span>
+            <span class="spo-prints">NO. PRINTS</span>
+            <span class="third">PRICE</span>
+            <span class="fourth">EXT. PRICE</span>
+            <span class="fifth">DISC.</span>
+            <span class="sixth">SUBTOTAL</span>
+        </header>
+
+        <header class="cart__header__table-header" ng-if="item.product.options.productType == 'custom_services'">
+            <span class="first">CUSTOM SERVICES</span>
+            <span class="third text-right">PRICE</span>
+        </header>
+
+        <header class="cart__header__table-header" ng-if="item.product.options.productType != 'custom_services' && item.product.productType !== 'SinglePrintProduct'">
+            <span class="first">PROJECT DETAILS</span>
+            <span class="second">QTY</span>
+            <span class="third">PRICE</span>
+            <span class="fourth">EXT. PRICE</span>
+            <span class="fifth">DISC.</span>
+            <span class="sixth">SUBTOTAL</span>
+        </header>
+
+        <div class="cart__project clearfix" ng-if="item.product.productType !== 'SinglePrintProduct'">
+            <div class="onLeft">
+                <get-project-image project="item.product" />
+            </div>
+
+            <div class="onRight">
+                <table class="cart__project__table" cellpadding="0" cellspacing="0" border="0">
+                    <tr class="cart__project__table-row">
+                        <th class="cart__project__table-header project-label" ng-if="item.product.options.productType !== 'custom_services'">
+                            {{item.additionalProductInfo.options.productType || item.additionalProductInfo.options._productPrototype}} | {{item.additionalProductInfo.options._name}}
+                        </th>
+                        <td class="cart__project__table-cell project-label" ng-if="item.product.options.productType === 'custom_services'">
+                            <span ng-if="item.product.options._custom_service_invoice" class="project-label__custom-type">Invoice Number</span>
+                            <span ng-if="item.product.options._custom_service_invoice" class="project-label__custom-value">{{item.product.options._custom_service_invoice}}</span>
+                            <br ng-if="item.product.options._custom_service_invoice">
+                            <span class="project-label__custom-type">Service Name</span>
+                            <span class="project-label__custom-value">{{item.product.options._name}}</span>
+                            <br>
+                            <span class="project-label__custom-type">Payment For</span>
+                            <span class="project-label__custom-value">{{item.product.options.custom_amount_desc}}</span>
+                        </td>
+                        <td class="cart__project__table-cell">
+                            <span ng-if="item.product.options.productType !== 'custom_services'">
+                                {{item.product.options._quantity}}
+                            </span>
+                        </td>
+                        <td class="cart__project__table-cell" ng-if="item.product.options.productType !== 'custom_services'" colspan="4"></td>
+                        <td ng-if="item.product.options.productType === 'custom_services'" colspan="4" class="cart__project__table-cell project-total-price">{{item.product.subtotal.displayPrice}}</td>
+                    </tr>
+                    <tr class="cart__project__table-row" ng-repeat-start="productPrice in item.product.productPrices"></tr>
+                    <tr class="cart__project__table-row" ng-if="item.product.options.productType !== 'custom_services'"
+                        ng-repeat="lineItem in productPrice.lineItems">
+
+                        <td class="cart__project__table-cell project-label">
+                            <div ng-bind-html="lineItem.displayName"></div>
+                        </td>
+                        <td class="cart__project__table-cell project-quantity" ng-class="{'is-long': lineItem.quantity.length > 7}">
+                            {{lineItem.quantity}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.price.displayPrice.length > 11}">
+                            {{lineItem.price.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.subtotalPrice.displayPrice.length > 11}">
+                            {{lineItem.subtotalPrice.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-discount" ng-class="{'is-long': lineItem.discount.displayPrice.length > 7}">
+                            {{lineItem.discount.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-total-price" ng-class="{'is-long': lineItem.totalPrice.displayPrice.length > 11}">
+                            {{lineItem.totalPrice.displayPrice}}
+                        </td>
+                    </tr>
+                    <tr class="cart__project__table-row cart__project__table-row--summing-up" ng-class="{'text-right': item.product.options.productType === 'custom_services'}">
+                        <td class="cart__project__table-cell" colspan="5">
+                            SUBTOTAL:
+                        </td>
+                        <td class="cart__project__table-cell">
+                            {{productPrice.subtotal.displayPrice}}
+                        </td>
+                    </tr>
+                    <tr class="cart__project__table-row" ng-repeat-end></tr>
+
+                    
+                </table>
+            </div>
+
+            <div class="onRight" ng-repeat="child in item.product.children">
+                <table class="cart__project__table" cellpadding="0" cellspacing="0" border="0">
+                    <tr class="cart__project__table-row">
+                        <th class="cart__project__table-header project-label">
+                            {{item.additionalProductInfo.options.productType || item.additionalProductInfo.options._productPrototype}} | {{child.options._name}}
+                        </th>
+                        <td class="cart__project__table-cell">
+                            {{child.options._quantity}}
+                        </td>
+                        <td class="cart__project__table-cell" colspan="4"></td>
+                    </tr>
+                    <tr class="cart__project__table-row" ng-repeat-start="productPrice in child.productPrices"></tr>
+                    <tr class="cart__project__table-row" ng-repeat="lineItem in productPrice.lineItems">
+                        <td class="cart__project__table-cell project-label">
+                            <div ng-bind-html="lineItem.displayName"></div>
+                        </td>
+                        <td class="cart__project__table-cell project-quantity" ng-class="{'is-long': lineItem.quantity.length > 7}">
+                            {{lineItem.quantity}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.price.displayPrice.length > 11}">
+                            {{lineItem.price.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.subtotalPrice.displayPrice.length > 11}">
+                            {{lineItem.subtotalPrice.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-discount" ng-class="{'is-long': lineItem.discount.displayPrice.length > 7}">
+                            {{lineItem.discount.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-total-price" ng-class="{'is-long': lineItem.totalPrice.displayPrice.length > 11}">
+                            {{lineItem.totalPrice.displayPrice}}
+                        </td>
+                    </tr>
+                    <tr class="cart__project__table-row cart__project__table-row--summing-up" ng-class="{'text-right': item.product.options.productType === 'custom_services'}">
+                        <td class="cart__project__table-cell" colspan="5">
+                            SUBTOTAL:
+                        </td>
+                        <td class="cart__project__table-cell">
+                            {{productPrice.subtotal.displayPrice}}
+                        </td>
+                    </tr>
+                    <tr class="cart__project__table-row" ng-repeat-end></tr>
+                    
+                </table>
+            </div>
+        </div>
+        
+        <div class="cart__project clearfix" ng-if="item.product.productType == 'SinglePrintProduct' " style="padding-bottom: 0">
+            <div style="font-size: 15px; padding-top:0">
+                <b>PROJECT NAME: {{item.product.options._name}}</b>
+            </div>
+        </div>
+
+        <div class="cart__project clearfix"  ng-if="item.product.productType == 'SinglePrintProduct' " ng-repeat="child in item.product.children">
+            <div class="onLeft">
+                <spo-thumbnail-widget class="spo-thumbnail-widget--cart" parent-product="item.product" product="child"></spo-thumbnail-widget>
+            </div>
+
+            <div class="on-right-spo">
+                <table class="cart__project__table" cellpadding="0" cellspacing="0" border="0">
+                    <tr class="cart__project__table-row" ng-repeat-start="productPrice in child.productPrices"></tr>
+                    <tr class="cart__project__table-row" ng-repeat="lineItem in productPrice.lineItems">
+                        <td class="cart__project__table-cell project-quantity">
+                            {{child.options._quantity}}
+                        </td>
+                        <td class="cart__project__table-cell spo-container-label">
+                            <span ng-bind-html="lineItem.displayName"></span>
+                        </td>
+
+                        <td class="cart__project__table-cell spo-prints">
+                            {{lineItem.quantity}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.price.displayPrice.length > 11}">
+                            {{lineItem.price.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-price" ng-class="{'is-long': lineItem.subtotalPrice.displayPrice.length > 11}">
+                            {{lineItem.subtotalPrice.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-discount" ng-class="{'is-long': lineItem.discount.displayPrice.length > 7}">
+                            {{lineItem.discount.displayPrice}}
+                        </td>
+                        <td class="cart__project__table-cell project-total-price" ng-class="{'is-long': lineItem.totalPrice.displayPrice.length > 11}">
+                            {{lineItem.totalPrice.displayPrice}}
+                        </td>
+                    </tr>
+                    <tr class="cart__project__table-row" ng-repeat-end></tr>
+                </table>
+            </div>
+        </div>
+        
+        
+        <footer class="cart__section__footer">
+            <span class="pull-right">
+                <span class="cart__section__footer__subtotal-label">SUBTOTAL</span>
+                <span class="cart__section__footer__subtotal-value">{{cart.subtotal.displayPrice}}</span>
+            </span>
+        </footer>
+    </div>
+
+    <div class="tableHolder">
+        <header>
+            <h2>DELIVERY DETAILS</h2>
+        </header>
+
+        <div class="row address-ready">
+            <!-- table on the left "BILL TO:" -->
+            <div class="large-6 columns address-ready__inner-container">
+                <table cellpadding="0" cellspacing="0" border="0" class="address-ready__table">
+                    <tr>
+                        <th colspan="2" class="address-ready__header">Bill To:</th>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Company:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.companyName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Name:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.firstName}} {{cart.billingAddress.lastName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Address<span ng-show="cart.billingAddress.addressLine2">&nbsp;Line 1</span>:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.addressLine1}}</td>
+                    </tr>
+
+                    <tr ng-show="cart.billingAddress.addressLine2">
+                        <td class="address-ready__label">Address Line 2:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.addressLine2}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">City:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.city}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Province/State:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.state.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Postal Code:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.zipCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Country:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.country.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Email:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.email}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Phone Number:</td>
+                        <td class="address-ready__value">{{cart.billingAddress.phone}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- table on the right "DROP SHIPPING ADDRESS:" -->
+            <div class="large-6 columns">
+                <table cellpadding="0" cellspacing="0" border="0" ng-show="cart.shipTo==1" class="address-ready__table">
+                    <tr>
+                        <th colspan="2" class="address-ready__header">Ship To:</th>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Company:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.companyName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Name:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.firstName}} {{cart.shippingAddress.lastName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Address<span ng-show="cart.shippingAddress.addressLine2">&nbsp;Line 1</span>:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.addressLine1}}</td>
+                    </tr>
+
+                    <tr ng-show="cart.shippingAddress.addressLine2">
+                        <td class="address-ready__label">Address Line 2:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.addressLine2}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">City:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.city}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Province/State:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.state.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Postal Code:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.zipCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Country:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.country.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Email:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.email}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Phone Number:</td>
+                        <td class="address-ready__value">{{cart.shippingAddress.phone}}</td>
+                    </tr>
+                </table>
+
+                <table cellpadding="0" cellspacing="0" border="0" ng-show="cart.shipTo==2" class="address-ready__table">
+                    <tr>
+                        <th colspan="2" class="address-ready__header">Drop Shipping Address:</th>
+                    </tr>
+
+                    <tr ng-show="cart.dropShippingAddress.companyName">
+                        <td class="address-ready__label">Receiver's Company:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.companyName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Receiver's Name:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.firstName}} {{cart.dropShippingAddress.lastName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Address<span ng-show="cart.dropShippingAddress.addressLine2">&nbsp;Line 1</span>:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.addressLine1}}</td>
+                    </tr>
+
+                    <tr ng-show="cart.dropShippingAddress.addressLine2">
+                        <td class="address-ready__label">Address Line 2:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.addressLine2}}</td>
+                    </tr>
+                    <tr>
+                        <td class="address-ready__label">City:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.city}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Province/State:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.state.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Postal Code:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.zipCode}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Country:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.country.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Receiver's Email:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.email}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="address-ready__label">Receiver's Phone:</td>
+                        <td class="address-ready__value">{{cart.dropShippingAddress.phone}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="tableHolder">
+        <header>
+            <h2>SPECIAL INSTRUCTIONS</h2>
+        </header>
+
+        <div class="cart__comments">
+            <textarea rows="4" ng-model="cart.notes"></textarea>
+        </div>
+    </div>
+</article>

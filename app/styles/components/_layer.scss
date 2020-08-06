@@ -1,0 +1,149 @@
+//------------------------------------------------------------------
+//                     LAYERS
+//------------------------------------------------------------------
+.layers {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.layer {
+    @include radius(4px);
+    @include box-shadow(0 1px 1px 1px map-get($colors, light-700));
+    display: block;
+    max-width: 250px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: map-get($colors, light-300);
+    overflow: hidden;
+
+    &.active .layer__button--active {
+        display: inline-block;
+    }
+
+    &.disabled:not(.active) {
+        background: map-get($colors, light-600);
+        color: map-get($colors, light-700);
+    }
+}
+
+.layer--dragged {
+    background: map-get($colors, primary-50);
+
+    .layer__drag-handle:after {
+        @include build-sprite("layer-drag-handle-hover");
+    }
+
+    .layer__buttons {
+        display: none;
+    }
+}
+
+.layer__drag-handle {
+    display: block;
+    position: relative;
+    float: left;
+    width: 25px;
+    height: 35px;
+    cursor: move;
+
+    &:after {
+        @include build-sprite("layer-drag-handle");
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: build-sprite-width("layer-drag-handle");
+        height: build-sprite-height("layer-drag-handle");
+        margin: auto;
+    }
+}
+
+.layer__preview {
+    display: block;
+    position: relative;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.layer__preview-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.layer__name {
+    display: block;
+    position: relative;
+    float: left;
+    max-width: 120px;
+    height: 35px;
+    font-size: 15px;
+    line-height: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: map-get($colors, dark-400);
+}
+
+.layer__buttons {
+    display: block;
+    float: right;
+    height: 35px;
+    overflow: hidden;
+}
+
+.layer__button {
+    display: inline-block;
+    position: relative;
+    height: 35px;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+.layer__button--remove {
+    width: build-sprite-width("layer-remove");
+    margin-left: 5px;
+
+    &:after {
+        @include build-sprite("layer-remove");
+        width: build-sprite-width("layer-remove");
+        height: build-sprite-height("layer-remove");
+    }
+
+    &:hover,
+    &:focus {
+        &:after {
+            @include build-sprite("layer-remove-hover");
+        }
+    }
+}
+
+.layer__button--active {
+    display: none;
+    width: die-sprite-width("die-status-active-blue-2");
+    margin-left: 5px;
+    margin-right: 3px;
+
+    &:after {
+        @include die-sprite("die-status-active-blue-2");
+        width: die-sprite-width("die-status-active-blue-2");
+        height: die-sprite-height("die-status-active-blue-2");
+    }
+}

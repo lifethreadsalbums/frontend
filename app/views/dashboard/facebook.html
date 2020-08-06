@@ -1,0 +1,21 @@
+<div class="social-media facebook">
+	<loader data-loader-id="facebook" ng-show="state == 'loading'"></loader>
+	<ul class="stream animate-show" ng-show="state == 'completed'">
+		<li ng-repeat="post in posts">
+			<div class="media">
+				<a href="http://facebook.com/{{user.id}}" class="pull-left" target="_blank">
+					<img ng-src="{{post.from.picture}}" class="media-object" alt="">
+				</a>
+				<div class="media-body">
+					<h4 class="media-heading">
+						{{user.name}}
+						<span>{{post.created_time}}</span>
+					</h4>
+					<p ng-if="post.message" ng-bind-html="post.message"></p>
+					<p ng-if="post.story" ng-bind-html="post.story"></p>
+					<img ng-if="post.picture" ng-src="{{post.picture}}" alt="">
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

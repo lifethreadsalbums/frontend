@@ -1,0 +1,53 @@
+<div class="sidebar-creator__content">
+    <header class="header-back">
+        <button ng-click="back()" class="button back big">Back</button>
+        <div>
+            <h1>{{model.label}}</h1>
+            <small>{{model.description}}</small>
+        </div>
+    </header>
+
+    <ul class="item-list standard">
+        <li class="item single item-duplicate" ng-class="{'read-only':!editable}">
+            <a ng-click="addDuplicate()">
+                <span class="item-title">
+                    <span class="item-title-primary">Add Parent Album</span>
+                    <span class="item-title-secondary">&nbsp;</span>
+                </span>
+                <span class="item-icon"></span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="item-list standard duplicates" ng-repeat-start="dup in duplicates">
+        <li class="item item-text item-bullet" ng-class="{'read-only':!editable}">
+            <div>
+                <span class="item-title">Name</span>
+                <input type="text" class="item-value" ng-model="dup.options._name">
+            </div>
+        </li>
+        <li class="item item-bullet" ng-class="{ active: currentDuplicate==dup, 'read-only':!editable}">
+            <a ng-click="chooseSize(dup)">
+                <span class="item-title">
+                    <span class="item-title-primary">Size</span>
+                    <span class="item-title-secondary">{{duplicatesView[$index].options.size}}</span>
+                </span>
+                <span class="item-icon"></span>
+            </a>
+        </li>
+        <li class="item item-counter" ng-class="{'read-only':!editable}">
+            <div counter min="1" max="100">
+                <span class="counter-minus"><span></span></span>
+                <input ng-change="onQuantityChanged(dup)" type="text" class="counter-value" ng-model="dup.options._quantity" value="1"/>
+                <span class="counter-title">Quantity</span>
+                <span class="counter-plus"><span></span></span>
+            </div>
+        </li>
+
+    </ul>
+
+    <div class="sidebar-creator__album-link" ng-repeat-end ng-class="{'read-only':!editable}">
+        <span class="item-title">Link Layouts to Main Album</span>
+        <on-off ng-model="dup.linkLayout"></on-off>
+    </div>
+</div>

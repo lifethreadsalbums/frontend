@@ -1,0 +1,320 @@
+//------------------------------------------------------------------
+//                     DEBOSSING TOOLS
+//------------------------------------------------------------------
+.debossing-toolbar {
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 18px;
+    max-width: 350px;
+    height: 40px;
+    max-height: 40px;
+    margin: auto;
+
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(map-get($colors, dark-900), 0.10);
+    opacity: 1;
+
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+}
+
+.debossing-toolbar__toolset {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 25px;
+    background: rgba(map-get($colors, dark-100), 0.6);
+    border-radius: 4px;
+
+    .font-size-widget {
+        display: inline-block;
+        width: 80px;
+        margin-top: 2px;
+        margin-bottom: 0;
+        vertical-align: middle;
+        overflow: hidden;
+
+        border: 1px solid map-get($colors, light-600);
+        border-radius: 3px;
+
+        font-size: 11px;
+    }
+}
+
+.debossing-toolbar__tool {
+    margin-bottom: 0;
+
+    &.icon-font-size-flat {
+        @include icon-text("icon-font-size-medium");
+        position: relative;
+        top: 1px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    &.icon-text-align,
+    &.icon-case,
+    &.color-picker {
+        background: none;
+        border: none;
+
+        &:hover,
+        &:active,
+        &.active {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        &:before {
+            display: none !important;
+        }
+    }
+
+    &.color-picker {
+        & > span {
+            border: 1px solid map-get($colors, dark-200);
+
+            &.blind {
+                background: map-get($colors, light-50) url(../images/material-empty.png) no-repeat center;
+                background-color: map-get($colors, light-50) !important;
+                background-size: cover;
+            }
+        }
+
+        &:hover > span {
+            opacity: .75;
+        }
+    }
+
+    &.type-icon[disabled] {
+        background: none !important;
+        opacity: .3 !important;
+    }
+}
+
+.debossing-tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+    text-align: center;
+
+    .tool {
+        @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+        display: inline-block;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        border-left: 1px solid map-get($colors, light-600);
+        vertical-align: top;
+
+        &:last-child {
+            border-right: 1px solid map-get($colors, light-600);
+        }
+
+        &.active,
+        &:hover {
+            @include linear-gradient(map-get($colors, light-700), map-get($colors, light-500));
+            border-left-color: map-get($colors, light-600);
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 1px;
+            background-color: map-get($colors, light-50);
+        }
+
+        &:after,
+        .tool-icon {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        &.tool-move:after {
+            @include debossing-sprite("debossing-move");
+            width: debossing-sprite-width("debossing-move");
+            height: debossing-sprite-height("debossing-move");
+
+        }
+
+        &.tool-rotate:after {
+            @include debossing-sprite("debossing-rotate");
+            width: debossing-sprite-width("debossing-rotate");
+            height: debossing-sprite-height("debossing-rotate");
+        }
+
+        &.tool-font-size:after {
+            @include debossing-sprite("debossing-font-size");
+            width: debossing-sprite-width("debossing-font-size");
+            height: debossing-sprite-height("debossing-font-size");
+        }
+
+        &.tool-kerning:after {
+            @include debossing-sprite("debossing-kerning");
+            width: debossing-sprite-width("debossing-kerning");
+            height: debossing-sprite-height("debossing-kerning");
+        }
+
+        &.tool-tracking:after {
+            @include debossing-sprite("debossing-tracking");
+            width: debossing-sprite-width("debossing-tracking");
+            height: debossing-sprite-height("debossing-tracking");
+        }
+
+        &.tool-leading:after {
+            @include debossing-sprite("debossing-leading");
+            width: debossing-sprite-width("debossing-leading");
+            height: debossing-sprite-height("debossing-leading");
+        }
+
+        &.tool-lowercase:after {
+            @include debossing-sprite("debossing-lowercase");
+            width: debossing-sprite-width("debossing-lowercase");
+            height: debossing-sprite-height("debossing-lowercase");
+        }
+
+        &.tool-capitalize:after {
+            @include debossing-sprite("debossing-capitalize");
+            width: debossing-sprite-width("debossing-capitalize");
+            height: debossing-sprite-height("debossing-capitalize");
+        }
+
+        &.tool-uppercase:after {
+            @include debossing-sprite("debossing-uppercase");
+            width: debossing-sprite-width("debossing-uppercase");
+            height: debossing-sprite-height("debossing-uppercase");
+        }
+
+        &.tool-justify-left:after {
+            @include debossing-sprite("debossing-justify-left");
+            width: debossing-sprite-width("debossing-justify-left");
+            height: debossing-sprite-height("debossing-justify-left");
+        }
+
+        &.tool-justify-middle:after {
+            @include debossing-sprite("debossing-justify-middle");
+            width: debossing-sprite-width("debossing-justify-middle");
+            height: debossing-sprite-height("debossing-justify-middle");
+        }
+
+        &.tool-justify-right:after {
+            @include debossing-sprite("debossing-justify-right");
+            width: debossing-sprite-width("debossing-justify-right");
+            height: debossing-sprite-height("debossing-justify-right");
+        }
+
+        a {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+    }
+
+    .tool-addon {
+        position: relative;
+        width: 100px;
+        height: 38px;
+        line-height: 38px;
+
+        &:before,
+        &:after {
+            content: "";
+            display: none;
+        }
+
+        .minus {
+            @include user-select("none");
+            display: block;
+            position: absolute;
+            top: 8px;
+            left: 1px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+
+            span {
+                @include item-list-sprite("icon-list-minus-gray");
+                display: inline-block;
+                width: 11px;
+                height: 3px;
+                vertical-align: middle;
+            }
+
+            &:hover span {
+                @include item-list-sprite("icon-list-minus-blue");
+            }
+        }
+
+        .plus {
+            @include user-select("none");
+            display: block;
+            position: absolute;
+            top: 8px;
+            right: 3px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+
+            span {
+                @include item-list-sprite("icon-list-plus-gray");
+                display: inline-block;
+                width: 11px;
+                height: 11px;
+                vertical-align: middle;
+            }
+
+            &:hover span {
+                @include item-list-sprite("icon-list-plus-blue");
+            }
+        }
+
+        .value {
+            text-align: center;
+
+            input {
+                display: inline-block;
+                width: 40px;
+                height: 20px;
+                margin: 8px 0 0 0;
+                padding-left: 4px;
+                padding-right: 4px;
+                font-size: 13px;
+                text-align: center;
+                vertical-align: top;
+            }
+
+            span {
+                display: inline-block;
+                margin-left: 3px;
+                font-size: 13px;
+                vertical-align: top;
+            }
+        }
+    }
+}

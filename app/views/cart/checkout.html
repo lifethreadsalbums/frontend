@@ -1,0 +1,83 @@
+<form class="cart" name="checkoutForm" form-submit="next()" novalidate>
+    <aside id="sidebar-cart" class="cart__sidebar">
+        <div class="cart__sidebar-inner">
+            <div class="cart__sidebar-scrollable">
+                <section class="cart__sidebar__section">
+                    <h1 class="cart__sidebar__title">Order Subtotals</h1>
+                </section>
+
+            	<section class="cart__sidebar__section">
+                    <br/>
+                    <input type="text" value="Enter a coupon" placeholder="Enter coupon here" ng-model="coupon" class="cart__sidebar__coupon-input"/>
+                    <a ng-click="saveCoupon()" href="" class="button pull-right">Apply</a>
+
+            	    <table cellspacing="0" cellpadding="0" border="0" class="cart__sidebar__table">
+                        <tbody>
+            	          	<tr>
+                                <td>Subtotal:</td>
+                                <td>{{cart.subtotal.displayPrice}}</td>
+                            </tr>
+
+                            <tr ng-repeat="item in cart.orderAdjustments">
+                            	<td>{{item.displayName}}</td>
+                                <td>{{item.amount.displayPrice}}</td>
+                            </tr>
+
+                            <tr ng-show="cart.shippingIncludedInTax && !cart.freeShipping && cart.shippingCost">
+                                <td>Shipping:</td>
+                                <td>{{cart.shippingCost.displayPrice}}</td>
+                            </tr>
+
+                            <tr ng-show="(cart.shippingIncludedInTax && cart.shippingCost) || cart.orderAdjustments.length>0">
+                                <td>Subtotal:</td>
+                                <td>{{cart.subtotalIncludingAdjustments.displayPrice}}</td>
+                            </tr>
+
+                            <tr ng-repeat="item in cart.taxes">
+                                <td>{{item.taxRate.tax.name}} {{item.taxRate.rate}}%</td>
+                                <td>{{item.tax.displayPrice}}</td>
+                            </tr>
+
+                            <tr ng-show="!cart.shippingIncludedInTax && !cart.freeShipping && cart.shippingCost">
+                                <td>Shipping:</td>
+                                <td>{{cart.shippingCost.displayPrice}}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Total:</td>
+                                <td>{{cart.total.displayPrice}}</td>
+                            </tr>
+            	        </tbody>
+            	    </table>
+            	</section>
+            </div>
+
+        	<div class="cart__sidebar__buttons-container">
+        	    <a ng-show="!$state.includes('checkout.details') && !$state.includes('checkout.cart')"
+                   ng-click="back()"
+                   class="button large pull-left ng-animate-disabled">Back</a>
+
+                <button ng-show="!$state.includes('checkout.details') && !$state.includes('checkout.cart') && cart.orderItems.length>0"
+                        ng-disabled="$state.includes('checkout.shipping') && !cart.shippingOption"
+                        type="submit"
+                        class="button large color pull-right ng-animate-disabled">Next</button>
+
+                <button ng-show="$state.includes('checkout.details') && cart.orderItems.length>0"
+                        type="submit"
+                        class="button large color expand ng-animate-disabled">Next</button>
+
+                <button ng-show="$state.includes('checkout.cart') && cart.orderItems.length>0"
+                        type="submit"
+                        class="button large color expand ng-animate-disabled">Checkout</button>
+        	</div>
+        </div>
+    </aside>
+
+    <div class="cart__wrapper-outer">
+        <section class="cart__wrapper" ui-view></section>
+    </div>
+
+    <div ng-show="cartSpinner" class="cart__spinner-container">
+        <spinner class="cart__spinner"></spinner>
+    </div>
+</form>

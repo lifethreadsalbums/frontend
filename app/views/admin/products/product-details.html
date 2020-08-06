@@ -1,0 +1,16 @@
+<div style="width:100%">
+	<div style="width:30%;float:left">
+		<ul>
+			<li ng-repeat="option in productPrototype.prototypeProductOptions"
+				ng-click="selectedOption = option">
+				{{option.effectiveDisplayLabel}}
+			</li>
+		</ul>
+	</div>
+
+	<div style="width:70%">
+		<label>Code</label>
+		<input ng-model="selectedOption.code">
+	</div>
+
+</div>

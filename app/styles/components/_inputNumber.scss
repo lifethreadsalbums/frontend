@@ -1,0 +1,95 @@
+//------------------------------------------------------------------
+//                       INPUT NUMBER
+//------------------------------------------------------------------
+.input-number {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+}
+
+input.input-number__input[type="text"] {
+    height: 26px;
+    margin: 0;
+    padding: 0 30px 0 7px;
+
+    background: map-get($colors, light-700);
+    border: 1px solid map-get($colors, dark-800);
+    border-radius: 0;
+    box-shadow: none;
+
+    color: map-get($colors, dark-700);
+}
+
+.input-number__placeholder {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 7px;
+    margin: 0;
+
+    line-height: 26px;
+    color: map-get($colors, dark-700);
+}
+
+.input-number__postfix {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    margin: 0;
+
+    line-height: 26px;
+    color: map-get($colors, dark-700);
+}
+
+.input-number__minus,
+.input-number__plus {
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 13px;
+    margin: 0;
+
+    background: map-get($colors, dark-700);
+    border: 1px solid map-get($colors, dark-800);
+    border-radius: 0;
+    box-shadow: none;
+
+    &:active {
+        background: transparent;
+    }
+}
+
+.input-number__plus {
+    top: 0;
+    right: 0;
+
+    &:before {
+        @include button-sprite("icon-button-arrow-up-small");
+
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: button-sprite-width("icon-button-arrow-up-small");
+        height: button-sprite-height("icon-button-arrow-up-small");
+    }
+}
+
+.input-number__minus {
+    bottom: 0;
+    right: 0;
+
+    &:before {
+        @include button-sprite("icon-button-arrow-down-small");
+
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 2px;
+        top: 3px;
+        width: button-sprite-width("icon-button-arrow-down-small");
+        height: button-sprite-height("icon-button-arrow-down-small");
+    }
+}

@@ -1,0 +1,12 @@
+<div class="layout-preview">
+	<div class="book-layout"> 
+		<span class="preview-arrow-left" ng-click="goToPage(page - 2)"></span>
+		<book-preview page="page" scale="0.5" layout="layout"></book-preview>
+		<span class="preview-arrow-right" ng-click="goToPage(page + 2)"></span>
+    </div>
+    <div class="nav-panel">
+    	<span class="to-start" ng-click="goToPage(1)"></span>
+    	<span class="play" ng-class="{ 'pause': !isPlaying }" ng-click="toggleSlideshow()"></span>
+    	<span class="to-end" ng-click="goToPage(10000)"></span>
+    </div>
+</div>

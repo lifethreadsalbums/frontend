@@ -1,0 +1,388 @@
+//------------------------------------------------------------------
+//                     CALCULATOR
+//------------------------------------------------------------------
+.calculator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 15px;
+    background: map-get($colors, light-50);
+    border: 1px solid map-get($colors, dark-50);
+    box-shadow: 0px 0px 2px rgba(map-get($colors, dark-900),0.2);
+
+    header {
+        height: 50px;
+        background: none;
+        border-bottom: map-get($colors, dark-50) solid 1px;
+        padding: 18px 22px;
+
+        h1 {
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .ngdialog-close {
+            position: absolute;
+            right: 10px;
+            top: 11px;
+            font-size: 24px;
+        }
+
+    }
+
+    footer {
+        height: 55px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: none;
+        border-top: map-get($colors, dark-50) solid 1px;
+        padding: 9px 22px;
+
+        button {
+            background: linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+            max-height: 40px;
+            margin: 0;
+            padding: 11px;
+            height: 100%;
+            box-shadow: none;
+
+            &.reset {
+                width: 140px;
+                float: left;
+
+            }
+
+            &.email {
+                width: 195px;
+                float: right;
+            }
+        }
+    }
+
+    .section-content {
+        background: map-get($colors, light-300);
+        bottom: 55px;
+        top: 50px;
+        position: absolute;
+        width: 100%;
+        overflow: hidden;
+
+        .variant-list {
+            padding: 15px;
+        }
+
+        .variant {
+            width: 100%;
+            padding: 13px 17px 13px 17px;
+            border: 1px solid map-get($colors, dark-50);
+            background: map-get($colors, light-50);
+            position: relative;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.3rem;
+
+            input {
+                margin-bottom: 0
+            }
+
+            .dup-size {
+                display: inline-block;
+                padding-top: 5px;
+            }
+
+            &.checkmark {
+                &:after {
+                    content: "";
+                    display: inline-block;
+                    right: 20px;
+                    position: absolute;
+                    top: 50%;
+                    @include transform(translateY(-50%));
+                    @include dashboard-sprite("icon-calc-checkmark-blue");
+                    width: dashboard-sprite-width("icon-calc-checkmark-blue");
+                    height: dashboard-sprite-height("icon-calc-checkmark-blue");
+                }
+            }
+        }
+
+        .add-ons-header {
+            height: 25px;
+            background: map-get($colors, light-100);
+            padding: 2px 20px;
+            border: 1px solid map-get($colors, dark-50);
+
+            span {
+                text-transform: uppercase;
+                font-size: 12px;
+            }
+        }
+
+        .add-on-type {
+            height: 68px;
+            border-bottom: 1px solid map-get($colors, dark-50);
+            width: 100%;
+            background: map-get($colors, light-50);
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 28px 22px;
+            cursor: pointer;
+
+            &:after {
+                float: right;
+                content: "";
+                display: inline-block;
+                @include dashboard-sprite("icon-calc-list-arrow-blue");
+                width: dashboard-sprite-width("icon-calc-list-arrow-blue");
+                height: dashboard-sprite-height("icon-calc-list-arrow-blue");
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+                color: map-get($colors, light-50);
+
+                &:after {
+                    @include dashboard-sprite("icon-calc-list-arrow-white");
+                }
+            }
+        }
+
+        .main-column {
+            @include box-shadow(0px 0px 4px rgba(map-get($colors, dark-900),0.2));
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            height: 100%;
+            width: 33%;
+            background: map-get($colors, light-100);
+            overflow: auto;
+            border-right: 1px solid map-get($colors, dark-50);
+        }
+
+        .menu-element {
+            height: 68px;
+            border-bottom: 1px solid map-get($colors, dark-50);
+            width: 100%;
+            background: map-get($colors, light-50);
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 28px 22px;
+            cursor: pointer;
+
+            &:after {
+                float: right;
+                content: "";
+                display: inline-block;
+                @include dashboard-sprite("icon-calc-list-arrow-blue");
+                width: dashboard-sprite-width("icon-calc-list-arrow-blue");
+                height: dashboard-sprite-height("icon-calc-list-arrow-blue");
+            }
+
+            &.checkmark:after {
+                @include dashboard-sprite("icon-calc-checkmark-blue");
+                width: dashboard-sprite-width("icon-calc-checkmark-blue");
+                height: dashboard-sprite-height("icon-calc-checkmark-blue");
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+                color: map-get($colors, light-50);
+
+                &.checkmark:after {
+                    @include dashboard-sprite("icon-calc-checkmark-blue");
+                    width: dashboard-sprite-width("icon-calc-checkmark-blue");
+                    height: dashboard-sprite-height("icon-calc-checkmark-blue");
+                }
+
+                &:after {
+                    @include dashboard-sprite("icon-calc-list-arrow-white");
+                    width: dashboard-sprite-width("icon-calc-list-arrow-white");
+                    height: dashboard-sprite-height("icon-calc-list-arrow-white");
+                }
+            }
+
+            &.inactive {
+                background: map-get($colors, light-400);
+                cursor: default;
+                pointer-events: none;
+
+                &:after {
+                    @include dashboard-sprite("icon-calc-list-arrow-grey");
+                    width: dashboard-sprite-width("icon-calc-list-arrow-grey");
+                    height: dashboard-sprite-height("icon-calc-list-arrow-grey");
+                }
+            }
+        }
+
+        .option-column {
+            left: 0;
+            position: absolute;
+            height: 100%;
+            width: 33%;
+            background: map-get($colors, light-300);
+            overflow: auto;
+            @include transition(1s);
+        }
+
+        .dropdown-button {
+            height: 31px;
+            width: 52px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 0px;
+        }
+
+        .done {
+            position: absolute;
+            bottom: 0px;
+            height: 100%;
+            max-height: 35px;
+            width: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .column-2 {
+            z-index: 2;
+        }
+
+        .column-3 {
+            z-index: 1;
+        }
+
+        .column-4 {
+            z-index: 0;
+        }
+
+        &.level1 {
+            .column-2 {
+                left: 0;
+            }
+
+            .column-3 {
+                left: 0;
+                visibility: hidden;
+            }
+
+            .column-4 {
+                left: 0;
+                visibility: hidden;
+            }
+        }
+
+        &.level2 {
+            .column-2 {
+                left: 33%;
+            }
+
+            .column-3 {
+                left: 66%;
+                visibility: hidden;
+            }
+
+            .column-4 {
+                left: 99%;
+                visibility: hidden;
+            }
+        }
+
+        &.level3 {
+            .column-2 {
+                left: 0;
+            }
+
+            .column-3 {
+                left: 33%;
+                visibility: visible;
+            }
+
+            .column-4 {
+                left: 66%;
+                visibility: hidden;
+            }
+        }
+
+        &.level4 {
+            .column-2 {
+                left: 0;
+            }
+
+            .column-3 {
+                left: 0;
+                visibility: visible;
+            }
+
+            .column-4 {
+                left: 33%;
+                visibility: visible;
+            }
+        }
+
+        .total-column {
+            z-index: 3;
+            right: 0;
+            position: absolute;
+            height: 100%;
+            width: 34%;
+            background: map-get($colors, light-100);
+            overflow: auto;
+            border-left: 1px solid map-get($colors, dark-50);
+            padding: 20px;
+
+            table tr {
+                td {
+                    padding: 4px;
+                    color: map-get($colors, dark-400);
+                    font-size: 12px;
+
+                    hr {
+                        margin: 0;
+                    }
+
+                    .on-off-container {
+                        display: inline-block;
+                    }
+                }
+
+                th {
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                &.grand-total td {
+                    color: map-get($colors, dark-900);
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                &.summary td {
+                    font-weight: bold;
+                }
+
+                .project-name {
+                    font-size: 16px;
+                    padding-top: 6px;
+                    display: inline-block;
+                }
+
+                .spinner-container {
+                    display: inline-block;
+                    margin-left: 17px;
+                    height: 12px;
+                }
+
+                .dropdown-button {
+                    margin: 0px;
+                    width: 52px;
+                }
+            }
+        }
+    }
+}

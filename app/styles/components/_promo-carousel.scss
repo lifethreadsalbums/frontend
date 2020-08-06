@@ -1,0 +1,240 @@
+//------------------------------------------------------------------
+//                     PROMO CAROUSEL
+//------------------------------------------------------------------
+.promo-carousel-container {
+    width: 100%;
+    max-width: 780px;
+    height: 180px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .promo-carousel-container {
+        max-width: 1180px;
+        height: 270px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .promo-carousel-container {
+        max-width: 1560px;
+        height: 355px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .promo-carousel-container {
+        max-width: 1624px;
+        height: 370px;
+    }
+}
+
+.promo-carousel {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 180px;
+    text-align: left;
+
+    .flex-viewport {
+        ul {
+            height: 180px;
+            margin: 0;
+            padding: 0;
+
+            li {
+                position: relative;
+                height: 180px;
+                margin: 0;
+                padding: 0;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+
+                img {
+                    min-height: 180px;
+                    min-width: 100%;
+                    width: auto;
+                }
+
+                .promo-box {
+                    @include museo300();
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    width: 254px;
+                    padding: 16px 32px 10px 20px;
+                    background: rgba(map-get($colors, dark-900), .5);
+                    overflow: hidden;
+
+                    .sub-title {
+                        display: block;
+                        font-size: 14px;
+                        line-height: 19px;
+                        color: map-get($colors, light-50);
+                    }
+
+                    .title {
+                        display: block;
+                        margin-bottom: 5px;
+                        font-size: 18px;
+                        line-height: 28px;
+                        color: map-get($colors, primary-200);
+                    }
+
+                    p {
+                        font-size: 13px;
+                        line-height: 19px;
+                        color: map-get($colors, light-50);
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: $breakPointM) {
+        .flex-viewport ul ,
+        .flex-viewport ul li {
+            height: 270px;
+
+            .promo-box {
+                width: 384px;
+                padding: 46px 50px 15px 40px;
+
+                .sub-title {
+                    margin-bottom: 4px;
+                    font-size: 16px;
+                }
+
+                .title {
+                    margin-bottom: 12px;
+                    font-size: 22px;
+                }
+
+                p {
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        .flex-viewport ul ,
+        .flex-viewport ul li {
+            height: 355px;
+
+            .promo-box {
+                width: 510px;
+                padding: 46px 60px 15px 60px;
+
+                .sub-title {
+                    margin-bottom: 8px;
+                    font-size: 19px;
+                }
+
+                .title {
+                    margin-bottom: 15px;
+                    font-size: 26px;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 32px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: $breakPointXL) {
+        .flex-viewport ul ,
+        .flex-viewport ul li {
+            height: 370px;
+
+            .promo-box {
+                width: 510px;
+                padding: 46px 60px 15px 60px;
+
+                .sub-title {
+                    margin-bottom: 10px;
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .flex-direction-nav {
+        li {
+            a {
+                opacity: 1 !important;
+                outline: none;
+
+                &:before {
+                    display: none;
+                    content: "";
+                }
+
+                &.flex-disabled {
+                    opacity: .5 !important;
+                    pointer-events: none;
+                }
+
+                &.flex-prev,
+                &.flex-next {
+                    top: calc(50% + 10px);
+                    text-indent: 999px;
+                }
+
+                &.flex-prev {
+                    @include dashboard-sprite("promo-carousel-nav-arrow-left");
+                    width: dashboard-sprite-width("promo-carousel-nav-arrow-left");
+                    height: dashboard-sprite-height("promo-carousel-nav-arrow-left");
+                    left: 20px;
+                }
+
+                &.flex-next {
+                    @include dashboard-sprite("promo-carousel-nav-arrow-right");
+                    width: dashboard-sprite-width("promo-carousel-nav-arrow-right");
+                    height: dashboard-sprite-height("promo-carousel-nav-arrow-right");
+                    right: 20px;
+                }
+            }
+        }
+    }
+
+    .flex-control-nav {
+        bottom: -10px;
+
+        &.flex-control-paging {
+            li a {
+                width: 9px;
+                height: 9px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .promo-carousel {
+        height: 270px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .promo-carousel {
+        height: 355px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .promo-carousel {
+        height: 370px;
+    }
+}

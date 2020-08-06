@@ -1,0 +1,82 @@
+//------------------------------------------------------------------
+//                     SOCIAL MEDIA
+//------------------------------------------------------------------
+.social-media {
+    height: 100%;
+    background: map-get($colors, light-200);
+
+    // Twitter & Facebook
+    &.twitter,
+    &.facebook {
+        .loader {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        ul.stream {
+            margin: 0;
+            padding: 8px 16px;
+            list-style: none;
+
+            li {
+                margin: 0;
+                padding: 16px 8px;
+                border-bottom: 1px solid map-get($colors, dark-50);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .media {
+                    .media-object {
+                        width: 50px;
+                        height: auto !important;
+                    }
+
+                    .media-body {
+                        font-size: 13px;
+                        color: map-get($colors, dark-200);
+
+                        .media-heading {
+                            color: map-get($colors, light-900);
+                            font-size: 13px;
+
+                            a,
+                            span {
+                                font-size: 12px;
+                                color: map-get($colors, dark-200);
+                            }
+
+                            span {
+                                float: right;
+                            }
+                        }
+
+                        p {
+                            font-size: 13px;
+                            color: map-get($colors, dark-200);
+                        }
+
+                        a {
+                            color: map-get($colors, primary-400);
+                        }
+
+                        img {
+                            display: block;
+                            margin-top: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Instagram
+    &.instagram {
+        padding: 12px 15px;
+    }
+}

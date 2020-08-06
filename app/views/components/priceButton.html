@@ -1,0 +1,10 @@
+<div class="split-button-dropdown price-button">
+    <button ng-if="!frpNavView" class="button split-button pull-left {{color}}">{{displayPrice}}</button>
+    <button ng-if="frpNavView" class="button split-button pull-left {{color}}" frp-nav view="{{frpNavView}}">{{displayPrice}}</button>
+    <dropdown-button classes="split-dropdown pull-left" color="{{color}}" options="currencyOptions" 
+        label=""  direction="{{direction}}" value-field="value" 
+        hide-first-option="true" no-label="true" no-arrow="true" 
+        ng-model="currency" on-change="changeCurrency()">
+    </dropdown-button>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,319 @@
+.font-styles {
+	color: map-get($colors, dark-100);
+	text-align: left;
+	font-size: 14px;
+	margin: 10px;
+    outline: none;
+
+	h2 {
+		font-weight: bold;
+		font-size: 16px;
+		color: map-get($colors, dark-100);
+	}
+		font-size: 14px;
+
+	p {
+		margin-bottom: .2rem;
+		font-size: 14px;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	.uppercase {
+		text-transform: uppercase;
+	}
+
+	.eyedropper-button,
+    .color-picker-button {
+        @include border-radius(4px);
+        @include linear-gradient(map-get($colors, dark-400),map-get($colors, dark-600));
+        display: block;
+        position: relative;
+        width: 33px;
+        height: 33px;
+        border: 1px solid map-get($colors, dark-700);
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 5px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 5%;
+            width: 90%;
+            height: 1px;
+            background-color: map-get($colors, dark-300);
+        }
+
+        &.active, &:active {
+            @include linear-gradient(map-get($colors, dark-800),map-get($colors, dark-700));
+            @include box-shadow(1px 1px 1px 0 map-get($colors, dark-800) inset);
+        }
+
+        &.active:before, &:active:before {
+            background-color: map-get($colors, dark-800);
+        }
+    }
+
+    .color-picker-button {
+        margin-bottom: 4px;
+    }
+
+    .recently-used-colors {
+        margin: 0;
+
+        li:first-of-type {
+			display: inline-block;
+			vertical-align: top;
+			margin-right: 4px;
+		}
+    }
+
+    .recently-used-color {
+        @include border-radius(4px);
+        @include linear-gradient(map-get($colors, danger-100),map-get($colors, danger-800));
+        display: inline-block;
+        position: relative;
+        width: 33px;
+        height: 33px;
+        margin-right: 6px;
+        border: 2px solid map-get($colors, dark-700);
+        cursor: pointer;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        &.active {
+            border: 2px solid map-get($colors, primary-500);
+        }
+
+        &:after {
+            @include linear-gradient(transparent 50%,rgba(map-get($colors, dark-900),0.1) 100%);
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    hr {
+        margin: 13px 0;
+        border-color: map-get($colors, light-900);
+    }
+
+    .style,
+    .size {
+        display: inline-block;
+
+	    span {
+		    display: block;
+	    }
+    }
+
+    .size {
+        width: 40%;
+    }
+
+    .style {
+        width: 50%;
+        float: right;
+    }
+
+    .dropdown {
+	    width: 100%;
+
+	    .dropdown-button-label {
+		    margin-top: -14px;
+	    }
+    }
+
+    .arrow-down-small {
+	    &:after {
+		    margin-right: -30px;
+			margin-top: -12px;
+			border: 0;
+	    }
+    }
+
+    .plus-minus {
+	    display: inline-block;
+	    width: 5% ;
+		vertical-align: middle;
+		margin-left: -5px;
+		height: 26px;
+		margin-bottom: 1px;
+    }
+
+
+
+    .search {
+		background: map-get($colors, dark-100);
+		border: 1px solid map-get($colors, dark-700);
+		border-radius: 1em;
+		width: 100%;
+
+		&:active,
+		&:focus {
+			box-shadow: none;
+		}
+    }
+
+    .search-icon {
+	    &:before {
+		    content: "";
+			display: inline-block;
+			position: absolute;
+			right: 20px;
+			margin-top: 8px;
+			cursor: pointer;
+			@include common-sprite("icon-magnifying-glass");
+	        width: common-sprite-width("icon-magnifying-glass");
+	        height: common-sprite-height("icon-magnifying-glass");
+	    }
+    }
+
+    .font-list {
+	    margin-left: 0;
+        margin-bottom: 30px;
+
+	    li {
+		    padding-left: 10px;
+		    cursor: pointer;
+			border-radius: 2px;
+			line-height: 34px;
+
+		    &.active,
+            &:active,
+		    &:hover {
+			    background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+			    color: map-get($colors, light-50);
+		    }
+	    }
+
+        &.is-animate {
+            li {
+                &.ng-enter {
+                    opacity: 0;
+                    padding-left: 30px;
+                    transition: all ease .3s;
+                }
+
+                &.ng-enter-active {
+                    opacity: 1;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+.font-size-widget {
+    display: inline-block;
+    position: relative;
+    margin-top: 3px;
+    margin-bottom: 10px;
+
+    .font-input {
+        height: 26px;
+        margin-bottom: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-right: 0px;
+
+        background: map-get($colors, light-700);
+        border: 1px solid map-get($colors, dark-800);
+        border-radius: 0;
+        box-shadow: none;
+
+        color: map-get($colors, dark-700);
+    }
+
+    .plus-button,
+    .minus-button {
+        display: block;
+        position: absolute;
+        width: 15px;
+        height: 13px;
+        margin: 0;
+
+        background: map-get($colors, dark-700);
+        border: 1px solid map-get($colors, dark-800);
+        border-radius: 0;
+        box-shadow: none;
+
+        &:active {
+            background: transparent;
+        }
+    }
+
+    .plus-button {
+        top: 0;
+        right: 0;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+
+            @include button-sprite("icon-button-arrow-up-small");
+            width: button-sprite-width("icon-button-arrow-up-small");
+            height: button-sprite-height("icon-button-arrow-up-small");
+        }
+    }
+
+    .minus-button {
+        bottom: 0;
+        right: 0;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            left: 2px;
+            top: 3px;
+
+            @include button-sprite("icon-button-arrow-down-small");
+            width: button-sprite-width("icon-button-arrow-down-small");
+            height: button-sprite-height("icon-button-arrow-down-small");
+        }
+    }
+
+    &.font-size-widget--light {
+        .font-input {
+            background: linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+            border-color: map-get($colors, light-600);
+
+            color: map-get($colors, light-800);
+
+            &:hover,
+            &:focus {
+                background: map-get($colors, light-100);
+            }
+        }
+
+        .plus-button,
+        .minus-button {
+            background: linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+            border-color: map-get($colors, light-600);
+
+            &:hover {
+                background: map-get($colors, light-100);
+            }
+        }
+
+        .plus-button:before {
+            top: 3px;
+        }
+
+        .minus-button:before {
+            top: 4px;
+        }
+    }
+}

@@ -1,0 +1,559 @@
+
+
+@font-face {
+  font-family: 'MelikaLetter';
+  src: url('iris-fonts/Melika/MelikaLetter.eot');
+  src: url('iris-fonts/Melika/MelikaLetter.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Melika/MelikaLetter.woff') format('woff'),
+    url('iris-fonts/Melika/MelikaLetter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MelikaScript';
+  src: url('iris-fonts/Melika/Melikascript.eot');
+  src: url('iris-fonts/Melika/Melikascript.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Melika/Melikascript.woff') format('woff'),
+    url('iris-fonts/Melika/Melikascript.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'AdeliciaScriptSlant';
+  src: url('iris-fonts/Adelicia/AdeliciaScriptSlant.eot');
+  src: url('iris-fonts/Adelicia/AdeliciaScriptSlant.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Adelicia/AdeliciaScriptSlant.woff') format('woff'),
+    url('iris-fonts/Adelicia/AdeliciaScriptSlant.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AdeliciaScriptClean';
+  src: url('iris-fonts/Adelicia/AdeliciaScriptClean.eot');
+  src: url('iris-fonts/Adelicia/AdeliciaScriptClean.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Adelicia/AdeliciaScriptClean.woff') format('woff'),
+    url('iris-fonts/Adelicia/AdeliciaScriptClean.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AdeliciaScriptSlantRough';
+  src: url('iris-fonts/Adelicia/AdeliciaScriptSlantRough.eot');
+  src: url('iris-fonts/Adelicia/AdeliciaScriptSlantRough.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Adelicia/AdeliciaScriptSlantRough.woff') format('woff'),
+    url('iris-fonts/Adelicia/AdeliciaScriptSlantRough.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AdeliciaScriptRough';
+  src: url('iris-fonts/Adelicia/AdeliciaScriptRough.eot');
+  src: url('iris-fonts/Adelicia/AdeliciaScriptRough.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/Adelicia/AdeliciaScriptRough.woff') format('woff'),
+    url('iris-fonts/Adelicia/AdeliciaScriptRough.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'TrajanProBold';
+  src: url('iris-fonts/TrajanPro/TrajanPro-Bold.eot');
+  src: url('iris-fonts/TrajanPro/TrajanPro-Bold.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/TrajanPro/TrajanPro-Bold.woff') format('woff'),
+    url('iris-fonts/TrajanPro/TrajanPro-Bold.ttf') format('truetype'),
+    url('iris-fonts/TrajanPro/TrajanPro-Bold.svg#TrajanPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TrajanProRegular';
+  src: url('iris-fonts/TrajanPro/TrajanPro-Regular.eot');
+  src: url('iris-fonts/TrajanPro/TrajanPro-Regular.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/TrajanPro/TrajanPro-Regular.woff') format('woff'),
+    url('iris-fonts/TrajanPro/TrajanPro-Regular.ttf') format('truetype'),
+    url('iris-fonts/TrajanPro/TrajanPro-Regular.svg#TrajanPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BurguesScript';
+  src: url('iris-fonts/BurguesScript/BurguesScript.eot');
+  src: url('iris-fonts/BurguesScript/BurguesScript.eot?#iefix') format('embedded-opentype'),
+    url('iris-fonts/BurguesScript/BurguesScript.woff') format('woff'),
+    url('iris-fonts/BurguesScript/BurguesScript.ttf') format('truetype'),
+    url('iris-fonts/BurguesScript/BurguesScript.svg#BurguesScript') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BernhardGothicLight';
+  src: url('iris-fonts/BernhardGothicLight/BernhardGotURW-Lig.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/BernhardGothicLight/BernhardGotURW-Lig.otf')  format('opentype'),
+	     url('iris-fonts/BernhardGothicLight/BernhardGotURW-Lig.woff') format('woff'), 
+       url('iris-fonts/BernhardGothicLight/BernhardGotURW-Lig.ttf')  format('truetype'), 
+       url('iris-fonts/BernhardGothicLight/BernhardGotURW-Lig.svg#BernhardGotURW-Lig') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BernhardGothicMedium';
+  src: url('iris-fonts/BernhardGothicMedium/BernhardGothicEF-Medium.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/BernhardGothicMedium/BernhardGothicEF-Medium.otf')  format('opentype'),
+	     url('iris-fonts/BernhardGothicMedium/BernhardGothicEF-Medium.woff') format('woff'), 
+       url('iris-fonts/BernhardGothicMedium/BernhardGothicEF-Medium.ttf')  format('truetype'), 
+       url('iris-fonts/BernhardGothicMedium/BernhardGothicEF-Medium.svg#BernhardGothicEF-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BickhamScriptProBold';
+  src: url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Bold.otf')  format('opentype'),
+	     url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Bold.woff') format('woff'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Bold.svg#BickhamScriptPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BickhamScriptProRegular';
+  src: url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Regular.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Regular.otf')  format('opentype'),
+	     url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Regular.woff') format('woff'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Regular.ttf')  format('truetype'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Regular.svg#BickhamScriptPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BickhamScriptProSemibold';
+  src: url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Semibold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Semibold.otf')  format('opentype'),
+	     url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Semibold.woff') format('woff'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Semibold.ttf')  format('truetype'), 
+       url('iris-fonts/BickhamScriptPro/BickhamScriptPro-Semibold.svg#BickhamScriptPro-Semibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniRoman';
+  src: url('iris-fonts/Bodoni/BodoniStd.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd.svg#BodoniStd') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniBold';
+  src: url('iris-fonts/Bodoni/BodoniStd-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd-Bold.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd-Bold.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd-Bold.svg#BodoniStd-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniBoldItalic';
+  src: url('iris-fonts/Bodoni/BodoniStd-BoldItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd-BoldItalic.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd-BoldItalic.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd-BoldItalic.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd-BoldItalic.svg#BodoniStd-BoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniBook';
+  src: url('iris-fonts/Bodoni/BodoniStd-Book.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd-Book.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd-Book.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd-Book.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd-Book.svg#BodoniStd-Book') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniBookItalic';
+  src: url('iris-fonts/Bodoni/BodoniStd-BookItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd-BookItalic.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd-BookItalic.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd-BookItalic.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd-BookItalic.svg#BodoniStd-BookItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BodoniItalic';
+  src: url('iris-fonts/Bodoni/BodoniStd-Italic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Bodoni/BodoniStd-Italic.otf')  format('opentype'),
+	     url('iris-fonts/Bodoni/BodoniStd-Italic.woff') format('woff'), 
+       url('iris-fonts/Bodoni/BodoniStd-Italic.ttf')  format('truetype'), 
+       url('iris-fonts/Bodoni/BodoniStd-Italic.svg#BodoniStd-Italic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FaktBlond';
+  src: url('iris-fonts/Fakt/Fakt-Blond.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Fakt/Fakt-Blond.otf')  format('opentype'),
+	     url('iris-fonts/Fakt/Fakt-Blond.woff') format('woff'), 
+       url('iris-fonts/Fakt/Fakt-Blond.ttf')  format('truetype'), 
+       url('iris-fonts/Fakt/Fakt-Blond.svg#Fakt-Blond') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FaktMedium';
+  src: url('iris-fonts/Fakt/Fakt-Medium.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Fakt/Fakt-Medium.otf')  format('opentype'),
+	     url('iris-fonts/Fakt/Fakt-Medium.woff') format('woff'), 
+       url('iris-fonts/Fakt/Fakt-Medium.ttf')  format('truetype'), 
+       url('iris-fonts/Fakt/Fakt-Medium.svg#Fakt-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaMedium';
+  src: url('iris-fonts/FuturaMedium/Futura-Med.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/FuturaMedium/Futura-Med.otf')  format('opentype'),
+	     url('iris-fonts/FuturaMedium/Futura-Med.woff') format('woff'), 
+       url('iris-fonts/FuturaMedium/Futura-Med.ttf')  format('truetype'), 
+       url('iris-fonts/FuturaMedium/Futura-Med.svg#Futura-Med') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GaramondBold';
+  src: url('iris-fonts/Garamond/AGaramondPro-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Garamond/AGaramondPro-Bold.otf')  format('opentype'),
+	     url('iris-fonts/Garamond/AGaramondPro-Bold.woff') format('woff'), 
+       url('iris-fonts/Garamond/AGaramondPro-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/Garamond/AGaramondPro-Bold.svg#AGaramondPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GaramondBoldItalic';
+  src: url('iris-fonts/Garamond/AGaramondPro-BoldItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Garamond/AGaramondPro-BoldItalic.otf')  format('opentype'),
+	     url('iris-fonts/Garamond/AGaramondPro-BoldItalic.woff') format('woff'), 
+       url('iris-fonts/Garamond/AGaramondPro-BoldItalic.ttf')  format('truetype'), 
+       url('iris-fonts/Garamond/AGaramondPro-BoldItalic.svg#AGaramondPro-BoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GaramondItalic';
+  src: url('iris-fonts/Garamond/AGaramondPro-Italic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Garamond/AGaramondPro-Italic.otf')  format('opentype'),
+	     url('iris-fonts/Garamond/AGaramondPro-Italic.woff') format('woff'), 
+       url('iris-fonts/Garamond/AGaramondPro-Italic.ttf')  format('truetype'), 
+       url('iris-fonts/Garamond/AGaramondPro-Italic.svg#AGaramondPro-Italic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GaramondRegular';
+  src: url('iris-fonts/Garamond/AGaramondPro-Regular.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Garamond/AGaramondPro-Regular.otf')  format('opentype'),
+	     url('iris-fonts/Garamond/AGaramondPro-Regular.woff') format('woff'), 
+       url('iris-fonts/Garamond/AGaramondPro-Regular.ttf')  format('truetype'), 
+       url('iris-fonts/Garamond/AGaramondPro-Regular.svg#AGaramondPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GillSansLight';
+  src: url('iris-fonts/GillSans/GillSansMTStd-Light.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/GillSans/GillSansMTStd-Light.otf')  format('opentype'),
+	     url('iris-fonts/GillSans/GillSansMTStd-Light.woff') format('woff'), 
+       url('iris-fonts/GillSans/GillSansMTStd-Light.ttf')  format('truetype'), 
+       url('iris-fonts/GillSans/GillSansMTStd-Light.svg#GillSansMTStd-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GillSansLightItalic';
+  src: url('iris-fonts/GillSans/GillSansMTStd-LightItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/GillSans/GillSansMTStd-LightItalic.otf')  format('opentype'),
+	     url('iris-fonts/GillSans/GillSansMTStd-LightItalic.woff') format('woff'), 
+       url('iris-fonts/GillSans/GillSansMTStd-LightItalic.ttf')  format('truetype'), 
+       url('iris-fonts/GillSans/GillSansMTStd-LightItalic.svg#GillSansMTStd-LightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaRegular';
+  src: url('iris-fonts/Helvetica/Helvetica.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Helvetica/Helvetica.woff') format('woff'), 
+       url('iris-fonts/Helvetica/Helvetica.ttf')  format('truetype'), 
+       url('iris-fonts/Helvetica/Helvetica.svg#Helvetica') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaBold';
+  src: url('iris-fonts/Helvetica/Helvetica-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Helvetica/Helvetica-Bold.woff') format('woff'), 
+       url('iris-fonts/Helvetica/Helvetica-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/Helvetica/Helvetica-Bold.svg#Helvetica-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaBoldOblique';
+  src: url('iris-fonts/Helvetica/Helvetica-BoldOblique.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Helvetica/Helvetica-BoldOblique.woff') format('woff'), 
+       url('iris-fonts/Helvetica/Helvetica-BoldOblique.ttf')  format('truetype'), 
+       url('iris-fonts/Helvetica/Helvetica-BoldOblique.svg#Helvetica-BoldOblique') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaOblique';
+  src: url('iris-fonts/Helvetica/Helvetica-Oblique.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Helvetica/Helvetica-Oblique.woff') format('woff'), 
+       url('iris-fonts/Helvetica/Helvetica-Oblique.ttf')  format('truetype'), 
+       url('iris-fonts/Helvetica/Helvetica-Oblique.svg#Helvetica-Oblique') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueRegular';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue.svg#HelveticaNeue') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueBold';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Bold.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Bold.svg#HelveticaNeue-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueBoldItalic';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-BoldItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-BoldItalic.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-BoldItalic.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-BoldItalic.svg#HelveticaNeue-BoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueCondensedBlack';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBlack.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBlack.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBlack.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBlack.svg#HelveticaNeue-CondensedBlack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueCondensedBold';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBold.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBold.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-CondensedBold.svg#HelveticaNeue-CondensedBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueItalic';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-Italic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Italic.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Italic.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Italic.svg#HelveticaNeue-Italic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueLight';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-Light.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Light.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Light.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Light.svg#HelveticaNeue-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueLightItalic';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-LightItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-LightItalic.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-LightItalic.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-LightItalic.svg#HelveticaNeue-LightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueMedium';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-Medium.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Medium.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Medium.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-Medium.svg#HelveticaNeue-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueUltraLight';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLight.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLight.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLight.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLight.svg#HelveticaNeue-UltraLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueUltraLightItalic';
+  src: url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLightItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLightItalic.woff') format('woff'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLightItalic.ttf')  format('truetype'), 
+       url('iris-fonts/HelveticaNeue/HelveticaNeue-UltraLightItalic.svg#HelveticaNeue-UltraLightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KabelLight';
+  src: url('iris-fonts/Kabel/KabelLTStd-Light.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/Kabel/KabelLTStd-Light.otf')  format('opentype'),
+	     url('iris-fonts/Kabel/KabelLTStd-Light.woff') format('woff'), 
+       url('iris-fonts/Kabel/KabelLTStd-Light.ttf')  format('truetype'), 
+       url('iris-fonts/Kabel/KabelLTStd-Light.svg#KabelLTStd-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LydianBoldItalic';
+  src: url('iris-fonts/LydianBoldItalic/LydianBT-BoldItalic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/LydianBoldItalic/LydianBT-BoldItalic.woff') format('woff'), 
+       url('iris-fonts/LydianBoldItalic/LydianBT-BoldItalic.ttf')  format('truetype'), 
+       url('iris-fonts/LydianBoldItalic/LydianBT-BoldItalic.svg#LydianBT-BoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NewsGothicRegular';
+  src: url('iris-fonts/NewsGothic/NewsGothicMT.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/NewsGothic/NewsGothicMT.woff') format('woff'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT.ttf')  format('truetype'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT.svg#NewsGothicMT') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NewsGothicBold';
+  src: url('iris-fonts/NewsGothic/NewsGothicMT-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/NewsGothic/NewsGothicMT-Bold.woff') format('woff'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT-Bold.svg#NewsGothicMT-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NewsGothicItalic';
+  src: url('iris-fonts/NewsGothic/NewsGothicMT-Italic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/NewsGothic/NewsGothicMT-Italic.woff') format('woff'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT-Italic.ttf')  format('truetype'), 
+       url('iris-fonts/NewsGothic/NewsGothicMT-Italic.svg#NewsGothicMT-Italic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TTSlug';
+  src: url('iris-fonts/TTSlug/TTSlugOTF.eot?#iefix') format('embedded-opentype'), 
+       url('iris-fonts/TTSlug/TTSlugOTF.otf')  format('opentype'),
+	     url('iris-fonts/TTSlug/TTSlugOTF.woff') format('woff'), 
+       url('iris-fonts/TTSlug/TTSlugOTF.ttf')  format('truetype'), 
+       url('iris-fonts/TTSlug/TTSlugOTF.svg#TTSlugOTF') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TTSlugBold';
+  src: url('iris-fonts/TTSlug/TTSlugOTF-Bold.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/TTSlug/TTSlugOTF-Bold.otf')  format('opentype'),
+	     url('iris-fonts/TTSlug/TTSlugOTF-Bold.woff') format('woff'), 
+       url('iris-fonts/TTSlug/TTSlugOTF-Bold.ttf')  format('truetype'), 
+       url('iris-fonts/TTSlug/TTSlugOTF-Bold.svg#TTSlugOTF-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TWCRegular';
+  src: url('iris-fonts/TWC/TwCenMT-Regular.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/TWC/TwCenMT-Regular.woff') format('woff'), 
+       url('iris-fonts/TWC/TwCenMT-Regular.ttf')  format('truetype'), 
+       url('iris-fonts/TWC/TwCenMT-Regular.svg#TwCenMT-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TWCItalic';
+  src: url('iris-fonts/TWC/TwCenMT-Italic.eot?#iefix') format('embedded-opentype'),  
+       url('iris-fonts/TWC/TwCenMT-Italic.woff') format('woff'), 
+       url('iris-fonts/TWC/TwCenMT-Italic.ttf')  format('truetype'), 
+       url('iris-fonts/TWC/TwCenMT-Italic.svg#TwCenMT-Italic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

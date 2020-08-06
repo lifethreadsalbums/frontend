@@ -1,0 +1,31 @@
+<div class="builder__content-container builder__content-container--footer-on" tabindex="0" layout-key-handler layout-controller="layoutController">
+
+	<div class="builder__content-primary">
+		<div class="builder__content-primary-inner">
+			 <cover-preview ng-if="coverLayout"
+                cover-layout="coverLayout"
+                product="product"
+                product-prototype="productPrototype"
+                layout-controller="layoutController"
+                layout-container="builder__content-primary-inner"
+                allow-box-mode="true"
+                mode="mode">
+            </cover-preview>
+		</div>
+	</div>
+
+	<footer class="builder__footer color-picker-container ng-animate-enabled" >
+		<flex-slider class="slider builder__footer-slider position-slider" slide="item in model.cameos track by item.id"
+			tabindex="0" ng-keydown="onKeyPress($event)" style="outline:none"
+		    keyboard="false" control-nav="false"
+			slideshow="false" animation="slide" animation-loop="false" item-width="120">
+			<li class="builder__footer-slide builder__footer-slide--cameo"
+				ng-class="{active: item.code == model.selectedCameo.code}">
+				<a class="builder__footer-slide-link" ng-click="selectCameo(item)">
+					<div class="cameo-thumb" ng-bind-html="item.previewHtml"></div>
+					<span class="cameo-name">{{item.displayName}}</span>
+				</a>
+			</li>
+		</flex-slider>
+	</footer>
+</div>

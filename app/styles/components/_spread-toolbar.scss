@@ -1,0 +1,528 @@
+//-----------------------------------------------------------
+//                     SPREAD TOOLBARS
+//-----------------------------------------------------------
+.qa-edit-toolbar {
+    display: block;
+    position: relative;
+    max-width: 510px;
+    height: 40px;
+    max-height: 40px;
+    margin: 12px auto;
+    padding: 0 15px;
+    opacity: 1;
+    z-index: 3;
+    overflow: hidden;
+
+    background: linear-gradient(rgba(map-get($colors, dark-200), 0.15), rgba(225, 225, 225, 0.15));
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(map-get($colors, dark-900), 0.10);
+
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+
+    &.qa-edit-toolbar--prints {
+        position: absolute;
+        left: calc(50% - 170px);
+        width: 340px;
+        margin: 12px auto;
+        opacity: 1;
+        transition: 500ms opacity ease;
+
+        &.qa-edit-toolbar-up {
+            top: 0;
+        }
+
+        &.qa-edit-toolbar-down {
+            bottom: 54px;
+        }
+
+        .tooltip__box--button {
+            max-height: 38px;
+        }
+    }
+
+    &.qa-edit-toolbar--prints-footer {
+        display: inline-block;
+        position: relative;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 600px;
+        max-width: 600px;
+        height: 32px;
+        max-height: 32px;
+        margin: 0 auto;
+        padding: 0;
+
+        background: none;
+
+        .toolset {
+            height: 32px;
+        }
+
+        .toolset-switch {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 4px;
+
+            .dropdown-button.type-icon {
+                width: 32px;
+                min-width: 32px;
+                height: 32px;
+                max-height: 32px;
+            }
+        }
+
+        .tooltip__box--button {
+            min-width: 32px;
+            min-height: 32px;
+        }
+
+        .tool {
+            height: 32px;
+        }
+    }
+
+    &.qa-edit-toolbar--proofer {
+        position: absolute;
+        top: 5px;
+        left: calc(100% / 2 - 150px);
+        width: 300px;
+    }
+
+    .toolset {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        height: 40px;
+
+        &.switch-on {
+            right: 57px;
+        }
+
+        &.ng-hide-add,
+        &.ng-hide-remove,
+        &.toolset-slide-enter,
+        &.toolset-slide-leave {
+            display: flex !important;
+            transition: all linear .3s;
+        }
+
+        &.ng-hide-add.ng-hide-add-active,
+        &.toolset-slide-leave.toolset-slide-leave-active {
+            top: 40px;
+        }
+
+        &.ng-hide-remove,
+        &.toolset-slide-enter {
+            top: -40px;
+        }
+
+        &.ng-hide-add,
+        &.ng-hide-remove.ng-hide-remove-active,
+        &.toolset-slide-leave,
+        &.toolset-slide-enter.toolset-slide-enter-active {
+            top: 0;
+        }
+    }
+
+    &.fixed-width {
+        width: 510px;
+        margin: 12px auto;
+    }
+
+    .toolset__text {
+        font-size: 12px;
+        color: map-get($colors, light-50);
+    }
+
+    .toolset-switch {
+        position: absolute;
+        width: 42px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        background: linear-gradient(map-get($colors, primary-700), map-get($colors, primary-600));
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        .dropdown-button {
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                background: transparent !important;
+                border-color: transparent !important;
+            }
+
+            &:after {
+                @include button-sprite("icon-button-arrow-bottom-right-small-larger-active");
+            }
+        }
+    }
+
+    .toolset-switch--secondary {
+        background: linear-gradient(map-get($colors, light-900), map-get($colors, light-900));
+    }
+
+    &.qa-edit-toolbar-up {
+        top: 0px;
+
+        &.hidden {
+            top: 55px;
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        &.hidden-add,
+        &.hidden-remove {
+            z-index: 0;
+        }
+    }
+
+    &.qa-edit-toolbar-down {
+        bottom: 0px;
+
+        &.hidden {
+            bottom: 55px;
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        &.hidden-add,
+        &.hidden-remove {
+            z-index: 0;
+        }
+    }
+
+    .tool {
+        display: inline-block;
+        cursor: pointer;
+
+        &[disabled] {
+            cursor: default;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        $tools: "frame-11", "frame-small", "frame-med", "frame-large", "frame-2bleed", "frame-4bleed",
+        "frame-spread", "crop", "lock", "unlock", "spread-layout", "spacing",
+        "rotate-left-page", "rotate-middle-page", "rotate-right-page", "trash", "move",
+        "plus",
+        //"flip-contenth", "flip-contentv",
+        "stroke", "fit-frame", "fill-frame",
+        "send-to-front", "send-forward", "send-to-back", "send-backward", "bold", "italic",
+        "baseline", "kerning", "tracking", "spread-left", "spread-right", "grid", "guides", "ruler",
+        "frame-info", "grid-info", "flip-frameh", "flip-framev", "center", "undo", "redo",
+        "white-borders", "black-borders";
+        //"filter-black-and-white", "filter-sepia-black-and-white";
+        
+
+        @each $tool in $tools {
+            &.tool-#{$tool} {
+                @include designer-tool("qa-" + $tool);
+            }
+        }
+
+        &.tool-rotate-left-page,
+        &.tool-rotate-right-page {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        &.tool-lock {
+            margin-left: 7px;
+        }
+
+        &.tool-spread-right {
+            &:after {
+                @include designer-qa-sprite("qa-spread-right-active-flat");
+                opacity: 0.8;
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.tool-check,
+        &.tool-double-check,
+        &.tool-comment {
+            display: inline-block;
+            position: relative;
+            width: 36px;
+            height: 36px;
+
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            &.active:after {
+                box-shadow: none;
+            }
+
+            &.active-pressed {
+                background-color: map-get($colors, dark-600);
+                border-radius: 4px;
+            }
+        }
+
+        &.tool-check {
+            &:after {
+                width: 22px;
+                height: 22px;
+
+                background: url('/images/proofer/check-circle-gray.svg') center center no-repeat;
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                &:after {
+                    background-image: url('/images/proofer/check-circle-white.svg');
+                }
+            }
+        }
+
+        &.tool-double-check {
+            &:after {
+                @include proofer-sprite("double-check-gray");
+                width: 22px;
+                height: 22px;
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include proofer-sprite("double-check-white");
+                }
+            }
+        }
+
+        &.tool-comment {
+            &:after {
+                width: 22px;
+                height: 22px;
+
+                background: url('/images/proofer/comment-gray.svg') center center no-repeat;
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+                &:after {
+                    background-image: url('/images/proofer/comment.svg');
+                }
+            }
+        }
+    }
+
+    // tweak dropdowns and sliders
+    .dropdown-button,
+    .toolset .dropdown-button {
+        .button,
+        &.type-icon {
+            margin-bottom: 0;
+            padding-left: 0;
+            padding-right: 0;
+            border: none;
+            border-radius: 0;
+            background: none;
+
+            &:active {
+                border: none;
+                background: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            &.dropdown-active {
+                background-color: map-get($colors, dark-600);
+                border-radius: 4px;
+            }
+
+            &:before {
+                content: none;
+            }
+
+            &.tool-spacing {
+                @include designer-tool("qa-spacing");
+                width: 21px !important;
+                height: 18px !important;
+                margin-top: 9px;
+                margin-left: 8px;
+            }
+
+            &[disabled] {
+                opacity: .3 !important;
+                background: none !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        &.type-icon {
+            border: 2px solid transparent;
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
+            max-height: 36px;
+        }
+
+        &.type-slider:hover,
+        &.type-slider:active,
+        &.type-slider.active {
+            cursor: pointer;
+
+            .tool-spacing {
+                @include designer-qa-sprite("qa-spacing-active-flat");
+            }
+        }
+
+        &.tool-spacing-slider {
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
+            max-height: 36px;
+            padding: 5px;
+            border: 2px solid transparent;
+
+            &[disabled] {
+                opacity: 0.3;
+            }
+
+            .button-on-off {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            .dropdown-button-controls {
+                top: 22px;
+                left: -10px;
+            }
+
+            .controls-triangle {
+                left: 5px;
+                bottom: 7px;
+
+                &:after {
+                    background: none;
+                }
+            }
+
+            &:after {
+                bottom: 0;
+                right: 0;
+            }
+
+            &:hover,
+            &.active {
+                .button-on-off:after {
+                    @include designer-qa-sprite("qa-spacing-active-flat");
+                }
+            }
+        }
+
+        &.tool-opacity {
+            &:after {
+                display: none;
+            }
+
+            > .button {
+                padding: 9px;
+                border: 1px solid map-get($colors, dark-700);
+                width: 76px;
+
+                background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+                border-radius: 3px;
+
+                &:before {
+                    content: "";
+                    display: block;
+                    left: 1px;
+                    right: 1px;
+                }
+            }
+
+            .dropdown-button-controls {
+                top: -29px;
+                left: -10px;
+            }
+
+            .controls-triangle {
+                top: -10px;
+            }
+        }
+    }
+}
+
+.spread-section.readonly .qa-edit-toolbar {
+    display: none;
+}
+
+.qa-edit-toolbar__proofer-edits {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    max-height: 36px;
+    padding: 2px;
+
+    border: 2px solid transparent;
+    color: map-get($colors, light-700);
+
+    cursor: pointer;
+
+    &:hover {
+        color: map-get($colors, light-50);
+    }
+}
+
+.qa-edit-toolbar__proofer-edits--active {
+    background-color: map-get($colors, dark-600);
+    border-radius: 4px;
+    color: map-get($colors, light-50);
+}
+
+.qa-edit-toolbar__proofer-edits-value {
+    display: block;
+    width: 28px;
+    height: 28px;
+
+    border: 1px solid transparent;
+    border-radius: 50%;
+
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+}
+
+.qa-edit-toolbar__proofer-edits-value--completed {
+    border-color: map-get($colors, success-100);
+}
+
+.qa-edit-toolbar__proofer-edits-value--pending {
+    border-color: map-get($colors, warning-500);
+}

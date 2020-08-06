@@ -1,0 +1,223 @@
+<ng-form novalidate>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="form-element">
+                <label>
+                    {{'company'|i18n}}
+                    <span ng-if="!companyRequired">(Only if Applicable)</span>
+                </label>
+                <input type="text" placeholder="{{(dropShipping) ? 'companyPlaceholderReceiver' : 'companyPlaceholder'|i18n}}"
+                    name="company"
+                    ng-disabled="companyDisabled"
+                    data-ng-model="address.companyName"
+                    ng-required="companyRequired" ng-focus>
+
+                <span ng-show="form.company.$blurred && form.company.$invalid" class="label alert">{{(dropShipping) ? 'companyNameRequiredReceiver' : 'companyNameRequired'|i18n}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'firstName'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'firstNamePlaceholderReceiver' : 'firstNamePlaceholder'|i18n}}" name="firstName"
+                    data-ng-model="address.firstName"
+                    ng-disabled="companyDisabled"
+                    required ng-focus ng-minlength="2" >
+
+                <span ng-show="form.firstName.$blurred && form.firstName.$invalid && !form.firstName.$error.minlength" class="label alert">{{(dropShipping) ? 'firstNameRequiredReceiver' : 'firstNameRequired'|i18n}}</span>
+                <span ng-show="form.firstName.$blurred && form.firstName.$invalid && form.firstName.$error.minlength" class="label alert">{{(dropShipping) ? 'firstNameTooShortReceiver' : 'firstNameTooShort'|i18n}}</span>
+            </div>
+        </div>
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'lastName'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'lastNamePlaceholderReceiver' : 'lastNamePlaceholder'|i18n}}"  name="lastName"
+                    data-ng-model="address.lastName"
+                    ng-disabled="companyDisabled"
+                    required ng-focus ng-minlength="2">
+                <span ng-show="form.lastName.$blurred && form.lastName.$invalid && !form.lastName.$error.minlength" class="label alert">{{(dropShipping) ? 'lastNameRequiredReceiver' : 'lastNameRequired'|i18n}}</span>
+                <span ng-show="form.lastName.$blurred && form.lastName.$invalid && form.lastName.$error.minlength" class="label alert">{{(dropShipping) ? 'lastNameTooShortReceiver' : 'lastNameTooShort'|i18n}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'adrL1'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'adrL1Receiver' : 'adrL1'|i18n}}" name="addressLine1"
+                    data-ng-model="address.addressLine1"
+                    required ng-focus >
+                <span ng-show="form.addressLine1.$blurred && form.addressLine1.$invalid" class="label alert">{{(dropShipping) ? 'addressRequiredReceiver' : 'addressRequired'|i18n}}</span>
+            </div>
+        </div>
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'adrL2'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'adrL2Receiver' : 'adrL2'|i18n}}" name="addressLine2"
+                    data-ng-model="address.addressLine2">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'city'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'cityPlaceholderReceiver' : 'cityPlaceholder'|i18n}}" name="city"
+                    data-ng-model="address.city"
+                    required ng-focus>
+                <span ng-show="form.city.$blurred && form.city.$invalid" class="label alert">{{(dropShipping) ? 'cityRequiredReceiver' : 'cityRequired'|i18n}}</span>
+            </div>
+        </div>
+         <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'country'|i18n}}</label>
+                <dropdown-button ng-model="address.country"
+                    name="country"
+                    required
+                    on-change="loadProvinces(address.country)"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    track-by="id"
+                    options="countries"
+                    style="width:100%">
+                </dropdown-button>
+                <span ng-show="form.country.$blurred && form.country.$invalid" class="label alert">{{(dropShipping) ? 'countryRequiredReceiver' : 'countryRequired'|i18n}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'province'|i18n}}</label>
+                <dropdown-button ng-model="address.state"
+                    name="province"
+                    required
+                    label="{{'provincePlaceholder'|i18n}}"
+                    label-field="name"
+                    track-by="id"
+                    options="provinces"
+                    style="width:100%">
+                </dropdown-button>
+                <span ng-show="form.province.$blurred && form.province.$invalid" class="label alert">{{(dropShipping) ? 'provinceRequiredReceiver' : 'provinceRequired'|i18n}}</span>
+            </div>
+        </div>
+       <div class="large-6 columns">
+            <div class="form-element">
+                <label>{{'postalCode'|i18n}}</label>
+                <input type="text" placeholder="{{(dropShipping) ? 'postalCodePlaceholderReceiver' : 'postalCodePlaceholder'|i18n}}"
+                    name="zip"
+                    ng-model="address.zipCode"
+                    required
+                    ng-focus>
+                <span ng-show="form.zip.$blurred && form.zip.$invalid" class="label alert">{{(dropShipping) ? 'postalCodeRequiredReceiver' : 'postalCodeRequired'|i18n}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="form-element" ng-if="!dropShipping">
+                <label>{{'mail'|i18n}}</label>
+                <input type="email" placeholder="{{(dropShipping) ? 'Receiver\'s Email' : 'Your Email'}}"
+                    name="email" required ng-focus
+                    ng-disabled="!dropShipping"
+                    ng-model="address.email"
+                    autocomplete="off">
+                <span ng-show="form.email.$blurred && form.email.$error.required"
+                    class="alert label">Please enter an email address</span>
+                <span ng-show="form.email.$blurred && form.email.$error.email"
+                    class="alert label">{{'emailNotValid'|i18n}}</span>
+            </div>
+            <div class="form-element" ng-if="dropShipping">
+                <label>{{'mail'|i18n}}</label>
+                <input type="email" placeholder="{{(dropShipping) ? 'Receiver\'s Email' : 'Your Email'}}"
+                    name="email" required ng-focus
+                    ng-disabled="!dropShipping"
+                    match-fields="currentUser.email"
+                    match-fields-not="true"
+                    ng-model="address.email"
+                    autocomplete="off">
+                <span ng-show="form.email.$blurred && form.email.$error.required"
+                    class="alert label">Please enter the receiver's email address</span>
+                <span ng-show="form.email.$blurred && form.email.$error.email"
+                    class="alert label">{{'emailNotValidReceiver'|i18n}}</span>
+                <span ng-show="form.email.$blurred && form.email.$error.doesMatch && !form.email.$error.email && !form.email.$error.required" class="alert label">You cannot use your email address here. Please supply us with the receiver's email address for tracking and delivery purposes</span>
+            </div>
+        </div>
+        <div class="large-6 columns">
+            <div class="form-element" ng-if="dropShipping">
+                <label for="inputEmailConfirm" >{{'confirmMail'|i18n}}</label>
+                <input type="email" placeholder="{{(dropShipping) ? 'mailConfirmPlaceholderReceiver' : 'mailConfirmPlaceholder'|i18n}}"
+                    name="emailConfirm"
+                    ng-disabled="!dropShipping"
+                    required ng-focus
+                    data-ng-model="address.emailConfirm"
+                    match-fields="address.email"
+                    autocomplete="off">
+                <span ng-show="form.emailConfirm.$blurred && form.emailConfirm.$invalid &&
+                    (form.emailConfirm.$error.email || form.emailConfirm.$error.required)"
+                    class="alert label">{{'emailConfirmationRequiredReceiver'|i18n}}</span>
+                <span ng-show="form.emailConfirm.$blurred && form.emailConfirm.$invalid &&
+                    form.emailConfirm.$error.doesntMatch && !form.emailConfirm.$error.email && !form.emailConfirm.$error.required"
+                    class="alert label">{{'emailNotMatchReceiver'|i18n}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="form-element" ng-if="!dropShipping">
+                <label for="phoneNr">{{'phoneNbr'|i18n}}</label>
+                <dropdown-button
+                    name="phoneCountry"
+                    options="countries"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    track-by="id"
+                    ng-model="address.phoneCountry"
+                    class="checkout-phone-country"
+                    required>
+                </dropdown-button>
+                <input type="text" placeholder="{{(dropShipping) ? 'Receiver\'s Phone number' : 'Your Phone number'}}" name="phoneNr" id="phoneNr" class="checkout-phone-number"
+                    ng-model="address.phone"
+                    required ng-focus ng-minlength="3"
+                    model-view-value="true"
+                    ui-mask="{{address.phoneCountry.phoneMask}}"
+                    ui-mask-placeholder ui-mask-placeholder-char="_">
+                <span ng-show="form.phoneCountry.$blurred && form.phoneCountry.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+                <span ng-show="form.phoneNr.$blurred && form.phoneNr.$error.required" class="alert label">Please enter a phone number</span>
+            </div>
+            <div class="form-element" ng-if="dropShipping">
+                <label for="phoneNr">{{'phoneNbr'|i18n}}</label>
+                <dropdown-button
+                    name="phoneCountry"
+                    options="countries"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    track-by="id"
+                    ng-model="address.phoneCountry"
+                    class="checkout-phone-country"
+                    required>
+                </dropdown-button>
+                <input type="text" placeholder="{{(dropShipping) ? 'Receiver\'s Phone number' : 'Your Phone number'}}" name="phoneNr" id="phoneNr" class="checkout-phone-number"
+                    ng-model="address.phone"
+                    match-fields="currentUser.phone"
+                    match-fields-not="true"
+                    required ng-focus ng-minlength="3"
+                    model-view-value="true"
+                    ui-mask="{{address.phoneCountry.phoneMask}}"
+                    ui-mask-placeholder ui-mask-placeholder-char="_">
+                <span ng-show="form.phoneCountry.$blurred && form.phoneCountry.$invalid" class="alert label">{{'countryRequiredReceiver'|i18n}}</span>
+                <span ng-show="form.phoneNr.$blurred && form.phoneNr.$error.required" class="alert label">Please enter the receiver's phone number</span>
+                <span ng-show="form.phoneNr.$blurred && form.phoneNr.$error.doesMatch && !form.phoneNr.$error.required" class="alert label">Please enter the receiver's telephone number. This is important in case the shipping carrier needs to contact them for delivery clarification.</span>
+            </div>
+        </div>
+    </div>
+
+</ng-form>

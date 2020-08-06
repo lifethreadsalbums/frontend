@@ -1,0 +1,409 @@
+//------------------------------------------------------------------
+//                       FRP - FAR RIGHT PANEL
+//------------------------------------------------------------------
+.frp {
+    &.full-width .frp-content {
+        width: 100%;
+    }
+
+    &.full-height .frp-content {
+        height: 100%;
+    }
+
+    //------------------------------------------------------------------
+    // Works with frpNav
+    //------------------------------------------------------------------
+    &.direction-right .frp-content {
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        top: 52px;
+        max-width: 550px;
+        overflow: auto;
+
+        &.ng-enter {
+            right: -100%;
+        }
+
+        &.ng-enter.ng-enter-active {
+            right: 0;
+        }
+
+        &.ng-leave {
+            right: 0;
+        }
+
+        &.ng-leave-active {
+            right: -100%;
+        }
+    }
+
+    &.direction-right.frp-website-preview .frp-content {
+        width: 100%;
+        max-width: none;
+        padding-bottom: 20px;
+
+        aside {
+            width: 100% !important;
+            height: 100%;
+            color: map-get($colors, light-50);
+        }
+
+        .frp-website-preview__iframe {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &.direction-right.frp-under-subnav .frp-content {
+        top: 92px;
+    }
+
+    @media only screen and (min-width : $breakPointM) {
+        &.direction-right .frp-content {
+            top: 61px;
+        }
+
+        &.direction-right.frp-under-subnav .frp-content {
+            top: 101px;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        &.direction-right .frp-content {
+            top: 71px;
+        }
+
+        &.direction-right.frp-under-subnav .frp-content {
+            top: 111px;
+        }
+    }
+
+    &.direction-bottom .frp-content {
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        &.ng-enter {
+            bottom: -100%;
+        }
+
+        &.ng-enter.ng-enter-active {
+            bottom: 0;
+        }
+
+        &.ng-leave {
+            bottom: 0;
+        }
+
+        &.ng-leave-active {
+            bottom: -100%;
+        }
+    }
+
+    //------------------------------------------------------------------
+    // Works with UI Router
+    //------------------------------------------------------------------
+    // Slide right
+    &.slide-right {
+        transition: transform .5s ease-in-out .1s;
+        transform: translateX(0);
+    }
+
+    &.slide-right.ng-enter {
+        transform: translateX(100%);
+    }
+
+    &.slide-right.ng-enter.ng-enter-active,
+    &.slide-right.ng-leave {
+        position: absolute;
+        transform: translateX(0);
+    }
+
+    &.slide-right.ng-leave.ng-leave-active {
+        transform: translateX(100%);
+    }
+
+    &.slide-right.slide-hide {
+        transform: translateX(100%);
+    }
+
+    &.slide-right.ng-hide-add.ng-hide-add-active,
+    &.slide-right.ng-hide-remove {
+        transform: translateX(100%);
+    }
+
+    &.slide-right.ng-hide-add,
+    &.slide-right.ng-hide-remove.ng-hide-remove-active {
+        transform: translateY(0);
+    }
+
+    // Slide left
+    &.slide-left {
+        transition: transform .5s ease-in-out .1s;
+        transform: translateX(0);
+    }
+
+    &.slide-left.ng-enter {
+        transform: translateX(-100%);
+    }
+
+    &.slide-left.ng-enter.ng-enter-active,
+    &.slide-left.ng-leave {
+        position: absolute;
+        transform: translateX(0);
+    }
+
+    &.slide-left.ng-leave.ng-leave-active {
+        transform: translateX(-100%);
+    }
+
+    &.slide-left.slide-hide {
+        transform: translateX(-100%);
+    }
+
+    &.slide-left.ng-hide-add.ng-hide-add-active,
+    &.slide-left.ng-hide-remove {
+        transform: translateX(-100%);
+    }
+
+    &.slide-left.ng-hide-add,
+    &.slide-left.ng-hide-remove.ng-hide-remove-active {
+        transform: translateY(0);
+    }
+
+    // Slide bottom
+    &.slide-bottom {
+        transition: transform 1s ease-in-out .01s;
+        transform: translateY(0);
+    }
+
+    &.slide-bottom.slide-hide {
+        transform: translateY(100%);
+    }
+
+    &.slide-bottom.ng-hide-add.ng-hide-add-active,
+    &.slide-bottom.ng-hide-remove {
+        transform: translateY(100%);
+    }
+
+    &.slide-bottom.ng-hide-add,
+    &.slide-bottom.ng-hide-remove.ng-hide-remove-active {
+        transform: translateY(0);
+    }
+
+    //------------------------------------------------------------------
+    // Full screen
+    //------------------------------------------------------------------
+    &.frp-fixed {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 1002 !important;
+
+        &.slide-right.ng-enter.ng-enter-active,
+        &.slide-right.ng-leave,
+        &.slide-left.ng-enter.ng-enter-active,
+        &.slide-left.ng-leave {
+            position: fixed !important;
+        }
+
+        .frp-overlay {
+            position: fixed !important;
+        }
+    }
+
+    //------------------------------------------------------------------
+    // Full screen with nav bar visible
+    //------------------------------------------------------------------
+    &.frp-fixed-with-nav,
+    &.frp-fixed-with-subnav {
+        position: fixed !important;
+        top: 52px !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+
+        &.slide-right.ng-enter.ng-enter-active,
+        &.slide-right.ng-leave,
+        &.slide-left.ng-enter.ng-enter-active,
+        &.slide-left.ng-leave {
+            position: fixed !important;
+        }
+
+        .frp-overlay {
+            position: fixed !important;
+        }
+    }
+
+    &.frp-fixed-with-subnav {
+        top: 92px !important;
+    }
+
+    @media only screen and (min-width: $breakPointM) {
+        &.frp-fixed-with-nav {
+            top: 62px !important;
+        }
+
+        &.frp-fixed-with-subnav {
+            top: 102px !important;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        &.frp-fixed-with-nav {
+            top: 72px !important;
+        }
+
+        &.frp-fixed-with-subnav {
+            top: 112px !important;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       FRP CONTENT
+//------------------------------------------------------------------
+.frp-content {
+    @include transition(all 0.7s ease-in-out);
+    display: block;
+    position: absolute;
+    padding: 20px 20px 0 20px;
+    background: map-get($colors, dark-600);
+    font-size: 15px;
+    color: map-get($colors, light-700);
+    overflow: visible;
+    z-index: 1000;
+
+    .frp-close {
+        @include common-sprite("modal-icon-close-button");
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: common-sprite-width("modal-icon-close-button");
+        height: common-sprite-height("modal-icon-close-button");
+        cursor: pointer;
+    }
+
+    h1 {
+        margin: 5px 0 20px;
+        font-size: 17px;
+        color: map-get($colors, light-50);
+    }
+
+    h2 {
+        margin: 5px 0 10px;
+        font-size: 15px;
+        color: map-get($colors, light-50);
+    }
+
+    table tr {
+        h2 {
+            margin: 0;
+        }
+
+        th {
+            color: map-get($colors, dark-300);
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+
+        td {
+            color: map-get($colors, light-700);
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            hr {
+                margin: 0;
+            }
+        }
+    }
+
+    aside {
+        max-height: 100%;
+
+        &.frp-info {
+            width: 220px;
+        }
+
+        hr {
+            border-color: map-get($colors, light-900);
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       FRP OVERLAY
+//------------------------------------------------------------------
+.frp-overlay {
+    @include transition-property(opacity);
+    @include transition-duration(0.5s);
+    @include transition-timing-function(cubic-bezier(0.250, 0.460, 0.450, 0.940));
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(map-get($colors, dark-900), .5);
+    opacity: 0;
+    z-index: 1000;
+}
+
+
+//------------------------------------------------------------------
+//                       FRP - LAYOUT GENERAL
+//------------------------------------------------------------------
+.frp-popup--layout {
+    &.slide-bottom,
+    &.slide-right {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 5;
+    }
+
+    .frp-content {
+        width: 100%;
+        height: 100%;
+        padding: 0 0 0 0;
+        border-top: none;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .frp-content--prefs {
+        top: 40px;
+        height: auto;
+        bottom: 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       FRP - LAYOUT PROOFER SETTINGS
+//------------------------------------------------------------------
+.frp-popup--layout-proofer-settings {
+    z-index: 5;
+
+    &.frp.frp-fixed-with-subnav {
+        bottom: 183px !important;
+    }
+
+    .frp-content {
+        width: calc(100% - 231px);
+        height: 100%;
+        padding: 0 0 0 0;
+        border-top: none;
+        overflow: hidden;
+        outline: none;
+    }
+}

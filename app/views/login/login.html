@@ -1,0 +1,47 @@
+<form class="custom" form-submit="signin()" name="form0" novalidate error-message="{{'emailAndPasswordRequired' | i18n}}">
+	<h2>{{'login'|i18n}}</h2>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputEmail" >{{'mail'|i18n}}</label>
+				<input type="text" placeholder="{{'mailPlaceholder'|i18n}}" id="inputEmail" data-ng-model="dataIn.username" name="inUsername"
+					required ng-focus ng-disabled="loggingIn"/>
+				<span ng-show="form0.inUsername.$blurred && form0.inUsername.$error.required" class="alert label">{{'emailRequired'|i18n}}</span>
+				<span ng-show="form0.inUsername.$blurred && !form0.inUsername.$error.required && form0.inUsername.$error.email" class="alert label">{{'emailNotValid'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-element">
+			<div class="large-12 columns">
+				<label for="inputPassword" >{{'password'|i18n}}</label>
+				<input type="password" placeholder="{{'passwordPlaceholder'|i18n}}"  id="inputPassword" data-ng-model="dataIn.password" name="inPassword"
+					required ng-focus ng-disabled="loggingIn" />
+				<span ng-show="form0.inPassword.$blurred && form0.inPassword.$error.required" class="alert label">{{'passwordRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<div class="form-element">
+				<input type="checkbox" value="1" id="remember-me" data-ng-model="dataIn.rememberMe" ng-disabled="loggingIn" ng-change="rememberMeChanged()">
+				<label for="remember-me">{{'rememberMe'|i18n}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<button ng-disabled="loggingIn" class="button">{{'login'|i18n}}</button>
+			<spinner ng-show="loggingIn" radius="6" length="6" lines="10" width="3"></spinner>
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+	<p class="form-text" ng-show="!storeConfig.loginPage.signUpLinkHidden">
+		{{'forgotPass'|i18n}} &nbsp;<a href="#/forgotpass">{{'clickHere'|i18n}}</a>
+	</p>
+</form>

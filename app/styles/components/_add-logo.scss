@@ -1,0 +1,105 @@
+//-----------------------------------------------------------
+//              ADD LOGO DIRECTIVE
+//-----------------------------------------------------------
+.add-logo-container {
+    @include museo300;
+    margin: auto;
+
+    .logo-list{
+        margin: 0;
+    }
+
+    .item-logo {
+        width: 200px;
+        height: 85px;
+        margin: auto;
+        margin-top: 10px;
+        list-style-type: none;
+
+        .add-logo-button,
+        .logo-container {
+            @include border-radius(2px);
+            width: 100%;
+            height: 85px;
+            text-align: center;
+            display: block;
+        }
+
+        .add-logo-button {
+            font-size: 14px;
+            border: 1px dashed map-get($colors, light-800);
+            color: map-get($colors, light-800);
+            padding: 14px;
+
+            > span.add-logo-icon {
+                @include icon("icon-add-new-dark");
+                margin: 0;
+            }
+
+            > p {
+                margin: 4px 0 0 0;
+            }
+
+            &:hover {
+                background: map-get($colors, primary-400);
+                border: 1px solid map-get($colors, primary-400);
+                color: map-get($colors, light-50);
+
+                > span.add-logo-icon {
+                    @include icon("icon-add-new-light");
+                }
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            height: 85px;
+            background-color: map-get($colors, light-900);
+            border: 3px solid map-get($colors, dark-700);
+
+            .logo-property,
+            .icon-green-tick,
+            .icon-settings {
+                position: absolute;
+            }
+
+            .logo {
+                display: inline-block;
+                max-width: 200px;
+                max-height: 85px;
+                vertical-align: middle;
+            }
+
+            .logo-helper {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+
+            .logo-property {
+                top: 5px;
+                right: 5px;
+                font-size: 12px;
+                color: map-get($colors, dark-200);
+            }
+
+            .icon-settings {
+                @include icon("icon-logo-settings");
+                bottom: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+
+            &.active {
+                border: 3px solid map-get($colors, primary-400);
+
+                .icon-green-tick {
+                    @include icon("icon-green-tick");
+                    left: 5px;
+                    bottom: 5px;
+                }
+            }
+        }
+    }
+}

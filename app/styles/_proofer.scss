@@ -1,0 +1,556 @@
+//------------------------------------------------------------------
+//                     PROOFER
+//------------------------------------------------------------------
+.proofer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER - SECTION
+//------------------------------------------------------------------
+.proofer-section {
+    position: absolute;
+    overflow: auto;
+
+    .proofer-component {
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        width: 230px;
+        height: auto;
+    }
+}
+
+.proofer-section--right {
+    top: 1px;
+    bottom: 0;
+    right: 0;
+    width: 231px;
+    overflow-x: hidden;
+
+    background: map-get($colors, dark-600);
+    border-left: 1px solid map-get($colors, dark-700);
+
+    transition: width ease .7s;
+
+    .badge {
+        left: 180px;
+        top: 10px;
+        z-index: 100;
+    }
+}
+
+.proofer-section--middle {
+    top: 1px;
+    bottom: 182px;
+    left: 0;
+    right: 231px;
+
+    background: map-get($colors, dark-300);
+
+    transition: bottom .7s ease, right .7s ease;
+}
+
+.proofer-section--middle-expanded {
+    bottom: 0;
+}
+
+.proofer-section--bottom {
+    bottom: 0;
+    left: 0;
+    right: 231px;
+    height: 182px;
+    z-index: 40;
+    overflow-y: hidden;
+
+    background: map-get($colors, dark-900);
+
+    transition: right .7s ease, height .7s ease;
+
+    .nav-tabs {
+        width: 230px;
+
+        a {
+            background: map-get($colors, dark-900);
+            border: 1px solid map-get($colors, dark-600);
+        }
+    }
+
+    .layout__sidebar-tabs {
+        min-height: 182px;
+
+        .tab-content {
+            overflow: visible;
+            background: map-get($colors, dark-900);
+        }
+    }
+
+    .proofer-images {
+        padding-top: 0 !important;
+        text-align: left;
+        overflow: visible;
+    }
+
+    .filmstrip-toolbar {
+        display: block;
+        background: transparent;
+    }
+
+    .bottom-container {
+        outline: none;
+        position: absolute;
+        top: 48px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .filmstrip-container {
+        .filmstrip {
+            height: 100%;
+            background: map-get($colors, dark-900);
+
+            .favorite-star {
+                display: none;
+            }
+        }
+
+        .filmstrip-item {
+            &.used {
+                .preview,
+                .stack-preview {
+                    border-color: map-get($colors, success-100);
+                    img {
+                        opacity: 1;
+                    }
+                }
+
+                &.active,
+                &:hover.active {
+                    .preview {
+                        border-color: $filmstrip-selection-color;
+                    }
+                }
+
+                &:hover {
+                    .preview {
+                        border-color: $filmstrip-hover-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.proofer-section--bottom-collapsed {
+    height: 0;
+}
+
+.proofer--approved {
+    .proofer-section--middle {
+        bottom: 0;
+        right: 0;
+    }
+
+    .proofer-section--bottom {
+        display: none;
+    }
+
+    .proofer-section--right {
+        display: none;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER SECTION - CONTENT
+//------------------------------------------------------------------
+.proofer-section__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 38px;
+    left: 0;
+    right: 0;
+    padding: 75px 50px 50px;
+    overflow: hidden;
+
+    background: url('../images/designer-dark-pattern-bg.png') repeat;
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER SECTION - FOOTER
+//------------------------------------------------------------------
+.proofer-section__footer {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    padding: 3px 9px 0;
+    z-index: 40;
+
+    background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+    border-bottom: 1px solid map-get($colors, dark-700);
+
+    font-size: 0;
+
+    transition: bottom .7s ease;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: map-get($colors, dark-300);
+    }
+
+    > input,
+    > button,
+    > .button,
+    > .dropdown-button,
+    > .split-input,
+    > div > input,
+    > div > button,
+    > div > .button,
+    > div > .dropdown-button,
+    > div > .split-input,
+    > div > .dropdown-button > .split-input {
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-bottom: 0;
+        vertical-align: top;
+    }
+}
+
+.proofer-section__footer--left,
+.proofer-section__footer--right {
+    width: 180px;
+}
+
+.proofer-section__footer--left {
+    text-align: left;
+}
+
+.proofer-section__footer--middle {
+    flex: 1;
+    text-align: center;
+}
+
+.proofer-section__footer--right {
+    text-align: right;
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER - TYPE MESSAGE
+//------------------------------------------------------------------
+.proofer__type-message {
+    display: block;
+
+    .proofer__type-message__input {
+        width: 70%;
+        height: 32px;
+        margin: 0;
+    }
+
+    .proofer__type-message__btn {
+        height: 32px;
+        width: 23%;
+        margin: 0 0 0 8px;
+        padding: 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER - COLLAPSE BUTTON
+//------------------------------------------------------------------
+.proofer__collapse-sidebar {
+    display: none;
+    margin-bottom: 0;
+
+    &:after {
+        right: -3px;
+        margin-right: 0 !important;
+
+        transform: rotate(90deg);
+        transition: transform .7s ease;
+    }
+
+    &:hover,
+    &.hover,
+    &:active,
+    &.active {
+        &:after {
+            animation: none !important;
+        }
+    }
+}
+
+.folded .proofer__collapse-sidebar:after {
+    right: 0;
+
+    transform: rotate(-90deg);
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER - MISC
+//------------------------------------------------------------------
+.proofer-pages {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+
+    .layout__page-thumbnails {
+        height: 134px;
+        line-height: 134px;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+    }
+
+    .active-area {
+        @include radius(4px);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: map-get($colors, light-800);
+    }
+
+    .spread {
+        display: inline-block;
+        margin-right: 25px;
+        margin-left: 25px;
+        padding-bottom: 16px;
+        vertical-align: middle;
+
+        .page-no {
+            top: auto !important;
+            bottom: -2px;
+            line-height: 13px;
+            text-align: center;
+        }
+
+        .page-right {
+            right: 0 !important;
+            left: 50% !important;
+        }
+
+        .page-left {
+            left: 0 !important;
+            right: 50% !important;
+        }
+
+        .page-spread {
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .dots {
+            position: absolute;
+            top: 2px;
+            right: -6px;
+            line-height: 0px;
+        }
+
+        .dot {
+            transform: translate3d(map-get($colors, dark-900));
+
+            display: inline-block;
+            margin-left: 5px;
+
+            width: 12px;
+            height: 12px;
+
+            border: 1px solid transparent;
+            border-radius: 50%;
+        }
+
+        .dot--yellow {
+            background-color: map-get($colors, warning-400);
+            border-color: map-get($colors, warning-500);
+        }
+
+        .dot--red {
+            background-color: map-get($colors, danger-300);
+            border-color: map-get($colors, danger-400);
+        }
+
+        .dot--orange {
+            background-color: map-get($colors, warning-500);
+            border-color: map-get($colors, warning-500);
+        }
+
+        .dot--green {
+            background-color: map-get($colors, success-400);
+            border-color: map-get($colors, success-500);
+        }
+
+        .dot--blue {
+            background-color: map-get($colors, primary-400);
+            border-color: map-get($colors, primary-500);
+        }
+    }
+}
+
+.frp-proofer {
+    .proofer-pages {
+        padding-top: 20px;
+
+        .layout__page-thumbnails {
+            height: auto;
+        }
+
+        .spread {
+            padding-top: 8px;
+            padding-bottom: 16px;
+            padding-left: 0;
+            padding-right: 0;
+
+            .page-no {
+                top: auto !important;
+            }
+        }
+    }
+
+    .layout-section__footer--pages {
+        bottom: auto;
+        top: 0;
+    }
+}
+
+.proofer__collapse-filmstrip:after {
+    margin-right: 0 !important;
+}
+
+
+//------------------------------------------------------------------
+//                     FLIPBOOK
+//------------------------------------------------------------------
+.flipboook__container {
+    position: relative;
+}
+
+.flipbook {
+    margin: 0 auto;
+
+    .page {
+        background: map-get($colors, light-50);
+        overflow: hidden;
+    }
+
+    .page-wrapper {
+        perspective: 2000px;
+    }
+
+    .flipbook__cover {
+        background: transparent;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     MEDIA QUERIES
+//------------------------------------------------------------------
+@media only screen and (max-width: 1365px) {
+    .proofer.folded {
+        .proofer-section--right {
+            overflow: hidden;
+            width: 0;
+        }
+    }
+
+    .proofer-section--right {
+        position: fixed;
+        top: 51px;
+        z-index: 41;
+    }
+
+    .proofer-section--middle,
+    .proofer-section--bottom {
+        right: 0;
+    }
+
+    .proofer-component__footer__approve-album {
+        width: 175px;
+    }
+
+    .proofer__collapse-sidebar {
+        display: block;
+        float: none;
+        position: fixed;
+        bottom: 4px;
+        right: 4px;
+        height: 45px;
+        max-height: 45px;
+        z-index: 42;
+
+        transition: bottom .7s ease;
+    }
+
+    .proofer__collapse-sidebar--higher {
+        bottom: 42px;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .proofer-section__footer--middle .pagination-toolbar {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .proofer-section__footer {
+        .designer-pagination .pagination-first,
+        .designer-pagination .pagination-prev,
+        .designer-pagination .pagination-pages,
+        .designer-pagination .pagination-next,
+        .designer-pagination .pagination-last {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+
+    .proofer-section__footer--left,
+    .proofer-section__footer--right {
+        width: auto;
+    }
+}
+
+
+@media only screen and (max-height: 600px) {
+    .proofer-section--middle {
+        bottom: 0;
+    }
+
+    .proofer-section--middle-expanded .proofer-section__footer {
+        bottom: 0;
+    }
+
+    .proofer-section__footer {
+        position: fixed;
+        bottom: 182px;
+    }
+}

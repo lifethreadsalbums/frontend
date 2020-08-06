@@ -1,0 +1,19 @@
+<ng-form novalidate class="file-upload" ng-class="{'drop-box-centered':dropboxCentered}">
+	<div class="form-element">
+		<label>{{label}}</label>
+		<div class="drop-box" ng-class="{active:dropBoxActive}">
+			<span class="drop-preview"></span>
+			<span class="drop-text">
+				Drop Files Here<br>
+				- or -<br>
+				<span class="drop-browse">
+					<input multiple type="file" accept="image/png">
+					<a class="drop-browse button">Browse</a>
+				</span>
+			</span>
+		</div>
+		<!--<span class="alert label">Error message</span>-->
+		<p class="drop-info">{{info}}</p>
+	</div>
+	
+</ng-form>

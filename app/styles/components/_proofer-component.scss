@@ -1,0 +1,141 @@
+//------------------------------------------------------------------
+//                     PROOFER COMPONENT
+//------------------------------------------------------------------
+.proofer-component {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+
+    text-align: left;
+    color: map-get($colors, light-50);
+}
+
+.proofer-component__header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 102px;
+    padding: 12px 5px;
+
+    .header-back {
+        margin: 0;
+
+        .back {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.proofer-component__content {
+    position: absolute;
+    bottom: 88px;
+    top: 102px;
+    left: 0;
+    right: 0;
+
+    .messages-content {
+        padding: 0 10px 20px 10px;
+    }
+}
+
+.proofer-component__header-label {
+    font-size: 13px;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 31px;
+    color: map-get($colors, light-800);
+}
+
+.proofer-component__filter {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.proofer-component__list-wrapper {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+
+    transition: left linear 0.5s;
+}
+
+.proofer-component__edits {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    vertical-align: top;
+}
+
+.proofer-component__comments {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    vertical-align: top;
+}
+
+.proofer-component__comments-header {
+    padding: 10px;
+    background: map-get($colors, dark-600);
+    border-bottom: 1px solid map-get($colors, dark-700);
+    box-shadow: none;
+}
+
+.proofer-component__content--comment-view {
+    bottom: 77px;
+}
+
+.proofer-component__footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 88px;
+    padding: 3px 0 0;
+
+    background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+    border-top: 1px solid map-get($colors, dark-700);
+
+    text-align: center;
+}
+
+// .proofer-component__footer--comment-view {
+//     height: 88px;
+// }
+
+.proofer-component__footer__approve-album {
+    display: block;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: 222px;
+    max-height: 45px;
+    height: 45px;
+}
+
+
+
+.react-fade-enter {
+  opacity: 0.01;
+}
+
+.react-fade-enter.react-fade-enter-active {
+  opacity: 1;
+  transition: 700ms;
+}
+
+.react-fade-leave {
+  opacity: 1;
+ 
+}
+
+.react-fade-leave.react-fade-leave-active {
+  opacity: 0.01;
+  transition: 700ms;
+}

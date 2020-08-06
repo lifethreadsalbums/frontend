@@ -1,0 +1,426 @@
+//------------------------------------------------------------------
+//                     TABS
+//------------------------------------------------------------------
+.tab-content > .tab-pane {
+    display: none;
+}
+
+.tab-content > .active {
+    display: block;
+}
+
+.nav-tabs {
+    margin: 0;
+    list-style: none;
+
+    &.tab-gap-bottom {
+        margin-bottom: 18px;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    a {
+        @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+        position: relative;
+        margin-bottom: 0;
+        border: 1px solid map-get($colors, light-400);
+        color: map-get($colors, light-800);
+        box-shadow: none;
+
+        &.active {
+            @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-400));
+            border: 1px solid map-get($colors, dark-600);
+            color: map-get($colors, dark-200);
+        }
+    }
+
+    // Color
+    &.tab-color-dark-flat a {
+        @include radius(0);
+        @include transition(color ease 0.3s);
+        border: none;
+        background: map-get($colors, dark-800);
+        color: map-get($colors, dark-200);
+        padding-left: 20px;
+        padding-right: 20px;
+
+        &:before {
+            content: none;
+            display: none;
+        }
+
+        &:hover {
+            background: map-get($colors, dark-800);
+            color: map-get($colors, light-300);
+        }
+
+        &.active,
+        &:active,
+        &:hover.active {
+            border: none;
+            background: map-get($colors, dark-600);
+            color: map-get($colors, light-50);
+            box-shadow: none;
+        }
+
+    }
+
+
+    &.tab-color-blue a {
+        @include linear-gradient(map-get($colors, light-300), map-get($colors, light-400));
+        @include radius(0);
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-800);
+
+        &.active {
+            @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-500));
+            border: 1px solid map-get($colors, primary-200);
+            color: map-get($colors, light-50);
+        }
+    }
+
+    &.tab-color-dark-grey a {
+        @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-700));
+        @include radius(0);
+        border: 1px solid map-get($colors, dark-800);
+        color: map-get($colors, dark-300);
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 1px;
+            right: 1px;
+            height: 1px;
+            background: map-get($colors, dark-400);
+        }
+
+        &.active,
+        &:active,
+        &:focus {
+            @include linear-gradient(map-get($colors, dark-500), map-get($colors, dark-600));
+            border: 1px solid map-get($colors, dark-800);
+            color: map-get($colors, light-50);
+            box-shadow: none;
+
+             &:before {
+                background: map-get($colors, dark-300);
+            }
+        }
+
+    }
+
+    &.tab-color-light-grey a {
+        background: map-get($colors, dark-50);
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-700);
+
+        &.active {
+            background: map-get($colors, light-100);
+            color: map-get($colors, dark-900);
+        }
+    }
+
+    &.tab-color-light-grey-2 a {
+        background: map-get($colors, light-100);
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-800);
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 1px;
+            right: 1px;
+            height: 1px;
+            background: map-get($colors, light-50);
+        }
+
+        &.active {
+            @include linear-gradient(map-get($colors, light-500), map-get($colors, dark-50));
+            color: map-get($colors, light-800);
+
+            &:before {
+                content: none;
+                display: none;
+            }
+        }
+    }
+
+    &.tab-color-medium-grey a {
+        @include linear-gradient(map-get($colors, light-500), map-get($colors, light-600));
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, dark-600);
+
+        &:not(.tab-icon):before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 1px;
+            right: 1px;
+            height: 1px;
+            background: map-get($colors, light-700);
+        }
+
+        &.active {
+            background: map-get($colors, light-100);
+            color: map-get($colors, dark-600);
+
+            &:not(.tab-icon):before {
+                content: none;
+                display: none;
+            }
+        }
+    }
+
+    &.tab-color-black a {
+        @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+        @include radius(0);
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-800);
+
+        &.active {
+            @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+            border: 1px solid map-get($colors, dark-700);
+            color: map-get($colors, light-50);
+        }
+    }
+
+    &.tab-color-dark-grey-light-grey a {
+        @include linear-gradient(map-get($colors, light-300), map-get($colors, light-400));
+        border: 1px solid map-get($colors, light-400);
+        color: map-get($colors, light-800);
+
+        &.active {
+            @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-400));
+            border: 1px solid map-get($colors, dark-600);
+            color: map-get($colors, dark-200);
+        }
+    }
+
+    // Round
+    &.tab-round a {
+        @include radius(4px);
+    }
+
+    &.tab-no-round a {
+        @include radius(0);
+    }
+
+    &.tab-round-top a {
+        @include radius(4px 4px 0 0);
+    }
+
+    // Size
+    &.tab-size-large {
+        a {
+            // padding: 12px 20px;
+            padding: 12px 20px 25px;
+            border-top: none;
+            border-bottom: none;
+        }
+    }
+
+    &.tab-size-x-large {
+        a {
+            padding: 20px;
+        }
+    }
+
+    &.tab-size-large,
+    &.tab-size-x-large {
+        background: map-get($colors, dark-50);
+        border-top: 1px solid map-get($colors, light-400);
+
+        &.tab-color-light-blue {
+            border-top: 1px solid map-get($colors, light-600);
+        }
+
+        &.tab-color-light-grey {
+            border-top: 1px solid map-get($colors, light-600);
+        }
+
+        &.active {
+            border-bottom: none;
+        }
+
+        a {
+            border-top: none;
+            border-bottom: none;
+
+            &.active {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &.tab-size-wide a {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    &.tab-size-dual {
+        li {
+            width: 50%;
+        }
+
+        a {
+            width: 100%;
+            max-height: 38px;
+            padding: 0;
+
+            border-radius: 0;
+
+            line-height: 38px;
+        }
+    }
+
+
+    // Position
+    &.tab-position-bottom-left {
+        &.tab-round a {
+            @include radius(0 0 4px 4px);
+        }
+    }
+
+    // Icon
+    a.tab-icon {
+        padding-left: 42px;
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+        }
+
+        &.tab-icon-book {
+            &:before {
+                @include orders-sprite("icon-book-gray");
+                top: 20px;
+                left: 20px;
+                width: 14px;
+                height: 10px;
+            }
+
+            &.active:before {
+                @include orders-sprite("icon-book-black");
+            }
+        }
+
+        &.tab-icon-upload {
+            &:before {
+                @include button-sprite("icon-button-upload");
+                top: 15px;
+                left: 10px;
+                width: button-sprite-width("icon-button-upload");
+                height: button-sprite-height("icon-button-upload");
+            }
+
+            &.active:before {
+                @include button-sprite("icon-button-upload-black");
+            }
+        }
+
+        &.tab-icon-font {
+            &:before {
+                @include button-sprite("icon-button-font");
+                top: 15px;
+                left: 10px;
+                width: button-sprite-width("icon-button-font");
+                height: button-sprite-height("icon-button-font");
+            }
+
+            &.active:before {
+                @include button-sprite("icon-button-font-black");
+            }
+        }
+    }
+
+    // Close icon
+    a.tab-close {
+        padding-right: 32px;
+
+        span.close {
+            @include common-sprite("icon-circled-cross");
+            display: block;
+            position: absolute;
+            width: common-sprite-width("icon-circled-cross");
+            height: common-sprite-height("icon-circled-cross");
+            top: 20px;
+            right: 10px;
+            z-index: 1;
+
+            &:hover {
+                @include common-sprite("icon-circled-cross-hover");
+            }
+        }
+    }
+
+    // No left border on first child
+    &.no-left-border li:first-child a {
+        border-left: none;
+    }
+
+    // Badge
+    .badge {
+        top: -1px;
+        margin-left: 6px;
+    }
+
+    // Subaction button
+    a.tab-is-subaction {
+        padding-left: 42px;
+
+        .tab-sub-action-button {
+            display: block;
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+
+            .tab-sub-action-button-icon {
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            &.tab-subaction-type-linked {
+                .tab-sub-action-button-icon {
+                    @include dashboard-sprite("icon-link");
+                    width: dashboard-sprite-width("icon-link");
+                    height: dashboard-sprite-height("icon-link");
+                }
+
+                &:hover .tab-sub-action-button-icon {
+                    @include dashboard-sprite("icon-link-black");
+                    width: dashboard-sprite-width("icon-link-black");
+                    height: dashboard-sprite-height("icon-link-black");
+                }
+            }
+
+            &.tab-subaction-type-unlinked {
+                .tab-sub-action-button-icon {
+                    @include dashboard-sprite("icon-unlink");
+                    width: dashboard-sprite-width("icon-unlink");
+                    height: dashboard-sprite-height("icon-unlink");
+                }
+
+                &:hover .tab-sub-action-button-icon {
+                    @include dashboard-sprite("icon-unlink-black");
+                    width: dashboard-sprite-width("icon-unlink-black");
+                    height: dashboard-sprite-height("icon-unlink-black");
+                }
+            }
+        }
+    }
+}

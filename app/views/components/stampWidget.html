@@ -1,0 +1,197 @@
+<div class="content-editor stamp-widget" required ng-class="{'read-only':readOnly}">
+
+    <tabs data-gap-bottom="false" data-color="medium-grey" data-round="top" data-size="x-large" data-gap-side="2px"
+          ng-model="selectedStampingTab" on-tab-change="setStampType(index)">
+        <tab title="Standard" color="medium-grey" icon="font">
+            <div class="toolbar" init-pace-tooltip>
+                <span class="tool-label icon-font-family"></span>
+                <div class="form-element inline" >
+                    <dropdown-button class="tool-font-family"
+                                     ng-model="model.selectedFont"
+                                     on-change="changeFont()"
+                                     label-field="displayName"
+                                     ng-disabled="readOnly"
+                                     options="fonts"
+                                     data-pace-tooltip="Font">
+                    </dropdown-button>
+                </div>
+
+                <span class="tool-label icon-font-size"></span>
+                <div class="form-element inline">
+                    <dropdown-button class="tool-font-family"
+                                     ng-model="model.selectedFontSize"
+                                     on-change="changeFontSize()"
+                                     label-field="displayName"
+                                     value-field="fontSize"
+                                     ng-disabled="readOnly"
+                                     options="model.selectedFont.sizes"
+                                     data-pace-tooltip="Font Size">
+                    </dropdown-button>
+                </div>
+
+
+                <span class="tool-label icon-move" ng-show="positions.length>1"></span>
+                <div class="form-element inline" ng-show="positions.length>1">
+                    <dropdown-button class="tool-move"
+                                     name="stampPosition"
+                                     ng-required="type=='standard'"
+                                     ng-model="selectedPosition"
+                                     on-change="changePosition()"
+                                     label-field="displayName"
+                                     label="Please select"
+                                     track-by="id"
+                                     ng-disabled="readOnly"
+                                     options="positions"
+                                     data-pace-tooltip="Position">
+                    </dropdown-button>
+                </div>
+                <span class="tool-label" ng-show="foils.length>1">Foil</span>
+                <div class="form-element inline" ng-show="foils.length>1">
+                    <dropdown-button class="tool-foil"
+                                     name="stampFoil"
+                                     ng-required="type=='standard'"
+                                     ng-model="selectedFoil"
+                                     on-change="changeFoil()"
+                                     label-field="displayName"
+                                     label="Please select"
+                                     track-by="id"
+                                     ng-disabled="readOnly"
+                                     options="foils"
+                                     data-pace-tooltip="Foil">
+                    </dropdown-button>
+                </div>
+                <ul class="tools-icon-bar text-editor-toolbar">
+                    <!-- <li data-pace-tooltip="Underline">
+                        <a class="tool-text-underline sc-underline" ng-disabled="readOnly">
+                            <span class="icon icon-text-underline"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Bold">
+                        <a class="tool-text-bold sc-bold" ng-disabled="readOnly">
+                            <span class="icon icon-text-bold"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Italic">
+                        <a class="tool-text-italic sc-italic" ng-disabled="readOnly">
+                            <span class="icon icon-text-italic"></span>
+                        </a>
+                    </li> -->
+                    <li data-pace-tooltip="Lowercase">
+                        <a class="tool-text-lowercase" ng-class="{'sc-active':model.caps=='lowercase'}" ng-disabled="readOnly">
+                            <span class="icon icon-text-lowercase" ng-click="setCaps('lowercase')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Capitalize">
+                        <a class="tool-text-first-uppercase" ng-class="{'sc-active':model.caps=='capitalize'}" ng-disabled="readOnly">
+                            <span class="icon icon-text-first-uppercase" ng-click="setCaps('capitalize')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Uppercase">
+                        <a class="tool-text-uppercase" ng-class="{'sc-active':model.caps=='uppercase'}" ng-disabled="readOnly">
+                            <span class="icon icon-text-uppercase" ng-click="setCaps('uppercase')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Align left">
+                        <a class="tool-text-align-left" ng-class="{'sc-active':model.align=='left'}" ng-disabled="readOnly || model.numTextLines < 3">
+                            <span class="icon icon-text-align-left" ng-click="setAlign('left')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Align middle">
+                        <a class="tool-text-align-center" ng-class="{'sc-active':model.align=='center'}" ng-disabled="readOnly || model.numTextLines < 3">
+                            <span class="icon icon-text-align-center"  ng-click="setAlign('center')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Align right">
+                        <a class="tool-text-align-right" ng-class="{'sc-active':model.align=='right'}" ng-disabled="readOnly || model.numTextLines < 3">
+                            <span class="icon icon-text-align-right" ng-click="setAlign('right')"></span>
+                        </a>
+                    </li>
+                    <li data-pace-tooltip="Justify">
+                        <a class="tool-text-align-justify" ng-class="{'sc-active':model.align=='justify'}" ng-disabled="readOnly || model.numTextLines < 3">
+                            <span class="icon icon-text-align-justify" ng-click="setAlign('justify')"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="width:100%;height:auto;background-color:#fff;color:#000;text-align:center;cursor:text" ng-click="focus()">
+                <div class="stamp-editor" style="min-width:200px;width:auto;height:auto;display:inline-block"></div>
+            </div>
+        </tab>
+
+        <tab title="Custom" color="medium-grey" icon="upload">
+            <div class="toolbar" init-pace-tooltip>
+                <span class="tool-label icon-move" ng-show="positions.length>1"></span>
+                <div class="form-element inline" ng-show="positions.length>1">
+                    <dropdown-button class="tool-move"
+                                     name="customStampPosition"
+                                     ng-required="type=='custom'"
+                                     ng-model="selectedPosition"
+                                     on-change="updateStampElement()"
+                                     label-field="displayName"
+                                     label="Please select"
+                                     track-by="id"
+                                     options="positions"
+                                     ng-disabled="readOnly"
+                                     data-pace-tooltip="Position">
+                    </dropdown-button>
+                </div>
+                <span class="tool-label" ng-show="foils.length>1">Foil</span>
+                <div class="form-element inline" ng-show="foils.length>1">
+                    <dropdown-button class="tool-foil"
+                                     name="customStampFoil"
+                                     ng-required="type=='custom'"
+                                     ng-model="selectedFoil"
+                                     on-change="changeFoil()"
+                                     label-field="displayName"
+                                     label="Please select"
+                                     track-by="id"
+                                     options="foils"
+                                     ng-disabled="readOnly"
+                                     data-pace-tooltip="Foil">
+                    </dropdown-button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-9 columns">
+                    <h3>Upload Art Work</h3>
+                    <div class="stamping-info">
+                        <span class="stamping-info-preview"></span>
+                        <span class="stamping-info-notice">Files must be a 300dpi PNG and be black on a transparent background.</span>
+                    </div>
+
+                    <file-upload-placeholder ng-show="!imageUrl" on-files-dropped="handleUpload(files)">
+                    </file-upload-placeholder>
+
+                    <div class="form-element stamp-preview" ng-show="imageUrl">
+                        <img ng-src="{{imageUrl}}"/>
+                        <div style="error">{{selectedFile.errorMessage}}</div>
+                        <button class="stamping-trash" type="button" ng-click="clearImage()"></button>
+                    </div>
+                </div>
+                <div class="large-3 columns die-section">
+                    <h3>Choose Existing {{ customLogo ? 'Logo' : 'Die' }}</h3>
+                    <div class="form-element">
+                        <div class="die" ng-repeat="file in files">
+                            <div class="die die-container" ng-class="{active:file.id==selectedFile.id || file==selectedFile}" ng-click="select(file)">
+                                <!--<span class="die-preview"><img thumb-src="file"/></span>-->
+                                <span class="die-preview" thumb-src="file" background-image></span>
+                                <span class="die-name">{{file.filename}}</span>
+                                <span class="die-buttons">
+								    <a class="die-status" ></a>
+								    <a class="die-remove" ng-click="remove($event, file)"></a>
+							    </span>
+                                <div ng-if="file.uploadStarted || (file.progress >= 0 && file.progress < 100)" class="progress success">
+                                    <span class="die-meter-track">
+                                        <span class="die-meter-progress" ng-style="{ width: file.progress +'%' }"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabs>
+</div>

@@ -1,0 +1,103 @@
+<section keypress-handler on-key-pressed="onKeyPressed" style="background-color:rgba(37,37,37,0.95);">
+	<header style="margin-top:10px">
+		<span class="header" style="margin-left:10px">
+				Spread Layouts
+		</span>
+		<a class="close-spread" ng-click="closeThisDialog()"><span class="icon-close"></span></a>
+		<!--button type="button" class="button dark pull-right" ng-click="closeThisDialog()">Close</button-->
+	</header>
+	<article style="padding:0 20px;">
+		<div class="pull-left">
+
+			<div>
+				Customize your desired columns and rows to automatically generate new layouts.
+			</div>
+			<div>
+
+				<div class="pace-modal-inline-element">
+					<span class="header">Manual adjustments</span>
+					<div>
+						<!-- <button type="button" class="button dark">On</button> -->
+						<on-off on-label="Yes" off-label="No" ng-model="manualAdjustments" on-change="" color="dark"/>
+
+					</div>
+				</div>
+				<div class="pace-modal-inline-element">
+					<span class="header">Columns</span>
+					<div>
+						<div class="slider-container dark">
+							<rzslider rz-slider-model="numCols" rz-slider-floor="minCols" rz-slider-ceil="maxCols" rz-slider-step="1" rz-slider-precision="0.1"></rzslider>
+							<span class="slider-scale scale-1"></span>
+							<span class="slider-scale scale-2"></span>
+							<span class="slider-scale scale-3"></span>
+							<span class="slider-scale scale-4"></span>
+							<span class="slider-scale scale-5"></span>
+							<span class="slider-scale scale-6"></span>
+							<span class="slider-scale scale-7"></span>
+						</div>
+						<span class="blue">{{numCols}}</span>
+					</div>
+				</div>
+				<div class="pace-modal-inline-element">
+					<span class="header">Rows</span>
+					<div>
+						<div class="slider-container dark">
+							<rzslider rz-slider-model="numRows" rz-slider-floor="minRows" rz-slider-ceil="maxRows" rz-slider-step="1" rz-slider-precision="0.1"></rzslider>
+							<span class="slider-scale scale-1"></span>
+							<span class="slider-scale scale-2"></span>
+							<span class="slider-scale scale-3"></span>
+							<span class="slider-scale scale-4"></span>
+							<span class="slider-scale scale-5"></span>
+							<span class="slider-scale scale-6"></span>
+							<span class="slider-scale scale-7"></span>
+						</div>
+						<span class="green">{{numRows}}</span>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="button color icon-rotate" ng-click="generate()">Generate</button>
+		</div>
+		<div class="keyboard-description-container pull-right">
+			Keyboard shortcuts
+			<div>
+				<div class="pull-left">
+					<span class="blue">Change Columns</span><br />
+					<span class="green">Change Rows</span>
+				</div>
+				<div class="pull-right keyboard">
+					<div class="keyboard-row">
+						<div class="key"></div>
+						<div class="key key-border green">&#9650;</div>
+						<div class="key"></div>
+					</div>
+					<div class="keyboard-row">
+						<div class="key key-border blue">&#9668;</div>
+						<div class="key key-border green">&#9660;</div>
+						<div class="key key-border blue">&#9658;</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="frp-overlay">
+			<div class="frp-content" style="width: 100%;">
+				<aside class="frp-pages" style="width: 100%;margin-bottom: 20px; padding-top:20px;overflow: auto;">
+					<div class="layout-section__content">
+						<div centerize>
+							<div class="spread user-select-none"
+								style="float:left;display:inline-block;margin-left:20px;margin-right:20px; margin-bottom:20px;"
+								ng-repeat="template in templates">
+                                <template-preview
+                                    template="template"
+                                    layout-size="layout.layoutSize"
+                                    max-size="100"
+                                    mode="{{mode}}"
+                                    spread="selectedSpread"
+                                    ng-click="templateSelected(template)" />
+							</div>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</article>
+</section>

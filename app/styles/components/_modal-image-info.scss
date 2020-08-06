@@ -1,0 +1,223 @@
+//------------------------------------------------------------------
+//              MODAL - IMAGE INFO
+//------------------------------------------------------------------
+.image-info-pop-up {
+    outline: none;
+    min-height: 550px;
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .hero-image {
+        color: map-get($colors, light-50);
+        font-size: 1rem;
+        margin: 12px 0;
+        cursor: pointer;
+
+        &:hover {
+            .favorite-star {
+                @include designer-sprite("star-active");
+                width: designer-sprite-width("star-active");
+                height: designer-sprite-height("star-active");
+            }
+        }
+
+        .favorite-star {
+            @include designer-sprite("star");
+            display: block;
+            float: left;
+            width: designer-sprite-width("star");
+            height: designer-sprite-height("star");
+            margin: 5px 5px 0 0;
+
+            &:active,
+            &.active,
+            &:hover {
+                @include designer-sprite("star-active");
+                width: designer-sprite-width("star-active");
+                height: designer-sprite-height("star-active");
+            }
+        }
+    }
+
+    article {
+        overflow: hidden;
+        height: 100%;
+        padding-bottom: 16px;
+    }
+
+    h1 {
+        color: map-get($colors, light-50);
+    }
+
+    aside {
+        width: 310px;
+        display: inline-block;
+        float: left;
+        padding-bottom: 50px;
+        padding-right: 22px;
+
+        .page-icon {
+            cursor: pointer;
+            text-decoration: underline;
+
+            &:before {
+                margin: 0 4px;
+                content: "";
+                display: inline-block;
+                @include designer-sprite("icon-new-page");
+                width: designer-sprite-width("icon-new-page");
+                height: designer-sprite-height("icon-new-page");
+            }
+        }
+
+        p {
+            font-size: .9rem;
+            line-height: 1.3;
+
+            &:nth-child(even) {
+                display: block;
+                color: map-get($colors, light-50);
+                margin-bottom: 13px;
+
+            }
+
+            &:nth-child(odd) {
+                color: map-get($colors, dark-200);
+                text-transform: uppercase;
+                margin: 0;
+            }
+        }
+    }
+
+    .image-info {
+        position: absolute;
+        width: 300px;
+        bottom: 16px;
+        float: left;
+
+        button {
+            width: 40%;
+            background: none;
+            border: 1px solid map-get($colors, light-700);
+            color: map-get($colors, light-50);
+            margin-left: 3%;
+            box-shadow: none;
+            padding-left: 15%;
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-bottom: 0;
+
+            &:hover {
+                background: map-get($colors, dark-400);
+            }
+
+            &:active {
+
+                box-shadow: inset 0 0 20px rgba(map-get($colors, dark-900), .25), 0 1.2px 0px rgba(map-get($colors, light-50), .2), inset 0 2px 0 rgba(map-get($colors, dark-900), .1);
+                border: none;
+                background: map-get($colors, dark-600);
+            }
+
+            &.replace {
+                &:before {
+                    @include designer-sprite("icon-swap-arrows");
+                    width: designer-sprite-width("icon-swap-arrows");
+                    height: designer-sprite-height("icon-swap-arrows");
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin-left: 10%;
+                }
+            }
+
+            &.delete {
+                &:before {
+                    @include designer-sprite("icon-rubbish-bin");
+                    width: designer-sprite-width("icon-rubbish-bin");
+                    height: designer-sprite-height("icon-rubbish-bin");
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin-left: 10%;
+
+                    &:active {
+                        @include designer-sprite("icon-rubbish-bin");
+                    }
+                }
+            }
+        }
+    }
+
+    .image-include {
+        position: relative;
+        float: right;
+
+        .arrow-left,
+        .arrow-right {
+            height: 75px;
+            width: 45px;
+            position: absolute;
+            background: rgba(map-get($colors, dark-900), .5);
+            top: 50%;
+            @include transform(translateY(-50%));
+            cursor: pointer;
+            @include transition(.5s);
+
+            &:hover,
+            &:active,
+            &:focus {
+                background: rgba(map-get($colors, dark-900), .7);
+                @include transition(.5s);
+            }
+        }
+
+        .arrow-left {
+            left: 0;
+            @include border-right-radius(2px);
+
+            &:before {
+                position: absolute;
+                top: 50%;
+                left: 14px;
+                @include transform(translateY(-50%));
+                display: inline-block;
+                content: "";
+                @include designer-sprite("icon-image-info-arrow-left");
+                width: designer-sprite-width("icon-image-info-arrow-left");
+                height: designer-sprite-height("icon-image-info-arrow-left");
+            }
+        }
+
+        .arrow-right {
+            right: 0;
+            @include border-left-radius(2px);
+
+            &:before {
+                position: absolute;
+                top: 50%;
+                right: 14px;
+                @include transform(translateY(-50%));
+                display: inline-block;
+                content: "";
+                @include designer-sprite("icon-image-info-arrow-right");
+                width: designer-sprite-width("icon-image-info-arrow-right");
+                height: designer-sprite-height("icon-image-info-arrow-right");
+            }
+        }
+
+        img {
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .ngdialog-close {
+        float: right;
+        top: 0;
+
+        &:before {
+            margin-right: 4px;
+            font-size: 2rem;
+        }
+    }
+}

@@ -1,0 +1,621 @@
+//------------------------------------------------------------------
+//                     DASHBOARD OVERVIEW
+//------------------------------------------------------------------
+.dashboard-overview {
+    height: 100%;
+    padding: 12px;
+    overflow-x: hidden;
+}
+
+
+//------------------------------------------------------------------
+//                     DASHBOARD OVERVIEW PANEL
+//------------------------------------------------------------------
+.dashboard-overview__panel {
+    margin-bottom: 13px;
+}
+
+.dashboard-overview__panel--footer-off {
+    @include radius(0 0 4px 4px);
+    @include box-shadow(0 1px 0 0 map-get($colors, light-700));
+}
+
+.dashboard-overview__panel-header,
+.dashboard-overview__panel-footer {
+    @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid map-get($colors, light-600);
+    font-size: 13px;
+    line-height: 40px;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 1px;
+        right: 1px;
+        height: 1px;
+        background: map-get($colors, light-50);
+    }
+}
+
+.dashboard-overview__panel-header {
+    @include radius(4px 4px 0 0);
+    text-align: center;
+    overflow: hidden;
+
+    .title {
+        display: block;
+        float: left;
+        font-size: 14px;
+        text-align: left;
+
+        .icon {
+            display: inline-block;
+            position: relative;
+            margin-right: 3px;
+            vertical-align: middle;
+
+            &.icon-projects {
+                @include pace-sprite("dashboard", "overview-icon-projects", true);
+            }
+
+            &.icon-cart {
+                @include pace-sprite("dashboard", "overview-icon-cart", true);
+                top: -2px;
+            }
+
+            &.icon-pricing {
+                @include pace-sprite("dashboard", "overview-icon-pricing", true);
+                top: -2px;
+            }
+        }
+
+        .badge {
+            margin-left: 2px;
+        }
+    }
+}
+
+.dashboard-overview__panel-footer {
+    @include radius(0 0 4px 4px);
+    @include box-shadow(0 1px 0 0 map-get($colors, light-700));
+    padding-top: 3px;
+
+    &:before {
+        left: 0;
+        right: 0;
+    }
+
+    > div > * {
+        margin-bottom: 0;
+        margin-left: 3px;
+
+        &.first-child {
+            margin-left: 0;
+        }
+    }
+
+    .cancel,
+    .currency-usd {
+        color: map-get($colors, primary-400);
+    }
+
+    .cancel {
+        position: relative;
+        top: -4px;
+        cursor: pointer;
+    }
+}
+
+.dashboard-overview__panel-sub-footer {
+    height: 43px;
+    padding: 6px 12px 0;
+    border-top: 1px solid map-get($colors, dark-50);
+    background: map-get($colors, light-200);
+    font-size: 14px;
+    line-height: 35px;
+    color: map-get($colors, light-900);
+    overflow: visible;
+
+    .split-button,
+    .split-dropdown {
+        margin-bottom: 0;
+        margin-left: 3px;
+
+        &.first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+.dashboard-overview__panel-sub-footer-label {
+    position: relative;
+    top: -2px;
+    margin-left: 3px;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-overview__panel-header,
+    .dashboard-overview__panel-footer {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .dashboard-overview__panel-header .title {
+        font-size: 17px;
+    }
+
+    .dashboard-overview__panel-footer {
+        padding-top: 8px;
+
+        .cancel {
+            top: -7px;
+        }
+    }
+
+    .dashboard-overview__panel-sub-footer-label {
+        height: 45px;
+        line-height: 38px;
+    }
+}
+
+.dashboard-overview__panel-sub-footer,
+.dashboard-overview__panel-content {
+    border-left: 1px solid map-get($colors, light-600);
+    border-right: 1px solid map-get($colors, light-600);
+}
+
+
+//------------------------------------------------------------------
+//                     DASHBOARD PRICING BOX
+//------------------------------------------------------------------
+.dashboard-overview__panel-content--pricing {
+    height: 280px;
+    background: map-get($colors, light-400);
+    text-align: center;
+
+    &:hover {
+        background: map-get($colors, light-500);
+        cursor: pointer;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-overview__panel-content--pricing {
+        height: 325px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .dashboard-overview__panel-content--pricing {
+        height: 324px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .dashboard-overview__panel-content--pricing {
+        height: 325px;
+    }
+}
+
+.dashboard-pricing-box {
+    box-sizing: border-box;
+    position: relative;
+    width: 50%;
+    height: 280px;
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+
+    &:only-child {
+        margin: 0 auto;
+        border-right: none !important;
+    }
+
+    &:first-child {
+        border-right: 1px solid map-get($colors, light-500);
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    > .dashboard-pricing-box {
+        height: 280px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-pricing-box {
+        height: 325px;
+    }
+}
+
+.dashboard-pricing-box__image {
+    display: block;
+    margin: 20px auto 25px;
+
+    &.dashboard-pricing-box__image--document {
+        @include pace-sprite("dashboard", "dashboard-pricing-document", true);
+    }
+
+    &.dashboard-pricing-box__image--calculator {
+        @include pace-sprite("dashboard", "dashboard-pricing-calculator", true);
+    }
+}
+
+.dashboard-pricing-box__title {
+    @include museo700();
+    margin-bottom: 5px;
+    font-size: 16px;
+    line-height: 32px;
+    color: map-get($colors, dark-900);
+}
+
+.dashboard-pricing-box__content {
+    @include museo300();
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 20px;
+    color: map-get($colors, light-800);
+    min-height: 60px;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-pricing-box__image {
+        margin: 35px auto 20px;
+    }
+
+    .dashboard-pricing-box__title {
+        font-size: 21px;
+    }
+
+    .dashboard-pricing-box__content {
+        font-size: 15px;
+        line-height: 25px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    dashboard-overview__panel-content {
+        height: 325px;
+    }
+
+    .dashboard-pricing-box__image {
+        margin: 35px auto 25px;
+    }
+
+    .dashboard-pricing-box__title {
+        font-size: 24px;
+    }
+
+    .dashboard-pricing-box__content {
+        margin-bottom: 25px;
+    }
+}
+
+.dashboard-pricing-box__footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    button,
+    .button {
+        margin-bottom: 8px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     DASHBOARD CART
+//------------------------------------------------------------------
+.dashboard-overview__panel-content--cart {
+    height: 197px;
+    background: map-get($colors, light-200);
+    overflow-y: auto;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-overview__panel-content--cart {
+        height: 230px;
+    }
+}
+
+.dashboard-overview__panel-content--empty-cart   {
+    height: 240px;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-overview__panel-content--empty-cart {
+        height: 275px;
+    }
+}
+
+.dashboard-cart__empty {
+    @include user-select("none");
+    height: 240px;
+    background: map-get($colors, light-200);
+    font-size: 13px;
+    line-height: 240px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-cart__empty {
+        height: 275px;
+        line-height: 275px;
+    }
+}
+
+.dashboard-cart__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-cart__item {
+    position: relative;
+    margin: 0;
+    padding: 12px 0;
+    background: map-get($colors, light-200);
+    border-top: 1px solid map-get($colors, dark-50);
+
+    &:hover,
+    &:active,
+    &.active {
+        background: map-get($colors, light-100);
+    }
+
+    &:first-child {
+        border-top: none;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-cart__item {
+        padding: 16px 0;
+    }
+}
+
+.dashboard-cart__item-cross {
+    @include dashboard-sprite("icon-cross");
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    right: 0;
+    width: dashboard-sprite-width("icon-cross");
+    height: dashboard-sprite-height("icon-cross");
+    margin: auto 0;
+    cursor: pointer;
+}
+
+.dashboard-cart__item-inner-box {
+    margin-left: 40px;
+    margin-right: 80px;
+}
+
+.dashboard-cart__item-title {
+    font-size: 14px;
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-cart__item-title {
+        font-size: 16px;
+    }
+}
+
+.dashboard-cart__item-content {
+    font-size: 12px;
+    color: map-get($colors, dark-200);
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-cart__item-content {
+        font-size: 13px;
+    }
+}
+
+.dashboard-cart__item-date,
+.dashboard-cart__item-cost {
+    display: block;
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    font-size: 13px;
+    color: map-get($colors, dark-200);
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .dashboard-cart__item-date,
+    .dashboard-cart__item-cost {
+        top: 19px;
+    }
+}
+
+.dashboard-cart__item-cost {
+    &:after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        top: 1px;
+        margin-left: 8px;
+    }
+
+    &.flag-USD:after {
+        @include button-sprite("icon-button-currency-usd");
+        width: button-sprite-width("icon-button-currency-usd");
+        height: button-sprite-height("icon-button-currency-usd");
+    }
+
+    &.flag-CAD:after {
+        @include button-sprite("icon-button-currency-cad");
+        width: button-sprite-width("icon-button-currency-cad");
+        height: button-sprite-height("icon-button-currency-cad");
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     DASHBOARD PROJECTS
+//------------------------------------------------------------------
+.dashboard-overview__panel-footer--projects {
+    margin-top: -40px;
+}
+
+.dashboard-overview__panel-content--projects {
+    background: map-get($colors, light-400);
+}
+
+
+//------------------------------------------------------------------
+//                     ADMIN USER FORM / DESIGNER SETTINGS
+//------------------------------------------------------------------
+.admin-user-form,
+.designer-settings-content {
+    .scrollable-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 51px;
+        overflow: auto;
+        background: map-get($colors, light-100);
+    }
+
+    footer {
+        border-top: 1px solid map-get($colors, light-700);
+        height: 51px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 9px 20px;
+        background: map-get($colors, light-100);
+
+        button {
+            margin-bottom: 0;
+            margin-left: 10px;
+
+        }
+    }
+}
+
+.designer-settings-content {
+    .scrollable-container {
+        line-height: 2rem;
+        padding: 20px;
+        font-size: 1rem;
+
+        > .row {
+            margin-top: 5px;
+        }
+
+        hr {
+            margin: 5px 0 10px 0;
+        }
+
+        h2 {
+            margin-top: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .color-show {
+            width: 41px;
+            height: 31px;
+            border: 1px solid map-get($colors, light-700);
+            border-radius: 4px;
+            box-shadow: inset 0px 18px 30px -1px rgba(map-get($colors, light-50), 0.4);
+            cursor: pointer;
+        }
+
+        .stroke-width {
+            width: 80px;
+        }
+
+        .on-off-container {
+            padding-top: 4px;
+
+            &.light .on-off-pre-label {
+                margin-right: 0;
+            }
+        }
+
+        .label-icon-color-block {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 0px;
+            top: -4px;
+            background: map-get($colors, primary-500);
+            border-radius: 3px;
+        }
+
+        .large-1 {
+            width: 8.33333%;
+        }
+    }
+}
+
+//------------------------------------------------------------------
+//                     TAB NAV - PROJECTS
+//------------------------------------------------------------------
+.tab-nav--dashboard-projects {
+    display: inline-block;
+    position: relative;
+    left: -78px;
+    text-align: center;
+
+    ul.nav-tabs {
+        li a {
+            @include box-shadow(none);
+        }
+
+        li:first-child a {
+            @include radius(4px 0 0 4px !important);
+        }
+
+        li:last-child a {
+            @include radius(0 4px 4px 0  !important);
+        }
+    }
+}
+
+@media only screen and (max-width: 1439px) {
+    .tab-nav--dashboard-projects {
+        left: 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     DASHBOARD NOTIFICATION
+//------------------------------------------------------------------
+.dashboard-notification {
+    position: relative;
+    top: -11px !important;
+    left: -12px !important;
+    width: calc(100% + 24px);
+    height: 73px;
+    overflow: hidden;
+    text-align: center;
+
+    &.dashboard-notification--double {
+        height: 147px;
+
+        .inline {
+            padding-top: 0 !important;
+        }
+
+        .pop-up .pop-up-message {
+            line-height: 26px;
+        }
+    }
+
+    .inline {
+        height: 100%;
+    }
+}

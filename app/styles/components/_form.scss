@@ -1,0 +1,254 @@
+//------------------------------------------------------------------
+//                     FORM
+//------------------------------------------------------------------
+input,
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+    @include radius(4px);
+    @include museo300();
+    @include box-shadow(none);
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid map-get($colors, light-400);
+    background: map-get($colors, light-50);
+    font-size: 16px;
+    color: map-get($colors, light-800);
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: map-get($colors, light-50);
+    }
+
+    &:disabled,
+    &.inactive {
+        border: 1px solid map-get($colors, light-300);
+        background: map-get($colors, light-200);
+        color: map-get($colors, light-700);
+    }
+
+    &.no-round {
+        @include radius(0);
+    }
+
+    &.dark {
+        background: map-get($colors, dark-500);
+        border-color: map-get($colors, dark-700);
+        color: map-get($colors, dark-200);
+    }
+
+    &.dark-lighter {
+        background: map-get($colors, light-500);
+        border-color: map-get($colors, dark-500);
+        color: map-get($colors, light-900);
+    }
+}
+
+input:not([type="checkbox"]),
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+    height: 31px;
+}
+
+textarea {
+    padding-top: 6px;
+
+    &:disabled,
+    &.inactive {
+        border: 1px solid map-get($colors, light-300);
+        background: map-get($colors, light-200);
+        color: map-get($colors, light-700);
+        resize: none;
+    }
+}
+
+.text-editor {
+    @include radius(4px);
+    @include box-shadow(none);
+    display: inline-block;
+    border: 1px solid map-get($colors, light-400);
+    background: map-get($colors, light-50);
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: map-get($colors, light-500);
+    }
+
+    &.no-round {
+        @include radius(0);
+    }
+
+    &.dark {
+        background: map-get($colors, dark-400);
+        border-color: map-get($colors, dark-700);
+    }
+
+    &:disabled,
+    &.inactive {
+        border: 1px solid map-get($colors, light-300);
+        background: map-get($colors, light-200);
+        resize: none;
+    }
+}
+
+select {
+    @include radius(4px);
+    @include museo300();
+    position: relative;
+    height: 31px;
+    padding: 3px 27px 2px 10px;
+    border: 1px solid map-get($colors, light-400);
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAECAYAAABodtTSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyM0RBRDhCQjVGMjA2ODExODIyQUY5MkE5NzVFQTE5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMEE4NjNBRjRGMzExMUUzQUQ5MTkxRTFDQ0U0NjdGNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMEE4NjNBRTRGMzExMUUzQUQ5MTkxRTFDQ0U0NjdGNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjZEQUQ4QkI1RjIwNjgxMTgyMkFGOTJBOTc1RUExOTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjNEQUQ4QkI1RjIwNjgxMTgyMkFGOTJBOTc1RUExOTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4HL3TUAAAATUlEQVR42mK8du3aTQYGBjUGTHBHU1NTlYEIwATEQUD8Gk0cxA9kIBKADLkKxK5A/A4q9h6I3YD4CimGgMBFIHYH4rtQAy4wkAAAAgwAm70OmvvgaEcAAAAASUVORK5CYII=);
+    background-position: 100% center;
+    background-repeat: no-repeat;
+    background-color: map-get($colors, light-50);
+    font-size: 16px;
+    color: map-get($colors, light-800);
+    overflow: hidden;
+    outline-width: medium;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+    &:hover {
+        background-color: map-get($colors, light-50);
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAECAYAAABodtTSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyM0RBRDhCQjVGMjA2ODExODIyQUY5MkE5NzVFQTE5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMEE4NjNBRjRGMzExMUUzQUQ5MTkxRTFDQ0U0NjdGNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMEE4NjNBRTRGMzExMUUzQUQ5MTkxRTFDQ0U0NjdGNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjZEQUQ4QkI1RjIwNjgxMTgyMkFGOTJBOTc1RUExOTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjNEQUQ4QkI1RjIwNjgxMTgyMkFGOTJBOTc1RUExOTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4HL3TUAAAATUlEQVR42mK8du3aTQYGBjUGTHBHU1NTlYEIwATEQUD8Gk0cxA9kIBKADLkKxK5A/A4q9h6I3YD4CimGgMBFIHYH4rtQAy4wkAAAAgwAm70OmvvgaEcAAAAASUVORK5CYII=);
+        background-position: 100% center;
+        background-repeat: no-repeat;
+    }
+
+    &:disabled,
+    &.inactive {
+        border: 1px solid map-get($colors, light-300);
+        background-color: map-get($colors, light-200);
+        color: map-get($colors, light-700);
+    }
+
+    &.dark {
+        background: map-get($colors, dark-400);
+        border-color: map-get($colors, dark-700);
+        color: map-get($colors, dark-200);
+    }
+}
+
+input[type="number"].short,
+input[type="text"].short {
+    width: 70px;
+}
+input[type="number"].very-short {
+    width: 55px;
+}
+input[type="text"].readonly {
+    border: 1px solid map-get($colors, light-400);
+    color: map-get($colors, light-800);
+    background: transparent;
+}
+
+
+::-webkit-input-placeholder {
+    color: map-get($colors, light-700);
+    text-overflow: ellipsis;
+}
+
+:-moz-placeholder {
+    color: map-get($colors, light-700) !important;
+    text-overflow: ellipsis;
+}
+
+::-moz-placeholder {
+    color: map-get($colors, light-700) !important;
+    text-overflow: ellipsis;
+} /* for the future */
+
+:-ms-input-placeholder {
+    color: map-get($colors, light-700) !important;
+    text-overflow: ellipsis;
+}
+
+::selection {
+    background: map-get($colors, primary-500);
+    color: map-get($colors, light-50);
+}
+::-moz-selection {
+    background: map-get($colors, primary-500);
+    color: map-get($colors, light-50);
+}
+
+select.placeholder {
+    color: map-get($colors, light-700);
+}
+
+select.placeholder option {
+    color: map-get($colors, dark-900);
+}
+
+input.ng-pristine {
+    border: 1px solid map-get($colors, light-400);
+}
+
+.form-element {
+    label {
+        display: block;
+        color: map-get($colors, light-800);
+
+        &.dark {
+            color: map-get($colors, light-700);
+        }
+    }
+
+    span.label,
+    span.error {
+        @include radius(3px);
+        margin-top: -0.9em;
+        margin-bottom: 1em;
+        display:block;
+        font-size: 12px;
+        font-family: Helvetica, Arial, sans-serif;
+        white-space: normal;
+        background-color: transparent;
+        color: map-get($colors, danger-400);
+        font-weight: normal;
+        text-align: left;
+        margin-left: 0;
+        padding-left: 0;
+    }
+}
+
+input.ng-pristine {
+    border: 1px solid map-get($colors, light-400);
+}
+
+input.ng-invalid.ng-blurred,
+select.ng-invalid.ng-blurred,
+textarea.ng-invalid.ng-blurred {
+    border: 1px solid map-get($colors, danger-400);
+}
+
+input[type="checkbox"] + label {
+    display: inline-block;
+}

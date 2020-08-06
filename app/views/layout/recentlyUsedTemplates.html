@@ -1,0 +1,57 @@
+<div class="recently-used-templates">
+
+    <div id="recently-used-templates-type-buttons" class="merged-buttons is-remove-button-margin clearfix">
+        <button id="recently-used-templates-page" ng-class="{active:selectedTemplateType=='page'}"
+            ng-click="changeSelectedTemplateType('page')" class="button dark">Single Page</button>
+        <button id="recently-used-templates-spread" ng-class="{active:selectedTemplateType=='spread'}"
+            ng-click="changeSelectedTemplateType('spread')" class="button dark">Spreads</button>
+    </div>
+
+    <dropdown-button
+        id="layout-type"
+        direction="down"
+        color="dark"
+        options="layoutTypeOptions"
+        ng-model="selectedLayoutType"
+        on-change="onSelectedLayoutTypeChanged()"
+        value-field="value"
+        class="recently-user-dropdown dropdown-full-width"
+        manual-id="recently-user-dropdown">
+    </dropdown-button>
+
+    <div class="layout-selector clearfix">
+        <button class="dark arrow-left layout-selector-prev" ng-click="changeNumFrames('prev')"></button>
+        <dropdown-button
+            id="layout-selector-select"
+            direction="down"
+            color="dark"
+            options="numFramesOptions"
+            ng-model="selectedNumFrames"
+            label="Please choose"
+            value-field="value"
+            on-change="changeNumFrames()"
+            class="layout-selector-select"
+            manual-id="layout-selector-select">
+        </dropdown-button>
+        <button class="dark arrow-right layout-selector-next" ng-click="changeNumFrames('next')"></button>
+    </div>
+
+    <div id="layout-spreads-contianer" class="spread-container">
+        <div class="spread user-select-none"
+            context-menux="{ makePublic: { name: (template.publicTemplate ? 'Make Public' : 'Make Private' )} }"
+            context-menu-click="onMenuClick(template, key)"
+            ng-repeat="template in templates track by $index"
+            ng-class="{active:template==selectedTemplate}">
+            <template-preview
+                width="previewWidth"
+                height="previewHeight"
+                template="template"
+                layout="layout"
+                spread="currentSpread"
+                layout-controller="layoutController"
+                ng-mousedown="templateSelected(template)">
+            </template-preview>
+        </div>
+    </div>
+
+</div>

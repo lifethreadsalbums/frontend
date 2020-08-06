@@ -1,0 +1,37 @@
+<ng-form novalidate class="file-upload" ng-class="{'drop-box-centered':dropboxCentered}">
+	<div class="form-element inline">
+		<label>{{label}}</label>
+		<div class="drop-box" ng-class="{active:dropBoxActive}">
+			<span class="drop-preview"></span>
+			<span class="drop-text">
+				Drop Files Here<br>
+				- or -<br>
+				<span class="drop-browse">
+					<input type="file">
+					<a href="#" class="drop-browse button">Browse</a>
+				</span>
+			</span>
+		</div>
+		<!--<span class="alert label">Error message</span>-->
+		<p class="drop-info">{{info}}</p>
+	</div>
+	<div class="form-element inline">
+		<label>&nbsp;</label>
+		<div class="die"  ng-repeat="file in files">
+			<div class="die die-container" ng-class="{active:file.selected}" ng-click="select(file)">
+				<span class="die-preview"></span>
+				<span class="die-name">{{file.filename}}</span>
+				<span class="die-buttons">
+					<a class="die-status" ></a>
+					<a class="die-remove" ng-click="remove($event, file)"></a>
+				</span>
+
+			</div>
+			<div ng-if="file.progress>=0 && file.progress<100" class="progress success">
+				<span class="meter" ng-style="{ width: file.progress +'%' }"></span>
+			</div>
+			
+		</div>
+	</div>
+	
+</ng-form>

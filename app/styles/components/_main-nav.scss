@@ -1,0 +1,365 @@
+.main-nav {
+    @include clearfix();
+    position: relative;
+    top: 0;
+    width: 100%;
+
+    z-index: 1001;
+
+    background: map-get($colors, dark-800);
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 0 5px 0 map-get($colors, dark-900);
+
+    @include museo500();
+    line-height: 50px;
+}
+
+.main-nav__logo {
+    position: relative;
+    margin-left: 20px;
+    float: left;
+}
+
+.main-nav__logo-image {
+    max-height: 44px;
+}
+
+.main-nav__items-container {
+    margin: 0;
+    padding: 0 130px;
+
+    text-align: center;
+}
+
+.main-nav__items {
+    margin: 0;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0;
+
+    &.active,
+    &:hover,
+    &:active,
+    &:focus {
+        background: map-get($colors, dark-600);
+
+        .main-nav__link:not([disabled]) .main-nav__item-icon {
+            &.main-nav__item-icon--builder {
+                background-image: url('/images/nav/builder-active.svg');
+            }
+
+            &.main-nav__item-icon--dashboard {
+                background-image: url('/images/nav/dashboard-active.svg');
+            }
+
+            &.main-nav__item-icon--designer {
+                background-image: url('/images/nav/designer-active.svg');
+            }
+
+            &.main-nav__item-icon--prints {
+                background-image: url('/images/nav/prints-active.svg');
+            }
+
+            &.main-nav__item-icon--help {
+                background-image: url('/images/nav/help-active.svg');
+            }
+
+            &.main-nav__item-icon--tour {
+                background-image: url('/images/nav/tour-active.svg');
+            }
+
+            &.main-nav__item-icon--admin {
+                background-image: url('/images/nav/admin-active.svg');
+            }
+        }
+
+        .main-nav__link--tour:not([disabled]) {
+            color: map-get($colors, primary-400);
+        }
+    }
+
+}
+
+.main-nav__link {
+    display: block;
+    padding: 0 7px;
+
+    font-size: 12px;
+    line-height: 50px;
+    color: map-get($colors, light-50);
+    text-transform: uppercase;
+
+    user-select: none;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        color: map-get($colors, light-50);
+    }
+
+    &[disabled] {
+        pointer-events: none;
+
+        color: map-get($colors, light-800);
+        cursor: default;
+    }
+}
+
+.main-nav__item-icon {
+    display: none;
+    position: relative;
+    vertical-align: middle;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+
+
+    &.main-nav__item-icon--builder {
+        width: 14px;
+        height: 15px;
+
+        background-image: url('/images/nav/builder.svg');
+    }
+
+    &.main-nav__item-icon--dashboard {
+        width: 13px;
+        height: 13px;
+
+        background-image: url('/images/nav/dashboard.svg');
+    }
+
+    &.main-nav__item-icon--designer {
+        width: 14px;
+        height: 14px;
+
+        background-image: url('/images/nav/designer.svg');
+    }
+
+    &.main-nav__item-icon--prints {
+        width: 17px;
+        height: 14px;
+
+        background-image: url('/images/nav/prints.svg');
+    }
+
+    &.main-nav__item-icon--help {
+        width: 15px;
+        height: 15px;
+
+        background-image: url('/images/nav/help.svg');
+    }
+
+    &.main-nav__item-icon--projects {
+        width: 14px;
+        height: 16px;
+
+        background-image: url('/images/nav/projects.svg');
+    }
+
+    &.main-nav__item-icon--orders {
+        width: 14px;
+        height: 16px;
+
+        background-image: url('/images/nav/orders.svg');
+    }
+
+    &.main-nav__item-icon--tour {
+        width: 15px;
+        height: 15px;
+
+        background-image: url('/images/nav/tour.svg');
+    }
+
+    &.main-nav__item-icon--admin {
+        width: 16px;
+        height: 16px;
+
+        background-image: url('/images/nav/admin.svg');
+    }
+}
+
+.main-nav__item-label {
+    display: inline-block;
+    margin-left: 3px;
+    vertical-align: middle;
+}
+
+.main-nav__user {
+    float: right;
+    position: relative;
+    max-width: 120px;
+    height: 50px;
+    margin: 0 20px 0 0;
+    padding-right: 25px;
+    overflow: hidden;
+
+    user-select: none;
+
+    @include museo500();
+    font-size: 15px;
+    color: map-get($colors, light-50);
+    text-decoration: none;
+    cursor: pointer;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 22px;
+        right: 0;
+        width: 16px;
+        height: 10px;
+
+        background: url("../images/sprite_main.png") 0 0 no-repeat;
+    }
+}
+
+.main-nav__user-dropdown {
+    border-color: map-get($colors, dark-200);
+
+    @include museo300();
+
+    &:before {
+        border-color: transparent transparent map-get($colors, dark-200) transparent;
+    }
+
+    &:after {
+        border: none;
+    }
+
+    &.open {
+        left: auto !important;
+        right: 0;
+
+        &:before {
+            left: auto !important;
+            right: 21px;
+        }
+
+        &:after {
+            left: auto !important;
+            right: 22px;
+        }
+    }
+}
+
+.main-nav__user-dropdown-item {
+    background: map-get($colors, dark-600) !important;;
+
+    &:hover {
+        background: map-get($colors, dark-800) !important;;
+
+        .main-nav__user-dropdown-link {
+            color: map-get($colors, light-50) !important;;
+        }
+    }
+}
+
+.main-nav__user-dropdown-link {
+    font-size: 14px;
+    color: map-get($colors, dark-200) !important;
+}
+
+.tour-list {
+    position: absolute;
+    top: 51px;
+    margin: 0;
+    overflow: hidden;
+    list-style: none;
+
+    background: map-get($colors, dark-600);
+
+    text-align: center;
+}
+
+.tour-list__item {
+    display: block;
+    padding: 10px;
+
+    @include museo300();
+    font-size: 14px;
+    color: map-get($colors, dark-200);
+
+    cursor: pointer;
+
+    &:hover {
+        background: map-get($colors, dark-800);
+        color: map-get($colors, light-50);
+    }
+}
+
+
+@media only screen and (min-width: 910px) {
+    .main-nav__link {
+        padding: 0 16px;
+    }
+}
+
+@media only screen and (min-width: 1060px) {
+    .main-nav__item-icon {
+        display: inline-block;
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .main-nav,
+    .main-nav__link {
+        line-height: 60px;
+    }
+
+    .main-nav__user {
+        height: 60px;
+
+        &:after {
+            top: 27px;
+        }
+    }
+
+    .main-nav__item {
+        margin: 0 10px;
+    }
+
+    .main-nav__link {
+        font-size: 13px;
+    }
+
+    .main-nav__item-icon {
+        top: -1px;
+        margin-right: 12px;
+    }
+
+    .tour-list {
+        top: 60px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .main-nav,
+    .main-nav__link {
+        line-height: 70px;
+    }
+
+    .main-nav__link {
+        font-size: 14px;
+    }
+
+    .main-nav__item-icon {
+        top: -2px;
+    }
+
+    .main-nav__user {
+        height: 70px;
+
+        &:after {
+            top: 32px;
+        }
+    }
+
+    .tour-list {
+        top: 70px;
+    }
+}

@@ -1,0 +1,22 @@
+<section>
+	<header>Add {{isPageBased ? 'Pages' : 'Spreads'}}</header>
+	<article>
+		<span>Add</span>
+		<div class="form-element inline pace-modal-inline-element">
+			<input type="number" class="dark short" ng-model="numPages" 
+				min="{{ maxPages==0 ? 0 : (isPageBased ? 2 : 1) }}" step="{{isPageBased ? 2 : 1}}"
+				max="{{maxPages}}">
+			</input>
+		</div>
+		<span class="pace-modal-inline-element">{{isPageBased ? 'Pages' : 'Spreads'}}</span>
+		<dropdown-button direction="up" color="dark" options="pageOptions" ng-model="pageLocation" 
+			label-field="label" value-field="value" classes="pace-modal-inline-element"></dropdown-button>
+		<div class="form-element inline pace-modal-inline-element last">
+			<input type="number" class="dark short" ng-model="pageNumber" min="1" max="1000" ng-hide="pageLocation>1"></input>
+		</div>
+	</article>
+	<footer>
+		<button type="button" class="button dark" ng-click="closeThisDialog()">Cancel</button>
+		<button type="button" class="button color" ng-click="ok() && closeThisDialog()">Ok</button>
+	</footer>
+</section>

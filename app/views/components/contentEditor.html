@@ -1,0 +1,140 @@
+<div  class="content-editor">
+	<div>
+		<div class="toolbar">
+			<span class="tool-label icon-font-family"></span>
+			<div class="form-element inline">
+				<select class="tool-font-family"
+					ng-model="selectedFont"
+					ng-options="item.name for item in fonts">
+
+				</select>
+			</div>
+			<span class="tool-label icon-font-size"></span>
+			<div class="form-element inline">
+				<input type="number" class="short" value="48" class="tool-font-size">
+			</div>
+
+			<span class="tool-label icon-move"></span>
+			<div class="form-element inline">
+				<select class="tool-move" >
+					<option value="top-left">Top Left</option>
+					<option value="top-right">Top Center</option>
+					<option value="top-left">Top Right</option>
+					<option value="middle-left">Middle Left</option>
+					<option value="middle-right">Middle Center</option>
+					<option value="middle-left">Middle Right</option>
+					<option value="bottom-left">Bottom Left</option>
+					<option value="bottom-right">Bottom Center</option>
+					<option value="bottom-right">Bottom Right</option>
+				</select>
+			</div>
+			<span class="tool-label">Foil</span>
+			<div class="form-element inline">
+				<select class="tool-foil">
+					<option value="gold">Gold</option>
+					<option value="silver">Silver</option>
+				</select>
+			</div>
+
+			<!-- <span class="tool-label icon-move"></span>
+			<div class="form-element inline">
+				<select class="tool-move"
+					ng-model="selectedPosition"
+					ng-options="item.name for item in positions">
+
+
+				</select>
+			</div>
+			<span class="tool-label">Foil</span>
+			<div class="form-element inline">
+				<select class="tool-foil"
+					ng-model="selectedFoil"
+					ng-options="item.name for item in foilColors">
+
+				</select>
+			</div> -->
+			<ul class="tools-icon-bar" init-pace-tooltip>
+				<li>
+					<a href="#" class="has-tip tool-text-underline" data-pace-tooltip="Underline" data-pace-tooltip-position="top">
+						<span class="icon icon-text-underline"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-bold" data-pace-tooltip="Bold" data-pace-tooltip-position="top">
+						<span class="icon icon-text-bold"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-italic" data-pace-tooltip="Italic" data-pace-tooltip-position="top">
+						<span class="icon icon-text-italic"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-lowercase" data-pace-tooltip="Lowercase" data-pace-tooltip-position="top">
+						<span class="icon icon-text-lowercase"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-ufirst-ppercase" data-pace-tooltip="First letter of each word to uppercase" data-pace-tooltip-position="top">
+						<span class="icon icon-text-first-uppercase"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-uppercase" data-pace-tooltip="Uppercase" data-pace-tooltip-position="top">
+						<span class="icon icon-text-uppercase"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-align-left" data-pace-tooltip="Align left" data-pace-tooltip-position="top">
+						<span class="icon icon-text-align-left"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-align-center" data-pace-tooltip="Align middle" data-pace-tooltip-position="top">
+						<span class="icon icon-text-align-center"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="has-tip tool-text-align-right" data-pace-tooltip="Align right" data-pace-tooltip-position="top">
+						<span class="icon icon-text-align-right"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<textarea rows="6"></textarea>
+			<!-- <tabs data-color="light-grey-2" data-round="true" data-position="bottom-left">
+                <tab title="Book">
+                    <div class="row">
+			    		<div class="large-12 columns" >
+			    			<textarea rows="6"></textarea>
+		    			</div>
+					</div>
+                </tab>
+                <tab title="Box">
+                    <div class="row">
+			    		<div class="large-12 columns" >
+			    			<textarea rows="6"></textarea>
+		    			</div>
+					</div>
+                </tab>
+            </tabs>
+
+            <div class="tool-link">
+            	<span>Link text?</span>
+            	<div class="form-element inline">
+	            	<div class="on-off">
+						<input name="switch-x" type="radio" value="off">
+						<label onclick="">Off</label>
+
+						<input name="switch-x" type="radio" value="on" checked>
+						<label onclick="">On</label>
+
+						<span></span>
+					</div>
+				</div>
+				<span class="state-description"></span>
+            </div> -->
+		</div>
+	</div>
+</div>

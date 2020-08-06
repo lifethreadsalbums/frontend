@@ -1,0 +1,25 @@
+<section class="pace-modal" ng-init="focused=true">
+    <a class="close-pace-modal" ng-click="closeThisDialog()"></a>
+    <header>
+        <span class="title">Create New Project</span>
+    </header>
+    <form form-submit="createOrder()" novalidate name="productNameForm">
+	    <div class="tab-content">
+			<div class="padding-side">
+				<div class="form-element">
+					<label>Name this Project </label>
+					<input type="text" name="projectName" placeholder="i.e. Jane & John's Wedding" required set-focus="{{focused}}" ng-model="productName">
+					<span ng-show="form1.projectName.$blurred && form1.projectName.$error.required" class="alert label">{{'projectNameRequired'|i18n}}</span>
+				</div>
+				<!-- <button type="submit" class="button large color" ng-disabled="!enableFav"
+						ng-click="nextState='orders.create.from-template'">Create Project from Template</button> -->
+			</div>	
+			<!--footer aside-footer-->
+				<button type="submit" class="button color" ng-disabled="validating || !productName" ng-click="nextState='orders.new'">Create</button>
+				<!--button class="button large" ng-click="cancel($event)">Cancel</button-->
+				<!-- <button class="button large half pull-left" ng-click="cancel($event)">Cancel</button>
+				<button class="button color large half pull-right" ng-click="cancel($event)">Next</button> -->
+			<!--/footer-->
+		</div>
+	</form>
+</section>

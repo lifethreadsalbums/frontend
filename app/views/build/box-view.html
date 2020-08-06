@@ -1,0 +1,43 @@
+<div class="builder__content-container builder__content-container--materials builder__content-container--footer-on" ng-class="{'read-only':!editable}">
+    <div class="builder__content-primary animate-show" ng-click="selectNone($event)" ng-show="display=='cover'">
+        <div class="builder__content-primary-inner">
+            <box-preview  class="animate-show"
+                cover-layout="coverLayout"
+                product="product"
+                product-prototype="productPrototype"
+                layout-controller="layoutController"
+                layout-container="builder__content-primary-inner">
+            </box-preview>
+        </div>
+    </div>
+
+    <div class="builder__content-primary animate-show" ng-show="display=='product'" >
+        <div class="builder__content-primary-inner ">
+            <img ng-if="display=='product'" ng-src="{{productImageUrl}}" class="preview"/>
+        </div>
+    </div>
+
+    <div class="build-overlay animate-show" ng-show="display=='product'"></div>
+    <footer class="builder__footer">
+        <div class="slider builder__footer-slider" flex-slider
+            flex-slide="item in secondaryOption.items track by item.productOptionValue.code" slideshow="false" control-nav="false"
+            animation="slide" animation-loop="false" item-width="100" ng-fade="secondaryOption.items"
+            ng-if="!secondaryOption.items[0].layoutSize" hide-flexslider-arrows>
+            <li class="builder__footer-slide builder__footer-slide--material" ng-class="{selected:previewOptionValue == item.productOptionValue.code}" >
+                <a class="builder__footer-slide-link"
+                    ng-click="selectItem(item)"
+                    ng-mouseover="setPreviewOptionValue(item.productOptionValue.code)"
+                    ng-mouseleave="resetPreviewOptionValue()">
+
+                    <span class="material-box-wrap">
+                        <span class="material-box">
+                            <span class="material-preview" ng-style="{'background-image': 'url(' + getThumbUrl(item) +')'}"></span>
+                        </span>
+                    </span>
+                    <span class="material-name">{{item.productOptionValue.displayName}}</span>
+                </a>
+            </li>
+        </div>
+    </footer>
+    <cover-control-panel id="control-panel" layout-controller="layoutController"></cover-control-panel>
+</div>

@@ -1,0 +1,38 @@
+<div id="login-page">
+
+    <div id="wrap">
+
+        <div class="row">
+            <div class="company-logo text-center medium-8 large-6 medium-centered columns"
+                ng-style="{width:(storeConfig.loginPage.logoWidth || 200) + 'px'}">
+                <a ng-href="{{storeConfig.loginPage.logoUrl}}" target="_blank">
+                    <img ng-src="{{storeConfig.loginPage.logo}}">
+                </a>
+            </div>
+        </div>
+
+        <section class="row">
+            <div class="medium-9 large-6 medium-centered columns">
+                <article ui-view="" class="login-content-block {{actPage}} ng-animate-enabled"
+                    ng-class="{'fade-animation': (actPage == 'login' || actPage == 'signup1' || actPage == 'signup2' || actPage == 'signup3' || actPage == 'signup4' || actPage == 'signup5' || actPage == 'signup6' || actPage == 'signupend')}"
+                ></article>
+            </div>
+        </section>
+
+        <div class="row" data-ng-show="actPage == 'login' && !storeConfig.loginPage.signUpLinkHidden">
+            <div class="signup-text text-center medium-8 large-6 medium-centered columns">
+                Don't have an account yet? Sign-up for one <a href="#/signup">here.</a>
+            </div>
+        </div>
+
+        <div class="row" ng-if="storeConfig.loginPage.paceLogo">
+            <div class="pace-logo text-center medium-8 large-6 medium-centered columns" init-pace-tooltip>
+                <a href="http://www.poweredbypace.com" class="logo" data-pace-tooltip="Pace">
+                    <img alt="PACE" src="/images/pacelogo.png" width="100px" height="70px">
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

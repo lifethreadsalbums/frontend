@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<!--[if IE 8]>               <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- TODO -->
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <title></title>
+
+        <!-- build:css({app,.tmp}) styles/main.css -->
+        <link rel="stylesheet" href="styles/app.css">
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css">
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css">
+        <link rel="stylesheet" href="bower_components/intro.js/introjs.css">
+        <link rel="stylesheet" href="bower_components/colpick/css/colpick.css">
+        <link rel="stylesheet" href="bower_components/angularjs-datepicker/dist/angular-datepicker.min.css">
+        <link rel="stylesheet" href="bower_components/angular-native-picker/build/themes/classic.css">
+        <link rel="stylesheet" href="styles/iris-fonts.css">
+        <link rel="stylesheet" href="scripts/misc/quill.css">
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/libs.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="scripts/misc/modernizr.feature-detects.hiddenscroll.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="scripts/misc/quill.js"></script>
+
+        <!-- endbuild -->
+        <script type="text/javascript">
+            var PACE = PACE || {};
+            PACE.FlashMessage = {
+                error: '${errorMessage!}',
+                info: '${infoMessage!}',
+                warning: '${warningMessage!}'
+            };
+        </script>
+    </head>
+
+    <body data-ng-app="paceApp" ng-controller="MainCtrl"
+        ng-keydown="onKeyDown($event)"
+        ng-class="{'content-full-page': $state.current.data.loginLayout, 'fade': !$state.current.data.noFade}">
+
+        <div id="fb-root"></div>
+
+        <header class="main-nav ng-cloak" init-foundation ng-hide="$state.current.name==''">
+            <a href="/" class="main-nav__logo" title="{{brandLogo.text}}" ng-if="!$state.includes('proofer') && !$state.includes('proofer-login')">
+                <img ng-src="{{brandLogo.url}}" alt="{{brandLogo.text}}" class="main-nav__logo-image" ng-style="{height: (storeConfig.logo.height) + 'px', opacity: (storeConfig.logo.opacity||1)}">
+                <loader class="global-loader" data-color="#ffffff"></loader>
+            </a>
+
+            <a href="/" class="main-nav__logo" title="{{prooferLogo.text}}" ng-if="$state.includes('proofer') || $state.includes('proofer-login')">
+                <img ng-src="{{prooferLogo.url}}" alt="{{prooferLogo.text}}" class="main-nav__logo-image">
+                <loader class="global-loader" data-color="#ffffff"></loader>
+            </a>
+
+            <div ng-if="!$state.includes('proofer-login')" class="main-nav__user dropdown" data-dropdown="logged-dropdown">{{currentUser.firstName}}</div>
+            <ul id="logged-dropdown" class="main-nav__user-dropdown f-dropdown" data-dropdown-content foundation-dropdown-close>
+                <li class="main-nav__user-dropdown-item" ng-if="!$state.includes('proofer') && !$state.includes('proofer-login')">
+                    <a class="main-nav__user-dropdown-link" ui-sref="dashboard.preferences.account">User Account</a>
+                </li>
+                <li class="main-nav__user-dropdown-item">
+                    <a class="main-nav__user-dropdown-link" ng-click="logout()">Sign out</a>
+                </li>
+            </ul>
+
+            <nav class="main-nav__items-container" ng-if="$state.current.name!=='' && !$state.includes('proofer') && !$state.includes('proofer-login')">
+                <ul class="main-nav__items">
+                    <li class="main-nav__item" ng-class="{active:$state.includes('welcome') || (!isSinglePrintProduct && $state.includes('build'))}">
+                        <a ng-click="gotoCoverBuilder()" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--builder"></span>
+                            <span class="main-nav__item-label">Product Builder</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-class="{active:$state.includes('dashboard')}">
+                        <a ng-click="gotoDashboard()" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--dashboard"></span>
+                            <span class="main-nav__item-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-class="{active:$state.includes('layout')}">
+                        <a ng-click="gotoDesigner()" class="main-nav__link" ng-disabled="designerDisabled">
+                            <span class="main-nav__item-icon main-nav__item-icon--designer"></span>
+                            <span class="main-nav__item-label">Designer</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-if="storeConfig.prints.visible" ng-class="{active: isSinglePrintProduct && $state.includes('build')}">
+                        <a ng-click="gotoPrints()" class="main-nav__link" ng-disabled="printsDisabled">
+                            <span class="main-nav__item-icon main-nav__item-icon--prints"></span>
+                            <span class="main-nav__item-label">Prints</span>
+                        </a>
+                    </li>
+                    <li ng-show="!!storeConfig.helpDeskUrl" class="main-nav__item" ng-class="{active:$state.includes('help')}">
+                        <a href="#/help" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--help"></span>
+                            <span class="main-nav__item-label">Help</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-if="!currentUser.admin" ng-class="{active:$state.includes('orders')}">
+                        <a ng-click="gotoProjects()" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--projects"></span>
+                            <span class="main-nav__item-label">Projects</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-if="currentUser.admin" ng-class="{active:$state.includes('adminOrders')}">
+                        <a ng-click="gotoAdminOrders()" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--orders"></span>
+                            <span class="main-nav__item-label">Orders</span>
+                        </a>
+                    </li>
+                    <li class="main-nav__item" ng-class="{active: tourInProgress}">
+                        <a ng-click="showAvailableTours()" class="main-nav__link main-nav__link--tour" ng-disabled="!availableTours || !availableTours.length">
+                            <span class="main-nav__item-icon main-nav__item-icon--tour"></span>
+                            <span class="main-nav__item-label">Tour</span>
+                        </a>
+                        <ul class="tour-list ng-animate-enabled fade-animation fade-animation--fast" ng-if="isExapandedTourList">
+                            <li class="tour-list__item" ng-repeat="tour in availableTours" ng-click="startTour(tour.id)">{{tour.name}}</li>
+                        </ul>
+                    </li>
+                    <li class="main-nav__item" ng-if="currentUser.admin" ng-class="{active:$state.includes('admin')}">
+                        <a href="#/admin/users?status=New,Verified" class="main-nav__link">
+                            <span class="main-nav__item-icon main-nav__item-icon--admin"></span>
+                            <span class="main-nav__item-label">Admin</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="pageWrap ng-animate-enabled" ng-hide="$state.includes('layout')" ui-view=""></div>
+
+        <div class="pageWrap animate-show ng-animate-enabled" ng-show="$state.includes('layout')" ng-include="'views/layout/layout.html'"></div>
+
+        <footer id="footer" class="main-footer collapsed ng-cloak"
+                ng-class="{'hidden-force': $state.current.data.loginLayout}"
+                ng-if="!$state.includes('proofer')">
+            <ul>
+                <li>Support</li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Knowledge Base</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <ul>
+                <li>Legal</li>
+                <li><a ui-sref="termsOfUse">Terms of Use</a></li>
+                <li><a ui-sref="privacyPolicy">Privacy Policy</a></li>
+                <li><a ui-sref="eula">EULA</a></li>
+            </ul>
+             <a href="http://www.poweredbypace.com" target="_blank" class="powered-by-pace" title="Powered by PACE"></a>
+            <span class="footer-handle" footer-handle></span>
+        </footer>
+        <footer id="footer-small" class="main-footer-small ng-cloak"
+                ng-class="{'hidden-force': $state.current.data.loginLayout}"
+                ng-if="!$state.includes('proofer')">
+            <span>Powered by <a href="#">PACE</a></span>
+        </footer>
+
+        <div class="landingpage" ng-if="appLoading">
+            <div ng-cloak>
+                <spinner></spinner>
+                <div class="message">Loading... Please wait...</div>
+            </div>
+        </div>
+
+        <!-- build:js({.tmp,app}) scripts/foundation.js -->
+        <script src="bower_components/foundation/js/foundation/foundation.js"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.tooltip.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js scripts/modules.js -->
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-ui/build/angular-ui.js"></script>
+        <script src="bower_components/angular-placeholder-shim/angular-placeholder-shim.min.js"></script>
+        <script src="bower_components/angular-ui-utils/modules/event/event.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+        <script src="bower_components/jdataview/dist/browser/jdataview.js"></script>
+        <script src="bower_components/resumablejs/resumable.js"></script>
+        <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/zlib.js/bin/inflate.min.js"></script>
+        <script src="bower_components/fabric/dist/fabric.js"></script>
+        <script src="bower_components/Sortable/Sortable.min.js"></script>
+        <script src="bower_components/spin.js/spin.js"></script>
+        <script src="bower_components/spin.js/jquery.spin.js"></script>
+        <script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+        <script src="bower_components/ngDialog/js/ngDialog.js"></script>
+        <script src="bower_components/numeral/min/numeral.min.js"></script>
+        <script src="bower_components/q/q.js"></script>
+        <script src="bower_components/react/react-with-addons.min.js"></script>
+        <script src="bower_components/react/react-dom.min.js"></script>
+        <script src="bower_components/classnames/index.js"></script>
+
+        <script src="bower_components/filesize/lib/filesize.js"></script>
+        <script src="bower_components/flexslider/jquery.flexslider.js"></script>
+        <script src="bower_components/angular-flexslider/angular-flexslider.js"></script>
+        <script src="bower_components/intro.js/intro.js"></script>
+        <script src="bower_components/jquery-emulatetab/src/emulatetab.joelpurra.js"></script>
+        <script src="bower_components/colpick/js/colpick.js"></script>
+        <script src="bower_components/atmosphere/atmosphere.js"></script>
+        <script src="bower_components/angular-native-picker/build/angular-datepicker.js"></script>
+        <script src="bower_components/stringjs/dist/string.js"></script>
+        <script src="bower_components/angularjs-datepicker/dist/angular-datepicker.min.js"></script>
+        <script src="bower_components/webfontloader/webfontloader.js"></script>
+        <script src="bower_components/jQuery-contextMenu/src/jquery.ui.position.js"></script>
+        <script src="bower_components/jQuery-contextMenu/src/jquery.contextMenu.js"></script>
+        <script src="bower_components/jquery-hoverintent/jquery.hoverIntent.js"></script>
+        <script src="bower_components/ngModelOptions/ngModelOptions.js"></script>
+        <script src="bower_components/stacktrace-js/dist/stacktrace.min.js"></script>
+        <script src="bower_components/ngReact/ngReact.js"></script>
+        <script src="bower_components/ag-grid/dist/ag-grid.js"></script>
+        <script src="bower_components/pako/dist/pako.min.js"></script>
+        <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+        <script src="bower_components/ace-builds/src-min-noconflict/mode-javascript.js"></script>
+        <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+        <script src="bower_components/bowser/src/bowser.js"></script>
+        <script src="scripts/misc/turn.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/modules/login/login.js"></script>
+        <script src="scripts/modules/login/controllers/login.js"></script>
+        <script src="scripts/modules/login/controllers/signup.js"></script>
+        <script src="scripts/modules/login/controllers/forgotpass.js"></script>
+        <script src="scripts/modules/login/controllers/changePassword.js"></script>
+        <script src="scripts/modules/login/controllers/emailVerified.js"></script>
+        <script src="scripts/modules/login/controllers/taxExemption.js"></script>
+        <script src="scripts/modules/login/services/userData.js"></script>
+        <script src="scripts/modules/login/services/authService.js"></script>
+
+        <script src="scripts/modules/cart/cart.js"></script>
+        <script src="scripts/modules/cart/controllers/checkout.js"></script>
+        <script src="scripts/modules/cart/controllers/paymentError.js"></script>
+        <script src="scripts/modules/cart/services/payment.js"></script>
+        <script src="scripts/modules/cart/services/cart.js"></script>
+
+        <script src="scripts/modules/build/build.js"></script>
+        <script src="scripts/modules/build/controllers/coverView.js"></script>
+        <script src="scripts/modules/build/controllers/itemList.js"></script>
+        <script src="scripts/modules/build/controllers/sectionItemList.js"></script>
+        <script src="scripts/modules/build/controllers/build.js"></script>
+        <script src="scripts/modules/build/controllers/debossingView.js"></script>
+        <script src="scripts/modules/build/controllers/debossingSidebar.js"></script>
+        <script src="scripts/modules/build/controllers/slideshowView.js"></script>
+        <script src="scripts/modules/build/controllers/sectionSummary.js"></script>
+        <script src="scripts/modules/build/controllers/numericOptionSubsection.js"></script>
+        <script src="scripts/modules/build/controllers/booleanOptionSubsection.js"></script>
+        <script src="scripts/modules/build/controllers/cameo.js"></script>
+        <script src="scripts/modules/build/controllers/duplicatesView.js"></script>
+        <script src="scripts/modules/build/controllers/printsSizesSidebar.js"></script>
+        <script src="scripts/modules/build/services/build.js"></script>
+        <script src="scripts/modules/build/services/bumpMap.js"></script>
+        <script src="scripts/modules/build/services/debossing.js"></script>
+        <script src="scripts/modules/build/services/productBuilderTourService.js"></script>
+        <script src="scripts/modules/build/directives/debossingTool.js"></script>
+        <script src="scripts/modules/build/directives/projectItem.js"></script>
+        <script src="scripts/modules/build/directives/debossingLayers.js"></script>
+        <script src="scripts/modules/build/directives/coverPreview.js"></script>
+        <script src="scripts/modules/build/directives/endpapersPreview.js"></script>
+        <script src="scripts/modules/build/directives/boxPreview.js"></script>
+        <script src="scripts/modules/build/filters/searchTemplate.js"></script>
+        <script src="scripts/modules/build/fonts/coverBuilderFonts.js"></script>
+
+        <script src="scripts/modules/order/order.js"></script>
+        <script src="scripts/modules/order/controllers/orders.js"></script>
+        <script src="scripts/modules/order/controllers/createOrder.js"></script>
+        <script src="scripts/modules/order/controllers/orderList.js"></script>
+        <script src="scripts/modules/order/controllers/productList.js"></script>
+        <script src="scripts/modules/order/controllers/product.js"></script>
+        <script src="scripts/modules/order/directives/productForm.js"></script>
+        <script src="scripts/modules/order/directives/stampWidget.js"></script>
+        <script src="scripts/modules/order/directives/attachmentsWidget.js"></script>
+        <script src="scripts/modules/order/directives/reprintPagesWidget.js"></script>
+        <script src="scripts/modules/order/directives/productList.js"></script>
+        <script src="scripts/modules/order/directives/coverBuilderWidget.js"></script>
+        <script src="scripts/modules/order/directives/spoThumbnailWidget.js"></script>
+        <script src="scripts/modules/order/components/coverBuilderWidget.js"></script>
+        <script src="scripts/modules/order/components/panelWidget.js"></script>
+        <script src="scripts/modules/order/components/productOptionWidget.js"></script>
+        <script src="scripts/modules/order/components/textAreaWidget.js"></script>
+        <script src="scripts/modules/order/components/printsSizeOptionWidget.js"></script>
+        <script src="scripts/modules/order/components/productNumberWidget.js"></script>
+        <script src="scripts/modules/order/services/productFormService.js"></script>
+
+        <script src="scripts/modules/adminOrders/adminOrders.js"></script>
+        <script src="scripts/modules/adminOrders/components/agGridComponents.js"></script>
+        <script src="scripts/modules/adminOrders/controllers/adminOrders.js"></script>
+        <script src="scripts/modules/adminOrders/controllers/adminOrderList.js"></script>
+        <script src="scripts/modules/adminOrders/controllers/adminProduct.js"></script>
+        <script src="scripts/modules/adminOrders/controllers/reports.js"></script>
+        <script src="scripts/modules/adminOrders/controllers/batches.js"></script>
+        <script src="scripts/modules/adminOrders/services/adminNotificationService.js"></script>
+        <script src="scripts/modules/adminOrders/services/gridService.js"></script>
+        <script src="scripts/modules/adminOrders/services/shippingService.js"></script>
+
+        <script src="scripts/modules/admin/admin.js"></script>
+        <script src="scripts/modules/admin/controllers/admin.js"></script>
+        <script src="scripts/modules/admin/controllers/user.js"></script>
+        <script src="scripts/modules/admin/controllers/userList.js"></script>
+        <script src="scripts/modules/admin/controllers/products.js"></script>
+        <script src="scripts/modules/admin/controllers/console.js"></script>
+        <script src="scripts/modules/admin/controllers/confirmPassword.js"></script>
+        <script src="scripts/modules/admin/controllers/couponsCtrl.js"></script>
+        <script src="scripts/modules/admin/controllers/couponDetailsCtrl.js"></script>
+        <script src="scripts/modules/admin/components/userList.js"></script>
+
+        <script src="scripts/modules/layout/layout.js"></script>
+        <script src="scripts/modules/layout/geom/matrix2d.js"></script>
+        <script src="scripts/modules/layout/geom/rect.js"></script>
+        <script src="scripts/modules/layout/geom/element.js"></script>
+        <script src="scripts/modules/layout/geom/point.js"></script>
+        <script src="scripts/modules/layout/geom/vector3d.js"></script>
+        <script src="scripts/modules/layout/pages/page.js"></script>
+        <script src="scripts/modules/layout/pages/bookPage.js"></script>
+        <script src="scripts/modules/layout/pages/bookBleedPage.js"></script>
+        <script src="scripts/modules/layout/pages/spreadInfoFactory.js"></script>
+        <script src="scripts/modules/layout/pages/spread.js"></script>
+        <script src="scripts/modules/layout/pages/coverSpread.js"></script>
+        <script src="scripts/modules/layout/pages/printsSpread.js"></script>
+        <script src="scripts/modules/layout/guides/guide.js"></script>
+        <script src="scripts/modules/layout/guides/smartPageGuide.js"></script>
+        <script src="scripts/modules/layout/guides/smartEdgeGuide.js"></script>
+        <script src="scripts/modules/layout/guides/smartSpacingGuide.js"></script>
+        <script src="scripts/modules/layout/guides/smartDimensionGuide.js"></script>
+        <script src="scripts/modules/layout/guides/fixedGuide.js"></script>
+        <script src="scripts/modules/layout/fabric/prooferElement.js"></script>
+        <script src="scripts/modules/layout/fabric/frame.js"></script>
+        <script src="scripts/modules/layout/fabric/imageElement.js"></script>
+        <script src="scripts/modules/layout/fabric/materialElement.js"></script>
+        <script src="scripts/modules/layout/fabric/polygonMaterialElement.js"></script>
+        <script src="scripts/modules/layout/fabric/textElement.js"></script>
+        <script src="scripts/modules/layout/fabric/elementGroup.js"></script>
+        <script src="scripts/modules/layout/fabric/canvasExt.js"></script>
+        <script src="scripts/modules/layout/fabric/objectExt.js"></script>
+        <script src="scripts/modules/layout/fabric/embossText.js"></script>
+        <script src="scripts/modules/layout/fabric/imageStampElement.js"></script>
+        <script src="scripts/modules/layout/fabric/textStampElement.js"></script>
+        <script src="scripts/modules/layout/fabric/spineTextElement.js"></script>
+        <script src="scripts/modules/layout/fabric/backgroundFrameElement.js"></script>
+        <script src="scripts/modules/layout/fabric/textBoxElement.js"></script>
+        <script src="scripts/modules/layout/fabric/cameoElement.js"></script>
+        <script src="scripts/modules/layout/commands/alignElement.js"></script>
+        <script src="scripts/modules/layout/commands/transformElement.js"></script>
+        <script src="scripts/modules/layout/commands/centerContentCommand.js"></script>
+        <script src="scripts/modules/layout/commands/macroCommand.js"></script>
+        <script src="scripts/modules/layout/commands/changeTextCommand.js"></script>
+        <script src="scripts/modules/layout/commands/groupCommand.js"></script>
+        <script src="scripts/modules/layout/commands/transformElements.js"></script>
+        <script src="scripts/modules/layout/commands/deleteElements.js"></script>
+        <script src="scripts/modules/layout/commands/addElements.js"></script>
+        <script src="scripts/modules/layout/commands/fixedSpacing.js"></script>
+        <script src="scripts/modules/layout/commands/centerOnPage.js"></script>
+        <script src="scripts/modules/layout/commands/addPages.js"></script>
+        <script src="scripts/modules/layout/commands/scaleContent.js"></script>
+        <script src="scripts/modules/layout/commands/fillFrame.js"></script>
+        <script src="scripts/modules/layout/commands/fitContent.js"></script>
+        <script src="scripts/modules/layout/commands/moveFilmstripItems.js"></script>
+        <script src="scripts/modules/layout/commands/removeFilmstripItems.js"></script>
+        <script src="scripts/modules/layout/commands/autoFlow.js"></script>
+        <script src="scripts/modules/layout/commands/autoArrange.js"></script>
+        <script src="scripts/modules/layout/commands/addSpreadCut.js"></script>
+        <script src="scripts/modules/layout/commands/sortFilmstrip.js"></script>
+        <script src="scripts/modules/layout/commands/filmstripOrder.js"></script>
+        <script src="scripts/modules/layout/commands/replaceFilmstripItem.js"></script>
+        <script src="scripts/modules/layout/commands/applyTint.js"></script>
+        <script src="scripts/modules/layout/commands/truncateElementsToRect.js"></script>
+        <script src="scripts/modules/layout/commands/layoutElements.js"></script>
+        <script src="scripts/modules/layout/commands/scrollToSpread.js"></script>
+        <script src="scripts/modules/layout/commands/cleanupFilmstrip.js"></script>
+        <script src="scripts/modules/layout/commands/fitElement.js"></script>
+        <script src="scripts/modules/layout/commands/rotateElement.js"></script>
+        <script src="scripts/modules/layout/commands/twoSidedBleed.js"></script>
+        <script src="scripts/modules/layout/commands/fourSidedBleed.js"></script>
+        <script src="scripts/modules/layout/commands/floatingImage.js"></script>
+        <script src="scripts/modules/layout/commands/centerFrame.js"></script>
+        <script src="scripts/modules/layout/commands/resizeImageElement.js"></script>
+        <script src="scripts/modules/layout/commands/centerContentToProportions.js"></script>
+        <script src="scripts/modules/layout/commands/fixContentInFrame.js"></script>
+        <script src="scripts/modules/layout/commands/snapContentInFrame.js"></script>
+        <script src="scripts/modules/layout/commands/removeFabricTextStyle.js"></script>
+        <script src="scripts/modules/layout/commands/addFabricStyleToAll.js"></script>
+        <script src="scripts/modules/layout/commands/autoArrangeWithCuts.js"></script>
+        <script src="scripts/modules/layout/commands/swapContent.js"></script>
+        <script src="scripts/modules/layout/commands/pageUpDown.js"></script>
+        <script src="scripts/modules/layout/commands/applyToSelection.js"></script>
+        <script src="scripts/modules/layout/commands/centerSelection.js"></script>
+        <script src="scripts/modules/layout/commands/moveSelection.js"></script>
+        <script src="scripts/modules/layout/commands/deleteSelection.js"></script>
+        <script src="scripts/modules/layout/commands/undoRedo.js"></script>
+        <script src="scripts/modules/layout/commands/copyPaste.js"></script>
+        <script src="scripts/modules/layout/commands/updateFilmstripStats.js"></script>
+        <script src="scripts/modules/layout/commands/historyTemplate.js"></script>
+        <script src="scripts/modules/layout/commands/preflight.js"></script>
+        <script src="scripts/modules/layout/commands/zOrderCommands.js"></script>
+        <script src="scripts/modules/layout/commands/saveLayout.js"></script>
+        <script src="scripts/modules/layout/commands/duplicateAndConvert.js"></script>
+        <script src="scripts/modules/layout/commands/splitImages.js"></script>
+        <script src="scripts/modules/layout/commands/fixCoverLayout.js"></script>
+        <script src="scripts/modules/layout/commands/saveProduct.js"></script>
+        <script src="scripts/modules/layout/commands/zoomCommands.js"></script>
+        <script src="scripts/modules/layout/commands/flipCommands.js"></script>
+        <script src="scripts/modules/layout/commands/fixFrameOnSpread.js"></script>
+        <script src="scripts/modules/layout/commands/toolsCommands.js"></script>
+        <script src="scripts/modules/layout/commands/backgroundColorCommands.js"></script>
+        <script src="scripts/modules/layout/commands/selectionCommands.js"></script>
+        <script src="scripts/modules/layout/commands/saveStateCommands.js"></script>
+        <script src="scripts/modules/layout/commands/applyCustomTemplate.js"></script>
+        <script src="scripts/modules/layout/commands/applyTemplate.js"></script>
+        <script src="scripts/modules/layout/commands/fixFilmstrip.js"></script>
+        <script src="scripts/modules/layout/commands/fitFrameToContent.js"></script>
+        <script src="scripts/modules/layout/controllers/layoutController.js"></script>
+        <script src="scripts/modules/layout/controllers/layout.js"></script>
+        <script src="scripts/modules/layout/controllers/ui.js"></script>
+        <script src="scripts/modules/layout/controllers/filmstripCtrl.js"></script>
+        <script src="scripts/modules/layout/controllers/styles.js"></script>
+        <script src="scripts/modules/layout/controllers/proofer.js"></script>
+        <script src="scripts/modules/layout/controllers/prooferPrefs.js"></script>
+        <script src="scripts/modules/layout/controllers/spreadLayouts.js"></script>
+        <script src="scripts/modules/layout/controllers/preview.js"></script>
+        <script src="scripts/modules/layout/controllers/imageInfo.js"></script>
+        <script src="scripts/modules/layout/controllers/spreadToolbar.js"></script>
+        <script src="scripts/modules/layout/controllers/colPick.js"></script>
+        <script src="scripts/modules/layout/controllers/pages.js"></script>
+        <script src="scripts/modules/layout/controllers/snapshots.js"></script>
+        <script src="scripts/modules/layout/controllers/swatchRangeModal.js"></script>
+        <script src="scripts/modules/layout/controllers/designerUICtrl.js"></script>
+        <script src="scripts/modules/layout/tools/baseDropTool.js"></script>
+        <script src="scripts/modules/layout/tools/selectionTool.js"></script>
+        <script src="scripts/modules/layout/tools/directSelectionTool.js"></script>
+        <script src="scripts/modules/layout/tools/imageContentEditor.js"></script>
+        <script src="scripts/modules/layout/tools/imageCropEditor.js"></script>
+        <script src="scripts/modules/layout/tools/frameEditor.js"></script>
+        <script src="scripts/modules/layout/tools/textEditor.js"></script>
+        <script src="scripts/modules/layout/tools/cropTool.js"></script>
+        <script src="scripts/modules/layout/tools/frameTool.js"></script>
+        <script src="scripts/modules/layout/tools/imageEditor.js"></script>
+        <script src="scripts/modules/layout/tools/imageStampEditor.js"></script>
+        <script src="scripts/modules/layout/tools/fixedGuideTool.js"></script>
+        <script src="scripts/modules/layout/tools/textTool.js"></script>
+        <script src="scripts/modules/layout/tools/imageDropTool.js"></script>
+        <script src="scripts/modules/layout/tools/templateDropTool.js"></script>
+        <script src="scripts/modules/layout/tools/eyedropperTool.js"></script>
+        <script src="scripts/modules/layout/tools/colorDropTool.js"></script>
+        <script src="scripts/modules/layout/tools/handTool.js"></script>
+        <script src="scripts/modules/layout/filters/sepiaFilter.js"></script>
+
+        <script src="scripts/modules/layout/components/filmstripItem.js"></script>
+        <script src="scripts/modules/layout/components/filmstrip.js"></script>
+        <script src="scripts/modules/layout/components/spread.js"></script>
+        <script src="scripts/modules/layout/components/layout.js"></script>
+        <script src="scripts/modules/layout/components/spreadThumb.js"></script>
+        <script src="scripts/modules/layout/components/spreadThumbList.js"></script>
+        <script src="scripts/modules/layout/components/errorPopup.js"></script>
+        <script src="scripts/modules/layout/components/coverZone.js"></script>
+
+        <script src="scripts/modules/layout/components/productListItem.js"></script>
+        <script src="scripts/modules/layout/components/productList.js"></script>
+        <script src="scripts/modules/layout/components/orderList.js"></script>
+        <script src="scripts/modules/layout/components/fadingCircle.js"></script>
+        <script src="scripts/modules/layout/components/genericList.js"></script>
+        <script src="scripts/modules/layout/components/dropdown.js"></script>
+
+        <script src="scripts/modules/layout/directives/bookPreview.js"></script>
+        <script src="scripts/modules/layout/directives/pageDividerRenderer.js"></script>
+        <script src="scripts/modules/layout/directives/layoutAutoScale.js"></script>
+        <script src="scripts/modules/layout/directives/filmstrip.js"></script>
+        <script src="scripts/modules/layout/directives/layoutRenderer.js"></script>
+        <script src="scripts/modules/layout/directives/rulers2.js"></script>
+        <script src="scripts/modules/layout/directives/colorSlider.js"></script>
+        <script src="scripts/modules/layout/directives/addLogo.js"></script>
+        <script src="scripts/modules/layout/directives/logoSettings.js"></script>
+        <script src="scripts/modules/layout/directives/backgroundStroke.js"></script>
+        <script src="scripts/modules/layout/directives/draggable.js"></script>
+        <script src="scripts/modules/layout/directives/templatePreview.js"></script>
+        <script src="scripts/modules/layout/directives/recentlyUsedTemplates.js"></script>
+        <script src="scripts/modules/layout/directives/quickArrangeToolbar.js"></script>
+        <script src="scripts/modules/layout/directives/bookLayout.js"></script>
+        <script src="scripts/modules/layout/directives/spreadThumbList.js"></script>
+        <script src="scripts/modules/layout/directives/fontStyles.js"></script>
+        <script src="scripts/modules/layout/directives/centerizeQaFilmstrip.js"></script>
+        <script src="scripts/modules/layout/directives/autoArrangeState.js"></script>
+        <script src="scripts/modules/layout/directives/swatchApplyTo.js"></script>
+
+        <script src="scripts/modules/layout/services/undoService.js"></script>
+        <script src="scripts/modules/layout/services/snappingService.js"></script>
+        <script src="scripts/modules/layout/services/textureCache.js"></script>
+        <script src="scripts/modules/layout/services/textEditorService.js"></script>
+        <script src="scripts/modules/layout/services/queueRequest.js"></script>
+        <script src="scripts/modules/layout/services/template/fillFrames.js"></script>
+        <script src="scripts/modules/layout/services/template/spreadToTemplate.js"></script>
+        <script src="scripts/modules/layout/services/template/templateToFrames.js"></script>
+        <script src="scripts/modules/layout/services/template/validateTemplate.js"></script>
+        <script src="scripts/modules/layout/services/template/layoutTemplate.js"></script>
+        <script src="scripts/modules/layout/services/template/template.js"></script>
+        <script src="scripts/modules/layout/services/template/templateGenerator.js"></script>
+        <script src="scripts/modules/layout/services/layoutValidator.js"></script>
+        <script src="scripts/modules/layout/services/designerOverviewTourService.js"></script>
+        <script src="scripts/modules/layout/services/spreadToolbarService.js"></script>
+        <script src="scripts/modules/layout/services/filmstripTourUtilsService.js"></script>
+        <script src="scripts/modules/layout/services/spreadshotService.js"></script>
+        <script src="scripts/modules/layout/services/designerService.js"></script>
+
+        <script src="scripts/modules/layout/fonts/designerFonts.js"></script>
+
+        <script src="scripts/modules/dashboard/dashboard.js"></script>
+        <script src="scripts/modules/dashboard/controllers/dashboard.js"></script>
+        <script src="scripts/modules/dashboard/controllers/overview.js"></script>
+        <script src="scripts/modules/dashboard/controllers/resources.js"></script>
+        <script src="scripts/modules/dashboard/controllers/preferences.js"></script>
+        <script src="scripts/modules/dashboard/controllers/notifications.js"></script>
+        <script src="scripts/modules/dashboard/controllers/twitter.js"></script>
+        <script src="scripts/modules/dashboard/controllers/facebook.js"></script>
+        <script src="scripts/modules/dashboard/controllers/pinterest.js"></script>
+        <script src="scripts/modules/dashboard/controllers/googlePlus.js"></script>
+        <script src="scripts/modules/dashboard/controllers/account.js"></script>
+        <script src="scripts/modules/dashboard/controllers/welcome.js"></script>
+        <script src="scripts/modules/dashboard/controllers/calculator.js"></script>
+        <script src="scripts/modules/dashboard/controllers/projectPrefs.js"></script>
+        <script src="scripts/modules/dashboard/controllers/designerPrefs.js"></script>
+        <script src="scripts/modules/dashboard/directives/projectOverview.js"></script>
+        <script src="scripts/modules/dashboard/directives/projectSlider.js"></script>
+        <script src="scripts/modules/dashboard/directives/instagram.js"></script>
+        <script src="scripts/modules/dashboard/directives/tourSlider.js"></script>
+        <script src="scripts/modules/dashboard/services/dashboardOverviewTourService.js"></script>
+
+        <script src="scripts/modules/prints/prints.js"></script>
+        <script src="scripts/modules/prints/controllers/printsController.js"></script>
+        <script src="scripts/modules/prints/components/printsImageList.js"></script>
+        <script src="scripts/modules/prints/components/printsContainer.js"></script>
+        <script src="scripts/modules/prints/components/printsGrid.js"></script>
+        <script src="scripts/modules/prints/components/printsToolbar.js"></script>
+        <script src="scripts/modules/prints/components/printsContainerList.js"></script>
+        <script src="scripts/modules/prints/components/angularDropDown.js"></script>
+        <script src="scripts/modules/prints/components/angularSliderButton.js"></script>
+        <script src="scripts/modules/prints/tools/printsSelectionTool.js"></script>
+        <script src="scripts/modules/prints/services/printsService.js"></script>
+        <script src="scripts/modules/prints/services/printsOverviewTourService.js"></script>
+
+        <script src="scripts/modules/proofer/proofer.js"></script>
+        <script src="scripts/modules/proofer/controllers/proofer.js"></script>
+        <script src="scripts/modules/proofer/controllers/preview.js"></script>
+        <script src="scripts/modules/proofer/controllers/prooferLogin.js"></script>
+        <script src="scripts/modules/proofer/components/flipBook.js"></script>
+        <script src="scripts/modules/proofer/components/comment.js"></script>
+        <script src="scripts/modules/proofer/components/commentList.js"></script>
+        <script src="scripts/modules/proofer/components/edit.js"></script>
+        <script src="scripts/modules/proofer/components/editList.js"></script>
+        <script src="scripts/modules/proofer/components/proofer.js"></script>
+        <script src="scripts/modules/proofer/components/pageThumb.js"></script>
+        <script src="scripts/modules/proofer/components/pageThumbList.js"></script>
+        <script src="scripts/modules/proofer/services/prooferService.js"></script>
+        <script src="scripts/modules/proofer/tools/commentTool.js"></script>
+
+        <script src="scripts/modules/static/static.js"></script>
+        <script src="scripts/modules/static/controllers/static.js"></script>
+
+        <script src="scripts/misc/jpegimageinfo.js"></script>
+        <script src="scripts/misc/pngimageinfo.js"></script>
+        <script src="scripts/misc/iccprofile.js"></script>
+        <script src="scripts/misc/utils.js"></script>
+        <script src="scripts/misc/instafeed.min.js"></script>
+        <script src="scripts/misc/scale9.js"></script>
+        <script src="scripts/misc/scrollableSelector.js"></script>
+        <script src="scripts/misc/react-transition-group.js"></script>
+
+        <script src="scripts/templates.js"></script>
+        <script src="scripts/config.js"></script>
+        <script src="scripts/app.js"></script>
+
+        <script src="scripts/controllers/main.js"></script>
+
+        <script src="scripts/services/mainNavService.js"></script>
+        <script src="scripts/services/paceHttpInterceptor.js"></script>
+        <script src="scripts/services/messageService.js"></script>
+        <script src="scripts/services/sessionService.js"></script>
+        <script src="scripts/services/localization.js"></script>
+        <script src="scripts/services/order.js"></script>
+        <script src="scripts/services/product.js"></script>
+        <script src="scripts/services/layout.js"></script>
+        <script src="scripts/services/termService.js"></script>
+        <script src="scripts/services/fileset.js"></script>
+        <script src="scripts/services/fileUploader.js"></script>
+        <script src="scripts/services/debounce.js"></script>
+        <script src="scripts/services/underscore.js"></script>
+        <script src="scripts/services/productPrototype.js"></script>
+        <script src="scripts/services/widget.js"></script>
+        <script src="scripts/services/geomService.js"></script>
+        <script src="scripts/services/imageReader.js"></script>
+        <script src="scripts/services/imageUploadService.js"></script>
+        <script src="scripts/services/imageFile.js"></script>
+        <script src="scripts/services/filmStripItem.js"></script>
+        <script src="scripts/services/preflightService.js"></script>
+        <script src="scripts/services/keyboardService.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/settings.js"></script>
+        <script src="scripts/services/iconSet.js"></script>
+        <script src="scripts/services/thumbnailMaker.js"></script>
+        <script src="scripts/services/quillToFabric.js"></script>
+        <script src="scripts/services/fabricToQuill.js"></script>
+        <script src="scripts/services/mutationObserver.js"></script>
+        <script src="scripts/services/deepDiff.js"></script>
+        <script src="scripts/services/userForm.js"></script>
+        <script src="scripts/services/currency.js"></script>
+        <script src="scripts/services/layoutTemplate.js"></script>
+        <script src="scripts/services/productService.js"></script>
+        <script src="scripts/services/tourService.js"></script>
+        <script src="scripts/services/dataTransferService.js"></script>
+        <script src="scripts/services/colorService.js"></script>
+        <script src="scripts/services/notificationService.js"></script>
+        <script src="scripts/services/task.js"></script>
+        <script src="scripts/services/iccProfile.js"></script>
+        <script src="scripts/services/dataCacheService.js"></script>
+        <script src="scripts/services/productAutoSaveService.js"></script>
+        <script src="scripts/services/layoutAutoSaveService.js"></script>
+        <script src="scripts/services/jsLog.js"></script>
+        <script src="scripts/services/batch.js"></script>
+        <script src="scripts/services/store.js"></script>
+        <script src="scripts/services/cameo.js"></script>
+        <script src="scripts/services/pace-tooltip.js"></script>
+        <script src="scripts/services/leaveSiteService.js"></script>
+        <script src="scripts/services/timezone.js"></script>
+        <script src="scripts/services/coupon.js"></script>
+
+        <script src="scripts/directives/correctPassword.js"></script>
+        <script src="scripts/directives/matchFields.js"></script>
+        <script src="scripts/directives/formSubmit.js"></script>
+        <script src="scripts/directives/ngFocus.js"></script>
+        <script src="scripts/directives/tabs.js"></script>
+        <script src="scripts/directives/panel.js"></script>
+        <script src="scripts/directives/addressForm.js"></script>
+        <script src="scripts/directives/collapseSidebar.js"></script>
+        <script src="scripts/directives/textAdvanced.js"></script>
+        <script src="scripts/directives/fileUpload.js"></script>
+        <script src="scripts/directives/fileUploadPlaceholder.js"></script>
+        <script src="scripts/directives/fileUploadPlaceholderStamp.js"></script>
+        <script src="scripts/directives/fileDrop.js"></script>
+        <script src="scripts/directives/asideFooter.js"></script>
+        <script src="scripts/directives/contentEditor.js"></script>
+        <script src="scripts/directives/farRightPanel.js"></script>
+        <script src="scripts/directives/dropdownTop.js"></script>
+        <script src="scripts/directives/dropdownButton.js"></script>
+        <script src="scripts/directives/dropdownButtonSplit.js"></script>
+        <script src="scripts/directives/sliderButton.js"></script>
+        <script src="scripts/directives/sliderButtonWithDropdown.js"></script>
+        <script src="scripts/directives/submitOn.js"></script>
+        <script src="scripts/directives/counter.js"></script>
+        <script src="scripts/directives/dragAndDrop.js"></script>
+        <script src="scripts/directives/flexslider.js"></script>
+        <script src="scripts/directives/loader.js"></script>
+        <script src="scripts/directives/imageUpload.js"></script>
+        <script src="scripts/directives/footerHandle.js"></script>
+        <script src="scripts/directives/centerize.js"></script>
+        <script src="scripts/directives/spinner.js"></script>
+        <script src="scripts/directives/numberFormat.js"></script>
+        <script src="scripts/directives/keypressHandler.js"></script>
+        <script src="scripts/directives/foundationDropdownClose.js"></script>
+        <script src="scripts/directives/foundationDropdown.js"></script>
+        <script src="scripts/directives/forceMinMax.js"></script>
+        <script src="scripts/directives/validateProductName.js"></script>
+        <script src="scripts/directives/goRoute.js"></script>
+        <script src="scripts/directives/onOff.js"></script>
+        <script src="scripts/directives/priceButton.js"></script>
+        <script src="scripts/directives/initFoundation.js"></script>
+        <script src="scripts/directives/setFocus.js"></script>
+        <script src="scripts/directives/layoutTemplate.js"></script>
+        <script src="scripts/directives/thumbSrc.js"></script>
+        <script src="scripts/directives/rating.js"></script>
+        <script src="scripts/directives/ngFade.js"></script>
+        <script src="scripts/directives/xfadeImg.js"></script>
+        <script src="scripts/directives/divider.js"></script>
+        <script src="scripts/directives/pulseClass.js"></script>
+        <script src="scripts/directives/progressBar.js"></script>
+        <script src="scripts/directives/hideFlexsliderArrows.js"></script>
+        <script src="scripts/directives/enterAsTab.js"></script>
+        <script src="scripts/directives/getProjectImage.js"></script>
+        <script src="scripts/directives/onScrollEnd.js"></script>
+        <script src="scripts/directives/contextMenu.js"></script>
+        <script src="scripts/directives/colorSelector.js"></script>
+        <script src="scripts/directives/hoverPreview.js"></script>
+        <script src="scripts/directives/inputUrl.js"></script>
+        <script src="scripts/directives/inputNumber.js"></script>
+        <script src="scripts/directives/uniqueEmail.js"></script>
+        <script src="scripts/directives/paceSearch.js"></script>
+        <script src="scripts/directives/initPaceTooltip.js"></script>
+
+        <script src="scripts/filters/parentOption.js"></script>
+        <script src="scripts/filters/optionVisiblity.js"></script>
+        <script src="scripts/filters/moment.js"></script>
+        <script src="scripts/filters/truncate.js"></script>
+        <script src="scripts/filters/where.js"></script>
+        <!-- endbuild -->
+
+    </body>
+</html>

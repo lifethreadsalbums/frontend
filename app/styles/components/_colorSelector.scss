@@ -1,0 +1,19 @@
+.color-selector {
+    display: inline-block;
+    width: 41px;
+    height: 31px;
+    border: 1px solid map-get($colors, light-700);
+    border-radius: 4px;
+    box-shadow: inset 0px 18px 30px -1px rgba(map-get($colors, light-50), 0.4);
+    box-sizing: border-box;
+    cursor: pointer;
+    vertical-align: middle;
+
+    &.dark.color-selector-stroke {
+        background: map-get($colors, light-50);
+    }
+}
+
+.ngdialog.pace-modal.pace-modal-light .colpick {
+    background: map-get($colors, light-200);
+}

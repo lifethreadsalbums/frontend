@@ -1,0 +1,27 @@
+<div class="builder__content-container builder__content-container--footer-on" ng-class="{'read-only':!editable}">
+    <div class="builder__content-primary">
+        <div class="builder__content-primary-inner">
+            <cover-preview ng-if="display=='cover'"
+                cover-layout="coverLayout"
+                product="product"
+                product-prototype="productPrototype"
+                layout-controller="layoutController"
+                layout-container="builder__content-primary-inner"
+                mode="mode"
+                ng-click="onDoubleClick($event)">
+            </cover-preview>
+
+             <box-preview ng-if="display=='box'"
+                cover-layout="coverLayout"
+                product="product"
+                product-prototype="productPrototype"
+                layout-controller="layoutController"
+                layout-container="builder__content-primary-inner">
+            </box-preview>
+
+            <img ng-if="display=='product'" ng-src="{{productImageUrl}}" class="preview"/>
+        </div>
+    </div>
+
+    <div class="build-overlay animate-show" ng-show="display=='product' && !productImageUrl"></div>
+</div>

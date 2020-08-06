@@ -1,0 +1,23 @@
+<div class="sidebar-creator__content">
+	<header class="header-back">
+		<button ng-click="back()" class="button back big">Back</button>
+		<div>
+			<h1>{{model.label}}</h1>
+			<small>{{model.description}}</small>
+		</div>
+	</header>
+	<div ng-class="{'read-only':!editable}">
+
+		<label>Shape</label>
+		<dropdown-button direction="down" fixed-width="190px"
+            options="shapeOptions" label-field="label" value-field="value"
+            ng-model="shape" on-change="filter()">
+        </dropdown-button>
+
+		<label>Number of windows</label>
+		<dropdown-button direction="down" fixed-width="190px"
+            options="numWindowsOptions" label-field="label" value-field="value"
+            ng-model="numWindows" on-change="filter()">
+        </dropdown-button>
+	</div>
+</div>

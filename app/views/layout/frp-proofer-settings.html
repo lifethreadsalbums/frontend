@@ -1,0 +1,210 @@
+<div class="frp-overlay"></div>
+<div class="frp-content">
+    <div class="proofer-settings">
+        <div class="proofer-settings__section proofer-settings__section--left">
+            <header class="header-back dark small">
+                <button class="button dark back small double" ng-click="toggleProoferSettings(false)">Back</button>
+                <div>
+                    <h1>Settings</h1>
+                </div>
+            </header>
+            <div class="proofer-settings__sidebar-content">
+                <ul class="item-list dark">
+                    <li class="item single item-arrow"
+                        ng-class="{active: model.prooferSettingsPage === 'client'}">
+                        <a ng-click="model.prooferSettingsPage = 'client'">
+                            <span class="item-title">
+                                <span class="item-title-primary">Client</span>
+                            </span>
+                            <span class="item-icon"></span>
+                        </a>
+                    </li>
+                    <li class="item single item-arrow"
+                        ng-class="{active: model.prooferSettingsPage === 'companyLogo'}">
+                        <a ng-click="model.prooferSettingsPage = 'companyLogo'">
+                            <span class="item-title">
+                                <span class="item-title-primary">Company Logo</span>
+                            </span>
+                            <span class="item-icon"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="proofer-settings__section proofer-settings__section--middle">
+            <div class="proofer-settings__content-box ng-animate-enabled fade-animation"
+                 ng-if="model.prooferSettingsPage === 'client'">
+                <panel collapsed="false" enable-collapsing="false" rounds="true" color="dark">
+                    <panelheader title="Client" hide-collapse-option="true"></panelheader>
+
+                    <panelcontent>
+                        <form novalidate name="sendToClientForm" form-submit="closeProoferSettings(sendToClientForm)" autocomplete="nope">
+                            <div class="row">
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">First Name</label>
+                                    <input type="text"
+                                           ng-model="prooferSettings.firstName"
+                                           name="firstname"
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.firstname.$blurred && sendToClientForm.firstname.$error.required" class="alert label">{{'requiredField'|i18n}}</span>
+                                </div>
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">Last Name</label>
+                                    <input type="text"
+                                           ng-model="prooferSettings.lastName"
+                                           name="lastname"
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.lastname.$blurred && sendToClientForm.lastname.$error.required" class="alert label">{{'requiredField'|i18n}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">Email</label>
+                                    <input type="email"
+                                           ng-model="prooferSettings.email"
+                                           name="email"
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.email.$blurred && sendToClientForm.email.$error.required" class="alert label">{{'requiredField'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.email.$blurred && sendToClientForm.email.$error.email" class="alert label">Please enter a correct email address</span>
+                                </div>
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">Confirm email</label>
+                                    <input type="email"
+                                           ng-model="prooferSettings.confirmEmail"
+                                           name="confirmEmail"
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           match-fields="prooferSettings.email"
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.confirmEmail.$blurred && sendToClientForm.confirmEmail.$invalid &&
+                                        sendToClientForm.confirmEmail.$error.doesntMatch && !sendToClientForm.confirmEmail.$error.email && !sendToClientForm.confirmEmail.$error.required"
+                                        class="alert label">{{'emailNotMatch'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.confirmEmail.$blurred && sendToClientForm.confirmEmail.$error.required" class="alert label">{{'requiredField'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.confirmEmail.$blurred && sendToClientForm.confirmEmail.$error.email" class="alert label">Please enter a correct email address</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">{{'password'|i18n}}</label>
+                                    <input type="password"
+                                           min-length="4"
+                                           ng-model="prooferSettings.password"
+                                           name="password"
+                                           data-correct-password=""
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.password.$blurred && sendToClientForm.password.$error.required" class="alert label">{{'passwordRequired'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.password.$blurred && sendToClientForm.password.$error.short && !sendToClientForm.password.$error.required" class="alert label">{{'passwordTooShort'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.password.$blurred && sendToClientForm.password.$error.wrong && !sendToClientForm.password.$error.required" class="alert label">{{'passwordWrongChars'|i18n}}</span>
+                                </div>
+                                <div class="large-6 columns form-element">
+                                    <label class="dark">{{'confirmPassword'|i18n}}</label>
+                                    <input type="password"
+                                           ng-model="prooferSettings.confirmPassword"
+                                           name="passwordConfirmation"
+                                           data-match-fields="prooferSettings.password"
+                                           required
+                                           autocomplete="off"
+                                           ng-focus
+                                           ng-blur="saveProoferSettingsForm(sendToClientForm)"
+                                           class="dark-lighter">
+                                    <span ng-show="sendToClientForm.passwordConfirmation.$blurred && sendToClientForm.passwordConfirmation.$error.required" class="alert label">{{'passwordConfirmationRequired'|i18n}}</span>
+                                    <span ng-show="sendToClientForm.passwordConfirmation.$blurred && sendToClientForm.passwordConfirmation.$error.doesntMatch && !sendToClientForm.passwordConfirmation.$error.required" class="alert label">{{'passwordNotMatch'|i18n}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="large-12 columns form-element">
+                                    <label class="dark">Proofer Link</label>
+                                    <div style="display:flex; flex-direction:row">
+                                        <input type="url" id="proofer-url" readonly ng-model="prooferUrl" class="dark-lighter" style="flex:1; margin-right: 5px">
+                                        <button class="button color" ng-click="copyToClipboard('proofer-url', $event)">Copy Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="large-12 columns form-element">
+                                    <label class="dark">Public Link</label>
+                                    <div style="display:flex; flex-direction:row">
+                                        <input type="url" id="proofer-public-url" readonly ng-model="publicUrl" class="dark-lighter" style="flex:1; margin-right: 5px">
+                                        <button class="button color" ng-click="copyToClipboard('proofer-public-url', $event)">Copy Link</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <button type="submit" class="button color clear-margin-bottom" ng-click="">Done</button>
+                                    <button class="button color clear-margin-bottom" ng-click="resetSettings($event)">Reset</button>
+                                    <button class="button color clear-margin-bottom right" ng-show="prooferOverviewVisible" ng-click="openProoferOverview($event)">Proofer Overview</button>
+                                </div>
+                            </div>
+                        </form>
+                    </panelcontent>
+                </panel>
+            </div>
+            <div class="proofer-settings__content-box ng-animate-enabled fade-animation"
+                 ng-if="model.prooferSettingsPage === 'companyLogo'">
+                <panel collapsed="false" enable-collapsing="false" rounds="true" color="dark">
+                    <panelheader title="Company Logo" hide-collapse-option="true"></panelheader>
+
+                    <panelcontent>
+                        <div class="proofer-settings__logo">
+                            <div class="proofer-settings__logo-left">
+                                <h3 class="text--dark h3--small clear-margin-top">Current logo</h3>
+                                <div class="upload-logo-info upload-logo-info--logo">
+                                    <span class="upload-logo-info-preview"></span>
+                                    <span class="upload-logo-info-notice">Files must be a 72dpi PNG and on a transparent background.</span>
+                                </div>
+
+                                <div ng-if="selectedLogoFile" class="proofer-settings__logo-preview">
+                                    <img class="proofer-settings__logo-preview-image" thumb-src="selectedLogoFile">
+                                </div>
+                            </div>
+                            <div class="proofer-settings__logo-right">
+                                <h3 class="text--dark h3--small clear-margin-top">Upload New Logo</h3>
+                                <file-upload-placeholder on-files-dropped="handleLogoUpload(files)"></file-upload-placeholder>
+
+                                <h3 ng-if="logoFiles && logoFiles.length > 0" class="text--dark h3--small">Choose Existing Logo</h3>
+                                <ul ng-if="logoFiles && logoFiles.length > 0" class="layers">
+                                    <li ng-repeat="file in logoFiles"
+                                        id="{{file.filename}}"
+                                        class="layer"
+                                        ng-class="{active: selectedLogoFile && (file.id == selectedLogoFile.id || file == selectedLogoFile)}"
+                                        ng-click="selectLogo(file)"
+                                        init-pace-tooltip>
+                                        <span class="layer__preview">
+                                            <img class="layer__preview-image" thumb-src="file"/>
+                                        </span>
+                                        <span class="layer__name" data-pace-tooltip="{{file.filename}}" aria-haspopup="true">{{file.filename}}</span>
+                                        <span class="layer__buttons">
+                                            <a class="layer__button layer__button--active"></a>
+                                            <a class="layer__button layer__button--remove" ng-click="removeLogo($event, file)"></a>
+					                    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </panelcontent>
+                </panel>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="19px" viewBox="0 0 13 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Triangle 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#1496D2" offset="0%"></stop>
+            <stop stop-color="#25A5E1" offset="5.29304935%"></stop>
+            <stop stop-color="#28BEF0" offset="95.0482613%"></stop>
+            <stop stop-color="#3CD2FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-2">
+            <stop stop-color="#1DAAE2" offset="0%"></stop>
+            <stop stop-color="#0078BE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-1" transform="translate(-211.000000, -723.000000)" stroke="url(#linearGradient-2)" fill="url(#linearGradient-1)">
+            <g id="Back-Button" transform="translate(200.000000, 714.000000)">
+                <path d="M22.488012,12.5740614 C21.3798597,11.5028002 19.9995079,10.1739629 19.9995079,10.1739629 L12,18.9934199 L19.9995079,26.9664389 C19.9995079,26.9664389 21.2918748,25.6913113 22.3324375,24.6709835 L17,19.0226499 L22.488012,12.5740614 Z" id="Triangle-1"></path>
+            </g>
+        </g>
+    </g>
+</svg>

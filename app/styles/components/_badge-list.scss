@@ -1,0 +1,43 @@
+//------------------------------------------------------------------
+//                     BADGE LIST
+//------------------------------------------------------------------
+.badge-list {
+    display: block;
+    margin: 0;
+    list-style: none;
+}
+
+.badge-list__item {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 3px 3px;
+    padding: 3px 5px;
+
+    background: linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+    border: 1px solid map-get($colors, light-600);
+    border-radius: 4px;
+
+    @include museo300();
+    font-size: 12px;
+    color: map-get($colors, light-800);
+}
+
+.badge-list__delete {
+    margin: 0 0 0 5px !important;
+    padding: 3px !important;
+    border: none !important;
+
+    &:hover .badge-list__delete-icon {
+        @include common-sprite("icon-circled-cross-hover");
+    }
+}
+
+.badge-list__delete-icon {
+    display: block;
+    width: common-sprite-width("icon-circled-cross");
+    height: common-sprite-height("icon-circled-cross");
+    @include common-sprite("icon-circled-cross");
+}

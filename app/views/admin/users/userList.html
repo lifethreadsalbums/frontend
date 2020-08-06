@@ -1,0 +1,29 @@
+<header class="clear-margin">{{title}}</header>
+
+<div class="admin-users-list" ng-keydown="onKeyDown($event)" tabindex="0">
+
+<!--
+	<div class="header">
+		<span class="sidebar-search">
+			<input type="search" placeholder="Search Everything"
+				ng-model="searchQuery" ng-model-options="{ debounce: 500 }" ng-change="search()">
+			</input>
+		</span>
+	</div>
+-->
+
+	<react-component name="UserListComponent" props="userListProps"></react-component>
+
+	<footer>
+		<div class="admin-bottom-aside-nav-panel clearfix" init-pace-tooltip>
+			<span name="addUserBtn" class="button add-user" ui-sref="admin.users.new" data-pace-tooltip="Add user" data-pace-tooltip-position="top"></span>
+			<!-- <span name="msgBtn" ng-show="!batchEnabled" class="button admin-message" ng-disabled="true"></span>
+			<span name="undoBtn" ng-show="!batchEnabled" class="button undo" ng-disabled="true"></span>
+			<span name="redoBtn" ng-show="!batchEnabled" class="button redo" ng-disabled="true"></span> -->
+            <div class="tooltip__box tooltip__box--button pull-right" data-pace-tooltip="Remove user" data-pace-tooltip-position="top">
+			    <span name="removeBtn" ng-disabled="!hasSelection" class="button trash-darker-flat" ng-click="remove()"></span>
+            </div>
+		</div>
+	</footer>
+
+</div>

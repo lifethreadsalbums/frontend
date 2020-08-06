@@ -1,0 +1,39 @@
+<article class="cart__section shipping-details">
+	<a ng-click="back()" class="cart__section__back button back big">Back</a>
+	<h1 class="cart__section__title">Shipping Carrier Details</h1>
+	<span class="borderDefault"></span>
+
+	<panel collapsed="false" rounds="true" addresschoosing="true">
+        <panelheader title="SHIP VIA"></panelheader>
+
+        <panelcontent>
+        	<div class="row">
+				<div class="large-12 columns text-left">
+					<span ng-show="cart.loadingShippingOptions" class="shipping-details__loader">
+						<span>Please wait...</span>
+						<spinner class="shipping-details__loader-spinner" radius="6" length="8" width="2"></spinner>
+					</span>
+
+					<ul class="item-list standard" ng-show="cart.shippingOptions.length>0">
+						<li ng-repeat="item in cart.shippingOptions" class="item single"
+							ng-class="{ active: item.name==cart.shippingOption.name }">
+
+							<a ng-click="cart.shippingOption = item; onShippingSelected();">
+								<span class="item-title">
+									<span class="item-title-primary">
+										<span ng-show="item.christmasShippingAvailable"
+										      ng-class="{'christmas-shipping':item.christmasShipping, 'no-christmas-shipping':!item.christmasShipping}">
+											CHRISTMAS</span>
+										<span>{{item.label}}</span>
+									</span>
+									<span class="item-title-secondary"></span>
+								</span>
+								<span class="item-icon"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+        </panelcontent>
+    </panel>
+</article>

@@ -1,0 +1,467 @@
+//------------------------------------------------------------------
+//                     PROJECT ITEM
+//------------------------------------------------------------------
+.project-item {
+    position: relative;
+    padding: 1rem;
+    border-bottom: 1px solid map-get($colors, light-700);
+    background: map-get($colors, light-50);
+    overflow: hidden;
+
+    &.has-duplicates {
+        background: map-get($colors, light-300);
+    }
+
+    &:hover,
+    &.is-duplicate:hover {
+        background: $hover-color;
+    }
+
+    &.active,
+    &.is-duplicate.active {
+        @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+    }
+
+    &.active,
+    &:hover,
+    &.is-duplicate.active,
+    &.is-duplicate:hover {
+        color: map-get($colors, light-50);
+
+        .project-id,
+        .project-date,
+        .project-name,
+        .project-delivery-link {
+            color: map-get($colors, light-50);
+        }
+
+        .icon-book {
+            @include orders-sprite("icon-book-white");
+        }
+
+        .project-delivery-icon {
+            @include orders-sprite("icon-delivery-white");
+        }
+
+        .project-case-icon-presentation-box {
+            @include orders-sprite("icon-case-presentation-box-white");
+        }
+
+        .project-case-icon-slip-case {
+            @include orders-sprite("icon-case-icon-slip-case-white");
+        }
+
+        .project-case-icon-claim-shell-box {
+            @include orders-sprite("icon-case-claim-shell-box-white");
+        }
+    }
+
+    &:hover,
+    &.active {
+        .icon-www {
+            @include button-sprite("icon-button-www-active");
+        }
+
+        .icon-email {
+            @include button-sprite("icon-button-email-active");
+            width: button-sprite-width("icon-button-email-active");
+            height: button-sprite-height("icon-button-email-active");
+        }
+    }
+
+    .project-image {
+        display: none;
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        width: 75px;
+        height: 75px;
+    }
+
+    &.image-on {
+        min-height: 105px;
+
+        .project-image {
+            display: block;
+        }
+
+        .project-header {
+            margin-left: 85px;
+        }
+
+        .project-details {
+            margin-left: 85px;
+        }
+    }
+
+    &.is-duplicate {
+        background: map-get($colors, light-300);
+        color: map-get($colors, dark-400)666;
+    }
+
+    .project-header {
+        overflow: hidden;
+    }
+
+    .project-id {
+        @include museo500();
+        display: inline-block;
+        float: left;
+        width: 120px;
+        max-height: 22px;
+        margin-bottom: 12px;
+        font-size: 17px;
+        line-height: 22px;
+        overflow: hidden;
+        border: none;
+        color: map-get($colors, dark-400)666;
+    }
+
+    .status-label {
+        float: right;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .project-date {
+        @include museo300();
+        display: inline-block;
+        clear: left;
+        float: left;
+        font-size: 11px;
+        line-height: 22px;
+        border: none;
+        color: map-get($colors, dark-400)666;
+    }
+
+    .project-date--right {
+        float: right;
+    }
+
+    .project-name {
+        @include museo500();
+        display: block;
+        max-width: 235px;
+        max-height: 22px;
+        margin-bottom: 5px;
+        border: none;
+        font-size: 13px;
+        line-height: 22px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: map-get($colors, dark-400)666;
+    }
+
+    @media only screen and (max-width: $breakPointL) {
+        .project-id {
+            width: 85px;
+            font-size: 15px;
+        }
+
+        .project-date {
+            font-size: 12px;
+        }
+
+        .status-label {
+            font-size: 11px;
+        }
+
+        .project-name {
+            font-size: 15px;
+        }
+    }
+
+    .project-details {
+        font-size: 11px;
+        line-height: 13px;
+        margin-bottom: 5px;
+    }
+
+    .project-case {
+        margin-bottom: 5px;
+    }
+
+    .project-case-name {
+        font-size: 11px;
+        line-height: 11px;
+    }
+
+    .project-case-icon {
+        display: inline-block;
+        margin-right: 2px;
+    }
+
+    .project-case-icon-presentation-box {
+        @include orders-sprite("icon-case-presentation-box");
+        width: orders-sprite-width("icon-case-presentation-box");
+        height: orders-sprite-height("icon-case-presentation-box");
+    }
+
+    .project-case-icon-slip-case {
+        @include orders-sprite("icon-case-icon-slip-case");
+        width: orders-sprite-width("icon-case-icon-slip-case");
+        height: orders-sprite-height("icon-case-icon-slip-case");
+    }
+
+    .project-case-icon-claim-shell-box {
+        @include orders-sprite("icon-case-claim-shell-box");
+        width: orders-sprite-width("icon-case-claim-shell-box");
+        height: orders-sprite-height("icon-case-claim-shell-box");
+    }
+
+    .project-footer {
+        margin-top: 8px;
+        margin-bottom: 5px;
+        font-size: 13px;
+        overflow: hidden;
+    }
+
+    .project-copies {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .icon-book {
+        margin-right: 3px;
+    }
+
+    .project-price {
+        float: right;
+
+        &.is-usd,
+        &.is-cad {
+            &:before {
+                content: "";
+                display: inline-block;
+                margin-right: 5px;
+            }
+        }
+
+        &.is-usd:before {
+            @include button-sprite("icon-button-currency-usd");
+            width: button-sprite-width("icon-button-currency-usd");
+            height: button-sprite-height("icon-button-currency-usd");
+        }
+
+        &.is-cad:before {
+            @include button-sprite("icon-button-currency-cad");
+            width: button-sprite-width("icon-button-currency-cad");
+            height: button-sprite-height("icon-button-currency-cad");
+        }
+    }
+
+    .project-delivery {
+        margin-top: 10px;
+    }
+
+    .project-delivery-provider {
+        font-size: 13px;
+        line-height: 13px;
+        vertical-align: top;
+    }
+
+    .project-delivery-link {
+        float: right;
+
+        font-size: 13px;
+        line-height: 13px;
+        font-weight: bold;
+        color: map-get($colors, primary-400);
+        text-decoration: underline;
+    }
+
+    .project-delivery-icon {
+        position: relative;
+        display: inline-block;
+        top: 1px;
+        @include orders-sprite("icon-delivery");
+        width: orders-sprite-width("icon-delivery");
+        height: orders-sprite-height("icon-delivery");
+        margin-right: 4px;
+
+        line-height: 13px;
+        vertical-align: top;
+    }
+
+    .project-toggle-duplicates {
+        position: relative;
+        margin-top: 17px;
+        padding: 7px 10px;
+        border-radius: 4px;
+        background: map-get($colors, light-500);
+        font-size: 11px;
+        color: map-get($colors, dark-300);
+
+        &.is-expanded {
+            .project-toggle-duplicates-label:before {
+                content: "Hide Duplicates";
+            }
+
+            .project-toggle-duplicates-arrow:before {
+                content: "\25BE";
+            }
+        }
+    }
+
+    .project-toggle-duplicates-count {
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 10px;
+
+        &:before {
+            @include orders-sprite("icon-duplicates");
+            content: "";
+            display: inline-block;
+            position: relative;
+            top: 2px;
+            width: orders-sprite-width("icon-duplicates");
+            height: orders-sprite-height("icon-duplicates");
+            margin-right: 7px;
+        }
+    }
+
+    .project-toggle-duplicates-label {
+        display: block;
+        text-align: center;
+
+        &:before {
+            content: "Show Duplicates";
+            display: inline-block;
+        }
+    }
+
+    .project-toggle-duplicates-arrow {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 10px;
+
+        &:before {
+            display: inline-block;
+            content: "\25C2";
+        }
+    }
+
+    .generating-progress {
+        font-size: 14px;
+        margin-top: 10px;
+
+        .progress-bar {
+            position: relative;
+            width: 95%;
+            height: 12px;
+            border: 1px solid map-get($colors, light-700);
+            border-radius: 5px;
+            float: left;
+            display: inline-block;
+            margin-top: 5px;
+
+            .progress-line {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                border-radius: 5px;
+                background: map-get($colors, primary-200);
+            }
+        }
+
+        .cancel {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            float: right;
+            margin-top: 6px;
+            margin-right: -2px;
+            @include common-sprite("circled-cross");
+            width: common-sprite-width("circled-cross");
+            height: common-sprite-height("circled-cross");
+
+            &:hover,
+            &:active,
+            &:focus {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-item {
+        min-height: 110px;
+        padding: 22px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-item {
+        min-height: 130px;
+        padding: 25px;
+    }
+}
+
+.project-duplicates {
+    overflow: hidden;
+    transition: height .3s ease-in-out;
+}
+
+.drop-container .project-item {
+    border-bottom: 1px solid map-get($colors, light-700);
+    width: 250px;
+    height: 90px;
+    background: map-get($colors, light-50);
+    overflow: hidden;
+    padding: 10px;
+
+    .project-header {
+        overflow: hidden;
+    }
+
+    .project-name {
+        @include museo300();
+        display: inline-block;
+        float: left;
+        max-width: 120px;
+        max-height: 22px;
+        margin-bottom: 10px;
+        font-size: 17px;
+        line-height: 22px;
+        overflow: hidden;
+        border: none;
+        color: map-get($colors, dark-400)666;
+    }
+
+    .project-status {
+        float: right;
+    }
+
+    .project-details {
+        font-size: 11px;
+        line-height: 14px;
+        margin-bottom: 10px;
+    }
+
+    .project-footer {
+        font-size: 14px;
+        overflow: hidden;
+    }
+
+    .project-date {
+        float: left;
+    }
+
+    .project-copies {
+        float: right;
+        margin-right: 10px;
+    }
+
+    .icon-book {
+        margin-right: 3px;
+    }
+
+    .project-price {
+        float: right;
+    }
+}

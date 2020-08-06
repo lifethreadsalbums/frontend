@@ -1,0 +1,14 @@
+<section style="width:460px">
+	<header>Save Package</header>
+	<article>
+		<span>Enter package name: </span>
+		<div class="form-element inline pace-modal-inline-element">
+			<input id="packageName" set-focus="true" type="text" class="dark" style="width:240px; margin-left:5px" ng-model="packageName"></input>
+		</div>
+		<spinner ng-show="saving" style="display:inline-block;width:4px;height:4px;margin-left:12px" radius="6" length="6" width="2" color="#aaa"></spinner>
+	</article>
+	<footer>
+		<button ng-disabled="saving" type="button" class="button dark" ng-click="closeThisDialog()">Cancel</button>
+		<button ng-disabled="saving" type="button" class="button color" ng-click="ok()">Ok</button>
+	</footer>
+</section>

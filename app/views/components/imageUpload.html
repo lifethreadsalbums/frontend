@@ -1,0 +1,21 @@
+<div>
+	<div class="drop-box" ng-class="{active:dropBoxActive}">
+			<span class="drop-browse">
+				<input type="file">
+			</span>
+		</span>
+	</div>
+	<!--<span class="alert label">Error message</span>-->
+	<div class="form-element inline">
+		<label>&nbsp;</label>
+		<div class="die"  ng-repeat="image in images">
+			<div style="border: 1px solid; width: 100px; height: 50px;">
+
+			</div>
+			<div ng-if="file.progress>=0 && file.progress<100" class="progress success">
+				<span class="meter" ng-style="{ width: file.progress +'%' }"></span>
+			</div>
+			
+		</div>
+	</div>
+</div>

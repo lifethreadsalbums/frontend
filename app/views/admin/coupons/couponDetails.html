@@ -1,0 +1,362 @@
+<form class="ng-animate-disabled" name="couponForm" novalidate>
+    <div class="scrollable-container">
+        <header class="orders__project-header">
+            <div class="buttons">
+                <button type="button" class="button">Create New</button>
+                <a class="button light email" target="_blank" ng-href="{{mailTo}}"></a>
+                <button type="button" class="button remove"></button>
+            </div>
+            <div id="prod-tab-nav" class="inline"></div>
+        </header>
+        <panel class="orders__project-details">
+            <tabs data-gap-bottom="false" data-color="medium-grey"
+                  data-round="top" data-size="x-large" data-no-left-border="true" data-gap-side="1px"
+                  nav-container="prod-tab-nav">
+
+                <tab title="Coupon #12345" close="true" color="medium-grey">
+                    <ng-form novalidate class="product-container">
+                        <panel round="true">
+                            <panelheader title="User">
+                                <span ng-show="panelCtrl.collapsed"></span>
+                            </panelheader>
+
+                            <panelcontent>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <div class="form-element inline">
+                                            <label>Store</label>
+                                            <dropdown-button options="storeOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.store"
+                                                             on-change="storeChanged(index)"
+                                                             name="store"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Memberships</label>
+                                            <dropdown-button options="membershipsOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.memberships"
+                                                             name="memberships"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Users</label>
+                                            <dropdown-button options="usersOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="usersSelectedOption"
+                                                             on-change="usersChanged(index)">
+                                            </dropdown-button>
+                                        </div>
+                                        <div ng-if="usersSelectedOption !== 'all'" class="form-element inline">
+                                            <label>&nbsp;</label>
+                                            <select ng-options="user as user.fullName for user in users track by user.id" ng-model="coupon.users" multiple class="coupon__multi-select"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </panelcontent>
+                        </panel>
+
+                        <panel round="true">
+                            <panelheader title="Coupon">
+                                <span ng-show="panelCtrl.collapsed"></span>
+                            </panelheader>
+
+                            <panelcontent>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element inline">
+                                                    <label>Coupon Type</label>
+                                                    <dropdown-button options="couponTypeOptions"
+                                                                     label-field="label"
+                                                                     value-field="value"
+                                                                     ng-model="coupon.type"
+                                                                     name="type"
+                                                                     required>
+                                                    </dropdown-button>
+                                                </div>
+                                                <div class="form-element inline">
+                                                    <label>Code</label>
+                                                    <input type="text" name="code" ng-model="coupon.code" required>
+                                                </div>
+                                                <div class="form-element inline">
+                                                    <label>Discount Type</label>
+                                                    <dropdown-button options="discountTypeOptions"
+                                                                     label-field="label"
+                                                                     value-field="value"
+                                                                     ng-model="coupon.discountType"
+                                                                     on-change="discountTypeChanged(index)"
+                                                                     name="discountType"
+                                                                     required>
+                                                    </dropdown-button>
+                                                </div>
+                                                <div class="form-element inline">
+                                                    <label>Discount Value</label>
+                                                    <div class="text-nowrap">
+                                                        <span ng-if="coupon.discountType === 'cashValue'">$</span>
+                                                        <input type="text"
+                                                               name="discountValue"
+                                                               number-format="discountValueFormat"
+                                                               ng-model="coupon.discountValue"
+                                                               class="coupon__discount-value"
+                                                               maxlength="6"
+                                                               required>
+                                                        <span ng-if="coupon.discountType === 'percentageOff'">%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-element">
+                                                    <label>Comment</label>
+                                                    <textarea name="comment" ng-model="coupon.comment"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element inline">
+                                                    <label ng-class="{'text-mute': !expiry}">Expiry</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            size="input"
+                                                            ng-model="expiry"
+                                                            on-change="expiryChanged(value)"/>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !expiry}">
+                                                    <label>Active from</label>
+                                                    <datepicker date-format="yyyy-MM-dd HH:mm" date-refocus="true">
+                                                        <input type="text" name="activeFrom" ng-model="coupon.activeFrom" ng-disabled="!expiry" class="coupon__date-input" required>
+                                                    </datepicker>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !expiry}">
+                                                    <label>Active to</label>
+                                                    <datepicker date-format="yyyy-MM-dd HH:mm" date-refocus="true">
+                                                        <input type="text" name="activeTo" ng-model="coupon.activeTo" ng-disabled="!expiry" class="coupon__date-input" required>
+                                                    </datepicker>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !expiry}">
+                                                    <label>Timezone</label>
+                                                    <dropdown-button options="timezoneOptions"
+                                                                     label-field="label"
+                                                                     value-field="value"
+                                                                     ng-model="coupon.timezone"
+                                                                     ng-disabled="!expiry"
+                                                                     name="timezone"
+                                                                     required>
+                                                    </dropdown-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element inline">
+                                                    <label ng-class="{'text-mute': !limitNumberOfUses}">Limit Number of uses</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="limitNumberOfUses"
+                                                            on-change="limitNumberOfUsesChanged(value)"/>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !limitNumberOfUses}">
+                                                    <label>Maximum uses</label>
+                                                    <input type="number"
+                                                           name="maximumUses"
+                                                           number-format="'0'"
+                                                           ng-model="coupon.maximumUses"
+                                                           ng-disabled="!limitNumberOfUses"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element inline">
+                                                    <label ng-class="{'text-mute': !minimumOrderAmountRequired}">Minimum order amount required</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="minimumOrderAmountRequired"
+                                                            on-change="minimumOrderAmountRequiredChanged(value)"/>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !minimumOrderAmountRequired}">
+                                                    <label>Minimum order amount</label>
+                                                    <div class="text-nowrap">
+                                                        <span>$</span>
+                                                        <input type="text"
+                                                               name="minimumOrderAmount"
+                                                               number-format="'0.[00]'"
+                                                               ng-model="coupon.minimumOrderAmount"
+                                                               ng-disabled="!minimumOrderAmountRequired"
+                                                               required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element">
+                                                    <label ng-class="{'text-mute': !coupon.affectsCustomServices}">Coupon/Sale affects Custom Services</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="coupon.affectsCustomServices"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element">
+                                                    <label ng-class="{'text-mute': !coupon.canBeUsedWithOtherCoupons}">Coupon/Sale can be used with other discounts/coupons</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="coupon.canBeUsedWithOtherCoupons"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element">
+                                                    <label ng-class="{'text-mute': !coupon.canBeUsedWithStudioSample}">Coupon/Sale can be used with Studio Sample</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="coupon.canBeUsedWithStudioSample"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element inline">
+                                                    <label ng-class="{'text-mute': !couponBlackout}">Coupon Blackout</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="couponBlackout"/>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !couponBlackout}">
+                                                    <label>Coupon Blackout from</label>
+                                                    <input type="text" name="activeFrom" ng-model="coupon.couponBlackoutFrom" ng-disabled="!couponBlackout" required>
+                                                </div>
+                                                <div class="form-element inline" ng-class="{'text-mute': !couponBlackout}">
+                                                    <label>Coupon Blackout to</label>
+                                                    <input type="text" name="activeTo" ng-model="coupon.couponBlackoutTo" ng-disabled="!couponBlackout" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                                <panel>
+                                    <panelcontent>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <div class="form-element">
+                                                    <label ng-class="{'text-mute': !coupon.enabled}">Coupon is Enabled</label>
+                                                    <on-off on-label="Yes" off-label="No"
+                                                            size="input"
+                                                            ng-model="coupon.enabled"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </panelcontent>
+                                </panel>
+                            </panelcontent>
+                        </panel>
+
+                        <panel round="true">
+                            <panelheader title="Product">
+                                <span ng-show="panelCtrl.collapsed"></span>
+                            </panelheader>
+
+                            <panelcontent>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <div class="form-element inline">
+                                            <label>Product types</label>
+                                            <dropdown-button options="productTypesOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.productTypes"
+                                                             name="productTypes"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Product Lines</label>
+                                            <dropdown-button options="productLinesOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.productLines"
+                                                             name="productLines"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Products</label>
+                                            <dropdown-button options="productsOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.products"
+                                                             name="products"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Material/Colour</label>
+                                            <dropdown-button options="materialColourOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.materialColour"
+                                                             name="materialColour"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                        <div class="form-element inline">
+                                            <label>Size</label>
+                                            <dropdown-button options="sizeOptions"
+                                                             label-field="label"
+                                                             value-field="value"
+                                                             ng-model="coupon.size"
+                                                             name="size"
+                                                             required>
+                                            </dropdown-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </panelcontent>
+                        </panel>
+                    </ng-form>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+
+    <footer></footer>
+</form>

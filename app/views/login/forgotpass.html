@@ -1,0 +1,79 @@
+<form class="custom" data-ng-show="actPage == 'forgotpass1'" name="form1" form-submit="validate(2)" novalidate>
+	<h2>{{'forgotPass'|i18n}}</h2>
+	<h3 class="subheader">{{'enterMailForResetPass'|i18n}}</h3>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputEmail" >{{'mail'|i18n}}</label>
+				<input type="email" placeholder="{{'mailPlaceholder'|i18n}}" id="inputEmail" name="inEmail" data-ng-model="dataIn.mail" 
+					required ng-focus autocomplete="off">
+				<span ng-show="form1.inEmail.$blurred && form1.inEmail.$invalid && !form1.inEmail.$error.email " 
+					class="alert label">{{'emailRequired'|i18n}}</span>
+	          	<span ng-show="form1.inEmail.$blurred && form1.inEmail.$error.email && form1.inEmail.$invalid" 
+	          		class="alert label">{{'emailNotValid'|i18n}}</span>
+          	</div>
+         </div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputEmailConfirm" >{{'confirmMail'|i18n}}</label>
+				<input type="text" placeholder="{{'mailConfirmPlaceholder'|i18n}}" id="inputEmailConfirm" name="inEmailConfirm" data-ng-model="dataIn.mailConfirm" 
+					required ng-focus data-match-fields="dataIn.mail" autocomplete="off">
+				<span ng-show="form1.inEmailConfirm.$blurred && form1.inEmailConfirm.$invalid && 
+	          		(form1.inEmailConfirm.$error.email || form1.inEmailConfirm.$error.required)" 
+	          		class="alert label">{{'emailConfirmationRequired'|i18n}}</span>
+	          	<span ng-show="form1.inEmailConfirm.$blurred && form1.inEmailConfirm.$invalid && 
+	          		form1.inEmailConfirm.$error.doesntMatch && !form1.inEmailConfirm.$error.email && !form1.inEmailConfirm.$error.required" 
+	          		class="alert label">{{'emailNotMatch'|i18n}}</span>
+      		</div>
+         </div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<button class="button">{{'resetPasswordNext'|i18n}}</button>
+		</div>
+	</div>
+
+</form>
+
+<form class="custom" data-ng-show="actPage == 'forgotpass2'">
+	<h2>{{'CheckYourInbox'|i18n}}</h2>
+	<h3 class="subheader">{{'sendMailResetPass'|i18n}}</h3>
+	<div class="row">
+		<div class="large-12 columns text-part">
+			<p>{{'addToSafeSenders'|i18n}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<a href="#/login" class="button">{{'login'|i18n}}</a>
+		</div>
+	</div>
+	<!-- 
+	<h2>{{'accountPending2'|i18n}}</h2>
+	<h3 class="subheader">{{'accountPending2title'|i18n}}</h3>
+	<div class="row">
+		<div class="large-12 columns text-part">
+			<p>{{'addToSafeSenders'|i18n}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<a href="#/login" class="button">{{'login'|i18n}}</a>
+		</div>
+	</div>
+	-->
+</form>
+
+<form class="custom" data-ng-show="actPage == 'forgotpassError'">
+	<h2>{{'error'|i18n}}</h2>
+	<div class="row">
+		<div class="large-12 columns text-part">
+			<p><a href="#forgotpass">{{'fillAgain'|i18n}}</a></p>
+		</div>
+	</div>
+
+</form>

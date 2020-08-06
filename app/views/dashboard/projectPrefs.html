@@ -1,0 +1,415 @@
+<div class="frp-overlay"></div>
+<div class="frp-content prefs">
+    <aside class="frp-prefs">
+        <div class="section-content">
+            <tabs class="prefs-tabs-inside" gap-bottom="false" color="dark-grey" round="top" size="x-large" no-left-border="false" gap-side="1px">
+                <tab title="{{titles[$index]}}" color="dark-grey" ng-repeat="prefs in productSettings">
+                    <div class="project-prefs-tab-content album-content">
+                    	<h1>Preferences</h1>
+                        <hr/>
+                        <div class="row" ng-show="$index>0">
+                            <div class="large-5 columns">
+                                <p>Link layouts to Main Album</p>
+                            </div>
+                            <div class="large-7 columns">
+                                <on-off ng-model="prefs.settings.linkLayout"></on-off>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-5 columns">
+                            	<p>Gap Spacing between Frames</p>
+                            </div>
+                            <div class="large-7 columns">
+                                <input type="number" class="short" ng-model="prefs.settings.gapSpacing">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-5 columns">
+                            	<p>Page Background Color:</p>
+                            </div>
+                            <div class="large-7 columns">
+                            	<div color-selector ng-model="bgColor" color="dark"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="large-5 columns">
+                            	<p>Page Background Texture:</p>
+                            </div>
+                            <div class="large-7 columns">
+                                <div class="row">
+                                	<div class="large-6 columns">
+                                		<span class="upload-text">Upload a new texture</span>
+                                    	<div class="row">
+                							<div class="large-9 columns">
+                								<file-upload-placeholder ng-show="!imageUrl" on-files-dropped="handleUpload(files)">
+                								</file-upload-placeholder>
+
+                								<div class="form-element stamp-preview" ng-show="imageUrl">
+                									<img ng-src="{{imageUrl}}"/>
+                									<div style="error">{{selectedFile.errorMessage}}</div>
+                									<button class="stamping-trash" type="button" ng-click="deleteImage()"></button>
+                								</div>
+                							</div>
+                							<div class="large-3 columns die-section">
+                								<h3 ng-show="customLogo">Choose Existing Logo</h3>
+                								<div class="form-element" ng-show="customLogo">
+                									<div class="die" ng-repeat="file in files">
+                										<div class="die die-container" ng-class="{active:file.id==selectedFile.id || file==selectedFile}" ng-click="select(file)">
+                											<span class="die-preview"><img thumb-src="file"/></span>
+
+                											<span class="die-buttons">
+                												<a class="die-status" ></a>
+                												<a class="die-remove" ng-click="remove($event, file)"></a>
+                											</span>
+
+                										</div>
+                										<div ng-if="file.progress>=0 && file.progress<100" class="progress success">
+                											<span class="meter" ng-style="{ width: file.progress +'%' }"></span>
+                										</div>
+                									</div>
+                								</div>
+                							</div>
+                						</div>
+                					</div>
+
+                					<div class="large-6 columns texture-select">
+                						<span class="upload-text">Choose existing texture</span>
+                						<div class="texture-bar" ng-repeat="color in ['#eee', '#ccc']">
+                							<span class="texture-img" style="background: {{color}}"></span>
+                							<span class="chosen"></span>
+                							<span class="delete"></span>
+                						</div>
+                					</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="large-5 columns">
+                            	<p>Stroke:</p>
+                            </div>
+                            <div class="large-7 columns">
+                            	<div color-selector ng-model="stroke" color="dark"></div>
+                        		<input type="text" value="1" name="stroke" class="stroke-width">
+                                <span> pt width</span>
+                            </div>
+                        </div>
+            		</div>
+            		<!-- <footer class="project-prefs-tab-footer">
+            			<div class="right footer-buttons">
+            				<button class="button cancel">Cancel</button>
+            				<button class="button color" ng-click="save()">Save & Finish</button>
+            			</div>
+            		</footer> -->
+                </tab>
+
+                <!-- second tab -->
+
+
+
+                <!-- third tab -->
+                <!--
+                <tab title="Proofer" close="true" color="medium-grey">
+                    <div class="project-prefs-tab-content-inside">
+                    	<tabs class="prefs-tabs-inside" gap-bottom="false" color="medium-grey" round="top" size="x-large" no-left-border="true" gap-side="1px">
+            			    <tab title="Album" color="medium-grey">
+            			    	<div class="album-content">
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Album Name:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="text"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Password:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="password"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Confirm Password:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="password"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns"></span>
+            			    			<div class="large-2 columns">
+            			    				<button class="color">Save Settings</button>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Album Approvals:</span>
+            			    			<div class="large-3 columns">
+            			    				<button class="left cancel delete">Unapprove Entire Album</button>
+            			    				<span class="gray">You may unapprove the entire album if <br/>your client had mistakenly approved it.</span>
+            			    			</div>
+            			    		</div>
+            			    	</div>
+            			    </tab>
+            			    <tab title="Presentation" color="medium-grey">
+            			    	<div class="presentation-content">
+            			    		<div class="row">
+            			    			<span class="large-5 columns">Setup the presentation your client will see when proofing.</span>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Start Numbering On:</span>
+            			    			<div class="large-2 columns">
+            			    				<dropdown-button></dropdown-button>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Default View:</span>
+            			    			<div class="large-2 columns">
+            			    				<dropdown-button></dropdown-button>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns">Show Fold Line On Book View:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="foldline" checked>
+            								    <label class="onoffswitch-label" for="foldline">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Slideshow Music:</span>
+            			    			<div class="large-2 columns">
+            			    				<dropdown-button></dropdown-button>
+            			    			</div>
+            			    			<span class="large-1 columns volume"></span>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Language:</span>
+            			    			<div class="large-2 columns">
+            			    				<dropdown-button></dropdown-button>
+            			    			</div>
+            			    		</div>
+            			    	</div>
+            			    </tab>
+            			    <tab title="Client Notifications" color="medium-grey">
+            			    	<div class="notifications-content">
+            			    		<div class="row">
+            			    			<span class="large-5 columns">You can turn automatic client notifications on or off.</span>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Client Notifications:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="notifications" checked>
+            								    <label class="onoffswitch-label" for="notifications">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns">Client Name:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="text"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns">Client Email:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="text"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Notify Client On New Comments:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="newcomments" checked>
+            								    <label class="onoffswitch-label" for="newcomments">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Enable Proofing Reminder:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="proofing" checked>
+            								    <label class="onoffswitch-label" for="proofing">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-3 columns info">Enable Approval Reminder:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="approval" checked>
+            								    <label class="onoffswitch-label" for="approval">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    	</div>
+            			    </tab>
+            			    <tab title="Send to Client" color="medium-grey">
+            			    	<div class="client-send-content">
+            			    		<div class="row">
+            			    			<span class="large-12 columns">You may send via PACE or copy the message and send it in your preferred email client.</span>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">To:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="email"></input>
+            			    			</div>
+            			    			<div class="large-6 columns">
+            			    				<span class="span-margin">From:</span><span>mathew@poweredbypace.com</span>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Reply To:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="email"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">CC:</span>
+            			    			<div class="large-4 columns">
+            			    				<input type="email"></input>
+            			    			</div>
+            		    				<div class="large-1 columns">
+            		    					<span class="span-margin">BCC:</span>
+            			    			</div>
+            			    			<div class="large-3 columns">
+            			    				<input type="email"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Subject:</span>
+            			    			<div class="large-8 columns">
+            			    				<input type="text"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Message:</span>
+            			    			<div class="large-8 columns">
+            			    				<input type="text" class="message-input"></input>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<div class="large-2 columns">&nbsp;</div>
+            			    			<span class="large-3 columns info">Enable Proofing Reminder:</span>
+            			    			<div class="onoffswitch onoffswitch--on-off onoffswitch--dark exception">
+            							    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="proofingmessage" checked>
+            							    <label class="onoffswitch-label" for="proofingmessage">
+            							        <span class="onoffswitch-inner"></span>
+            							        <span class="onoffswitch-switch"></span>
+            							    </label>
+            							</div>
+            							<span class="large-3 columns info">Enable Approval Reminder:</span>
+            			    			<div class="onoffswitch onoffswitch--on-off onoffswitch--dark exception">
+            							    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="approvalmessage" checked>
+            							    <label class="onoffswitch-label" for="approvalmessage">
+            							        <span class="onoffswitch-inner"></span>
+            							        <span class="onoffswitch-switch"></span>
+            							    </label>
+            							</div>
+            			    		</div>
+            			    		<div class="row">
+            				    		<div class="large-2 columns">&nbsp;</div>
+            				    		<div class="large-6 columns">
+            				    			<button>Preview</button>
+            				    			<button class="color">Send to Client</button>
+            				    		</div>
+            			    		</div>
+            			    	</div>
+            			    </tab>
+            			    <tab title="Share Album" color="medium-grey">
+            			    	<div class="share-album-content">
+            			    		<div class="row">
+            			    			<span class="large-2 columns info">Enable Sharing:</span>
+            			    			<div class="large-2 columns">
+            			    				<div class="onoffswitch onoffswitch--on-off onoffswitch--dark">
+            								    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sharing" checked>
+            								    <label class="onoffswitch-label" for="sharing">
+            								        <span class="onoffswitch-inner"></span>
+            								        <span class="onoffswitch-switch"></span>
+            								    </label>
+            								</div>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Public Link:</span>
+            			    			<div class="large-6 columns">
+            			    				<input type="url" value="http://pace.com/mathew/public/mynewproject"></input>
+            			    			</div>
+            			    			<div class="large-2 columns">
+            			    				<button class="color white">Copy Link</button>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns">Social Media:</span>
+            			    			<div class="large-6 columns">
+            			    				<a href="#" title="twitter"><span class="social twitter"></span></a>
+            			    				<a href="#" title="facebook"><span class="social facebook"></span></a>
+            			    				<a href="#" title="googleplus"><span class="social googleplus"></span></a>
+            			    				<a href="#" title="pinterest"><span class="social pinterest"></span></a>
+            			    				<a href="#" title="tumblr"><span class="social tumblr"></span></a>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<div class="large-2 columns">
+            			    				<h2>Embed Album</h2>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<span class="large-2 columns info">Embed width:</span>
+            			    			<div class="large-2 columns">
+            			    				<input type="text" value="960 px"></input>
+            			    			</div>
+            			    			<span class="large-2 columns info text-right">Embed height:</span>
+            			    			<div class="large-2 columns">
+            			    				<input type="text" value="600 px"></input>
+            			    			</div>
+            			    			<div class="large-2 columns">
+            			    				<button class="color white">Update Code</button>
+            			    			</div>
+            			    		</div>
+            			    		<div class="row">
+            			    			<div class="large-2 columns">
+            				    			<span class="left info">HTML:</span>
+            				    			<span class="html-info">
+            				    				Copy this code into <br/>your website to<br/> embed the album.
+            				    			</span>
+            				    		</div>
+            			    			<div class="large-8 columns">
+            			    				<textarea>{{code}}</textarea>
+            			    			</div>
+            			    		</div>
+            			    	</div>
+            			    </tab>
+            			</tabs>
+
+            		</div>
+            		<footer class="project-prefs-tab-footer">
+            			<div class="right footer-buttons">
+            				<button class="button cancel">Exit Proofer</button>
+            			</div>
+            		</footer>
+                -->
+                </tab>
+
+            </tabs>
+        </div><!-- end of section content -->
+
+        <footer class="section-footer">
+            <button class="button dark right button-primary" ng-click="save()" ui-sref="^">Save</button>
+        </footer><!-- end of section footer -->
+
+    </aside>
+</div>

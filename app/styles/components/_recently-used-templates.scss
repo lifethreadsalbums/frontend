@@ -1,0 +1,88 @@
+//------------------------------------------------------------------
+//                     RECENTLY USED TEMPLATES
+//------------------------------------------------------------------
+.recently-used-templates {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+
+    .dropdown-button,
+    .merged-buttons {
+        width: 90%;
+    }
+
+    .merged-buttons {
+        margin: 0 auto 4px auto;
+    }
+
+    .recently-user-dropdown {
+        margin-bottom: 4px;
+
+        .dropdown-button-label {
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
+    }
+
+    .spread-container {
+        position: absolute;
+        top: 120px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .spread {
+        @include radius(4px);
+        @include box-sizing("border-box");
+        display: inline-block;
+        position: relative;
+        width: 200px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        padding: 8px 8px;
+
+        border-top: none;
+        border-bottom: none;
+        line-height: 1px;
+
+        &:hover,
+        &.active {
+            background: map-get($colors, light-800);
+        }
+
+        &.drop-top:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: map-get($colors, light-800);
+        }
+
+        &.drop-bottom:after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: map-get($colors, light-800);
+        }
+
+        .template-preview {
+            @include transition(opacity ease-in .5s);
+            opacity: 1;
+
+            &.rendering {
+                opacity: 0;
+            }
+        }
+    }
+}

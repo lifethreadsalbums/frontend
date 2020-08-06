@@ -1,0 +1,48 @@
+<form class="ng-animate-disabled" name="productForm" form-submit="save()" submit-on="toolbar-save" novalidate>
+    <div class="scrollable-container" ng-show="!!currentProduct">
+        <header class="orders__project-header">
+            <div class="buttons">
+                <button ng-show="!currentProduct.isReprint" class="button light" ng-click="onReorderClick($event)">Reorder</button>
+                <button class="button light" ng-click="onReprintClick($event)">Reprint</button>
+                <dropdown-button options="generateOptions"
+                                 label="Generate" label-field="label"
+                                 value-field="id"
+                                 callback="true">
+                </dropdown-button>
+                <a class="button light email" target="_blank" ng-href="{{mailTo}}"></a>
+                <price-button price="currentProduct.subtotal" color="light"
+                              direction="down" frp-nav-view="views/orders/frp-cost.html">
+                </price-button>
+                <button type="button" name="removeBtn" class="button remove" ng-click="deleteProduct(currentProduct)"></button>
+
+            </div>
+
+            <div id="prod-tab-nav" class="inline"></div>
+
+            <button type="button"
+                ng-show="!currentProduct.parentId && !currentProduct.isReprint && !readOnly && productPrototype.allowDuplicates"
+                class="button plus is-black-active no-round" ng-click="addDuplicate()">Add Parent Album</button>
+
+        </header>
+        <div class="orders__project-details">
+            <tabs data-gap-bottom="false" data-color="medium-grey"
+                data-round="top" data-size="x-large" data-no-left-border="true" data-gap-side="1px"
+                nav-container="prod-tab-nav" ng-model="selectedTab"
+                on-tab-close="deleteSelectedProduct()">
+
+                <tab title="{{currentProduct.options._name}}" close="true" color="medium-grey">
+                    <product-form name="mainProduct" product="currentProduct" read-only="readOnly"></product-form>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+
+    <footer>
+        <button type="submit" class="button large color pull-right" ng-hide="!currentProduct || currentProduct.id"
+            ng-disabled="saving || productForm.$invalid || !currentProduct.prototypeId">Finish</button>
+        <button ng-click="cancel($event)" class="button large pull-right"
+            ng-hide="!currentProduct || currentProduct.id" ng-disabled="saving">Cancel</button>
+    </footer>
+
+    <frp></frp>
+</form>

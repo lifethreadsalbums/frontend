@@ -1,0 +1,42 @@
+<section class="layout user-select-none">
+    <div class="frp frp-popup frp-popup--layout">
+        <div class="frp-content">
+            <aside class="frp-snapshots">
+
+                <header class="section-header section-header--pages">
+                    <div class="pull-left">
+                        <span>Snapshots</span>
+                    </div>
+
+                </header><!-- end of section header -->
+
+                <div class="layout-section__content">
+                    <div style="width:230px;position:absolute;left:0;top:30px;bottom:40px;overflow-y:scroll">
+                        <ul>
+                            <li ng-repeat="s in snapshots" class="snapshot" ng-class="{active:s.id==currentSnapshot.id}">
+                                <span ng-click="preview(s)">{{s.date | date:'dd-MM-yyyy HH:mm'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="position:absolute;left:230px;right:0;top:30px;bottom:40px;overflow-y:scroll" class="spread-section">
+
+                        <book-layout
+                            layout="currentLayout"
+                            page-class="'BookBleedPage'"
+                            layout-controller="layoutCtrl"
+                            editable="false">
+                        </book-layout>
+
+                    </div>
+
+                </div><!-- end of section content -->
+
+                <footer class="layout-section__footer--pages">
+                    <button class="button dark arrow-right button-primary" ui-sref="layout">Close</button>
+                    <button class="button dark button-primary" ng-click="restore()" ng-disabled="!currentSnapshot">Restore</button>
+                </footer><!-- end of section footer -->
+
+            </aside>
+        </div>
+    </div>
+</section>

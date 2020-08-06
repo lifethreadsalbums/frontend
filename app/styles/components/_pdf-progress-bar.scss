@@ -1,0 +1,60 @@
+//-----------------------------------------------------------
+//              PDF GENERATE & DOWNLOAD
+//-----------------------------------------------------------
+// Generate PDF progress bar
+.pdf-progress-bar {
+    display: inline-block;
+    width: 146px;
+    margin-right: 12px;
+    font-size: 10px;
+    color: map-get($colors, light-800);
+}
+
+.pdf-progress-bar-label {
+    display: block;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.pdf-progress-bar-progress {
+    float: right;
+}
+
+.pdf-progress-bar-track {
+    box-sizing: content-box;
+    display: block;
+    height: 3px;
+    background: map-get($colors, dark-400);
+    border: 1px solid map-get($colors, dark-400);
+    border-radius: 3px;
+}
+
+.pdf-progress-bar-step {
+    display: block;
+    height: 3px;
+    background: map-get($colors, primary-300);
+    border-radius: 3px;
+}
+
+// Download pdf button
+.pdf-download {
+    display: inline-block;
+    margin-right: 7px;
+    line-height: 33px;
+    font-size: 11px;
+    color: map-get($colors, light-800);
+    cursor: pointer;
+
+    &:hover {
+        color: map-get($colors, light-50);
+    }
+}
+
+.pdf-download-icon {
+    @include orders-sprite("icon-pdf");
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    width: orders-sprite-width("icon-pdf");
+    height: orders-sprite-height("icon-pdf");
+}

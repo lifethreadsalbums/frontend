@@ -1,0 +1,13 @@
+<div class="coupons">
+    <div class="coupons__list-container"
+         ng-keydown="onKeyDown($event)" tabindex="0">
+
+        <div id="grid" ag-grid="gridOptions" class="ag-fresh ag-grid-pace" ng-style="{visibility: gridVisible ? 'visible' : 'hidden'}"></div>
+
+        <spinner ng-show="gridSpinner" class="coupons__spinner"></spinner>
+    </div>
+    <hdivider></hdivider>
+    <div class="coupons__details-container">
+        <article class="coupons__details-section" ui-view="couponDetails"></article>
+    </div>
+</div>

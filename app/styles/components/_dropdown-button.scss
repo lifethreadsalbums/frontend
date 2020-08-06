@@ -1,0 +1,1493 @@
+//------------------------------------------------------------------
+//                     DROPDOWN BUTTON
+//------------------------------------------------------------------
+.dropdown-button {
+    @include museo300();
+    @include transition(none);
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    overflow: visible;
+
+    &.small {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    &[disabled] {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    &.ng-invalid.ng-blurred {
+        border: 1px solid map-get($colors, danger-400) !important;
+    }
+
+    > .dropdown-button-label {
+        position: absolute;
+        left: 12px;
+        transition: opacity .5s;
+        opacity: 1;
+
+        &.is-changed {
+            transition: none;
+            opacity: 0;
+        }
+    }
+
+    // slider button
+    &.arrow-bottom-right-small.type-slider:after,
+    &.arrow-bottom-right-small.type-slider-dropdown:after {
+        @include button-sprite("icon-button-arrow-bottom-right-small-larger");
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: button-sprite-width("icon-button-arrow-bottom-right-small-larger");
+        height: button-sprite-height("icon-button-arrow-bottom-right-small-larger");
+    }
+
+    &.arrow-bottom-right-small.type-slider:hover,
+    &.arrow-bottom-right-small.type-slider:active,
+    &.arrow-bottom-right-small.type-slider.active,
+    &.arrow-bottom-right-small.type-slider-dropdown:hover,
+    &.arrow-bottom-right-small.type-slider-dropdown:active,
+    &.arrow-bottom-right-small.type-slider-dropdown.active {
+        &:after {
+            @include button-sprite("icon-button-arrow-bottom-right-small-larger-active");
+        }
+    }
+
+    &.type-slider,
+    &.type-slider-dropdown {
+        outline: none;
+
+        .button-on-off {
+            margin-bottom: 0;
+        }
+    }
+
+    &.active:not(.type-slider):not(.type-slider-dropdown):not(.type-horizontal):not(.is-split-dropdown) {
+        @include box-shadow(none);
+        border-color: transparent;
+    }
+
+    &.neutral,
+    &.info,
+    &.warning,
+    &.alert,
+    &.success {
+        @include radius(2px);
+        max-height: 20px;
+        padding: 4px 9px 2px;
+        border: none !important;
+        font-size: 12px;
+        line-height: 14px;
+        color: map-get($colors, white-500);
+        text-transform: uppercase;
+
+        &:before {
+            display: none;
+        }
+
+        &.arrow-up-small {
+            padding-left: 9px;
+            padding-right: 9px;
+
+            &:after {
+                @include button-sprite("icon-button-label-arrow-up");
+                top: 5px;
+                width: button-sprite-width("icon-button-label-arrow-up");
+                height: button-sprite-height("icon-button-label-arrow-up");
+            }
+        }
+
+        &.arrow-down-small {
+            padding-left: 9px;
+            padding-right: 9px;
+
+            &:after {
+                @include button-sprite("icon-button-label-arrow-down");
+                top: 5px;
+                width: button-sprite-width("icon-button-label-arrow-down");
+                height: button-sprite-height("icon-button-label-arrow-down");
+            }
+        }
+    }
+
+    &.info {
+        background: map-get($colors, info-400);
+    }
+
+    &.warning {
+        background: map-get($colors, warning-400);
+    }
+
+    &.alert {
+        background: map-get($colors, danger-500);
+    }
+
+    &.success {
+        background: map-get($colors, success-100);
+    }
+
+    &.neutral {
+        background: map-get($colors, white-500);
+    }
+
+    &.slider-input {
+        .split-input {
+            overflow: visible;
+        }
+
+        .controls-triangle {
+            left: 8px;
+        }
+    }
+
+    .dropdown-max-label {
+        display: inline-block;
+        visibility: hidden;
+    }
+
+    .split-button-drop {
+        display: none;
+    }
+
+    &.is-split-dropdown {
+        padding-right: 12px;
+
+        &:after {
+            display: none;
+        }
+
+        .dropdown-max-label {
+            display: inline-block;
+        }
+
+        .split-button-drop {
+            display: block;
+            position: relative;
+            float: right;
+            top: -10px;
+            left: 13px;
+            width: 31px;
+            height: 31px;
+            background: linear-gradient(map-get($colors, light-200), map-get($colors, light-300));
+            border: 1px solid map-get($colors, light-600);
+            border-radius: 0 4px 4px 0;
+            box-shadow: none;
+
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 2px;
+                right: 2px;
+                height: 1px;
+
+                background: map-get($colors, light-50);
+            }
+
+            &:after {
+                @include button-sprite("icon-button-arrow-down-small");
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: button-sprite-width("icon-button-arrow-down-small");
+                height: button-sprite-height("icon-button-arrow-down-small");
+                margin: auto;
+            }
+
+            &:hover {
+                background: map-get($colors, light-100);
+                color: map-get($colors, light-800);
+                box-shadow: none;
+            }
+
+            &:active {
+                @include linear-gradient(map-get($colors, light-400), map-get($colors, light-500));
+                @include box-shadow(none);
+                border: 1px solid map-get($colors, light-700);
+                color: map-get($colors, light-800);
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        &.arrow-up-small .split-button-drop:after {
+            @include button-sprite("icon-button-arrow-up-small");
+            width: button-sprite-width("icon-button-arrow-up-small");
+            height: button-sprite-height("icon-button-arrow-up-small");
+        }
+
+        &.active {
+            .split-button-drop {
+                @include linear-gradient(map-get($colors, light-400), map-get($colors, light-500));
+                @include box-shadow(none);
+                border: 1px solid map-get($colors, light-700);
+                color: map-get($colors, light-800);
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        &.color {
+            .split-button-drop {
+                @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+                @include box-shadow(none);
+                border: 1px solid map-get($colors, primary-700);
+                color: map-get($colors, primary-900);
+                text-shadow: 1px 1px map-get($colors, primary-400);
+
+                &:before {
+                    background: map-get($colors, primary-200);
+                }
+
+                &:hover {
+                    @include linear-gradient(map-get($colors, primary-300), map-get($colors, primary-500));
+                    border-top: 1px solid map-get($colors, primary-500);
+                    border-bottom: 1px solid map-get($colors, primary-700);
+                    border-left: 1px solid map-get($colors, primary-700);
+                    border-right: 1px solid map-get($colors, primary-700);
+                    color: map-get($colors, primary-50);
+                    text-shadow: none;
+
+                    &:before {
+                        background: none;
+                    }
+                }
+
+                &:active {
+                    @include linear-gradient(map-get($colors, primary-800), map-get($colors, primary-600));
+                    @include box-shadow(0 1px 1px 0px map-get($colors, primary-700) inset);
+                    border: 1px solid map-get($colors, primary-600);
+                    color: map-get($colors, primary-200);
+                    text-shadow: none;
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
+            &.active {
+                .split-button-drop {
+                    @include linear-gradient(map-get($colors, primary-800), map-get($colors, primary-600));
+                    @include box-shadow(0 1px 1px 0px map-get($colors, primary-700) inset);
+                    border: 1px solid map-get($colors, primary-600);
+                    color: map-get($colors, primary-200);
+                    text-shadow: none;
+                }
+            }
+        }
+
+        &.dark {
+            .split-button-drop {
+                @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+                @include box-shadow(none);
+                border: 1px solid map-get($colors, dark-700);
+                color: map-get($colors, dark-100);
+                text-shadow: -1px -1px 1px map-get($colors, dark-400);
+
+                &:before {
+                    background: map-get($colors, dark-300);
+                }
+
+                &:hover {
+                    @include linear-gradient(map-get($colors, dark-300), map-get($colors, dark-500));
+                    border: 1px solid map-get($colors, dark-700);
+                    color: map-get($colors, dark-50);
+                    text-shadow: -1px -1px 1px map-get($colors, dark-300);
+
+                    &:before {
+                        background: none;
+                    }
+                }
+
+                &:active {
+                    @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+                    @include box-shadow(0 1px 1px 0px map-get($colors, dark-800) inset);
+                    border: 1px solid map-get($colors, dark-700);
+                    color: map-get($colors, dark-200);
+                    text-shadow: -1px -1px 1px map-get($colors, dark-400);
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
+            &.active {
+                .split-button-drop {
+                    @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+                    @include box-shadow(0 1px 1px 0px map-get($colors, dark-800) inset);
+                    border: 1px solid map-get($colors, dark-700);
+                    color: map-get($colors, dark-200);
+                    text-shadow: -1px -1px 1px map-get($colors, dark-400);
+                }
+            }
+        }
+
+        &.is-disabled-drop {
+            .split-button-drop {
+                cursor: default;
+            }
+
+            .split-button-drop {
+                background: map-get($colors, light-300) !important;
+                background: linear-gradient(top, map-get($colors, light-200), map-get($colors, light-300)) !important;
+                border-color: map-get($colors, light-400) !important;
+                box-shadow: none !important;
+                color: map-get($colors, light-700) !important;
+                text-shadow: none !important;
+                cursor: default !important;
+                opacity: 1 !important;
+
+                &:before {
+                    display: block !important;
+                    left: 0;
+                    right: 1px;
+
+                    background: map-get($colors, light-50) !important;
+                }
+
+                &:after {
+                    opacity: .4 !important;
+                }
+            }
+
+            &.color .split-button-drop {
+                background: map-get($colors, primary-400);
+                background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-500)) !important;
+                border-top: 1px solid map-get($colors, primary-500) !important;
+                border-bottom: 1px solid map-get($colors, primary-700) !important;
+                border-left: 1px solid map-get($colors, primary-700) !important;
+                border-right: 1px solid map-get($colors, primary-700) !important;
+                box-shadow: none !important;
+                color: map-get($colors, primary-200) !important;
+                text-shadow: none !important;
+                cursor: default !important;
+                opacity: 1 !important;
+
+                &:before {
+                    display: block !important;
+                    background: map-get($colors, primary-100) !important;
+                }
+            }
+
+            &.dark .split-button-drop {
+                box-shadow: none !important;
+                background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600)) !important;
+                border: 1px solid map-get($colors, dark-700) !important;
+                color: rgba(map-get($colors, dark-100), .4) !important;
+                text-shadow: none !important;
+                cursor: default !important;
+                opacity: 1 !important;
+
+                &:before {
+                    background: map-get($colors, dark-300) !important;
+                }
+
+                &:after {
+                    opacity: .4 !important;
+                }
+            }
+        }
+    }
+
+    &.no-arrow {
+        &:after {
+            display: none;
+        }
+
+        .label-pre-icon-on {
+            padding-left: 32px;
+        }
+    }
+
+    &.no-arrow.label-pre-icon-on .dropdown-max-label {
+        padding-left: 22px;
+    }
+
+    &.label-pre-icon-on .dropdown-max-label {
+        padding-left: 22px;
+    }
+
+    &.label-pre-icon-on .dropdown-button-label {
+        padding-left: 28px;
+    }
+
+    &.no-arrow.label-pre-icon-on .dropdown-max-label {
+        padding-left: 12px;
+    }
+
+    .label-pre-icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &.label-icon-export {
+            @include label-sprite("label-icon-export");
+            top: -2px;
+            width: label-sprite-width("label-icon-export");
+            height: label-sprite-height("label-icon-export");
+        }
+
+        &.label-icon-cover-builder {
+            @include label-sprite("label-icon-cover-builder");
+            width: label-sprite-width("label-icon-cover-builder");
+            height: label-sprite-height("label-icon-cover-builder");
+        }
+
+        &.label-icon-designer {
+            @include label-sprite("label-icon-designer");
+            width: label-sprite-width("label-icon-designer");
+            height: label-sprite-height("label-icon-designer");
+        }
+
+        &.label-icon-email {
+            @include label-sprite("label-icon-email");
+            width: label-sprite-width("label-icon-email");
+            height: label-sprite-height("label-icon-email");
+        }
+
+        &.label-icon-currency-usd {
+            @include button-sprite("icon-button-currency-usd");
+            width: button-sprite-width("icon-button-currency-usd");
+            height: button-sprite-height("icon-button-currency-usd");
+        }
+
+        &.label-icon-currency-cad {
+            @include button-sprite("icon-button-currency-cad");
+            width: button-sprite-width("icon-button-currency-cad");
+            height: button-sprite-height("icon-button-currency-cad");
+        }
+
+        &.label-icon-cart-blue {
+            @include button-sprite("icon-button-cart-blue");
+            width: button-sprite-width("icon-button-cart-blue");
+            height: button-sprite-height("icon-button-cart-blue");
+        }
+    }
+
+    &.dark {
+        .label-pre-icon {
+            &.label-icon-export {
+                @include label-sprite("label-icon-export-dark");
+                width: label-sprite-width("label-icon-export-dark");
+                height: label-sprite-height("label-icon-export-dark");
+            }
+
+            &.label-icon-cover-builder {
+                @include label-sprite("label-icon-cover-builder-dark");
+                width: label-sprite-width("label-icon-cover-builder-dark");
+                height: label-sprite-height("label-icon-cover-builder-dark");
+            }
+
+            &.label-icon-projects {
+                @include label-sprite("label-icon-projects-dark");
+                width: label-sprite-width("label-icon-projects-dark");
+                height: label-sprite-height("label-icon-projects-dark");
+            }
+
+            &.label-icon-email {
+                @include label-sprite("label-icon-email-dark");
+                width: label-sprite-width("label-icon-email-dark");
+                height: label-sprite-height("label-icon-email-dark");
+            }
+
+            &.label-icon-zoom {
+                @include button-sprite("icon-button-search-dark");
+                width: button-sprite-width("icon-button-search-dark");
+                height: button-sprite-height("icon-button-search-dark");
+            }
+
+            &.label-icon-pdf {
+                @include label-sprite("label-icon-pdf-dark");
+                width: label-sprite-width("label-icon-pdf-dark");
+                height: label-sprite-height("label-icon-pdf-dark");
+            }
+
+            &.label-icon-filter {
+                @include label-sprite("label-icon-filter-dark");
+                width: label-sprite-width("label-icon-filter-dark");
+                height: label-sprite-height("label-icon-filter-dark");
+            }
+
+            &.label-icon-upload {
+                @include label-sprite("label-icon-upload-dark");
+                width: label-sprite-width("label-icon-upload-dark");
+                height: label-sprite-height("label-icon-upload-dark");
+            }
+
+            &.label-icon-hdd {
+                @include label-sprite("label-icon-hdd-dark");
+                width: label-sprite-width("label-icon-hdd-dark");
+                height: label-sprite-height("label-icon-hdd-dark");
+            }
+
+            &.label-icon-smugmug {
+                @include label-sprite("label-icon-smugmug-dark");
+                width: label-sprite-width("label-icon-smugmug-dark");
+                height: label-sprite-height("label-icon-smugmug-dark");
+            }
+
+            &.label-icon-zenfolio {
+                @include label-sprite("label-icon-zenfolio-dark");
+                width: label-sprite-width("label-icon-zenfolio-dark");
+                height: label-sprite-height("label-icon-zenfolio-dark");
+            }
+
+            &.label-icon-flickr {
+                @include label-sprite("label-icon-flickr-dark");
+                width: label-sprite-width("label-icon-flickr-dark");
+                height: label-sprite-height("label-icon-flickr-dark");
+            }
+
+            &.label-icon-save-small-flat {
+                @include designer-qa-sprite("qa-spread-layout-small-flat");
+                width: designer-qa-sprite-width("qa-spread-layout-small-flat");
+                height: designer-qa-sprite-height("qa-spread-layout-small-flat");
+            }
+
+            &.label-icon-share {
+                @include proofer-sprite("icon-proofer-share-dark");
+                top: -1px;
+                width: proofer-sprite-width("icon-proofer-share-dark");
+                height: proofer-sprite-height("icon-proofer-share-dark");
+            }
+        }
+    }
+
+    &[disabled] .label-pre-icon,
+    &.is-disabled-primary .label-pre-icon {
+        &.label-icon-export {
+            @include label-sprite("label-icon-export-disabled");
+            width: label-sprite-width("label-icon-export-disabled");
+            height: label-sprite-height("label-icon-export-disabled");
+        }
+
+        &.label-icon-currency-usd,
+        &.label-icon-currency-cad {
+            opacity: .3;
+        }
+    }
+
+    &.color[disabled] .label-pre-icon,
+    &.color.is-disabled-primary .label-pre-icon {
+        &.label-icon-cart-blue {
+            @include button-sprite("icon-button-cart-blue-disabled");
+            width: button-sprite-width("icon-button-cart-blue-disabled");
+            height: button-sprite-height("icon-button-cart-blue-disabled");
+        }
+    }
+}
+
+ul.dropdown-button-options {
+    @include transition(none);
+    @include radius(4px);
+    @include linear-gradient(map-get($colors, light-200), map-get($colors, light-300));
+    @include user-select("none");
+    box-sizing: border-box;
+    display: none;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    border: 1px solid map-get($colors, light-600);
+    color: map-get($colors, light-800);
+    list-style: none;
+    overflow: hidden;
+    z-index: 10001;
+    margin-top: 5px;
+
+    .dropdown-button-options-inner-wrapper {
+        box-sizing: border-box;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+
+        .scroll-up-arrow,
+        .scroll-down-arrow {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            font-size: 6px;
+            line-height: 6px;
+            color: map-get($colors, light-800);
+            text-align: center;
+        }
+
+        .scroll-up-arrow {
+            top: 2px;
+        }
+
+        .scroll-down-arrow {
+            bottom: -4px;
+        }
+    }
+
+    &.scroll-on {
+        min-height: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .dropdown-button-options-inner-wrapper {
+            .scroll-up-arrow,
+            .scroll-down-arrow {
+                display: block;
+            }
+        }
+
+        &.dark .dropdown-button-options-inner-wrapper {
+            .scroll-up-arrow,
+            .scroll-down-arrow {
+                color: map-get($colors, light-100);
+            }
+        }
+
+        &.neutral,
+        &.info,
+        &.warning,
+        &.alert,
+        &.success {
+            .dropdown-button-options-inner-wrapper {
+                .scroll-up-arrow,
+                .scroll-down-arrow {
+                    color: map-get($colors, white-500);
+                }
+            }
+        }
+    }
+
+    li {
+        display: block;
+        position: relative;
+        margin: 0;
+        padding: 0 12px 0 12px;
+        line-height: 31px;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &.dropdown-button-option--has-secondary-label {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        &:first-child:after,
+        &:last-child:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 13px;
+            right: 12px;
+        }
+
+        &:hover:not(.disabled),
+        &.active:not(.disabled) {
+            @include linear-gradient(map-get($colors, primary-300), map-get($colors, primary-500));
+            color: map-get($colors, primary-50);
+            text-shadow: none;
+        }
+
+        &.right-label-on {
+            padding-right: 60px;
+        }
+
+        &.disabled {
+            .dropdown-option-label,
+            .dropdown-option-secondary-label,
+            .dropdown-option-icon-text {
+                opacity: .5;
+            }
+            .icon {
+                opacity: .3;
+            }
+        }
+
+        &.indent {
+            .dropdown-option-label {
+                display: inline-block;
+                text-indent: 20px;
+            }
+
+            .dropdown-option-secondary-label {
+                text-indent: 40px;
+            }
+        }
+
+        //.dropdown-option-label.fixed-width {
+        //    display: block;
+        //    overflow: hidden;
+        //    white-space: nowrap;
+        //    text-overflow: ellipsis;
+        //}
+    }
+
+    &.dark {
+        @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+        @include box-shadow(0px 1px 1px 0px map-get($colors, dark-700));
+        border: 1px solid map-get($colors, dark-700);
+        color: map-get($colors, dark-200);
+        text-shadow: -1px -1px 1px map-get($colors, dark-300);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-500));
+            }
+        }
+    }
+
+    &.neutral,
+    &.info,
+    &.warning,
+    &.alert,
+    &.success {
+        @include radius(2px);
+        @include box-shadow(0 1px 1px 0px map-get($colors, light-600));
+        border: none;
+        color: map-get($colors, white-500);
+        text-shadow: none;
+
+        li {
+            padding: 0 9px;
+            line-height: 20px;
+            font-size: 12px;
+
+            &:first-child:after,
+            &:last-child:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 8px;
+                right: 9px;
+            }
+
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                @include linear-gradient(map-get($colors, primary-300), map-get($colors, primary-500));
+                color: map-get($colors, white-500);
+                text-shadow: none;
+            }
+        }
+
+        &.arrow-up {
+            top: auto;
+            bottom: 0;
+
+            li:last-child:after {
+                @include button-sprite("icon-button-label-arrow-up");
+                width: button-sprite-width("icon-button-label-arrow-up");
+                height: button-sprite-height("icon-button-label-arrow-up");
+            }
+        }
+
+        &.arrow-down li:first-child:after {
+            @include button-sprite("icon-button-label-arrow-down");
+            width: button-sprite-width("icon-button-label-arrow-down");
+            height: button-sprite-height("icon-button-label-arrow-down");
+        }
+    }
+
+    &.info {
+        background: map-get($colors, info-400);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                background: map-get($colors, info-700);
+            }
+        }
+    }
+
+    &.warning {
+        background: map-get($colors, warning-400);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                background: map-get($colors, warning-600);
+            }
+        }
+    }
+
+    &.alert {
+        background: map-get($colors, danger-500);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                background: map-get($colors, danger-700);
+            }
+        }
+    }
+
+    &.success {
+        background: map-get($colors, success-100);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                background: map-get($colors, success-800);
+            }
+        }
+    }
+
+    &.neutral {
+        background: map-get($colors, white-500);
+
+        li {
+            &:hover:not(.disabled),
+            &.active:not(.disabled) {
+                background: map-get($colors, light-700);
+            }
+        }
+    }
+
+    .dropdown-divider {
+        margin: 8px;
+        padding: 0;
+
+        border-bottom: 1px solid map-get($colors, dark-200);
+
+        line-height: 0;
+        pointer-events: none;
+
+        > span {
+            display: none;
+        }
+    }
+
+    .dropdown-separator {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding-left: 0;
+        padding-right: 0;
+
+        border-bottom: 1px solid map-get($colors, dark-200);
+
+        font-size: 11px;
+        pointer-events: none;
+
+        > span {
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            width: 100%;
+        }
+    }
+
+    .dropdown-option-label {
+        span {
+            display: inline-block;
+            display: none;
+            position: absolute;
+            right: 12px;
+            top: 10px;
+            font-size: 11px;
+            line-height: 14px;
+        }
+    }
+
+    .dropdown-option-secondary-label {
+        display: block;
+        margin-bottom: 4px;
+
+        font-size: 12px;
+        line-height: 14px;
+        text-indent: 20px;
+    }
+
+    &.no-label {
+        .dropdown-button-option {
+            padding-right: 0;
+
+            .dropdown-option-label {
+                display: inline-block;
+            }
+        }
+    }
+
+    &.no-arrow {
+        .dropdown-button-option.label-pre-icon-on {
+            .label-icon-currency-usd,
+            .label-icon-currency-cad {
+                top: 10px;
+                left: 10px;
+            }
+        }
+
+        li:first-child:after,
+        li:last-child:after {
+            display: none;
+        }
+    }
+
+    &.arrow-up-small {
+        top: auto;
+        bottom: 0;
+    }
+
+    .dropdown-button-option.label-pre-icon-on {
+        padding-left: 37px;
+
+        &.label-pre-icon-invisible {
+            padding-left: 12px;
+
+            .label-pre-icon {
+                display: none;
+            }
+        }
+
+        .label-icon-export,
+        .label-icon-cover-builder,
+        .label-icon-designer,
+        .label-icon-email,
+        .label-icon-pdf,
+        .label-icon-currency-usd,
+        .label-icon-currency-cad,
+        .label-icon-filter,
+        .label-icon-upload,
+        .label-icon-hdd,
+        .label-icon-smugmug,
+        .label-icon-zenfolio,
+        .label-icon-flickr,
+        .label-icon-cart,
+        .label-icon-save-small-flat,
+        .label-icon-save-small-flat {
+            left: 8px;
+
+            .indent {
+                left: 28px;
+            }
+        }
+
+        .label-icon-export {
+            top: 6px;
+        }
+
+        .label-icon-cover-builder {
+            top: 6px;
+        }
+
+        .label-icon-designer {
+            top: 7px;
+        }
+
+        .label-icon-projects {
+            top: 7px;
+            left: 6px;
+
+            &.indent {
+                left: 26px;
+            }
+        }
+
+        .label-icon-email {
+            top: 8px;
+        }
+
+        .label-icon-pdf {
+            top: 8px;
+        }
+
+        .label-icon-currency-usd,
+        .label-icon-currency-cad {
+            top: 8px;
+        }
+
+        .label-icon-filter {
+            top: 8px;
+        }
+
+        .label-icon-upload {
+            top: 8px;
+        }
+
+        .label-icon-hdd {
+            top: 8px;
+        }
+
+        .label-icon-smugmug {
+            top: 8px;
+        }
+
+        .label-icon-zenfolio {
+            top: 11px;
+        }
+
+        .label-icon-flickr {
+            top: 10px;
+        }
+
+        .label-icon-cart {
+            top: 9px;
+        }
+
+        .label-icon-save-small-flat {
+            top: 8px;
+            left: 12px;
+        }
+    }
+
+    .label-pre-icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &.label-icon-export {
+            @include label-sprite("label-icon-export");
+            top: -2px;
+            width: label-sprite-width("label-icon-export");
+            height: label-sprite-height("label-icon-export");
+        }
+
+        &.label-icon-cover-builder {
+            @include label-sprite("label-icon-cover-builder");
+            width: label-sprite-width("label-icon-cover-builder");
+            height: label-sprite-height("label-icon-cover-builder");
+        }
+
+        &.label-icon-designer {
+            @include label-sprite("label-icon-designer");
+            width: label-sprite-width("label-icon-designer");
+            height: label-sprite-height("label-icon-designer");
+        }
+
+        &.label-icon-email {
+            @include label-sprite("label-icon-email");
+            width: label-sprite-width("label-icon-email");
+            height: label-sprite-height("label-icon-email");
+        }
+
+        &.label-icon-currency-usd {
+            @include button-sprite("icon-button-currency-usd");
+            width: button-sprite-width("icon-button-currency-usd");
+            height: button-sprite-height("icon-button-currency-usd");
+        }
+
+        &.label-icon-currency-cad {
+            @include button-sprite("icon-button-currency-cad");
+            width: button-sprite-width("icon-button-currency-cad");
+            height: button-sprite-height("icon-button-currency-cad");
+        }
+
+        &.label-icon-cart {
+            @include button-sprite("icon-button-cart-disabled");
+            width: button-sprite-width("icon-button-cart-disabled");
+            height: button-sprite-height("icon-button-cart-disabled");
+        }
+    }
+
+    &.dark {
+        .label-pre-icon {
+            &.label-icon-export {
+                @include label-sprite("label-icon-export-dark");
+                width: label-sprite-width("label-icon-export-dark");
+                height: label-sprite-height("label-icon-export-dark");
+            }
+
+            &.label-icon-cover-builder {
+                @include label-sprite("label-icon-cover-builder-dark");
+                width: label-sprite-width("label-icon-cover-builder-dark");
+                height: label-sprite-height("label-icon-cover-builder-dark");
+            }
+
+            &.label-icon-projects {
+                @include label-sprite("label-icon-projects-dark");
+                width: label-sprite-width("label-icon-projects-dark");
+                height: label-sprite-height("label-icon-projects-dark");
+            }
+
+            &.label-icon-email {
+                @include label-sprite("label-icon-email-dark");
+                width: label-sprite-width("label-icon-email-dark");
+                height: label-sprite-height("label-icon-email-dark");
+            }
+
+            &.label-icon-zoom {
+                @include button-sprite("icon-button-search-dark");
+                width: button-sprite-width("icon-button-search-dark");
+                height: button-sprite-height("icon-button-search-dark");
+            }
+
+            &.label-icon-pdf {
+                @include label-sprite("label-icon-pdf-dark");
+                width: label-sprite-width("label-icon-pdf-dark");
+                height: label-sprite-height("label-icon-pdf-dark");
+            }
+
+            &.label-icon-filter {
+                @include label-sprite("label-icon-filter-dark");
+                width: label-sprite-width("label-icon-filter-dark");
+                height: label-sprite-height("label-icon-filter-dark");
+            }
+
+            &.label-icon-upload {
+                @include label-sprite("label-icon-upload-dark");
+                width: label-sprite-width("label-icon-upload-dark");
+                height: label-sprite-height("label-icon-upload-dark");
+            }
+
+            &.label-icon-hdd {
+                @include label-sprite("label-icon-hdd-dark");
+                width: label-sprite-width("label-icon-hdd-dark");
+                height: label-sprite-height("label-icon-hdd-dark");
+            }
+
+            &.label-icon-smugmug {
+                @include label-sprite("label-icon-smugmug-dark");
+                width: label-sprite-width("label-icon-smugmug-dark");
+                height: label-sprite-height("label-icon-smugmug-dark");
+            }
+
+            &.label-icon-zenfolio {
+                @include label-sprite("label-icon-zenfolio-dark");
+                width: label-sprite-width("label-icon-zenfolio-dark");
+                height: label-sprite-height("label-icon-zenfolio-dark");
+            }
+
+            &.label-icon-flickr {
+                @include label-sprite("label-icon-flickr-dark");
+                width: label-sprite-width("label-icon-flickr-dark");
+                height: label-sprite-height("label-icon-flickr-dark");
+            }
+
+            &.label-icon-save-small-flat {
+                @include designer-qa-sprite("qa-spread-layout-small-flat");
+                width: designer-qa-sprite-width("qa-spread-layout-small-flat");
+                height: designer-qa-sprite-height("qa-spread-layout-small-flat");
+            }
+        }
+    }
+
+    .dropdown-button-option.disabled .label-pre-icon {
+        opacity: .3;
+    }
+
+    &.type-icon {
+        @include button-type-icon();
+        width: auto !important;
+
+        li {
+            min-width: 32px;
+            width: auto !important;
+            height: 32px;
+            padding: 0;
+        }
+
+        &.arrow-up-small li:last-child:after {
+            display: none;
+        }
+
+        &.icon-text {
+            li {
+                padding-left: 7px;
+                padding-right: 7px;
+
+                .icon {
+                    display: inline-block;
+                    position: relative;
+                    vertical-align: middle;
+                    margin-right: 7px;
+                }
+            }
+        }
+    }
+}
+
+.button-on-off {
+    padding: 0;
+}
+
+.dropdown-button-controls-wrapper {
+    display: none;
+    position: fixed;
+    overflow: visible;
+    z-index: 10001;
+
+    .dropdown-button-controls {
+        position: initial;
+        width: auto;
+
+        ul.dropdown-button-options {
+            position: initial;
+            display: block;
+        }
+
+        .slider-container {
+            display: inline-block;
+        }
+    }
+
+    &.type-horizontal {
+        margin: 0;
+        padding: 0 7px;
+        list-style: none;
+        white-space: nowrap;
+        overflow: visible;
+
+        .dropdown-button-controls > ul {
+            margin-top: 0;
+            padding-top: 2px;
+        }
+
+        .dropdown-button-controls > ul > li {
+            @include radius(4px);
+            display: inline-block;
+            margin: 0 18px 0 0;
+            padding: 0;
+            overflow: visible;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            > .icon,
+            > .dropdown-button {
+                @include box-shadow(none !important);
+                display: inline-block;
+                background: none !important;
+                border: none !important;
+
+                &:before {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    &.type-slider,
+    &.type-slider-dropdown,
+    &.type-horizontal {
+        .button {
+            margin-bottom: 0;
+        }
+
+        .dropdown-button-controls {
+            @include radius(4px);
+            @include linear-gradient(map-get($colors, light-600), map-get($colors, light-400));
+            @include box-shadow(0px 0px 1px 0px map-get($colors, light-800));
+            margin: 0;
+            height: 20px;
+            padding: 2px 9px;
+            border: 1px solid map-get($colors, light-700);
+            font-size: 11px;
+            color: map-get($colors, light-700);
+            white-space: nowrap;
+            z-index: 1;
+
+            .slider {
+                top: -1px;
+            }
+
+            .slider-label {
+                position: relative;
+                top: 2px;
+                margin-left: 5px;
+            }
+        }
+
+        .controls-triangle {
+            display: block;
+            position: absolute;
+            left: 5%;
+            z-index: 1;
+            visibility: hidden;
+
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-color: transparent;
+                border-width: 5px;
+            }
+
+            &:after {
+                left: 1px;
+            }
+        }
+
+        &.up .controls-triangle {
+            bottom: 0;
+
+            &:before,
+            &:after {
+                border-bottom: 0;
+            }
+
+            &:before {
+                border-top-color: map-get($colors, light-400);
+            }
+
+            &:after {
+                border-top-color: map-get($colors, light-700);
+            }
+        }
+
+        &.down {
+            .controls-triangle {
+                top: -5px;
+
+                &:before,
+                &:after {
+                    border-top: 0;
+                }
+
+                &:before {
+                    border-bottom-color: map-get($colors, light-400);
+                }
+
+                &:after {
+                    border-bottom-color: map-get($colors, light-700);
+                }
+            }
+        }
+
+        &.dark {
+            .dropdown-button-controls {
+                @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-400));
+                @include box-shadow(0px 0px 1px map-get($colors, dark-300));
+                border: 1px solid map-get($colors, dark-700);
+                color: map-get($colors, dark-100);
+            }
+
+            &.up .controls-triangle {
+                &:before {
+                    border-top-color: map-get($colors, dark-700);
+                }
+
+                &:after {
+                    border-top-color: map-get($colors, dark-400);
+                }
+            }
+
+            &.down .controls-triangle {
+                &:before {
+                    border-bottom-color: map-get($colors, dark-700);
+                }
+
+                &:after {
+                    border-bottom-color: map-get($colors, dark-600);
+                    background: transparent;
+                }
+            }
+        }
+    }
+
+    &.type-slider.dark .dropdown-button-controls,
+    &.type-slider-dropdown.dark .dropdown-button-controls {
+        @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+
+        .slider-label {
+            color: map-get($colors, dark-600);
+        }
+    }
+
+    &.active.type-slider,
+    &.active.type-slider-dropdown,
+    &.active.type-horizontal {
+        .dropdown-button-controls > ul > li {
+            visibility: visible;
+        }
+
+        .controls-triangle {
+            visibility: visible;
+        }
+    }
+
+    &.type-horizontal {
+        .dropdown-button-controls {
+            height: 40px;
+            padding: 0;
+        }
+
+        &.down {
+            .dropdown-button-controls {
+                .controls-triangle {
+                    top: -5px;
+                    bottom: auto;
+                    left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@-moz-document url-prefix() {
+    .dropdown-button.is-split-dropdown .split-button-drop {
+        top: -9px;
+    }
+}
+
+.angular-dropdown-container--flex {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.angular-dropdown-container--full-space {
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+}
+
+.dropdown-button.dropdown-button--prints-photo-copies,
+.dropdown-button.dropdown-button--prints-container-copies,
+.dropdown-button.dropdown-button--prints-size {
+    margin: 0 !important;
+}
+
+.dropdown-button.dropdown-button--prints-size .dropdown-button-label {
+    top: 4px;
+}
+
+@-moz-document url-prefix() {
+    .dropdown-button.dropdown-button--prints-size .dropdown-button-label {
+        top: 3px;
+    }
+}
+
+.dropdown-button.dropdown-button--prints-photo-copies {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    &:after {
+        position: absolute;
+        top: 9px !important;
+        right: 6px;
+    }
+}
+
+.dropdown-button.dropdown-button--prints-size,
+.dropdown-button.dropdown-button--prints-container-copies {
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 1px;
+
+    &:after {
+        position: absolute;
+        top: 9px;
+        right: 6px;
+    }
+}

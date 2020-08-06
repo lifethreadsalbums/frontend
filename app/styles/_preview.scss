@@ -1,0 +1,135 @@
+//------------------------------------------------------------------
+//                     LAYOUT PREVIEW
+//------------------------------------------------------------------
+.layout-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: map-get($colors, dark-900);
+
+    .spread {
+        position: relative;
+        overflow: hidden;
+        background: map-get($colors, light-50);
+    }
+
+    .frame {
+        position: absolute;
+        overflow: hidden;
+        background: map-get($colors, light-50);
+    }
+
+    .image {
+        position: absolute;
+    }
+
+    .book-layout {
+        left: 50%;
+        @include transform(translateX(-50%));
+        margin-top: 2em;
+        position: relative;
+        display: inline-block;
+
+        .preview-arrow-left {
+            @include preview-sprite("preview-arrow-left");
+            width: preview-sprite-width("preview-arrow-left");
+            height: preview-sprite-height("preview-arrow-left");
+            position: absolute;
+            top: 50%;
+            @include transform(translateY(-50%));
+            float: left;
+            cursor: pointer;
+            display: table-cell;
+
+            &:hover {
+                @include preview-sprite("preview-arrow-left-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+
+        .preview-arrow-right {
+            @include transform(translateY(-50%));
+            @include preview-sprite("preview-arrow-right");
+            width: preview-sprite-width("preview-arrow-right");
+            height: preview-sprite-height("preview-arrow-right");
+            position: absolute;
+            top: 50%;
+            margin-left: -21px;
+            float: left;
+            cursor: pointer;
+            display: inline-block;
+
+            &:hover {
+                @include preview-sprite("preview-arrow-right-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+
+        .book-preview {
+            margin: 0 40px;
+            float: left;
+        }
+    }
+
+    .nav-panel {
+        margin-top: 2em;
+        position: relative;
+        display: block;
+        text-align: center;
+
+        .to-start {
+            @include preview-sprite("preview-icon-to-start");
+            width: preview-sprite-width("preview-icon-to-start");
+            height: preview-sprite-height("preview-icon-to-start");
+            display: inline-block;
+            cursor: pointer;
+
+            &:hover {
+                @include preview-sprite("preview-icon-to-start-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+
+        .play {
+            @include preview-sprite("preview-icon-play");
+            width: preview-sprite-width("preview-icon-play");
+            height: preview-sprite-height("preview-icon-play");
+            display: inline-block;
+            margin: 0 3em;
+            cursor: pointer;
+
+            &:hover {
+                @include preview-sprite("preview-icon-play-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+
+        .pause {
+            @include preview-sprite("preview-icon-pause");
+            width: preview-sprite-width("preview-icon-pause");
+            height: preview-sprite-height("preview-icon-pause");
+            display: inline-block;
+            margin: 0 3em;
+            cursor: pointer;
+
+            &:hover {
+                @include preview-sprite("preview-icon-pause-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+
+        .to-end {
+            @include preview-sprite("preview-icon-to-end");
+            width: preview-sprite-width("preview-icon-to-end");
+            height: preview-sprite-height("preview-icon-to-end");
+            display:inline-block;
+            cursor:pointer;
+
+            &:hover {
+                @include preview-sprite("preview-icon-to-end-hover");
+                @include filter(drop-shadow(1px 1px 0 rgba(map-get($colors, dark-900),.5)));
+            }
+        }
+    }
+}

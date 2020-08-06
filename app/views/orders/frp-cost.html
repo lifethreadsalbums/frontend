@@ -1,0 +1,114 @@
+<aside class="frp-cost" id="frp-cost">
+	<span class="frp-close" frp-close></span>
+	
+	<form>
+		<div>
+			<h1>{{currentProductView.categoryName.value}} Pricing <span>{{currentProductView.prototypeName.value}}</span></h1>
+			
+			<h3>{{currentProduct.options._name}}</h3>
+			
+			<table >
+				<thead ng-show="currentProduct.productType !== 'SinglePrintProduct' " ng-repeat-start="productPrice in currentProduct.productPrices">
+					<tr>
+						<th>DESCRIPTION</th>
+						<th></th>
+						<th>QTY</th>
+						<th></th>
+						<th>DISC.</th>
+						<th>PRICE</th>												
+					</tr>
+				</thead>
+				
+				<tbody ng-show="currentProduct.productType !== 'SinglePrintProduct' " ng-repeat-end>
+					<tr ng-repeat="lineItem in productPrice.lineItems">
+						<td ng-bind-html="lineItem.displayName"></td>
+						<td></td>
+						<td class="text-center">
+							<span>{{lineItem.quantity}}</span>
+						</td>
+						<td></td>
+						<td class="text-right">{{lineItem.discount.displayPrice}}</td>
+						<td class="text-right">{{lineItem.totalPrice.displayPrice}}</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6">
+							<hr>
+						</td>
+					</tr>
+					<tr class="summary">
+						<td colspan="5" class="text-right">SUBTOTAL</td>
+						<td class="text-right">{{productPrice.subtotal.displayPrice}}</td>
+					</tr>
+				</tbody>
+
+				<thead ng-repeat-start="child in currentProduct.children"></thead>
+
+				<thead ng-repeat-start="productPrice in child.productPrices">
+					<tr>
+						<th>DESCRIPTION</th>
+						<th></th>
+						<th>QTY</th>
+						<th></th>
+						<th>DISC.</th>
+						<th>PRICE</th>												
+					</tr>
+				</thead>
+
+				<tbody ng-repeat-end>
+
+					<tr ng-if="$index==0" ng-show="child.productType !== 'SinglePrintProduct' ">
+						<td colspan="6">
+							<h3 style="margin-top:5px">{{child.options._name}}</h3>
+						</td>
+					</tr>
+					<tr ng-repeat="lineItem in productPrice.lineItems">
+						<td ng-bind-html="lineItem.displayName"></td>
+						<td></td>
+						<td class="text-center">
+							<span>{{lineItem.quantity}}</span>
+						</td>
+						<td></td>
+						<td class="text-right">{{lineItem.discount.displayPrice}}</td>
+						<td class="text-right">{{lineItem.totalPrice.displayPrice}}</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<hr>
+						</td>
+					</tr>
+					<tr class="summary">
+						<td colspan="5" class="text-right">SUBTOTAL</td>
+						<td class="text-right">{{productPrice.subtotal.displayPrice}}</td>
+					</tr>
+				</tbody>
+
+				<thead ng-repeat-end></thead>
+
+				<tbody>
+					<tr>
+						<td colspan="6">
+							<hr>
+						</td>
+					</tr>
+					<tr class="summary">
+						<td colspan="5" class="text-right text-white">SUBTOTAL</td>
+						<td class="text-white text-right">{{currentProduct.total.displayPrice}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="pull-right">
+				<button class="button dark tick" ng-disabled="!editable" 
+					ng-show="studioSampleAvailable"
+					ng-class="{active:currentProduct.options._studioSample}" 
+					ng-click="toggleOption('_studioSample')">Sample</button>
+
+				<!-- <button class="button dark tick" ng-disabled="!editable" 
+					ng-class="{active:currentProduct.options._rush}" 
+					ng-click="toggleOption('_rush')">Rush</button> -->
+			</div>
+		</div>
+	</form>
+	
+</aside>   

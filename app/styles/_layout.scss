@@ -1,0 +1,1118 @@
+//------------------------------------------------------------------
+//                     LAYOUT
+//------------------------------------------------------------------
+.layout {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    // read only state
+    &.readonly {
+        .spread {
+            pointer-events: none !important;
+        }
+
+        .filmstrip-item {
+            pointer-events: none !important;;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION
+//------------------------------------------------------------------
+.layout-section {
+    position: absolute;
+    overflow: auto;
+}
+
+.layout-section--header {
+    &.layout-section--footer {
+        overflow: hidden;
+    }
+
+    .section-header--layout {
+        display: block;
+
+        &.section__header--layout--flex {
+            display: flex;
+        }
+    }
+
+    .layout-section__content {
+        top: 38px;
+    }
+}
+
+.layout-section--footer {
+    .layout-section__content {
+        bottom: 38px;
+    }
+
+    .layout-section__footer {
+        display: block;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - TOP (groups left, middle and right panel)
+//------------------------------------------------------------------
+.layout-section--top {
+    top: 0;
+    bottom: 182px;
+    left: 0;
+    right: 0;
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - LEFT
+//------------------------------------------------------------------
+.layout-section--left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 231px;
+    background: map-get($colors, dark-900);
+    border-right: 1px solid map-get($colors, dark-700);
+
+    .section-header--layout {
+        text-align: center;
+
+        .dropdown-button {
+            width: 100%;
+        }
+    }
+
+    .layout-section__content {
+        .centered-buttons-close {
+            > .button {
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - RIGHT
+//------------------------------------------------------------------
+.layout-section--right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 231px;
+    background: map-get($colors, dark-900);
+    border-left: 1px solid map-get($colors, dark-700);
+
+    .scrollable-content {
+        position: absolute;
+        display: block;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .layout__page-thumbnails {
+        top: 12px;
+
+        .active-area {
+            @include radius(4px);
+            position: absolute;
+            top: 0px;
+            left: 3px;
+            right: 3px;
+            height: 100px;
+            background: map-get($colors, light-800);
+        }
+    }
+
+    .page-thumbnails-tools {
+        display: none;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        padding: 3px 15px 0 15px;
+        background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+        border: 2px solid map-get($colors, dark-700);
+        text-align: right;
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: map-get($colors, dark-300);
+        }
+
+        .button {
+            margin-bottom: 0;
+            margin-left: 7px;
+        }
+    }
+
+    .styles {
+        padding-top: 12px;
+    }
+
+    .layout-section__footer {
+        padding-left: 7px;
+        padding-right: 7px;
+
+        .right {
+            margin-right: 7px;
+        }
+    }
+
+    .spread {
+        width: 205px;
+        max-width: 205px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - MIDDLE
+//------------------------------------------------------------------
+.layout-section--middle {
+    top: 0;
+    bottom: 0;
+    left: 231px;
+    right: 231px;
+    background: map-get($colors, dark-300);
+
+    .section-header--layout {
+        background: linear-gradient(map-get($colors, dark-600), map-get($colors, dark-700));
+
+        &.section__header--layout--flex {
+            display: flex;
+        }
+
+        .undo,
+        .redo {
+            background: none;
+            border: none;
+            box-shadow: none;
+            &:before {
+                content: none;
+                display: none;
+            }
+        }
+
+        .flex-none {
+            flex: none;
+            width: 300px;
+
+            &.flex--none-right {
+                text-align: right;
+            }
+        }
+
+        .flex-expand {
+            flex: 1;
+        }
+
+        &.generating-pdf {
+            .flex-none {
+                width: 400px;
+            }
+        }
+    }
+
+    .layout-section__footer {
+        padding-top: 3px;
+        padding-left: 9px;
+        padding-right: 9px;
+        text-align: center;
+
+        > div {
+            width: 510px;
+            display: inline-block;
+        }
+
+        .pagination-toolbar {
+            display: inline-block;
+            margin-left: 18px;
+        }
+
+        .tool-zoom {
+            &.label-pre-icon-on {
+                .dropdown-button-label {
+                    padding-left: 22px;
+                    left: 7px;
+                }
+
+                .dropdown-max-label {
+                    padding-left: 16px;
+                }
+            }
+
+            .label-pre-icon {
+                top: -1px;
+            }
+        }
+    }
+
+    .layout-section__content {
+        overflow: hidden;
+        background: url('../images/designer-dark-pattern-bg.png') repeat;
+
+        .scrollable-container {
+            position: absolute;
+            top: 16px;
+            bottom: 0;
+            left: 16px;
+            right: 0;
+            overflow: auto;
+
+            .spread-placeholder {
+                display: none;
+            }
+
+            &.no-rulers {
+                top: 0;
+                left: 0;
+            }
+
+            .spread {
+                position: relative;
+                margin-top: 10px;
+
+                .canvas-wrapper {
+                    display: inline-block;
+                    position: relative;
+                }
+
+                .canvas-container {
+                    margin: 0 auto;
+                    z-index: 1;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}
+
+.hiddenscroll .layout-section--middle .layout-section__footer {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - BOTTOM
+//------------------------------------------------------------------
+.layout-section--bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 182px;
+    background: map-get($colors, dark-900);
+    overflow: visible;
+
+    &.layout-section--header .layout-section__content {
+        top: 48px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - HEADER
+//------------------------------------------------------------------
+.section-header--layout {
+    @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-700));
+    @include box-shadow(0 0 5px 0 map-get($colors, dark-900));
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    padding: 5px 7px 0;
+    z-index: 3;
+
+    > button,
+    > .button,
+    > .dropdown-button,
+    > .split-input,
+    > div > button,
+    > div > .button,
+    > div > .dropdown-button,
+    > div > .split-input {
+        margin-bottom: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+        vertical-align: top;
+    }
+
+    > div > .dropdown-button.arrow-down-small {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+.section-header--pages {
+    @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+    @include box-shadow(none);
+    height: 30px;
+    padding: 0px 7px 0;
+    border: 1px solid map-get($colors, dark-700);
+    line-height: 27px;
+    color: map-get($colors, dark-200);
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: map-get($colors, dark-300);
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - FOOTER
+//------------------------------------------------------------------
+.layout-section__footer {
+    @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    padding: 3px 0 0;
+    border-bottom: 1px solid map-get($colors, dark-700);
+    text-align: center;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: map-get($colors, dark-300);
+    }
+
+    & > div:first-child:not(.tooltip__box) {
+        margin-left: 4px;
+    }
+
+    & > div:last-child:not(.tooltip__box) {
+        margin-right: 4px;
+    }
+
+    > input,
+    > button,
+    > .button,
+    > .dropdown-button,
+    > .split-input,
+    > div > input,
+    > div > button,
+    > div > .button,
+    > div > .dropdown-button,
+    > div > .split-input,
+    > div > .dropdown-button > .split-input {
+        margin-bottom: 0;
+        vertical-align: top;
+    }
+
+    .font-size-zero {
+        margin-right: 5px;
+    }
+
+    &.separate-buttons {
+        > .button,
+        > .dropdown-button,
+        > .tooltip__box {
+            margin-left: 8px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.layout-section__footer--pages {
+    @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+    @include box-shadow(none);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34px;
+    padding: 0px 7px 0 0;
+    border: 1px solid map-get($colors, dark-700);
+
+    .left-margin {
+        margin-left: 20px;
+    }
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: map-get($colors, dark-300);
+    }
+
+    .button-primary {
+        @include radius(0);
+        height: 100%;
+        border: none;
+        border-right: 1px solid map-get($colors, dark-700);
+
+        &:before {
+            left: 0;
+            right: 0;
+        }
+    }
+
+    .right > .button {
+        top: 3px;
+        width: 29px;
+        max-width: 29px;
+        height: 27px;
+        max-height: 27px;
+    }
+
+    .button.resize-inner,
+    .button.resize-outer {
+        top: 3px;
+        width: 27px;
+        max-height: 27px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     LAYOUT SECTION - CONTENT
+//------------------------------------------------------------------
+.layout-section__content {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}
+
+.layout-section__content--filmstrip {
+    padding-top: 0;
+}
+
+
+//------------------------------------------------------------------
+//                     FILMSTRIP TOOLBAR (HEADER)
+//------------------------------------------------------------------
+.filmstrip-toolbar {
+    @include box-shadow(none);
+    height: 48px;
+    padding-top: 7px;
+    background: map-get($colors, dark-900);
+
+    .flex-container {
+        @include flexbox();
+        flex-direction: row;
+        flex-wrap: row nowrap;
+        align-items: stretch;
+
+        .left {
+            width: 440px;
+            min-width: 400px;
+            text-align: left;
+        }
+
+        .middle {
+            @include flex(1);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .right {
+            width: 440px;
+            min-width: 340px;
+            text-align: right;
+        }
+
+        //------------------------------------------------------------------
+        // Temporarily override button styles to achieve crappy flat effect
+        //------------------------------------------------------------------
+        .button.dark {
+            background: map-get($colors, dark-900) !important;
+            transition: none  !important;
+
+            .dropdown-button-options {
+                background: map-get($colors, dark-900) !important;
+                box-shadow: none !important;
+            }
+
+            &:before {
+                background: map-get($colors, dark-900) !important;
+            }
+
+            &:hover:not([disabled]),
+            &:hover:not([disabled]):before,
+            &.active:not([disabled]),
+            &.active2:not([disabled]),
+            &.active2:not([disabled]):before {
+                background: map-get($colors, dark-800) !important;
+            }
+        }
+
+        .button {
+            &.auto-fill {
+                padding-left: 12px;
+                padding-right: 12px;
+                border-right: none;
+            }
+
+            &.icon-auto-arrange {
+                border-left: none;
+            }
+
+            &:not(.auto-fill) {
+                margin-right: 6px;
+            }
+
+            &.grouping,
+            &.ungroup {
+                margin-left: 4px;
+            }
+        }
+
+        .tooltip__box--button {
+            margin-right: 6px;
+
+            .button {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       PAGE THUMBNAILS
+//------------------------------------------------------------------
+.layout__page-thumbnails {
+    margin: 0 auto;
+
+    .spread {
+        @include radius(4px);
+        position: relative;
+        margin: 0 auto;
+        padding: 8px 0;
+
+        &.active {
+            background: map-get($colors, light-800);
+        }
+
+        .thumb-container {
+            position: relative;
+            margin: 0 auto;
+
+            .thumb-selection {
+                opacity:0.5;
+                float:left;
+
+                &.active {
+                    background: map-get($colors, dark-400);
+                }
+            }
+
+            &.h-drop-left:before,
+            &.h-drop-right:after,
+            &.h-drop-middle:after,
+            &.v-drop-left:before,
+            &.v-drop-right:after,
+            &.v-drop-middle:after {
+                content: "";
+                display: block;
+                position: absolute;
+                background: map-get($colors, light-800);
+            }
+
+            &.h-drop-left:before,
+            &.h-drop-right:after,
+            &.h-drop-middle:after {
+                width: 2px;
+            }
+
+            &.v-drop-left:before,
+            &.v-drop-right:after,
+            &.v-drop-middle:after {
+                height: 2px;
+            }
+
+            &.h-drop-left:before {
+                top: -4px;
+                left: -10px;
+                bottom: -4px;
+            }
+
+            &.h-drop-right:after {
+                top: -4px;
+                right: -10px;
+                bottom: -4px;
+            }
+
+            &.h-drop-middle:after {
+                top: -4px;
+                left: 50%;
+                bottom: -4px;
+            }
+
+            &.v-drop-left:before {
+                top: -10px;
+                left: -4px;
+                right: -4px;
+            }
+
+            &.v-drop-right:after {
+                bottom: -10px;
+                left: -4px;
+                right: -4px;
+            }
+
+            &.v-drop-middle:after {
+                top: 50%;
+                left: -4px;
+                right: -4px;
+            }
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .page-no {
+            position: absolute;
+            top: 45%;
+            font-size: 13px;
+            color: map-get($colors, dark-50);
+
+            &.page-left {
+                right: 181px;
+            }
+
+            &.page-right {
+                left: 181px;
+            }
+        }
+
+        .dots {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            line-height: 0px;
+        }
+
+        .dot {
+            transform: translate3d(map-get($colors, dark-900));
+
+            display: inline-block;
+            margin-left: 5px;
+
+            width: 12px;
+            height: 12px;
+
+            border: 1px solid transparent;
+            border-radius: 50%;
+        }
+
+        .dot--yellow {
+            background-color: map-get($colors, warning-400);
+            border-color: map-get($colors, warning-500);
+        }
+
+        .dot--red {
+            background-color: map-get($colors, danger-300);
+            border-color: map-get($colors, danger-400);
+        }
+
+        .dot--orange {
+            background-color: map-get($colors, warning-500);
+            border-color: map-get($colors, warning-500);
+        }
+
+        .dot--green {
+            background-color: map-get($colors, success-400);
+            border-color: map-get($colors, success-500);
+        }
+
+        .dot--blue {
+            background-color: map-get($colors, primary-400);
+            border-color: map-get($colors, primary-500);
+        }
+    }
+}
+
+
+//-----------------------------------------------------------
+//                        SIDEBAR TABS
+//-----------------------------------------------------------
+.layout__sidebar-tabs {
+    height: 100%;
+    position: relative;
+
+    .tab-content {
+        background: map-get($colors, dark-600);
+        position: absolute;
+        top: 38px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+
+        .tab-pane {
+            padding-top: 12px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+    }
+}
+
+.is-animate-sidebar.animate-left > div,
+.is-animate-sidebar.animate-right > div {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) .7s);
+        position: absolute;
+
+        .background-stroke-tab-scroller {
+            overflow: hidden;
+        }
+    }
+}
+
+.is-animate-sidebar.animate-left > div {
+    &.ng-hide-remove {
+        left: 100%;
+        overflow: hidden;
+    }
+    &.ng-hide-remove.ng-hide-remove-active {
+        left: 0;
+    }
+
+    &.ng-hide-add {
+        left: 0;
+        overflow: hidden;
+    }
+    &.ng-hide-add.ng-hide-add-active {
+        left: -100%;
+    }
+}
+
+.is-animate-sidebar.animate-right > div {
+    left: auto;
+    right: 0;
+
+    &.ng-hide-remove {
+        right: 100%;
+        overflow: hidden;
+    }
+    &.ng-hide-remove.ng-hide-remove-active {
+        right: 0;
+    }
+
+    &.ng-hide-add {
+        right: 0;
+        overflow: hidden;
+    }
+    &.ng-hide-add.ng-hide-add-active {
+        right: -100%;
+    }
+}
+
+
+//-----------------------------------------------------------
+//                        TAB - BACKGROUND STROKE
+//-----------------------------------------------------------
+.background-stroke-tab {
+    background: map-get($colors, dark-700);
+
+    .background-stroke-tab-scroller {
+        max-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .header-back {
+        margin-left: 0;
+        padding-left: 5px;
+        background: map-get($colors, dark-600);
+
+        &.small {
+            margin-bottom: 0;
+            padding-bottom: 4px;
+        }
+    }
+}
+
+
+//-----------------------------------------------------------
+//              PICTURE AND PAGE USAGE STATISTICS
+//-----------------------------------------------------------
+.layout-usage-summary {
+    .picture-summary,
+    .page-summary {
+        display: inline-block;
+        margin-right: 8px;
+        font-size: 11px;
+        line-height: 32px;
+        color: map-get($colors, dark-50);
+
+        &:before {
+            content: "";
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+
+    .picture-summary:before {
+        @include designer-sprite("icon-summary-picture");
+        width: designer-sprite-width("icon-summary-picture");
+        height: designer-sprite-height("icon-summary-picture");
+    }
+
+    .page-summary:before {
+        @include designer-sprite("icon-summary-page");
+        width: designer-sprite-width("icon-summary-page");
+        height: designer-sprite-height("icon-summary-page");
+    }
+}
+
+
+//-----------------------------------------------------------
+//              LAYOUT UPLOADING
+//-----------------------------------------------------------
+.layout-uploading {
+    line-height: 32px;
+    font-size: 14px;
+    width: 200px;
+    height: 50px;
+    position: relative;
+    margin: 0 auto;
+
+    .cancel {
+        cursor: pointer;
+        display: inline-block;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        @include transform(translateY(-50%));
+        @include common-sprite("icon-circled-cross-large");
+        width: common-sprite-width("icon-circled-cross-large");
+        height: common-sprite-height("icon-circled-cross-large");
+
+        &:hover,
+        &:active,
+        &:focus {
+            opacity: 0.5;
+        }
+    }
+}
+
+
+//-----------------------------------------------------------
+//              RULERS
+//-----------------------------------------------------------
+.ruler {
+    background-color:map-get($colors, light-50);
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    &.ruler-horizontal {
+        border-bottom:1px map-get($colors, dark-900) solid;
+        height:16px;
+        right: 0;
+    }
+
+    &.ruler-vertical {
+        border-right:1px map-get($colors, dark-900) solid;
+        width:16px;
+        bottom:0;
+    }
+
+    &.ruler--hidden {
+        opacity: 0;
+    }
+}
+
+
+//-----------------------------------------------------------
+//              LAYOUT SELECTOR
+//-----------------------------------------------------------
+.layout-selector {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+
+    .layout-selector-prev,
+    .layout-selector-next {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        &:after {
+            top: -2px;
+        }
+    }
+
+    .layout-selector-prev {
+        border-right: none !important;
+        border-radius: 4px 0 0 4px;
+
+        &:before {
+            right: 0;
+        }
+    }
+
+    .layout-selector-next {
+        border-left: none !important;
+        border-radius: 0 4px 4px 0;
+
+        &:before {
+            left: 0;
+        }
+    }
+
+    .layout-selector-select {
+        border-radius: 0;
+
+        &:before {
+            left: 0;
+            right: 0;
+        }
+
+        .dropdown-button-label {
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
+    }
+}
+
+
+//-----------------------------------------------------------
+//              DROP CONTAINER
+//-----------------------------------------------------------
+.drop-container {
+    display: inline-block;
+    position: fixed;
+    z-index: -1;
+    opacity: 0.5;
+
+    img {
+        max-width: 130px;
+        max-height: 130px;
+    }
+}
+
+
+//-----------------------------------------------------------
+//              JOB INFO
+//-----------------------------------------------------------
+.job-info {
+    display: inline-block;
+    overflow: hidden;
+
+    @include museo300();
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.job-info--designer-header {
+    padding: 0 7px;
+
+    font-size: 12px;
+    line-height: 34px;
+    color: map-get($colors, light-800);
+    text-align: center;
+}
+
+
+//-----------------------------------------------------------
+//              SAVING STATUS
+//-----------------------------------------------------------
+.layout__saving-status {
+    font-size: 12px;
+    @include museo300();
+    color: map-get($colors, light-800);
+    line-height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 5px 3px;
+}
+
+
+//-----------------------------------------------------------
+//              MIX
+//-----------------------------------------------------------
+.template-preview {
+    margin: 2px;
+}
+
+[data-manual-id="layout-selector-select"],
+[data-manual-id="recently-user-dropdown"] {
+    li {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        text-align: center;
+    }
+}
+
+.auto-fill-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.icon-auto-arrange {
+    width: 55px !important;
+}
+
+.scrollable-container-horizontal {
+    @include visible-scrollbar();
+}

@@ -1,0 +1,192 @@
+//------------------------------------------------------------------
+//                     SECTION
+//------------------------------------------------------------------
+.section {
+    position: relative;
+    height: 100%;
+
+    &.folded {
+        .section__content--sidebar {
+            left: 61px;
+        }
+
+        .section__left-panel header {
+            display: block;
+        }
+    }
+}
+
+.section--bg-light {
+    background: map-get($colors, light-200);
+}
+
+
+//------------------------------------------------------------------
+//                     SECTION LEFT PANEL
+//------------------------------------------------------------------
+.section__left-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    padding: 0;
+    background: $ordersSidebarBackground;
+    border-right: 1px solid $ordersSidebarBorderColor;
+    overflow: auto;
+
+    .button.large {
+        width: 100%;
+        padding: 15px 5px;
+    }
+
+    .padding-side {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    > form {
+        margin: 0;
+    }
+
+    .sidebar-menu__name.has-tip {
+        @include museo300();
+        border-bottom: none;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 20px;
+        overflow: visible;
+    }
+}
+
+.section--orders .section__left-panel,
+.section--admin .section__left-panel {
+    width: 270px;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .section__left-panel {
+        width: 230px;
+    }
+
+    .section--orders .section__left-panel,
+    .section--admin .section__left-panel {
+        width: 285px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .section__left-panel {
+        width: 300px;
+    }
+
+    .section--orders .section__left-panel,
+    .section--admin .section__left-panel {
+        width: 350px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SECTION MAIN CONTAINER
+//------------------------------------------------------------------
+.section__main-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.section__main-content--left-panel {
+    left: 200px;
+}
+
+.section--orders .section__main-content--left-panel,
+.section--admin .section__main-content--left-panel,
+.spinner-overlay--main-content-left-panel {
+    left: 270px;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .section__main-content--left-panel {
+        left: 230px;
+    }
+
+    .section--orders .section__main-content--left-panel,
+    .section--admin .section__main-content--left-panel,
+    .spinner-overlay--main-content-left-panel {
+        left: 285px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .section__main-content--left-panel {
+        left: 300px;
+    }
+
+    .section--orders .section__main-content--left-panel,
+    .section--admin .section__main-content--left-panel,
+    .spinner-overlay--main-content-left-panel {
+        left: 350px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SECTION CONTENT
+//------------------------------------------------------------------
+.section__content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}
+
+.section__content--top-padding {
+    top-padding: 3px;
+}
+
+.section__content--no-sidebar {
+    left: 0 !important;
+}
+
+.section__content--sidebar {
+    left: 220px;
+}
+
+@media only screen and (min-width: $breakPointSM) {
+    .section__content--sidebar {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .section__content--sidebar {
+        left: 230px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .section__content--sidebar {
+        left: 300px;
+    }
+}
+
+.section__content--centered-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.section__content--transition {
+    transition: left .3s ease-in-out;
+}

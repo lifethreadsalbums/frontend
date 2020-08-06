@@ -1,0 +1,108 @@
+<div class="project-overview" ng-class="{'project-overview--active': !!isSelected}">
+	<header class="project-overview__header clearfix flip__area">
+		<!-- <span class="project-overview__status dropdown-button success pull-left">SUCCESS</span> -->
+		<!-- <span class="project-overview__status dropdown-button warning pull-left">ORANGE</span> -->
+		<!-- <span class="project-overview__status dropdown-button alert pull-left">RED</span> -->
+		<!-- <span class="project-overview__status dropdown-button info pull-left">BLUE</span> -->
+
+		<span ng-if="project.state=='Completed'" class="project-overview__status dropdown-button success pull-left">Completed</span>
+		<span ng-if="project.state!='New' && project.state!='Completed'" class="project-overview__status dropdown-button success pull-left">In Production</span>
+		<span ng-if="project.state=='New' && !project.orderState && project.productType !== 'SinglePrintProduct'" 
+			class="project-overview__status dropdown-button warning pull-left"
+			ng-class="{'warning':proofStatus=='Designing' || proofStatus=='Waiting on client', 'success':proofStatus=='Approved', 'alert':proofStatus=='Waiting on me'}"
+			id="myparent{{$parent.$parent.$index}}">{{proofStatus}}</span>
+		<span ng-if="project.state=='New' && !project.orderState && project.productType === 'SinglePrintProduct'" class="project-overview__status dropdown-button info pull-left" id="myparent{{$parent.$parent.$index}}">Prints</span>
+		<span ng-if="project.orderState=='Pending'" class="project-overview__status dropdown-button success pull-left" id="myparent{{$parent.$parent.$index}}">In Your Cart</span>
+		<span class="project-overview__message-count pull-right" id="messageparent{{$parent.$parent.$index}}">2</span>
+		<span class="project-overview__message-count project-overview__message-count--no-messages pull-right" id="messageparent{{$parent.$parent.$index}}">-</span>
+	</header>
+	<div class="project-overview__content flip__container flip__area">
+		<div class="flip__flipper">
+			<div class="project-overview__front flip__front pointer-events-none">
+				<a href="#" class="project-overview__link-container" ng-show="project.childToggle && project.parentId">
+					<span ng-class="{'project-overview__link-icon': project.linkLayout, 'project-overview__unlink-icon': !project.linkLayout }"></span>
+				</a>
+				<span class="project-overview__slides-stack-order" ng-show="project.childToggle"><strong>{{index}}</strong> of {{indexTotal}}</span>
+				<div ng-show="project.childToggle">
+					<div class="project-overview__front-image" ng-style="{'background-image':'url(' + thumbUrl.url + ')'}">
+						<!-- <img src="images/dashboard-project-default.png"> -->
+					</div>
+					<span class="project-overview__title">{{project.productNumber || project.options._name}}</span>
+				</div>
+				<div ng-if="project.children.length <= 0 || project.productType === 'SinglePrintProduct'" ng-hide="project.childToggle">
+                    <div ng-if="project.productType !== 'SinglePrintProduct'"
+                         class="project-overview__front-image" ng-style="{'background-image':'url(' + thumbUrl[0].url + ')'}"></div>
+                    
+                    <div ng-if="project.productType === 'SinglePrintProduct'"
+                        class="project-overview__front-image project-overview__front-image--prints clearfix">
+                        <div class="project-overview__prints-image" ng-style="{'background-image':'url(' + thumbUrl[0].url + ')'}"></div>
+                        <div class="project-overview__prints-image" ng-style="{'background-image':'url(' + thumbUrl[1].url + ')'}"></div>
+                        <div class="project-overview__prints-image" ng-style="{'background-image':'url(' + thumbUrl[2].url + ')'}"></div>
+                        <div class="project-overview__prints-image" ng-style="{'background-image':'url(' + thumbUrl[3].url + ')'}"></div>
+                    </div>
+		             <span class="project-overview__title">{{project.productNumber || project.options._name}}</span>
+				</div>
+		        <div ng-hide="project.childToggle" ng-if="project.children.length >= 1 && project.productType !== 'SinglePrintProduct'">
+		        	<div class="project-overview__stack-image">
+		                <div class="project-overview__front-image" ng-style="{'background-image':'url(' + thumbUrl.url + ')'}"></div>
+		                <span class="project-overview__title">{{project.productNumber || project.options._name}}</span>
+		            </div>
+		        	<div class="project-overview__stack-image" ng-repeat="child in project.children | limitTo:2 ">
+		                <div class="project-overview__front-image" ng-style="{'background-image':'url(' + thumbUrl.url + ')'}"></div>
+		                <span class="project-overview__title">{{child.productNumber || child.options._name}}</span>
+		            </div>
+		        </div>
+			</div>
+			<div class="project-overview__back flip__back">
+				<div class="image" ng-style="{'background-image':'url(' + thumbUrl + ')'}"></div>
+				<ul class="project-overview__actions">
+					<li ng-if="project.productType !== 'SinglePrintProduct'" class="project-overview__action">
+                        <a class="project-overview__action-link" href ng-href="#/build/{{project.id}}/details">
+                            <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--cover-builder">Product Builder</span>
+                        </a>
+                    </li>
+                    <li ng-if="project.productType === 'SinglePrintProduct'" class="project-overview__action">
+                        <a class="project-overview__action-link" href ng-href="{{project.productType!=='SinglePrintProduct' ? '#/build/' + project.id + '/details' : '#/build/' + project.id + '/sizes/sizes-packages'}}">
+                            <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--prints">Prints</span>
+                        </a>
+                    </li>
+                    <li ng-if="project.productType !== 'SinglePrintProduct'" class="project-overview__action">
+                        <a class="project-overview__action-link" ng-href="#/layout/{{project.id}}">
+                            <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--designer">Designer</span>
+                        </a>
+                    </li>
+                    <li class="project-overview__action">
+                        <a class="project-overview__action-link" ng-href="#/orders/current/{{project.id}}">
+                            <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--projects">Projects</span>
+                        </a>
+                    </li>
+                    <li ng-if="project.state=='New'" class="upload" ng-disabled="!project.layoutId || project.state!='New'">
+                        <a class="project-overview__action-link" ng-click="upload()">
+                            <span class="project-overview__action-label project-overview__action-label--png project-overview__action-label--upload">Upload</span>
+                        </a>
+                    </li>
+                    <li ng-if="project.state!='New'" class="project-overview__action">
+                        <a class="project-overview__action-link" ng-click="reorder()">
+                            <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--invoice-history">Reorder</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer class="project-overview__footer">
+		<dropdown-button class="pull-left" direction="down" color="dark" type="horizontal" icon="three-bars"
+			on-change="onMenuClick(index)"
+			items="project-overview">
+		</dropdown-button>
+
+		<price-button price="project.total" color="light" class="pull-right"
+			direction="up"
+			ng-click="showPrice(project)">
+        </price-button>
+	</footer>
+	<input type="file" multiple style="display: none"/>
+    <span class="project-toggle-link" ng-if="project.childToggle && project.parentId" ng-click="toggleLinkLayout(project)">
+        <span class="project-toggle-link__icon" ng-class="{'project-toggle-link__icon--is-linked': project.linkLayout, 'project-toggle-link__icon--is-unlinked': !project.linkLayout}"></span>
+    </span>
+</div>

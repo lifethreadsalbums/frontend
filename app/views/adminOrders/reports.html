@@ -1,0 +1,54 @@
+
+
+<article>
+
+	<panel collapsed="false" rounds="true">
+
+        <panelheader title="Reports"></panelheader>
+
+        <panelcontent>
+        	<div class="row">
+				<div class="large-12 columns" style="text-align:left">
+					
+					<ul class="item-list standard">
+						<li ng-repeat="report in reports" class="item single"
+							ng-class="{ active: report==selectedReport }">
+
+							<a ng-click="selectReport(report)">
+								<span class="item-title">
+									<span class="item-title-primary">{{report.name}}</span>
+									<span class="item-title-secondary"></span>
+								</span>
+								<span class="item-icon"></span>
+							</a>
+
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			
+			<span class="borderDefault"></span>
+			
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="form-element inline" ng-repeat="param in selectedReport.params">
+						<label>{{param.description}}</label>
+						<datepicker date-format="yyyy-MM-dd" ng-if="param.type=='java.sql.Date'">
+							<input ng-model="params[param.name]" type="text">
+						</datepicker>
+
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-show="!!selectedReport">
+				<div class="large-12 columns">
+					<button type="submit" class="button color pull-right" ng-click="export()">Export</button>
+				</div>
+			</div>
+
+        </panelcontent>
+    </panel>
+	
+	
+</article>

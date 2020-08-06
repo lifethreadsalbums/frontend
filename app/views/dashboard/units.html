@@ -1,0 +1,99 @@
+<div class="designer-settings-content">
+	<div class="scrollable-container">
+		<div class="row large-12 columns">
+			<h2>Ruler Units</h2>
+			<hr/>
+			<div class="row">
+				<span class="large-3 columns">Origin:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="rulerOriginOptions" 
+                    label-field="name" value-field="value" 
+                    ng-model="selectedRulerOriginOptions" ></dropdown-button>
+				</div>
+			</div>	
+			<div class="row">
+				<span class="large-3 columns">Horizontal:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="rulerHorizontalOptions" 
+                    label-field="name" value-field="value" 
+                    ng-model="selectedRulerHorizontalOptions" ></dropdown-button>
+				</div>
+				<input class="large-1 columns left" type="text" name="name" value="12 pt"/>
+				<span class="large-4 columns">Points</span>
+			</div>	
+			<div class="row">
+				<span class="large-3 columns">Vertical:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="rulerVerticalOptions" 
+                    label-field="name" value-field="value" 
+                    ng-model="selectedRulerVerticalOptions" ></dropdown-button>
+				</div>
+				<input class="large-1 columns left" type="text" name="name" value="12 pt"/>
+				<span class="large-4 columns">Points</span>
+			</div>	
+		</div>
+		<div class="row large-12 columns">
+			<h2>Other Units</h2>
+			<hr/>			
+			<div class="row">
+				<span class="large-3 columns">Text Size:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="unitsTextSizeOptions" 
+                    label-field="name" value-field="value" 
+                    ng-model="selectedUnitsTextSizeOptions" ></dropdown-button>
+				</div>
+			</div>	
+			<div class="row">
+				<span class="large-3 columns">Stroke:</span>
+				<div class="large-4 columns left">
+					<dropdown-button class="right large-12" direction="down" options="unitsStrokeOptions" 
+                    label-field="name" value-field="value" 
+                    ng-model="selectedUnitsStrokeOptions" ></dropdown-button>
+				</div>
+			</div>	
+		</div>
+		<div class="row large-12 columns">
+			<h2>Point / Pica Size</h2>
+			<hr/>			
+			<div class="row">
+				<span class="large-3 columns">Points/Inch:</span>
+				<div class="large-4 columns left">
+					<input class="large-12 columns left" type="text" value="PostScript (72pts/inch)" />
+				</div>
+			</div>				
+		</div>
+		<div class="row large-12 columns">
+			<h2>Keyboard Increments</h2>
+			<hr/>			
+			<div class="row">
+				<span class="large-3 columns">Points/Inch:</span>
+				<div class="large-2 columns left">
+					<input class="large-12 columns left" type="text" value="0.0139 in" />
+				</div>
+				<span class="large-3 columns">Baseline Shift:</span>
+				<div class="large-2 columns left">
+					<input class="large-12 columns left" type="text" value="2 pt" />
+				</div>
+			</div>	
+			<div class="row">
+				<span class="large-3 columns">Size/Leading:</span>
+				<div class="large-2 columns left">
+					<input class="large-12 columns left" type="text" value="2 pt" />
+				</div>
+				<span class="large-3 columns">Kerning/Tracking:</span>
+				<div class="large-2 columns left">
+					<input class="large-12 columns left" type="text" value="20" />
+				</div>
+				<span class="large-2 columns">/1000 em</span>
+			</div>			
+		</div>
+	</div>
+	<footer>
+		<button ng-click="reset()" ng-disabled="!isChanged()">
+			Reset
+		</button>
+		<button ng-click="save()" ng-disabled="!isChanged()" class="color">
+			Save
+		</button>
+	</footer>
+</div>

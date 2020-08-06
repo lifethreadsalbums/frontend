@@ -1,0 +1,12 @@
+<div style="width:100%; height:100%;position:relative">
+	<div> 
+
+	    <dropdown-button class="full-width" label="Please select" options="spines" 
+	        label-field="description" ng-model="spineRule" on-change="onSpineRuleSelected()">
+	    </dropdown-button>
+	    
+	</div>
+	<div style="width:100%; top:32px;bottom:0;position:absolute" ng-style="{visibility:!!spineRule ? 'visible':'hidden'}">
+	    <div id="grid" ag-grid="gridOptions" class="ag-fresh ag-grid-pace"></div>
+	</div>
+</div>

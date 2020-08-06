@@ -1,0 +1,19 @@
+<div class="color-slider-container">
+    <div class="color-slider">
+        <span class="color-slider-label">R:</span>
+        <rzslider class="red" rz-slider-model="colors.r" rz-slider-floor="0" rz-slider-ceil="255" on-edit-end="onEditEnd()"></rzslider>
+        <input type="number" min="0" max="255" class="color-slider-result" ng-model="colors.r" ng-pattern="rgbNumbers">
+    </div>
+    <div class="color-slider">
+        <span class="color-slider-label">G:</span>
+        <rzslider class="green" rz-slider-model="colors.g" rz-slider-floor="0" rz-slider-ceil="255" on-edit-end="onEditEnd()"></rzslider>
+        <input type="number" min="0" max="255" class="color-slider-result" ng-model="colors.g" ng-pattern="rgbNumbers">
+    </div>
+    <div class="color-slider">
+        <span class="color-slider-label">B:</span>
+        <rzslider class="blue" rz-slider-model="colors.b" rz-slider-floor="0" rz-slider-ceil="255" on-edit-end="onEditEnd()"></rzslider>
+        <input type="number" min="0" max="255" class="color-slider-result" ng-model="colors.b" ng-pattern="rgbNumbers">
+    </div>
+    <span class="color-slider-label hex">HEX:</span>
+    <span class="color-slider-result hex">{{hex | uppercase}}</span>
+</div>

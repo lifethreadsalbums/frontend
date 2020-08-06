@@ -1,0 +1,31 @@
+<div class="proofer-login">
+    <form class="proofer-login__form" form-submit="login()" name="form0" novalidate error-message="{{'emailAndPasswordRequired' | i18n}}">
+        <p class="proofer-login__info">A password is required to view this album</p>
+
+        <div class="row">
+            <div class="form-element">
+                <div class="large-12 columns">
+                    <input type="password" placeholder="{{'passwordPlaceholder'|i18n}}"  id="inputPassword" ng-model="password" name="inPassword"
+                   class="dark proofer-login__password" set-focus="true" required ng-focus ng-disabled="loggingIn" />
+            <span ng-show="form0.inPassword.$blurred && form0.inPassword.$error.required" class="alert label">{{'passwordRequired'|i18n}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns cntr">
+                <div class="form-element">
+                    <input type="checkbox" value="1" id="remember-me" data-ng-model="rememberMe" ng-disabled="loggingIn" ng-change="rememberMeChanged()">
+                    <label for="remember-me">{{'rememberMe'|i18n}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns cntr">
+                <button ng-disabled="loggingIn" class="button dark">{{'login'|i18n}}</button>
+                <spinner ng-show="loggingIn" radius="6" length="6" lines="10" width="3"></spinner>
+            </div>
+        </div>
+    </form>
+</div>

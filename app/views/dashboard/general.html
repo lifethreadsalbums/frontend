@@ -1,0 +1,45 @@
+<div class="designer-settings-content">
+	<div class="scrollable-container">
+		<div class="row">
+			<h2>General</h2>
+			<hr/>
+			<div class="row">
+				<span class="large-5 columns">Remember crop size when resizing</span>
+				<on-off class="large-7 columns" ng-model="userSettings.settings.rememberCropSize"/>
+			</div>
+			<div class="row">
+				<span class="large-5 columns">Gap spacing</span>
+				<div class="large-7 columns">
+					<input type="number" value="0.125" name="stroke" class="left stroke-width" ng-model="userSettings.settings.gapSpacing" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<h2>Global Album Settings</h2>
+			<hr/>
+			<div class="row">
+				<div class="large-5 columns">Stroke:</div>
+				<div class="large-7 columns">
+					<div color-selector ng-model="stroke" color="light"></div>
+					<input type="text" value="1" name="stroke" class="stroke-width">
+					<span> pt width</span>
+				</div>
+				
+			</div>
+			<div class="row">
+				<span class="large-5 columns">Page background color:</span>
+				<div class="large-7 columns left">
+					<div color-selector ng-model="bgColor"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<button ng-click="reset()" ng-disabled="!isChanged()">
+			Reset
+		</button>
+		<button ng-click="save()" ng-disabled="!isChanged()" class="color">
+			Save
+		</button>
+	</footer>
+</div>

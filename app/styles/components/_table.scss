@@ -1,0 +1,41 @@
+//------------------------------------------------------------------
+//                     TABLE
+//------------------------------------------------------------------
+table {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    color: map-get($colors, light-800);
+    text-align: left;
+}
+
+th {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+//  coz you can't use shadows & radiuses on tables
+.tableHolder {
+    @include radius(5px);
+    @include box-shadow(0 1px 3px 0 rgba(map-get($colors, dark-900), 0.2));
+    position: relative;
+    margin: 35px 0;
+    background: map-get($colors, light-50);
+
+    // first box has got bigger margin from the top
+    &:first-child {
+        margin-top: 35px;
+    }
+}
+
+tr th {
+    @include museo500();
+    padding: 17px 0 14px;
+    line-height: 1.1em;
+    color: map-get($colors, dark-400)666;
+}
+
+tr td {
+    padding-bottom: 2px;
+}

@@ -1,0 +1,33 @@
+<div class="builder__content-container builder__content-container--panel-on"
+     ng-class="{
+        'builder__content-container--single-image': slideshow.length==1,
+        'builder__content-container--thumbnails': slideshow.length>1,
+        'builder__content-container--dark': darkTheme
+    }">
+	<aside ng-show="slideshow" class="builder__right-sidebar animate-show">
+		<h2>{{title}}</h2>
+		<p ng-bind-html="description"></p>
+	</aside>
+	<div class="builder__content-primary animate-show" ng-show="slideshow">
+		<div class="builder__content-primary-inner">
+			<xfade-img url="{{currentSlide.imageUrl}}"></xfade-img>
+		</div>
+	</div>
+	<footer ng-show="slideshow.length>1" class="builder__footer animate-show">
+		<div class="slider builder__footer-slider" flex-slider flex-slide="slide in slideshow track by slide.imageUrl"
+			slideshow="false" control-nav="false" animation="slide" animation-loop="false"
+			item-width="180" ng-fade="secondaryOption.items" hide-flexslider-arrows>
+            <li class="builder__footer-slide builder__footer-slide--thumbnail"
+            	ng-mouseleave="unselectPreviewSlide(slide)"
+            	ng-click="selectSlide(slide)"
+            	ng-mouseenter="selectPreviewSlide(slide)"
+            	ng-class="{selected: selectedSlide.imageUrl == slide.imageUrl}">
+				<a class="builder__footer-slide-link">
+					<span class="thumbnail-preview" style="background-image:url('{{slide.thumbUrl}}')"></span>
+				</a>
+			</li>
+        </div>
+	</footer>
+
+	<div class="build-overlay animate-show" ng-hide="slideshow"></div>
+</div>

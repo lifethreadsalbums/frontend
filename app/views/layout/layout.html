@@ -1,0 +1,831 @@
+<section class="layout user-select-none" tabindex="0" ng-keydown="onKeyDown($event)" ng-keyup="onKeyUp($event)" set-focus="true"
+    layout-key-handler layout-controller="layoutController" ng-controller="LayoutCtrl" ng-init="initController()"
+    ng-class="{readonly:!editable}">
+
+    <div class="layout-section layout-section--top">
+
+        <div class="layout-section layout-section--left layout-section--header layout-section--footer left section">
+
+            <header class="section-header section-header--layout">
+                <dropdown-button options="products" color="dark"
+                    ng-hide="isAdmin"
+                    label="{{product.options._name}}" label-field="name"
+                    value-field="id"
+                    ng-model="selectedProduct" on-change="selectProduct()"
+                    label-pre-icon="projects"
+                    fixed-width="85%" scroll-disabled="true">
+                </dropdown-button>
+
+                <div style="width:100%;height:30px;position:relative" ng-show="isAdmin">
+                    <dropdown-button id="userDropdown" options="users | filter:userQuery" color="dark"
+                        label-field="name"
+                        ng-model="selectedUser" on-change="onUserSelected()"
+                        fixed-width="85%" scroll-disabled="true"
+                        style="position:absolute;left:0;right:0">
+                    </dropdown-button>
+
+                    <input style="position:absolute; left:0; width:85%; height:26px; top:3px; border:none; background: transparent; outline:none; font-size:13px; color:#bbb"
+                        ng-change="searchUsers()" ng-model="userQuery" ng-model-options="{ debounce: 50 }"
+                        ng-mouseup="onUserSearchMouseUp($event)"></input>
+                </div>
+
+            </header><!-- end of section header -->
+
+            <div class="layout-section__content"> <!-- left section content -->
+
+                <tabs class="layout__sidebar-tabs text-center" round="top" color="dark-flat" gap-bottom="false" size="dual"
+                      ng-model="flpTabIndex"
+                      on-tab-change="onFLPTabChange(index)"
+                      >
+                    <tab title="Templates">
+                        <recently-used-templates
+                            class="animate-show ng-animate-enabled"
+                            ng-show="layoutVisible && editable"
+                            current-spread="currentSpread"
+                            saved-layout-templates="savedLayoutTemplates"
+                            public-layout-templates="publicLayoutTemplates"
+                            templates-history="templatesHistory"
+                            layout="layout"
+                            layout-controller="layoutController"
+                            control="recentlyUsedControl"
+                            frame-mode="model.frameMode"
+                            enable-smart-template-selection="model.enableSmartTemplateSelection">
+                        </recently-used-templates>
+                    </tab>
+                    <tab title="Proofer" tab-badge="{{numUnreadMessages}}" on-badge-click="onProoferBadgeClick()">
+                      <react-component name="ProoferComponent" props="prooferComponentProps" watch-depth="reference"></react-component>
+                    </tab>
+                </tabs>
+            </div>
+
+            <footer ng-if="flpTabIndex !== 1" class="layout-section__footer separate-buttons" init-pace-tooltip>
+                <dropdown-button-split id="save-template"
+                    options="saveTemplateOptions"
+                    ng-show="editable"
+                    ng-disabled="currentSpread.elements.length==0 || saveTemplateDisabled"
+                    direction="up"
+                    color="dark" scroll-disabled="true">
+                </dropdown-button-split>
+
+                <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete Template">
+                    <span class="button dark trash2-flat"
+                        ng-show="editable"
+                        ng-disabled="!recentlyUsedControl.canDeleteTemplate"
+                        ng-click="recentlyUsedControl.deleteSelectedTemplate()"></span>
+                </div>
+            </footer>
+            <footer ng-if="flpTabIndex === 1" class="layout-section__footer separate-buttons" init-pace-tooltip>
+                <span class="button dark small-padding" 
+                      ng-disabled="prooferSettings.published || !prooferSettings.id"
+                      ng-click="sendToClient()">Send to Client</span>
+                <span class="button dark arrow-right-right" ng-click="toggleProoferSettings(true)">Settings</span>
+            </footer>
+        </div><!-- end of left section -->
+
+        <div class="layout-section layout-section--middle layout-section--header layout-section--footer">
+
+            <header class="section-header section-header--layout section__header--layout--flex" ng-class="{'generating-pdf': recentJob && recentJob.progressPercent < 100}">
+                <div class="flex-none">
+                    <dropdown-button ng-show="isAdmin" style="width:220px;" options="products" color="dark"
+                        label="{{currentProductName}}" label-field="name"
+                        value-field="id"
+                        ng-model="selectedProduct" on-change="selectProduct()"
+                        label-pre-icon="projects"
+                        fixed-width="85%" scroll-disabled="true">
+                    </dropdown-button>
+                </div>
+
+                <div class="flex-expand job-info job-info--designer-header">
+                    <span ng-if="!isAdmin" ng-bind-html="getJobInfo()"></span>
+                </div>
+
+                <div class="flex-none flex--none-right"  init-pace-tooltip>
+
+                    <a  ng-show="lowResPdfUrl && !recentJob" href="{{lowResPdfUrl}}"
+                        class="pdf-download" target="_blank"
+                        data-pace-tooltip="Download your Low-Res PDF">
+                        <span class="pdf-download-icon"></span>
+                    </a>
+
+                    <div class="pdf-progress-bar" ng-show="recentJob && recentJob.progressPercent < 100">
+                        <span class="pdf-progress-bar-label">
+                            Generating PDF&nbsp;
+                            <span class="pdf-progress-bar-progress">{{recentJob.progressPercent}}%</span>
+                        </span>
+                        <span class="pdf-progress-bar-track">
+                            <span class="pdf-progress-bar-step" style="width: {{recentJob.progressPercent}}%;"></span>
+                        </span>
+                    </div>
+
+                    <button ng-show="editable" id="download-pdf" class="button dark pdf" data-pace-tooltip="Create a Proof" ng-disabled="stats.usedPages==0" ng-click="generateLowResPdf()">Generate PDF</button>
+
+                    <!-- <button class="button dark" data-pace-tooltip="Publish" ng-disabled="stats.usedPages==0" ng-click="publish()">Publish</button> -->
+
+                </div>
+            </header><!-- end of section header -->
+
+            <!-- TOP SPREAD TOOLBAR -->
+            <div style="display:none" class="top-spread-toolbar" ng-controller="SpreadTopToolbarCtrl">
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolsetTop=='tools1'" init-pace-tooltip>
+                    <dropdown-button
+                        data-pace-tooltip="{{(model.frameMode === 'frame11' ? 'Includes 1:1 & 3:2 Frames in Layouts' : 'Only Includes 3:2 Frames in Layouts')}}"
+                        direction="down" color="dark" type="icon"
+                        ng-model="model.frameMode"
+                        icon="frame-mode" on-change="frameModeChanged(index)">
+                    </dropdown-button>
+
+                    <span>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Undo (⌘Z)">
+                            <span ng-click="undo()" class="tool tool-undo" ng-disabled="!canUndo()"></span>
+                        </div>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Redo (⇧⌘Z)">
+                            <span ng-click="redo()" class="tool tool-redo" ng-disabled="!canRedo()"></span>
+                        </div>
+                    </span>
+
+                    <span id="tools-generate-layout">
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Previous layout (←)">
+                            <span id="tool-generate-prev-layout" class="tool tool-spread-left"
+                                  ng-click="prevTemplate()"
+                                  pulse-class
+                                  pulse-on-class="active"
+                                  pulse-on-event="tool-spread-left"
+                                  should-pulse="true">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Left Side (⌥→)">
+                                <span id="tool-generate-left-page" class="tool tool-rotate-left-page"
+                                  ng-class="{active: (currentSpread.lastTemplateMode === 'left')}"
+                                  ng-click="autoLayoutDisabled(currentSpread, 'left') || (selectSpread(currentSpread) && autoLayout('left'))"
+                                  ng-disabled="autoLayoutDisabled(currentSpread, 'left')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Spread (→)">
+                            <span id="tool-generate-spread" class="tool tool-rotate-middle-page"
+                                  ng-class="{active: (currentSpread.lastTemplateMode === 'spread')}"
+                                  ng-click="autoLayoutDisabled(currentSpread, 'spread') || (selectSpread(currentSpread) && autoLayout('spread'))"
+                                  ng-disabled="autoLayoutDisabled(currentSpread, 'spread')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Right Side (⇧→)">
+                            <span id="tool-generate-right-page" class="tool tool-rotate-right-page"
+                                  ng-class="{active: (currentSpread.lastTemplateMode === 'right')}"
+                                  ng-click="autoLayoutDisabled(currentSpread, 'right') || (selectSpread(currentSpread) && autoLayout('right'))"
+                                  ng-disabled="autoLayoutDisabled(currentSpread, 'right')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Next layout (→)">
+                            <span id="tool-generate-next-layout" class="tool tool-spread-right"
+                                  ng-click="nextTemplate()"
+                                  pulse-class
+                                  pulse-on-class="active"
+                                  pulse-on-event="tool-spread-right"
+                                  should-pulse="true">
+                            </span>
+                        </div>
+                    </span>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Gap spacing (+/-)">
+                        <slider-button-with-dropdown ng-disabled="!gapToolEnabled"
+                                                     class="tool-spacing-slider" direction="down" color="dark" icon="tool-spacing"
+                                                     ng-model="layoutController.frameSpacing"
+                                                     on-input-change="fixedSpacing(false, true)"
+                                                     on-change="fixedSpacing(false, false)"
+                                                     on-edit-end="spacingEditEnd()"
+                                                     on-edit-begin="spacingEditBegin()"
+                                                     on-open="onSpacingToolOpen()"
+                                                     slider-label="true" slider-postfix=" in"
+                                                     slider-scale="full"
+                                                     slider-step="0.03125" slider-min="0" slider-max="2"
+                                                     slider-precision="5"
+                                                     slider-input="true"
+                                                     marked-value="{{markedFrameSpacing}}"
+                                                     has-dropdown="true"
+                                                     dropdown-icon="gap-tool"
+                                                     dropdown-options="gapToolOptions"
+                                                     dropdown-model="selectedGapOption">
+                        </slider-button-with-dropdown>
+                    </div>
+                </div>
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolsetTop=='tools2'" init-pace-tooltip>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Mark as Completed">
+                        <span class="tool tool-check" 
+                              ng-disabled="layoutController.selectedElements.length==0 ||
+                                !layoutController.selectedElements[0].comment ||
+                                layoutController.selectedElements[0].comment.completed ||
+                                layoutController.selectedElements[0].comment.isArchived" 
+                                ng-click="markCompleted()"></span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Mark All as Completed">
+                        <span class="tool tool-double-check" ng-disabled="numPendingOnCurrentSpread==0" ng-click="markAllCompleted()"></span>
+                    </div>
+
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Previous Edit">
+                        <span class="tool tool-spread-left" 
+                              ng-disabled="model.toolbarEdits !== 'pending' || 
+                                (model.toolbarEdits === 'completed' && numCompleted==0) || 
+                                (model.toolbarEdits === 'pending' && numPending==0)"
+                              ng-click="prevEdit()"></span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Completed Edits">
+                        <div class="tool qa-edit-toolbar__proofer-edits"
+                             ng-class="{'qa-edit-toolbar__proofer-edits--active': model.toolbarEdits === 'completed'}"
+                             ng-disabled="numCompleted==0"
+                             ng-click="toggleEdits('completed')">
+                            <span class="qa-edit-toolbar__proofer-edits-value qa-edit-toolbar__proofer-edits-value--completed">
+                                {{numCompleted}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Pending Edits">
+                        <div class="tool qa-edit-toolbar__proofer-edits"
+                             ng-class="{'qa-edit-toolbar__proofer-edits--active': model.toolbarEdits === 'pending'}"
+                             ng-disabled="numPending==0"
+                             ng-click="toggleEdits('pending')">
+                            <span class="qa-edit-toolbar__proofer-edits-value qa-edit-toolbar__proofer-edits-value--pending">
+                                {{numPending}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Next Edit">
+                        <span class="tool tool-spread-right" 
+                              ng-disabled="!model.toolbarEdits || 
+                                (model.toolbarEdits === 'completed' && numCompleted==0) || 
+                                (model.toolbarEdits === 'pending' && numPending==0)"
+                              ng-click="nextEdit()">
+                        </span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Add a Comment">
+                        <span class="tool tool-comment" 
+                              ng-class="{'active-pressed':layoutController.currentTool.type=='CommentTool'}" 
+                              ng-click="switchToCommentTool()">        
+                        </span>
+                    </div>
+                </div>
+
+                <div class="toolset-switch toolset-switch--secondary" init-pace-tooltip>
+                    <dropdown-button id="toolset-switch-top" data-pace-tooltip="Tools"
+                                     direction="down" color="dark" type="icon"
+                                     ng-model="model.selectedToolsetTop" 
+                                     icon="design-tools-top"
+                                     on-change="topToolsetChanged(index)">
+                    </dropdown-button>
+                </div>
+            </div>
+
+            <!-- BOTTOM SPREAD TOOLBAR -->
+            <div style="display:none" class="bottom-spread-toolbar" ng-controller="SpreadBottomToolbarCtrl">
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolset=='tools1'" init-pace-tooltip>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete">
+                        <span class="tool tool-trash"
+                              ng-click="deletePagesOrSelection()"
+                              ng-disabled="!!layoutController.currentRenderer.layout.layoutSize.coverType && layoutController.selectedElements.length==0">
+                        </span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Horizontal Layout Flip">
+                        <span class="tool tool-flip-frameh" ng-click="flip('horizontal')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Vertical Layout Flip">
+                        <span class="tool tool-flip-framev" ng-click="flip('vertical')"></span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Center Picture Frame (C)">
+                        <span class="tool tool-center"
+                              ng-class="{active: isSelectionCentered, 'active-pressed': isSelectionCentered}"
+                              ng-click="shortcut('C')"></span>
+                    </div>
+
+                    <slider-button data-pace-tooltip="Opacity"
+                                   class="tool-opacity" direction="down" color="dark" slider-scale="full"
+                                   ng-model="opacity"
+                                   slider-precision="0" slider-postfix="%" slider-step="1" slider-min="0" slider-max="100"
+                                   slider-label-button="true"
+                                   slider-label-button-icon="opacity"
+                                   on-change="opacityChanging()"
+                                   on-edit-begin="opacityEditBegin()"
+                                   on-edit-end="opacityEditEnd()">
+                    </slider-button>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Crop Tool (K)">
+                        <span class="tool tool-crop"
+                              ng-class="{active: layoutController.currentTool.type=='CropTool'}"
+                              ng-click="shortcut('K')">
+                        </span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Stroke styles">
+                        <span class="tool tool-stroke" ng-click="showStyles()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Add pages">
+                        <span class="tool tool-plus" ng-click="addPages()"></span>
+                    </div>
+                </div>
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolset=='tools2'" init-pace-tooltip>
+                    <dropdown-button
+                        data-pace-tooltip="Frame Tool (F)"
+                        direction="up" color="dark" type="icon"
+                        value-field="value"
+                        active="layoutController.currentTool.type=='FrameTool'"
+                        icon="new-frame" ng-model="model.newFrameMode"
+                        on-change="onNewFrameModeChanged()"
+                        ng-click="shortcut('F')">
+                    </dropdown-button>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Small Resize (S)">
+                        <span id="toolFrameSmall" class="tool tool-frame-small" ng-click="shortcut('S')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Medium Resize (M)">
+                        <span id="toolFrameMedium" class="tool tool-frame-med" ng-click="shortcut('M')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Large Resize (L)">
+                        <span id="toolFrameLarge" class="tool tool-frame-large" ng-click="shortcut('L')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="2-Sided Bleed (B)">
+                        <span id="toolFrame2Bleed" class="tool tool-frame-2bleed" ng-click="shortcut('B')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="4-Sided Bleed (N)">
+                        <span id="toolFrame4Bleed" class="tool tool-frame-4bleed" ng-click="shortcut('N')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Double Page Spread (D)">
+                        <span id="toolFrameSpread" class="tool tool-frame-spread" ng-click="shortcut('D')"></span>
+                    </div>
+                </div>
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolset=='tools3'" init-pace-tooltip>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Fit Picture Frame to Image (O)">
+                        <span class="tool tool-fit-frame" ng-click="shortcut('O')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Fit Image to Picture Frame (I)">
+                        <span class="tool tool-fill-frame" ng-click="shortcut('I')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Bring to Front (⌘⇧⌥])">
+                        <span class="tool tool-send-to-front" ng-click="shortcut('CTRL+ALT+SHIFT+]')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Bring Forward (⌘⌥])">
+                        <span class="tool tool-send-forward" ng-click="shortcut('CTRL+ALT+]')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Send to Back (⌘⇧⌥[)">
+                        <span class="tool tool-send-to-back" ng-click="shortcut('CTRL+ALT+SHIFT+[')"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Send Backward (⌘⌥[)">
+                        <span class="tool tool-send-backward" ng-click="shortcut('CTRL+ALT+[')"></span>
+                    </div>
+                </div>
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolset=='tools4'" init-pace-tooltip>
+                    <dropdown-button data-pace-tooltip="Text Tool (T)"
+                                     direction="up" color="dark" type="icon"
+                                     options="orientationOptions" icon="text-orientation"
+                                     value-field="value"
+                                     active="layoutController.currentTool.type=='TextTool'"
+                                     ng-model="textOpt.orientation"
+                                     on-change="onTextOptionsChanged('orientation')"
+                                     ng-click="shortcut('T')">
+                    </dropdown-button>
+
+                    <dropdown-button data-pace-tooltip="Text Align"
+                                     direction="up" color="dark" type="icon" icon="text-align" ng-model="textOpt.align" on-change="onTextOptionsChanged('align')"></dropdown-button>
+                    <dropdown-button data-pace-tooltip="Text Case"
+                                     direction="up" color="dark" type="icon" icon="case" ng-model="textOpt.case" on-change="onTextOptionsChanged('case')"></dropdown-button>
+
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Bold" >
+                        <span class="tool tool-bold"
+                              ng-class="{active:textOpt.bold}"
+                              ng-click="toggleBold()"
+                              ng-disabled="boldDisabled">
+                        </span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Italic">
+                        <span class="tool tool-italic"
+                              ng-class="{active:textOpt.italic}"
+                              ng-click="toggleItalic()"
+                              ng-disabled="italicDisabled">
+                        </span>
+                    </div>
+
+                    <!--
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Baseline">
+                        <span class="tool tool-baseline"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Kerning">
+                        <span class="tool tool-kerning"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Tracking">
+                        <span class="tool tool-tracking"></span>
+                    </div>
+                    -->
+                </div>
+
+                <div class="toolset switch-on ng-animate-enabled" ng-show="model.selectedToolset=='tools5'" init-pace-tooltip>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Show/Hide Grid (⌘')">
+                        <span class="tool tool-grid"
+                              ng-class="{active:layout.viewState.gridVisible, 'active-pressed': layout.viewState.gridVisible}"
+                              ng-click="toggleGrid()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Show/Hide Guides (⌘;)">
+                        <span class="tool tool-guides"
+                              ng-class="{active:layout.viewState.guidesVisible, 'active-pressed': layout.viewState.guidesVisible}"
+                              ng-click="toggleGuides()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Show/Hide Rulers (R)">
+                        <span class="tool tool-ruler"
+                              ng-class="{active:layout.viewState.rulersVisible, 'active-pressed': layout.viewState.rulersVisible}"
+                              ng-click="toggleRulers()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Show/Hide Frame Info">
+                        <span class="tool tool-frame-info"
+                              ng-class="{active: layout.viewState.frameInfoVisible, 'active-pressed': layout.viewState.frameInfoVisible}"
+                              ng-click="toggleFrameInfo()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Show/Hide Grid Info">
+                        <span class="tool tool-grid-info"
+                              ng-class="{active: layout.viewState.gridInfoVisible, 'active-pressed': layout.viewState.gridInfoVisible}"
+                              ng-click="toggleGridInfo()"></span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Lock spread">
+                        <span class="tool" ng-class="{'tool-lock':!!currentSpread.locked, 'tool-unlock':!currentSpread.locked }"
+                              ng-click="lockSpread(currentSpread)">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="toolset-switch" init-pace-tooltip>
+                    <dropdown-button id="toolset-switch" data-pace-tooltip="Tools"
+                                     direction="up" color="dark" type="icon"
+                                     ng-model="model.selectedToolset" icon="design-tools"
+                                     on-change="toolsetChanged(index)">
+                    </dropdown-button>
+                </div>
+            </div>
+
+            <!-- LIST OF SPREADS -->
+            <div id="spread-section" class="layout-section__content spread-section "
+                ng-class="{'readonly':!editable}"
+                ng-mousedown="clearSelection($event)"
+                context-menux="{ duplicateAndConvert:{name:'Duplicate and Convert', visible:isAdmin}, splitImages:{name:'Split Images', visible:isAdmin} }"
+                context-menu-click="onBookMenuClick(key)">
+
+                <book-layout
+                    layout="layout"
+                    cover-layouts="coverLayouts"
+                    page-class="pageClass"
+                    layout-controller="layoutController"
+                    top-toolbar="top-spread-toolbar"
+                    bottom-toolbar="bottom-spread-toolbar"
+                    editable="editable"
+                    class="animate-show ng-animate-enabled"
+                    ng-show="layoutVisible" >
+                </book-layout>
+
+                <hruler ng-class="{'ruler--hidden': !layout.viewState.rulersVisible}"
+                        layout-controller="layoutController"
+                        dragged
+                        on-item-drag="onRulerDrag('h', event)"
+                        on-item-drag-end="onRulerDragEnd('h', event)">
+                </hruler>
+
+                <vruler ng-class="{'ruler--hidden': !layout.viewState.rulersVisible}"
+                        layout-controller="layoutController"
+                        dragged
+                        on-item-drag="onRulerDrag('v', event)"
+                        on-item-drag-end="onRulerDragEnd('v', event)">
+                </vruler>
+
+            </div><!-- end of section content -->
+
+            <footer class="layout-section__footer">
+                <div init-pace-tooltip>
+                    <div class="pull-left">
+                        <dropdown-button
+                            data-pace-tooltip="View Mode"
+                            direction="up" color="dark" type="icon"
+                            ng-model="viewMode"
+                            icon="view-mode" on-change="viewModeChanged()">
+                        </dropdown-button>
+                    </div>
+
+                    <quick-arrange-toolbar
+                        layout-controller="layoutController"
+                        layout="layout"
+                        product="product"
+                        layout-visible="layoutVisible"
+                        product-prototype="productPrototype"
+                        vertical="true">
+                    </quick-arrange-toolbar>
+
+                    <div class="pull-right">
+                        <dropdown-button
+                            data-pace-tooltip="Zoom"
+                            class="tool-zoom"
+                            direction="up" color="dark"
+                            options="zoomOptions"
+                            label-pre-icon="zoom"
+                            label-field="label"
+                            value-field="value"
+                            ng-model="zoomOption"
+                            on-change="zoomChanged()"
+                            class="clear-margin-bottom">
+                        </dropdown-button>
+                    </div>
+                </div>
+
+                <span class="layout__saving-status pull-right" style="width:140px;text-align:right;margin-left:-140px">{{savingStatus}}</span>
+            </footer><!-- end of section footer -->
+
+        </div><!-- end of middle section -->
+
+        <div class="layout-section layout-section--right layout-section--header layout-section--footer">
+
+            <header class="section-header section-header--layout">
+                <price-button price="product.total" color="dark" direction="down" frp-nav-view="views/orders/frp-cost.html">
+                </price-button>
+                <span class="button color cart-blue-large" ng-disabled="!editable" ng-click="addToCart()"></span>
+            </header>
+
+            <div class="layout-section__content">
+
+                <tabs id="right-sidebar-tabs" class="layout__sidebar-tabs text-center" round="top" size="dual"
+                      color="dark-flat" gap-bottom="false" ng-model="layout.viewState.rightTabIndex">
+                    <tab title="Pages"
+                        context-menu="{ addPages2:{name:'Add ' + (isSpreadBased ? 'Spreads' : 'Pages'), visible:canAddPages && editable}, deletePages:{name:'Delete ' + (isSpreadBased ? 'Spreads' : 'Pages'), visible:editable && selectedPageIndices.length>0}, swapPages:{name:'Swap ' + (canSwapSpreads ? ' Spreads' : ' Pages'), visible:editable && (canSwapPages || canSwapSpreads)} }"
+                        context-menu-click="onPagesMenuClick(key)"
+                        class="ng-animate-enabled animate-show"
+                        ng-keyup="onPagesKeyUp($event)" tabindex="2" ng-show="layoutVisible">
+                        <spread-thumb-list
+                            layout="layout"
+                            cover-layouts="coverLayouts"
+                            layout-controller="layoutController"
+                            selected-indices="selectedPageIndices"
+                            page-type="productPrototype.productPageType">
+                        </spread-thumb-list>
+                    </tab>
+
+                    <tab title="Styles" ng-if="editable">
+
+                        <div class="is-animate-sidebar scrollable-content styles ng-animate-enabled" ng-controller="StylesCtrl"
+                            ng-class="{'no-scroll': layout.viewState.stylesViewIndex==1, 'animate-left': layout.viewState.stylesViewIndex>0, 'animate-right': layout.viewState.stylesViewIndex==0}" >
+                            <div id="tab-right-sidebar-options" ng-show="layout.viewState.stylesViewIndex==0" class="ng-animate-enabled">
+                                <!-- <dropdown-button direction="down" color="dark" options="styleOptions"
+                                    ng-model="selectedStyleOption" value-field="value" style="width:95%">
+                                </dropdown-button> -->
+                                <div style="width:95%; display:inline-block;">
+                                    <ul class="item-list dark">
+                                        <li class="item single item-arrow" ng-click="layout.viewState.stylesViewIndex=1">
+                                            <a>
+                                                <span class="item-title">
+                                                    <span class="item-title-primary">Backgrounds & Strokes</span>
+                                                </span>
+                                                <span class="item-icon"></span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="item single item-arrow" ng-click="layout.viewState.stylesViewIndex=2">
+                                            <a>
+                                                <span class="item-title">
+                                                    <span class="item-title-primary">Logos</span>
+                                                </span>
+                                                <span class="item-icon"></span>
+                                            </a>
+                                        </li> -->
+                                        <li class="item single item-arrow" ng-click="layout.viewState.stylesViewIndex=3; switchToTextTool();">
+                                            <a>
+                                                <span class="item-title">
+                                                    <span class="item-title-primary">Fonts</span>
+                                                </span>
+                                                <span class="item-icon"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tab-background-stroke" class="background-stroke-tab ng-animate-enabled" ng-show="layout.viewState.stylesViewIndex==1">
+                                <div class="background-stroke-tab-scroller">
+                                    <header class="header-back dark small">
+                                        <button ng-click="layout.viewState.stylesViewIndex=0" class="button dark back small double">Back</button>
+                                        <div>
+                                            <h1>Background & strokes</h1>
+                                            <small>Customize colors or pictures</small>
+                                        </div>
+                                    </header>
+                                    <background-stroke
+                                        style="style"
+                                        apply-to-option="layout.viewState.stylesApplyToOption"
+                                        apply-to-range="layout.viewState.stylesApplyToRange"
+                                        mode="layout.viewState.stylesMode"
+                                        swatches="userSettings.settings.swatches"
+                                        show-spine-option="showSpineOption"
+                                        show-left-page-option="showLeftPageOption"
+                                        show-right-page-option="showRightPageOption"
+                                        num-selected-elements="numSelectedElements"
+                                        on-change="onStyleChange()"
+                                        on-swatch-change="onSwatchChange()"
+                                        layout-controller="layoutController"
+                                        layout="layout"
+                                        stroke-slider-enabled="true"
+                                        default-stroke-weight="0.5">
+                                    </background-stroke>
+                                </div>
+                            </div>
+                            <div ng-show="layout.viewState.stylesViewIndex==2" class="ng-animate-enabled">
+                                <header class="header-back dark small">
+                                    <button ng-click="layout.viewState.stylesViewIndex=0" class="button dark back small double">Back</button>
+                                    <div>
+                                        <h1>Logos</h1>
+                                        <small>Upload your logos</small>
+                                    </div>
+                                </header>
+                                <add-logo logos="logos"></add-logo>
+                                <logo-settings logo="logo"></logo-settings>
+                            </div>
+                            <div id="tab-fonts" ng-show="layout.viewState.stylesViewIndex==3" class="ng-animate-enabled">
+                                <header class="header-back dark small">
+                                    <button ng-click="layout.viewState.stylesViewIndex=0" class="button dark back small double">Back</button>
+                                    <div>
+                                        <h1>Fonts</h1>
+                                        <small>Customize your font</small>
+                                    </div>
+                                </header>
+                                <font-styles
+                                    style="fontStyle"
+                                    num-selected-elements="numSelectedElements"
+                                    recently-used-fonts="recentlyUsedFonts"
+                                    on-change="onFontStyleChange(prop)"
+                                    swatches="userSettings.settings.fontSwatches"
+                                    on-swatch-change="onSwatchChange()"
+                                    layout-controller="layoutController"
+                                    max-font-size="maxFontSize">
+                                </font-styles>
+                            </div>
+                        </div>
+
+                    </tab>
+                </tabs>
+
+            </div>
+
+            <footer class="layout-section__footer" init-pace-tooltip>
+               <!--  <div class="left"> -->
+                    <span id="all-pages" class="button dark arrow-left width-100"
+                          data-pace-tooltip="See All {{(isSpreadBased ? 'Spreads' : 'Pages')}}"
+                          ui-sref="layout.pages">All {{(isSpreadBased ? 'Spreads' : 'Pages')}}</span>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Swap {{canSwapSpreads ? 'Spreads' : 'Pages'}}">
+                        <button class="button dark swap-flat"
+                            ng-show="editable"
+                            ng-click="swapPages()"
+                            ng-disabled="layout.viewState.rightTabIndex!=0 || (!canSwapSpreads && !canSwapPages)">
+                        </button>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete {{(isSpreadBased ? 'Spreads' : 'Pages')}}" data-pace-tooltip-position="left">
+                        <button class="button dark trash2-flat"
+                            ng-show="editable"
+                            ng-click="deletePages()"
+                            ng-disabled="layout.viewState.rightTabIndex!=0 || selectedPageIndices.length==0">
+                        </button>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Add {{(isSpreadBased ? 'Spreads' : 'Pages')}}" data-pace-tooltip-position="left">
+                        <button class="button dark plus2-flat"
+                            ng-show="editable"
+                            ng-click="addPages2()"
+                            ng-disabled="layout.viewState.rightTabIndex!=0 || !canAddPages">
+                        </button>
+                    </div>
+                <!-- </div> -->
+            </footer>
+
+
+        </div><!-- end of right section -->
+
+    </div><!-- end of left section -->
+
+    <div class="layout-section layout-section--bottom layout-section--header" ng-controller="FilmstripCtrl">
+        <header class="section-header section-header--layout filmstrip-toolbar">
+            <div class="flex-container">
+                <div class="left" init-pace-tooltip>
+                    <span class="button dark arrow-up clear-margin-bottom"
+                        ng-show="editable"
+                        ng-click="enterQuickArrange()">Enter Quick Arrange</span>
+                    <span class="font-size-zero clear-margin-bottom auto-fill-container"
+                        auto-arrange-state
+                        ng-show="editable"
+                        ng-class="{active:layout.autoFillEnabled}">
+                        <span class="button auto-fill dark radius-left clear-margin-bottom"
+                            ng-class="{active:layout.autoFillEnabled}"
+                            ng-click="autoArrangeOptionChanged()">Auto Fill</span>
+                        <dropdown-button direction="up" color="dark"
+                            type="icon" icon="auto-arrange" icon-text="true"
+                            on-change="autoArrangeOptionChanged()"
+                            ng-model="filmstripModel.autoArrangeOption"
+                            class="radius-right move-left clear-margin-bottom">
+                        </dropdown-button>
+                    </span>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Group/Ungroup Images">
+                        <span class="button dark clear-margin-bottom" ng-if="editable"
+                            ng-disabled="numSelectedItems==0" ng-class="{'grouping':!itemsStacked, 'ungroup':itemsStacked}" ng-click="stackImages()">
+                        </span>
+                    </div>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete Images">
+                        <span class="button dark clear-margin-bottom trash-flat" ng-if="editable"
+                            ng-disabled="numSelectedItems==0" ng-click="delete()">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="middle layout-usage-summary" ng-hide="uploadStats.numUploads>0">
+                    <span class="picture-summary clear-margin-bottom" >{{layout.filmStrip.items | countUsedFilmstripItems}}/{{layout.filmStrip.items | countFilmstripItems}} Left</span>
+                    <span class="page-summary clear-margin-bottom">{{stats.totalPages - stats.usedPages}}/{{stats.totalPages}} Left</span>
+                </div>
+                <div class="middle" ng-show="uploadStats.numUploads>0">
+                    <div class="layout-uploading">Uploading {{uploadStats.numTotalUploads}} photos...
+                        <progress-bar progress="uploadStats.totalProgress"></progress-bar>
+                        <span class="cancel" ng-click="cancelUpload()"></span>
+                    </div>
+                </div>
+
+                <div class="right" ng-show="editable" init-pace-tooltip>
+                    <!-- <button class="button dark" ng-show="uploadStats.numUploads>0" ng-click="cancelUpload()">Cancel</button> -->
+                    <button data-pace-tooltip="Toggle File Info"
+                        class="button dark info" ng-class="{active:showInfo}" ng-click="toggleInfo()"></button>
+                    <dropdown-button id="import-dropdown"
+                        direction="up" color="dark"
+                        ng-if="editable"
+                        label="Import Photos"
+                        options="importPhotosOptions"
+                        label-pre-icon="upload"
+                        hide-first-option="true"
+                        class="clear-margin-bottom"
+                        ng-model="importMode"
+                        on-change="openFileDialog();importMode=''">
+                    </dropdown-button>
+                    <dropdown-button direction="up" color="dark" label="Filter"
+                        options="filterOptions" label-pre-icon="filter"
+                        ng-model="layout.viewState.filmstripFilter"
+                        value-field="value"
+                        on-change="onFilterChange()"
+                        hide-first-option="true" class="clear-margin-bottom">
+                    </dropdown-button>
+                </div>
+            </div>
+        </header><!-- end of section footer -->
+
+        <div class="layout-section__content layout-section__content--filmstrip">
+            <div id="filmstrip-container" class="filmstrip-container" file-drop="uploadFiles(files)" ng-keyup="onKeyUp($event)" ng-keydown="onKeyDown($event)" tabindex="1"
+                ng-class="{empty:!(layout.filmStrip.items.length>0)}"
+                context-menu="{{contextMenu}}"
+                context-menu-click="onFilmstripMenuClick(key)">
+                <filmstrip filmstrip="layout.filmStrip"
+                    ng-show="layoutVisible"
+                    class="animate-show ng-animate-enabled"
+                    layout="layout"
+                    layout-controller="layoutController"
+                    on-file-info-click="onFileInfoClick"
+                    on-selection-change="onSelectionChange"
+                    show-info="showInfo"
+                    show-admin-info="isAdmin"
+                    disable-dimming-thumbnails="disableDimmingThumbnails"
+                    filter="layout.viewState.filmstripFilter">
+                </filmstrip>
+                <div id="filmstrip-empty-placeholder" class="empty-placeholder" ng-click="openFileDialog()" ng-if="editable">
+                    <div><span>Click here to browse or drop files here to upload</span></div>
+                </div>
+                <!-- <span class="filmstrip-resize-handle"></span> -->
+            </div>
+        </div><!-- end of section content -->
+    </div><!-- end of bottom section -->
+
+    <!-- <div ng-show="$state.is('layout.pages') || $state.is('layout.prefs') || $state.is('layout.snapshots')" class="frp frp-popup frp-popup--layout frp-fixed-with-subnav slide-right" ui-view="frp"></div> -->
+
+    <div ng-class="{'slide-hide':!$state.is('layout.pages')}"
+        class="ng-animate-enabled frp frp-popup frp-popup--layout frp-fixed-with-subnav slide-right slide-hide"
+        ng-include="'views/layout/frp-pages.html'">
+    </div>
+
+    <div ng-class="{'slide-hide':!$state.is('layout.arrange')}"
+        class="layout-quick-arrange ng-animate-enabled frp frp-popup frp-popup--layout frp-fixed-with-nav slide-bottom slide-hide"
+        ng-include="'views/layout/frp-quick-arrange.html'">
+    </div>
+
+    <div ng-class="{'slide-hide': !prooferSettingsVisible}"
+         class="ng-animate-enabled frp frp-popup frp-popup--layout-proofer-settings frp-fixed-with-subnav slide-left slide-hide"
+         ng-include="'views/layout/frp-proofer-settings.html'">
+    </div>
+
+    <div ng-show="designerSpinner" class="spinner-overlay">
+        <spinner></spinner>
+    </div>
+
+    <frp class="frp-under-subnav"></frp>
+</section><!-- end of layout -->

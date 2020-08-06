@@ -1,0 +1,15 @@
+<section class="pace-modal">
+    <a class="close-pace-modal" ng-click="closeThisDialog()">&nbsp;</a>
+    <header>
+        <span class="title">Create New Project</span>
+    </header>
+    <div class="tab-content">
+        <form name="newProjectForm">
+            <div class="form-element text-left">
+                <label>Name this Project</label>
+                <input set-focus="true" type="text" placeholder="i.e. Jane & John's Wedding" ng-model="projectName"/>
+            </div>
+            <button class="button color" ng-click="createNewProject()" ng-disabled="!projectName">Create</button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,37 @@
+<div>
+	<ul class="sidebar-menu">
+		<li class="sidebar-menu__item sidebar-menu__item--back">
+			<a class="sidebar-menu__link" data-title="Dashboard">
+				<button class="button back sidebar-menu__back" ui-sref="dashboard.default.overview"></button>
+				<div class="sidebar-menu__name">Dashboard</div>
+			</a>
+		</li>
+		<li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.preferences.account')}">
+			<a class="sidebar-menu__link" ui-sref="dashboard.preferences.account" data-title="Account">
+				<div class="sidebar-menu__icon sidebar-menu__icon--preferences"></div>
+				<div class="sidebar-menu__name">Account</div>
+			</a>
+		</li>
+		<!-- <li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.preferences.designer')}">
+			<a class="sidebar-menu__link" ui-sref="dashboard.preferences.designer" data-title="Designer">
+				<div class="sidebar-menu-icon sidebar-menu__icon--designer"></div>
+				<div class="sidebar-menu-name">Designer</div>
+			</a>
+		</li>
+		<li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.preferences.notifications')}">
+			<a class="sidebar-menu__link" ui-sref="dashboard.preferences.notifications" data-title="Notifications">
+				<div class="sidebar-menu-icon sidebar-menu__icon--preferences"></div>
+				<div class="sidebar-menu-name">Notifications</div>
+			</a>
+		</li> -->
+	</ul>
+</div>
+<footer class="sidebar-menu__footer" aside-footer>
+	<span collapse-sidebar class="sidebar-menu__collapse" data-target-position="#dashboard aside" data-target-folded="#dashboard">
+		<img class="sidebar-menu__collapse-icon" src="/images/sidebar/sidebar-triangle-left-blue.svg" alt="<">
+	</span>
+	<span class="sidebar-menu__search sidebar-menu__search--is-next-collapse" pace-search>
+		<input class="sidebar-menu__search-input" type="text" placeholder="Search..." ng-keyup="paceSearchInputChanged();">
+        <span class="sidebar-search__clear">x</span>
+	</span>
+</footer>

@@ -1,0 +1,3195 @@
+//------------------------------------------------------------------
+//                     BUTTON
+//------------------------------------------------------------------
+@mixin button {
+    @include radius(4px);
+    @include linear-gradient(map-get($colors, light-200), map-get($colors, light-300));
+    @include box-shadow(none);
+    @include user-select("none");
+    @include museo300();
+    display: inline-block;
+    position: relative;
+    max-height: 31px;
+    padding: 9px 23px 6px;
+    border: 1px solid map-get($colors, light-600);
+    font-size: 13px;
+    line-height: 14px;
+    color: map-get($colors, light-800);
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    vertical-align: top;
+    transition: none;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 2px;
+        right: 2px;
+        height: 1px;
+
+        background: map-get($colors, light-50);
+    }
+
+    &:hover {
+        color: map-get($colors, light-800);
+    }
+
+    &:hover:not(.is-split-dropdown),
+    &.hover,
+    &.active-action-button {
+        background: map-get($colors, light-100);
+        color: map-get($colors, light-800);
+        box-shadow: none;
+    }
+
+    &:active:not(.is-split-dropdown),
+    &.active:not(.is-split-dropdown),
+    &.active-action-button:active {
+        @include linear-gradient(map-get($colors, light-400), map-get($colors, light-500));
+        @include box-shadow(none);
+        border: 1px solid map-get($colors, light-700);
+        color: map-get($colors, light-800);
+
+        &:before {
+            background: map-get($colors, light-500);
+        }
+    }
+
+    &:focus {
+        @include linear-gradient(map-get($colors, light-100), map-get($colors, light-200));
+        color: map-get($colors, light-800);
+    }
+
+    &.expand {
+        width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    &.small {
+        max-height: 26px;
+        padding: 5px 10px;
+    }
+
+    &.large {
+        @include museo300();
+        max-height: 46px;
+        font-size: 18px;
+        padding: 15px 35px;
+    }
+
+    &.small-padding {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    &.no-round {
+        @include radius(0);
+    }
+
+    &.no-text {
+        width: 31px;
+        height: 31px;
+
+        &:after {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            margin: auto !important;
+        }
+    }
+
+    &.color {
+        @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+        @include box-shadow(none);
+        border-top: 1px solid map-get($colors, primary-500);
+        border-bottom: 1px solid map-get($colors, primary-700);
+        border-left: 1px solid map-get($colors, primary-700);
+        border-right: 1px solid map-get($colors, primary-700);
+        color: map-get($colors, primary-900);
+        text-shadow: 1px 1px map-get($colors, primary-400);
+
+        &:before {
+            background: map-get($colors, primary-200);
+        }
+
+        &:hover:not(.is-split-dropdown),
+        &.hover,
+        &.active-action-button {
+            @include linear-gradient(map-get($colors, primary-300), map-get($colors, primary-500));
+            border-top: 1px solid map-get($colors, primary-500);
+            border-bottom: 1px solid map-get($colors, primary-700);
+            border-left: 1px solid map-get($colors, primary-700);
+            border-right: 1px solid map-get($colors, primary-700);
+            color: map-get($colors, primary-50);
+            text-shadow: none;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &:active:not(.is-split-dropdown),
+        // &:focus,
+        &.active:not(.is-split-dropdown),
+        &.active-action-button:active {
+            @include linear-gradient(map-get($colors, primary-800), map-get($colors, primary-600));
+            @include box-shadow(0 1px 1px 0px map-get($colors, primary-700) inset);
+            border: 1px solid map-get($colors, primary-600);
+            color: map-get($colors, primary-200);
+            text-shadow: none;
+
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    &.info,
+    &.blue {
+        @include linear-gradient(map-get($colors, info-400), map-get($colors, info-600));
+        @include box-shadow(none);
+        border-top: 1px solid map-get($colors, info-500);
+        border-bottom: 1px solid map-get($colors, info-700);
+        border-left: 1px solid map-get($colors, info-700);
+        border-right: 1px solid map-get($colors, info-700);
+        color: map-get($colors, info-900);
+        text-shadow: 1px 1px map-get($colors, info-400);
+
+        &:before {
+            background: map-get($colors, info-200);
+        }
+
+        &:hover:not(.is-split-dropdown),
+        &.hover,
+        &.active-action-button {
+            @include linear-gradient(map-get($colors, info-300), map-get($colors, info-500));
+            border-top: 1px solid map-get($colors, info-500);
+            border-bottom: 1px solid map-get($colors, info-700);
+            border-left: 1px solid map-get($colors, info-700);
+            border-right: 1px solid map-get($colors, info-700);
+            color: map-get($colors, info-50);
+            text-shadow: none;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &:active:not(.is-split-dropdown),
+            // &:focus,
+        &.active:not(.is-split-dropdown),
+        &.active-action-button:active {
+            @include linear-gradient(map-get($colors, info-800), map-get($colors, info-600));
+            @include box-shadow(0 1px 1px 0px map-get($colors, info-700) inset);
+            border: 1px solid map-get($colors, info-600);
+            color: map-get($colors, info-200);
+            text-shadow: none;
+
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    &.warning,
+    &.orange {
+        @include linear-gradient(map-get($colors, warning-300), map-get($colors, warning-500));
+        @include box-shadow(0 1px 1px 0px map-get($colors, warning-500));
+        border-top: 1px solid map-get($colors, warning-600);
+        border-bottom: 1px solid map-get($colors, warning-600);
+        border-left: 1px solid map-get($colors, warning-600);
+        border-right: 1px solid map-get($colors, warning-600);
+        color: map-get($colors, warning-900);
+        text-shadow: 1px 1px map-get($colors, warning-300);
+
+        &:before {
+            background: map-get($colors, warning-200);
+        }
+
+        &:hover,
+        &.hover {
+            @include linear-gradient(map-get($colors, warning-300), map-get($colors, warning-400));
+            border-top: 1px solid map-get($colors, warning-600);
+            border-bottom: 1px solid map-get($colors, warning-600);
+            border-left: 1px solid map-get($colors, warning-600);
+            border-right: 1px solid map-get($colors, warning-600);
+            color: map-get($colors, warning-50);
+            text-shadow: none;
+
+            &:before {
+                background: map-get($colors, warning-200);
+            }
+        }
+
+        &:active,
+        &.active {
+            @include linear-gradient(map-get($colors, warning-900), map-get($colors, warning-600));
+            @include box-shadow(0 1px 1px 0px map-get($colors, warning-900) inset);
+            border: 1px solid map-get($colors, warning-600);
+            color: map-get($colors, warning-500);
+            text-shadow: none;
+        }
+    }
+
+    &[disabled] {
+        pointer-events: none;
+    }
+
+    // disabled light
+    &[disabled],
+    &[disabled].active,
+    &[disabled]:hover,
+    &[disabled]:active,
+    &.is-disabled-primary,
+    &.is-disabled-primary.active,
+    &.is-disabled-primary:hover,
+    &.is-disabled-primary:active {
+        background: map-get($colors, light-300);
+        background: linear-gradient(map-get($colors, light-200), map-get($colors, light-300)) !important;
+        border-color: map-get($colors, light-400) !important;
+        box-shadow: none !important;
+        color: map-get($colors, light-700) !important;
+        text-shadow: none !important;
+        cursor: default !important;
+        opacity: 1 !important;
+
+        &:before {
+            display: block !important;
+            background: map-get($colors, light-50) !important;
+        }
+    }
+
+    // disabled color
+    &.color[disabled],
+    &.color[disabled].active,
+    &.color[disabled]:hover,
+    &.color[disabled]:active,
+    &.color.is-disabled-primary,
+    &.color.is-disabled-primary.active,
+    &.color.is-disabled-primary:hover,
+    &.color.is-disabled-primary:active {
+        background: map-get($colors, primary-400) !important;
+        background: linear-gradient(map-get($colors, primary-400), map-get($colors, primary-500)) !important;
+        border-top: 1px solid map-get($colors, primary-500) !important;
+        border-bottom: 1px solid map-get($colors, primary-700) !important;
+        border-left: 1px solid map-get($colors, primary-700) !important;
+        border-right: 1px solid map-get($colors, primary-700) !important;
+        box-shadow: none !important;
+        color: map-get($colors, primary-200) !important;
+        text-shadow: none !important;
+        cursor: default !important;
+        opacity: 1 !important;
+
+        &:before {
+            display: block !important;
+            background: map-get($colors, primary-100) !important;
+        }
+    }
+
+    &.info[disabled],
+    &.blue[disabled],
+    &.info[disabled].active,
+    &.blue[disabled].active,
+    &.info[disabled]:hover,
+    &.blue[disabled]:hover,
+    &.info[disabled]:active,
+    &.blue[disabled]:active,
+    &.info.is-disabled-primary,
+    &.blue.is-disabled-primary,
+    &.info.is-disabled-primary.active,
+    &.blue.is-disabled-primary.active,
+    &.info.is-disabled-primary:hover,
+    &.blue.is-disabled-primary:hover,
+    &.info.is-disabled-primary:active,
+    &.blue.is-disabled-primary:active {
+        background: map-get($colors, info-400) !important;
+        background: linear-gradient(map-get($colors, info-400), map-get($colors, info-500)) !important;
+        border-top: 1px solid map-get($colors, info-500) !important;
+        border-bottom: 1px solid map-get($colors, info-700) !important;
+        border-left: 1px solid map-get($colors, info-700) !important;
+        border-right: 1px solid map-get($colors, info-700) !important;
+        box-shadow: none !important;
+        color: map-get($colors, info-200) !important;
+        text-shadow: none !important;
+        cursor: default !important;
+        opacity: 1 !important;
+
+        &:before {
+            display: block !important;
+            background: map-get($colors, info-100) !important;
+        }
+    }
+
+    // disabled dark
+    &.dark[disabled],
+    &.dark[disabled].active,
+    &.dark[disabled]:hover,
+    &.dark[disabled]:active,
+    &.disabled-dark[disabled],
+    &.disabled-dark[disabled].active,
+    &.disabled-dark[disabled]:hover,
+    &.disabled-dark[disabled]:active,
+    &.dark.is-disabled-primary,
+    &.dark.is-disabled-primary.active,
+    &.dark.is-disabled-primary:hover,
+    &.dark.is-disabled-primary:active {
+        background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600)) !important;
+        border: 1px solid map-get($colors, dark-700) !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        cursor: default !important;
+        opacity: 1 !important;
+        color: rgba(map-get($colors, dark-100), .4) !important;
+
+        &:before {
+            background: map-get($colors, dark-300) !important;
+        }
+
+        &:after {
+            opacity: .4 !important;
+        }
+    }
+
+    &.alert,
+    &.red {
+        @include linear-gradient(map-get($colors, danger-400), map-get($colors, danger-500));
+        @include box-shadow(0 1px 1px 0px map-get($colors, danger-600));
+        border-top: 1px solid map-get($colors, danger-700);
+        border-bottom: 1px solid map-get($colors, danger-700);
+        border-left: 1px solid map-get($colors, danger-700);
+        border-right: 1px solid map-get($colors, danger-700);
+        color: map-get($colors, danger-900);
+        text-shadow: 1px 1px map-get($colors, danger-300);
+
+        &:before {
+            background: map-get($colors, danger-200);
+        }
+
+        &:hover,
+        &.hover {
+            @include linear-gradient(map-get($colors, danger-200), map-get($colors, danger-500));
+            border-top: 1px solid map-get($colors, danger-700);
+            border-bottom: 1px solid map-get($colors, danger-700);
+            border-left: 1px solid map-get($colors, danger-700);
+            border-right: 1px solid map-get($colors, danger-700);
+            color: map-get($colors, white-500);
+            text-shadow: none;
+
+            &:before {
+                background: map-get($colors, danger-100);
+            }
+        }
+
+        &:active,
+        &.active {
+            @include linear-gradient(map-get($colors, danger-800), map-get($colors, danger-500));
+            @include box-shadow(0 1px 1px 0px map-get($colors, danger-800) inset);
+            border: 1px solid map-get($colors, danger-700);
+            color: map-get($colors, danger-50);
+            text-shadow: none;
+        }
+    }
+
+    &.success,
+    &.green {
+        @include linear-gradient(map-get($colors, success-200), map-get($colors, success-600));
+        @include box-shadow(0 1px 1px 0px map-get($colors, success-600));
+        border-top: 1px solid map-get($colors, success-200);
+        border-bottom: 1px solid map-get($colors, success-200);
+        border-left: 1px solid map-get($colors, success-200);
+        border-right: 1px solid map-get($colors, success-200);
+        color: map-get($colors, white-500);
+        text-shadow: none;
+
+        &:before {
+            background: map-get($colors, success-100);
+        }
+
+        &:hover,
+        &.hover {
+            @include linear-gradient(map-get($colors, success-50), map-get($colors, success-300));
+            border-top: 1px solid map-get($colors, success-50);
+            border-bottom: 1px solid map-get($colors, success-50);
+            border-left: 1px solid map-get($colors, success-50);
+            border-right: 1px solid map-get($colors, success-50);
+            color: map-get($colors, white-500);
+            text-shadow: none;
+
+            &:before {
+                background: map-get($colors, success-50);
+            }
+        }
+
+        &:active,
+        &.active {
+            @include linear-gradient(map-get($colors, success-700), map-get($colors, success-900));
+            @include box-shadow(0 1px 1px 0px map-get($colors, success-900) inset);
+            border: 1px solid map-get($colors, success-700);
+            color: map-get($colors, white-500);
+            text-shadow: none;
+        }
+    }
+
+    &.dark {
+        @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+        @include box-shadow(none);
+        border-top: 1px solid map-get($colors, dark-700);
+        border-bottom: 1px solid map-get($colors, dark-700);
+        border-left: 1px solid map-get($colors, dark-700);
+        border-right: 1px solid map-get($colors, dark-700);
+        color: map-get($colors, dark-100);
+        text-shadow: -1px -1px 1px map-get($colors, dark-400);
+
+        &:before {
+            background: map-get($colors, dark-300);
+        }
+
+        &:hover:not(.is-split-dropdown),
+        &.hover,
+        &.active2,
+        &.active-action-button {
+            @include linear-gradient(map-get($colors, dark-300), map-get($colors, dark-500));
+            border-top: 1px solid map-get($colors, dark-700);
+            border-bottom: 1px solid map-get($colors, dark-700);
+            border-left: 1px solid map-get($colors, dark-700);
+            border-right: 1px solid map-get($colors, dark-700);
+            color: map-get($colors, dark-50);
+            text-shadow: -1px -1px 1px map-get($colors, dark-300);
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &:active:not(.is-split-dropdown),
+        &.active:not(.is-split-dropdown),
+        &.active-action-button:active {
+            @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+            @include box-shadow(0 1px 1px 0px map-get($colors, dark-800) inset);
+            border: 1px solid map-get($colors, dark-700);
+            color: map-get($colors, dark-200);
+            text-shadow: -1px -1px 1px map-get($colors, dark-400);
+
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    &.dark-flat {
+        background: map-get($colors, dark-900) !important;
+        border: 1px solid map-get($colors, dark-700) !important;
+
+        color: map-get($colors, dark-100) !important;
+
+        transition: none !important;
+
+        &:before {
+            background: map-get($colors, dark-900) !important;
+        }
+
+        &:hover:not([disabled]) {
+            background: map-get($colors, dark-800) !important;
+            color: map-get($colors, dark-50) !important;
+
+            &:before {
+                display: none !important;
+            }
+        }
+
+        &[disabled] {
+            background: map-get($colors, dark-900) !important;
+            border: 1px solid map-get($colors, dark-700) !important;
+            box-shadow: none !important;
+            opacity: 1 !important;
+
+            text-shadow: none !important;
+            color: rgba(map-get($colors, dark-100), .4) !important;
+
+            cursor: default !important;
+
+            &:before {
+                background: map-get($colors, dark-900) !important;
+            }
+        }
+    }
+
+    &.dark-transparent {
+        background: transparent !important;
+        border: 1px solid map-get($colors, dark-700) !important;
+
+        transition: none !important;
+
+        &:before {
+            background: transparent !important;
+        }
+
+        &[disabled] {
+            background: transparent !important;
+            border: 1px solid map-get($colors, dark-700) !important;
+            box-shadow: none !important;
+            opacity: 1 !important;
+
+            text-shadow: none !important;
+            color: rgba(map-get($colors, dark-100), .4) !important;
+
+            cursor: default !important;
+
+            &:before {
+                background: transparent !important;
+            }
+        }
+    }
+
+    &.tick {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-tick");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            width: button-sprite-width("icon-tick");
+            height: button-sprite-height("icon-tick");
+            margin-right: 7px;
+        }
+
+        &:hover,
+        &.hover,
+        &:active,
+        &.active {
+            &:after {
+                @include button-sprite("icon-tick-active");
+            }
+        }
+
+        &.dark{
+            &:after {
+                @include button-sprite("icon-tick-dark");
+            }
+
+            &:hover,
+            &.hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include button-sprite("icon-tick-dark-active");
+                }
+            }
+        }
+    }
+
+    &.plus {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-plus");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 1px;
+            width: button-sprite-width("icon-plus");
+            height: button-sprite-height("icon-plus");
+            margin-right: 7px;
+        }
+
+        &:hover,
+        &.hover,
+        &:active,
+        &.active {
+            &:after {
+                @include button-sprite("icon-plus-active");
+            }
+        }
+
+        &.dark{
+            &:after {
+                @include button-sprite("icon-plus-dark");
+            }
+
+            &:hover,
+            &.hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include button-sprite("icon-plus-dark-active");
+                }
+            }
+        }
+
+        &.is-black-active {
+            &:hover,
+            &.hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include button-sprite("icon-plus-black");
+                }
+            }
+        }
+    }
+
+    &.back {
+        width: 30px;
+        height: 29px;
+        margin-right: 7px;
+        padding: 0;
+        text-indent: -999px;
+
+        &:after,
+        &.dark.big:after {
+            @include button-sprite("icon-back");
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: button-sprite-width("icon-back");
+            height: button-sprite-height("icon-back");
+            margin: auto;
+        }
+
+        &:hover,
+        &.hover,
+        &:active,
+        &.active {
+            &:after {
+                @include button-sprite("icon-back-active");
+                @include animation(backButton-move .75s ease-in-out 1);
+            }
+        }
+
+        &.dark.big:hover,
+        &.dark.big.hover,
+        &.dark.big:active,
+        &.dark.big.active {
+            &:after {
+                @include button-sprite("icon-back");
+                width: button-sprite-width("icon-back");
+                height: button-sprite-height("icon-back");
+
+                @include animation(backButton-move .75s ease-in-out 1);
+            }
+        }
+
+        &.big {
+            width: 42px;
+            height: 42px;
+            max-height: 42px;
+
+            &:after {
+                @include button-sprite("icon-back-light-active-double");
+                right: auto;
+                width: button-sprite-width("icon-back-light-active-double");
+                height: button-sprite-height("icon-back-light-active-double");
+            }
+
+            &:hover,
+            &.hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include animation(backButton-move-double .3s ease-in-out);
+                    @include button-sprite("icon-back-light-active-double");
+                    width: button-sprite-width("icon-back-light-active-double");
+                    height: button-sprite-height("icon-back-light-active-double");
+                }
+            }
+        }
+
+        &.dark.small.double {
+            width: 30px;
+            height: 30px;
+            max-height: 30px;
+
+            &:after {
+                @include button-sprite("icon-back-dark-small-double");
+                width: button-sprite-width("icon-back-dark-small-double");
+                height: button-sprite-height("icon-back-dark-small-double");
+            }
+
+            &:hover,
+            &.hover,
+            &:active,
+            &.active {
+                &:after {
+                    @include animation(backButton-move-double .3s ease-in-out);
+                }
+            }
+        }
+
+        &.dark {
+            @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+
+            &:before {
+                background: map-get($colors, dark-300);
+            }
+
+            &:hover,
+            &.hover {
+                @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+                border-top: 1px solid map-get($colors, dark-700);
+                border-bottom: 1px solid map-get($colors, dark-700);
+                border-left: 1px solid map-get($colors, dark-700);
+                border-right: 1px solid map-get($colors, dark-700);
+
+                &:before {
+                    background: map-get($colors, dark-300);
+                }
+            }
+
+            &:active,
+            &.active {
+                @include linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+                @include box-shadow(0 1px 1px 0px map-get($colors, dark-700)inset);
+                border: 1px solid map-get($colors, dark-700);
+            }
+        }
+    }
+
+    &.email {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-email");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: button-sprite-width("icon-button-email");
+            height: button-sprite-height("icon-button-email");
+        }
+
+        &:hover,
+        &.hover,
+        &:active,
+        &.active {
+            &:after {
+                // @include button-sprite("icon-button-email-active");
+            }
+        }
+    }
+
+    &.www {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-www");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: button-sprite-width("icon-button-www");
+            height: button-sprite-height("icon-button-www");
+            margin-right: 7px;
+        }
+
+        &:hover,
+        &.hover,
+        &:active,
+        &.active {
+            &:after {
+                // @include button-sprite("icon-button-email-active");
+            }
+        }
+    }
+
+    &.cover {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-cover");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -3px;
+            width: button-sprite-width("icon-button-cover");
+            height: button-sprite-height("icon-button-cover");
+            margin-right: 7px;
+        }
+    }
+
+    &.designer {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-designer");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: button-sprite-width("icon-button-designer");
+            height: button-sprite-height("icon-button-designer");
+            margin-right: 7px;
+        }
+    }
+
+    &.currency-usd {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-currency-usd");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            width: button-sprite-width("icon-button-currency-usd");
+            height: button-sprite-height("icon-button-currency-usd");
+            margin-left: 7px;
+        }
+    }
+
+    &.currency-cad {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-currency-cad");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            width: button-sprite-width("icon-button-currency-cad");
+            height: button-sprite-height("icon-button-currency-cad");
+            margin-left: 7px;
+        }
+    }
+
+    &.currency-split {
+        padding-right: 6px;
+
+        &:after {
+            margin-left: 14px;
+        }
+
+        .splitter {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 28px;
+            width: 2px;
+            height: 100%;
+            margin-left: 7px;
+
+            background: map-get($colors, light-600);
+            border-right: 1px solid map-get($colors, light-50);
+        }
+    }
+
+    &.search {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-search-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: button-sprite-width("icon-button-search-dark");
+            height: button-sprite-height("icon-button-search-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.opacity {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-opacity-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -2px;
+            width: button-sprite-width("icon-button-opacity-dark");
+            height: button-sprite-height("icon-button-opacity-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.zoom {
+        padding-left: 10px;
+        padding-right: 14px;
+
+        &:after {
+            @include button-sprite("icon-button-search-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: button-sprite-width("icon-button-search-dark");
+            height: button-sprite-height("icon-button-search-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.play-slideshow {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include proofer-sprite("icon-video");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -2px;
+            width: proofer-sprite-width("icon-video");
+            height: proofer-sprite-height("icon-video");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-left {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-left-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            width: button-sprite-width("icon-button-chevron-left-dark");
+            height: button-sprite-height("icon-button-chevron-left-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-right {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-right-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            width: button-sprite-width("icon-button-chevron-right-dark");
+            height: button-sprite-height("icon-button-chevron-right-dark");
+            margin-right: 7px;
+        }
+    }
+    &.icon-rotate {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-generate");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            width: button-sprite-width("icon-button-generate");
+            height: button-sprite-height("icon-button-generate");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-left-right {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-left-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            width: button-sprite-width("icon-button-chevron-left-dark");
+            height: button-sprite-height("icon-button-chevron-left-dark");
+            margin-left: 7px;
+        }
+    }
+
+    &.arrow-right-right {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-right-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            width: button-sprite-width("icon-button-chevron-right-dark");
+            height: button-sprite-height("icon-button-chevron-right-dark");
+            margin-left: 7px;
+        }
+    }
+
+    &.arrow-up {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-up-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 2px;
+            width: button-sprite-width("icon-button-chevron-up-dark");
+            height: button-sprite-height("icon-button-chevron-up-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-down {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-down-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 3px;
+            width: button-sprite-width("icon-button-chevron-down-dark");
+            height: button-sprite-height("icon-button-chevron-down-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-up-right {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-up-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            top: 2px;
+            width: button-sprite-width("icon-button-chevron-up-dark");
+            height: button-sprite-height("icon-button-chevron-up-dark");
+            margin-left: 7px;
+        }
+    }
+
+    &.arrow-down-right {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-chevron-down-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            top: 3px;
+            width: button-sprite-width("icon-button-chevron-down-dark");
+            height: button-sprite-height("icon-button-chevron-down-dark");
+            margin-left: 7px;
+        }
+    }
+
+    &.pdf {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-pdf-dark");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -2px;
+            width: button-sprite-width("icon-button-pdf-dark");
+            height: button-sprite-height("icon-button-pdf-dark");
+            margin-right: 7px;
+        }
+    }
+
+    &.arrow-up-small {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-arrow-up-small");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            top: 4px;
+            width: button-sprite-width("icon-button-arrow-up-small");
+            height: button-sprite-height("icon-button-arrow-up-small");
+            margin-left: 7px;
+        }
+    }
+
+    &.arrow-down-small {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-arrow-down-small");
+            content: "";
+            display: block;
+            position: relative;
+            float: right;
+            top: 4px;
+            width: button-sprite-width("icon-button-arrow-down-small");
+            height: button-sprite-height("icon-button-arrow-down-small");
+            margin-left: 7px;
+        }
+
+        &[disabled]:after {
+            @include button-sprite("icon-button-arrow-down-small-disabled");
+            width: button-sprite-width("icon-button-arrow-down-small-disabled");
+            height: button-sprite-height("icon-button-arrow-down-small-disabled");
+        }
+    }
+
+    &.plus-blue {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-plus-blue");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 0px;
+            width: button-sprite-width("icon-button-plus-blue");
+            height: button-sprite-height("icon-button-plus-blue");
+            margin-right: 7px;
+        }
+    }
+
+    &.cart-blue {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-cart-blue");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 0px;
+            width: button-sprite-width("icon-button-cart-blue");
+            height: button-sprite-height("icon-button-cart-blue");
+            margin-right: 7px;
+        }
+
+        &[disabled]:after {
+            @include button-sprite("icon-button-cart-disabled");
+            width: button-sprite-width("icon-button-cart-disabled");
+            height: button-sprite-height("icon-button-cart-disabled");
+        }
+    }
+
+
+
+    &.font {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-font");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -2px;
+            width: button-sprite-width("icon-button-font");
+            height: button-sprite-height("icon-button-font");
+            margin-right: 7px;
+        }
+
+        &.active,
+        &:hover {
+            &:after {
+                @include button-sprite("icon-button-font-white");
+            }
+        }
+    }
+
+    &.upload {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include button-sprite("icon-button-upload");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -2px;
+            width: button-sprite-width("icon-button-upload");
+            height: button-sprite-height("icon-button-upload");
+            margin-right: 7px;
+        }
+
+        &.active,
+        &:hover {
+            &:after {
+                @include button-sprite("icon-button-upload-white");
+            }
+        }
+    }
+
+    &.with-icon-trash {
+        padding-left: 6px;
+        padding-right: 6px;
+
+        &:after {
+            @include designer-qa-sprite("qa-trash-small-flat");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: -1px;
+            width: designer-qa-sprite-width("qa-trash-small-flat");
+            height: designer-qa-sprite-height("qa-trash-small-flat");
+            margin-right: 5px;
+        }
+
+        &.active,
+        &:hover {
+            &:after {
+                @include designer-qa-sprite("qa-trash-small-active-flat");
+            }
+        }
+    }
+
+    &.with-icon-save {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &:after {
+            @include designer-qa-sprite("qa-spread-layout-small-flat");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            top: 0;
+            width: designer-qa-sprite-width("qa-spread-layout-small-flat");
+            height: designer-qa-sprite-height("qa-spread-layout-small-flat");
+            margin-right: 5px;
+        }
+
+        &.active,
+        &:hover {
+            &:after {
+                @include designer-qa-sprite("qa-spread-layout-small-active-flat");
+            }
+        }
+    }
+
+    &.select,
+    &.frame,
+    &.crop,
+    &.auto-center,
+    &.frame-spacing,
+    &.undo,
+    &.redo,
+    &.object-box,
+    &.add-user,
+    &.admin-message,
+    &.pages,
+    &.navigation,
+    &.text-orientation-normal,
+    &.text-orientation-top-bottom,
+    &.text-orientation-bottom-top,
+    &.case-uppercase,
+    &.case-capitalize,
+    &.case-lowercase,
+    &.text-align-left,
+    &.text-align-center,
+    &.text-align-right,
+    &.text-align-justify,
+    &.color-picker,
+    &.move,
+    &.resize-inner,
+    &.resize-outer,
+    &.rotate-cw,
+    &.horizontal-flip,
+    &.vertical-flip,
+    &.grouping,
+    &.ungroup,
+    &.transform,
+    &.mask,
+    &.layers-front,
+    &.layers-back,
+    &.fill-color,
+    &.grid,
+    &.vertical-guides,
+    &.ruler,
+    &.plus-large,
+    &.minus-large,
+    &.three-bars,
+    &.file,
+    &.favourite,
+    &.settings,
+    &.remove,
+    &.share-medium,
+    &.bold,
+    &.italic,
+    &.cart-blue-large,
+    &.info,
+
+    &.play,
+    &.stop,
+    &.skip-prev,
+    &.skip-next,
+    &.trash-flat,
+    &.trash2-flat,
+    &.trash-darker-flat,
+    &.save-flat,
+    &.save2-flat,
+    &.plus-flat,
+    &.plus2-flat,
+    &.swap-flat,
+
+    &.add-page,
+    &.remove-page,
+    &.first-page,
+    &.last-page,
+    &.prev-page,
+    &.next-page,
+
+    &.spread-rotate,
+    &.spread-layout,
+    &.spread-center,
+    &.spread-target,
+    &.spread-ratio,
+    &.spread-plus,
+    &.spread-minus,
+    &.spread-frame-spacing,
+
+    &.prints-single-view,
+    &.prints-tile-view,
+    &.prints-fill-single,
+    &.prints-fill-multi,
+    &.prints-fill-all {
+        width: 32px;
+        height: 32px;
+        padding-left: 0;
+        padding-right: 0;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        &.is-only-icon {
+            background: none;
+            border: none;
+            box-shadow: none;
+
+            &:before {
+                content: none;
+                display: none;
+            }
+        }
+    }
+
+    &.spread-rotate,
+    &.spread-layout,
+    &.spread-center,
+    &.spread-target,
+    &.spread-ratio,
+    &.spread-plus,
+    &.spread-minus,
+    &.spread-frame-spacing {
+        width: 27px;
+        height: 27px;
+    }
+
+    &.select {
+        &:after {
+            @include button-sprite("icon-button-select-dark");
+            width: button-sprite-width("icon-button-select-dark");
+            height: button-sprite-height("icon-button-select-dark");
+        }
+
+        &.select-blue:after {
+            @include button-sprite("icon-button-select-blue");
+            width: button-sprite-width("icon-button-select-blue");
+            height: button-sprite-height("icon-button-select-blue");
+        }
+        &.select-black:after {
+            @include button-sprite("icon-button-select-black");
+            width: button-sprite-width("icon-button-select-black");
+
+            height: button-sprite-height("icon-button-select-black");
+        }
+    }
+
+    &.frame {
+        &:after {
+            @include button-sprite("icon-button-frame-dark");
+            width: button-sprite-width("icon-button-frame-dark");
+            height: button-sprite-height("icon-button-frame-dark");
+        }
+    }
+
+    &.crop {
+        &:after {
+            @include button-sprite("icon-button-crop-dark");
+            width: button-sprite-width("icon-button-crop-dark");
+            height: button-sprite-height("icon-button-crop-dark");
+        }
+    }
+
+    &.auto-center {
+        &:after {
+            @include button-sprite("icon-button-auto-center-dark");
+            width: button-sprite-width("icon-button-auto-center-dark");
+            height: button-sprite-height("icon-button-auto-center-dark");
+        }
+    }
+
+    &.frame-spacing {
+        &:after {
+            @include button-sprite("icon-button-frame-spacing-dark");
+            width: button-sprite-width("icon-button-frame-spacing-dark");
+            height: button-sprite-height("icon-button-frame-spacing-dark");
+        }
+    }
+
+    &.undo {
+        &:after {
+            @include button-sprite("icon-button-undo-dark");
+            width: button-sprite-width("icon-button-undo-dark");
+            height: button-sprite-height("icon-button-undo-dark");
+        }
+        &:hover:not([disabled]),
+        &:active:not([disabled]) {
+            &:after {
+                @include button-sprite("icon-button-undo-active-dark");
+            }
+        }
+    }
+
+    &.redo {
+        &:after {
+            @include button-sprite("icon-button-redo-dark");
+            width: button-sprite-width("icon-button-redo-dark");
+            height: button-sprite-height("icon-button-redo-dark");
+        }
+        &:hover:not([disabled]),
+        &:active:not([disabled]) {
+            &:after {
+                @include button-sprite("icon-button-redo-active-dark");
+            }
+        }
+    }
+
+    &.object-box {
+        &:after {
+            @include button-sprite("icon-button-object-box-dark");
+            width: button-sprite-width("icon-button-object-box-dark");
+            height: button-sprite-height("icon-button-object-box-dark");
+        }
+    }
+
+    &.pages {
+        &:after {
+            @include button-sprite("icon-button-pages-dark");
+            width: button-sprite-width("icon-button-pages-dark");
+            height: button-sprite-height("icon-button-pages-dark");
+        }
+    }
+
+    &.navigation {
+        &:after {
+            @include button-sprite("icon-button-navigation-dark");
+            width: button-sprite-width("icon-button-navigation-dark");
+            height: button-sprite-height("icon-button-navigation-dark");
+        }
+    }
+
+    &.text-orientation-normal {
+        &:after {
+            @include button-sprite("icon-button-text-orientation-normal");
+            width: button-sprite-width("icon-button-text-orientation-normal");
+            height: button-sprite-height("icon-button-text-orientation-normal");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-orientation-normal-dark");
+                width: button-sprite-width("icon-button-text-orientation-normal-dark");
+                height: button-sprite-height("icon-button-text-orientation-normal-dark");
+            }
+        }
+    }
+
+    &.text-orientation-top-bottom {
+        &:after {
+            @include button-sprite("icon-button-text-orientation-top-bottom");
+            width: button-sprite-width("icon-button-text-orientation-top-bottom");
+            height: button-sprite-height("icon-button-text-orientation-top-bottom");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-orientation-top-bottom-dark");
+                width: button-sprite-width("icon-button-text-orientation-top-bottom-dark");
+                height: button-sprite-height("icon-button-text-orientation-top-bottom-dark");
+            }
+        }
+    }
+
+    &.text-orientation-bottom-top {
+        &:after {
+            @include button-sprite("icon-button-text-orientation-bottom-top");
+            width: button-sprite-width("icon-button-text-orientation-bottom-top");
+            height: button-sprite-height("icon-button-text-orientation-bottom-top");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-orientation-bottom-top-dark");
+                width: button-sprite-width("icon-button-text-orientation-bottom-top-dark");
+                height: button-sprite-height("icon-button-text-orientation-bottom-top-dark");
+            }
+        }
+    }
+
+    &.case-uppercase {
+        &:after {
+            @include button-sprite("icon-button-case-uppercase");
+            width: button-sprite-width("icon-button-case-uppercase");
+            height: button-sprite-height("icon-button-case-uppercase");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-case-uppercase-dark");
+                width: button-sprite-width("icon-button-case-uppercase-dark");
+                height: button-sprite-height("icon-button-case-uppercase-dark");
+            }
+        }
+    }
+
+    &.case-capitalize {
+        &:after {
+            @include button-sprite("icon-button-case-capitalize");
+            width: button-sprite-width("icon-button-case-capitalize");
+            height: button-sprite-height("icon-button-case-capitalize");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-case-capitalize-dark");
+                width: button-sprite-width("icon-button-case-capitalize-dark");
+                height: button-sprite-height("icon-button-case-capitalize-dark");
+            }
+        }
+    }
+
+    &.case-lowercase {
+        &:after {
+            @include button-sprite("icon-button-case-lowercase");
+            top: 4px;
+            width: button-sprite-width("icon-button-case-lowercase");
+            height: button-sprite-height("icon-button-case-lowercase");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-case-lowercase-dark");
+                width: button-sprite-width("icon-button-case-lowercase-dark");
+                height: button-sprite-height("icon-button-case-lowercase-dark");
+            }
+        }
+    }
+
+    &.text-align-left {
+        &:after {
+            @include button-sprite("icon-button-text-align-left");
+            width: button-sprite-width("icon-button-text-align-left");
+            height: button-sprite-height("icon-button-text-align-left");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-align-left-dark");
+                width: button-sprite-width("icon-button-text-align-left-dark");
+                height: button-sprite-height("icon-button-text-align-left-dark");
+            }
+        }
+    }
+
+    &.text-align-center {
+        &:after {
+            @include button-sprite("icon-button-text-align-center");
+            width: button-sprite-width("icon-button-text-align-center");
+            height: button-sprite-height("icon-button-text-align-center");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-align-center-dark");
+                width: button-sprite-width("icon-button-text-align-center-dark");
+                height: button-sprite-height("icon-button-text-align-center-dark");
+            }
+        }
+    }
+
+    &.text-align-right {
+        &:after {
+            @include button-sprite("icon-button-text-align-right");
+            width: button-sprite-width("icon-button-text-align-right");
+            height: button-sprite-height("icon-button-text-align-right");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-align-right-dark");
+                width: button-sprite-width("icon-button-text-align-right-dark");
+                height: button-sprite-height("icon-button-text-align-right-dark");
+            }
+        }
+    }
+
+    &.text-align-justify {
+        &:after {
+            @include button-sprite("icon-button-text-align-justify");
+            width: button-sprite-width("icon-button-text-align-justify");
+            height: button-sprite-height("icon-button-text-align-justify");
+        }
+
+        &.dark {
+            &:after {
+                @include button-sprite("icon-button-text-align-justify-dark");
+                width: button-sprite-width("icon-button-text-align-justify-dark");
+                height: button-sprite-height("icon-button-text-align-justify-dark");
+            }
+        }
+    }
+
+    &.move {
+        &:after {
+            @include button-sprite("icon-button-move");
+            left: 1px;
+            width: button-sprite-width("icon-button-move");
+            height: button-sprite-height("icon-button-move");
+        }
+
+        &.dark:after {
+            @include button-sprite("icon-button-move-dark");
+            left: 0;
+            width: button-sprite-width("icon-button-move-dark");
+            height: button-sprite-height("icon-button-move-dark");
+        }
+    }
+
+    &.resize-inner {
+        &:after {
+            @include button-sprite("icon-button-resize-inner");
+            width: button-sprite-width("icon-button-resize-inner");
+            height: button-sprite-height("icon-button-resize-inner");
+        }
+    }
+
+    &.resize-outer {
+        &:after {
+            @include button-sprite("icon-button-resize-outer");
+            width: button-sprite-width("icon-button-resize-outer");
+            height: button-sprite-height("icon-button-resize-outer");
+        }
+    }
+
+    &.rotate-cw {
+        &:after {
+            @include button-sprite("icon-button-rotate-cw-dark");
+            width: button-sprite-width("icon-button-rotate-cw-dark");
+            height: button-sprite-height("icon-button-rotate-cw-dark");
+        }
+    }
+
+    &.horizontal-flip {
+        &:after {
+            @include button-sprite("icon-button-horizontal-flip-dark");
+            width: button-sprite-width("icon-button-horizontal-flip-dark");
+            height: button-sprite-height("icon-button-horizontal-flip-dark");
+        }
+    }
+
+    &.vertical-flip {
+        &:after {
+            @include button-sprite("icon-button-vertical-flip-dark");
+            width: button-sprite-width("icon-button-vertical-flip-dark");
+            height: button-sprite-height("icon-button-vertical-flip-dark");
+        }
+    }
+
+    &.grouping {
+        &:after {
+            @include button-sprite("icon-button-grouping-dark");
+            width: button-sprite-width("icon-button-grouping-dark");
+            height: button-sprite-height("icon-button-grouping-dark");
+        }
+    }
+
+    &.ungroup {
+        &:after {
+            @include button-sprite("icon-button-ungroup-dark");
+            width: button-sprite-width("icon-button-ungroup-dark");
+            height: button-sprite-height("icon-button-ungroup-dark");
+        }
+    }
+
+    &.transform {
+        &:after {
+            @include button-sprite("icon-button-transform-dark");
+            width: button-sprite-width("icon-button-transform-dark");
+            height: button-sprite-height("icon-button-transform-dark");
+        }
+    }
+
+    &.mask {
+        &:after {
+            @include button-sprite("icon-button-mask-dark");
+            width: button-sprite-width("icon-button-mask-dark");
+            height: button-sprite-height("icon-button-mask-dark");
+        }
+    }
+
+    &.layers-front {
+        &:after {
+            @include button-sprite("icon-button-layers-front-dark");
+            width: button-sprite-width("icon-button-layers-front-dark");
+            height: button-sprite-height("icon-button-layers-front-dark");
+        }
+    }
+
+    &.layers-back {
+        &:after {
+            @include button-sprite("icon-button-layers-back-dark");
+            width: button-sprite-width("icon-button-layers-back-dark");
+            height: button-sprite-height("icon-button-layers-back-dark");
+        }
+    }
+
+    &.fill-color {
+        &:after {
+            @include button-sprite("icon-button-fill-color");
+            width: button-sprite-width("icon-button-fill-color");
+            height: button-sprite-height("icon-button-fill-color");
+        }
+    }
+
+    &.grid {
+        &:after {
+            @include button-sprite("icon-button-grid-dark");
+            width: button-sprite-width("icon-button-grid-dark");
+            height: button-sprite-height("icon-button-grid-dark");
+        }
+    }
+
+    &.vertical-guides {
+        &:after {
+            @include button-sprite("icon-button-vertical-guides-dark");
+            width: button-sprite-width("icon-button-vertical-guides-dark");
+            height: button-sprite-height("icon-button-vertical-guides-dark");
+        }
+    }
+
+    &.ruler {
+        &:after {
+            @include button-sprite("icon-button-ruler-dark");
+            top: 4px;
+            width: button-sprite-width("icon-button-ruler-dark");
+            height: button-sprite-height("icon-button-ruler-dark");
+        }
+    }
+
+    &.plus-large {
+        &:after {
+            @include button-sprite("icon-button-plus-large-dark");
+            top: 2px;
+            width: button-sprite-width("icon-button-plus-large-dark");
+            height: button-sprite-height("icon-button-plus-large-dark");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include button-sprite("icon-button-plus-large-active");
+            }
+        }
+    }
+
+    &.minus-large {
+        &:after {
+            @include button-sprite("icon-button-minus-large-dark");
+            top: 2px;
+            width: button-sprite-width("icon-button-minus-large-dark");
+            height: button-sprite-height("icon-button-minus-large-dark");
+        }
+    }
+
+    &.three-bars {
+        &:after {
+            @include button-sprite("icon-button-three-bars");
+            width: button-sprite-width("icon-button-three-bars");
+            height: button-sprite-height("icon-button-three-bars");
+        }
+    }
+
+    &.file {
+        &:after {
+            @include button-sprite("icon-button-file");
+            width: button-sprite-width("icon-button-file");
+            height: button-sprite-height("icon-button-file");
+        }
+    }
+
+    &.favourite {
+        &:after {
+            @include button-sprite("icon-button-favourite");
+            width: button-sprite-width("icon-button-favourite");
+            height: button-sprite-height("icon-button-favourite");
+        }
+    }
+
+    &.settings {
+        &:after {
+            @include button-sprite("icon-button-settings");
+            width: button-sprite-width("icon-button-settings");
+            height: button-sprite-height("icon-button-settings");
+        }
+    }
+
+    &.remove {
+        &:after {
+            @include button-sprite("icon-button-remove");
+            width: button-sprite-width("icon-button-remove");
+            height: button-sprite-height("icon-button-remove");
+        }
+
+        &.dark:after {
+            top: -2px;
+            left: -2px;
+        }
+    }
+
+    &.share-medium {
+        &:after {
+            @include button-sprite("icon-button-share-medium");
+            width: button-sprite-width("icon-button-share-medium");
+            height: button-sprite-height("icon-button-share-medium");
+        }
+    }
+
+    &.bold {
+        &:after {
+            @include button-sprite("icon-button-bold");
+            width: button-sprite-width("icon-button-bold");
+            height: button-sprite-height("icon-button-bold");
+        }
+
+        &.dark:after {
+            @include button-sprite("icon-button-bold-dark");
+            width: button-sprite-width("icon-button-bold-dark");
+            height: button-sprite-height("icon-button-bold-dark");
+        }
+    }
+
+    &.italic {
+        &:after {
+            @include button-sprite("icon-button-italic");
+            width: button-sprite-width("icon-button-italic");
+            height: button-sprite-height("icon-button-italic");
+        }
+
+        &.dark:after {
+            @include button-sprite("icon-button-italic-dark");
+            width: button-sprite-width("icon-button-italic-dark");
+            height: button-sprite-height("icon-button-italic-dark");
+        }
+    }
+
+    &.cart-blue-large {
+        &:after {
+            @include button-sprite("icon-button-cart-blue-plus");
+            width: button-sprite-width("icon-button-cart-blue-plus");
+            height: button-sprite-height("icon-button-cart-blue-plus");
+        }
+
+        &[disabled]:after {
+            @include button-sprite("icon-button-cart-plus-disabled");
+            width: button-sprite-width("icon-button-cart-plus-disabled");
+            height: button-sprite-height("icon-button-cart-plus-disabled");
+        }
+
+        &.color[disabled]:after {
+            @include button-sprite("icon-button-cart-blue-plus");
+            width: button-sprite-width("icon-button-cart-blue-plus");
+            height: button-sprite-height("icon-button-cart-blue-plus");
+            opacity: .3;
+        }
+    }
+
+    &.color-picker span {
+        @include border-radius(2px);
+        background-color: map-get($colors, black-500);
+        width: 24px;
+        height: 24px;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    &.add-page,
+    &.remove-page,
+    &.first-page,
+    &.last-page,
+    &.prev-page,
+    &.next-page {
+        @include box-shadow(none !important);
+        background: none !important;
+        border: none !important;
+
+        &:before {
+            content: none !important;
+        }
+    }
+
+    &.add-page {
+        &:after {
+            @include button-sprite("icon-button-add-page-dark");
+            width: button-sprite-width("icon-button-add-page-dark");
+            height: button-sprite-height("icon-button-add-page-dark");
+        }
+    }
+
+    &.remove-page {
+        &:after {
+            @include button-sprite("icon-button-remove-page-dark");
+            width: button-sprite-width("icon-button-remove-page-dark");
+            height: button-sprite-height("icon-button-remove-page-dark");
+        }
+    }
+
+    &.first-page {
+        &:after {
+            @include button-sprite("icon-button-first-page-dark");
+            width: button-sprite-width("icon-button-first-page-dark");
+            height: button-sprite-height("icon-button-first-page-dark");
+        }
+    }
+
+    &.last-page {
+        &:after {
+            @include button-sprite("icon-button-last-page-dark");
+            width: button-sprite-width("icon-button-last-page-dark");
+            height: button-sprite-height("icon-button-last-page-dark");
+        }
+    }
+
+    &.prev-page {
+        &:after {
+            @include button-sprite("icon-button-prev-page-dark");
+            width: button-sprite-width("icon-button-prev-page-dark");
+            height: button-sprite-height("icon-button-prev-page-dark");
+        }
+    }
+
+    &.next-page {
+        &:after {
+            @include button-sprite("icon-button-next-page-dark");
+            width: button-sprite-width("icon-button-next-page-dark");
+            height: button-sprite-height("icon-button-next-page-dark");
+        }
+    }
+
+
+
+    &.spread-rotate {
+        &:after {
+            @include spread-sprite("spread-rotate");
+            width: spread-sprite-width("spread-rotate");
+            height: spread-sprite-height("spread-rotate");
+        }
+    }
+
+    &.spread-layout {
+        &:after {
+            @include spread-sprite("spread-layout");
+            width: spread-sprite-width("spread-layout");
+            height: spread-sprite-height("spread-layout");
+        }
+    }
+
+    &.spread-center {
+        &:after {
+            @include spread-sprite("spread-center");
+            width: spread-sprite-width("spread-center");
+            height: spread-sprite-height("spread-center");
+        }
+    }
+
+    &.spread-target {
+        &:after {
+            @include spread-sprite("spread-target");
+            width: spread-sprite-width("spread-target");
+            height: spread-sprite-height("spread-target");
+        }
+    }
+
+    &.spread-ratio {
+        &:after {
+            @include spread-sprite("spread-ratio");
+            width: spread-sprite-width("spread-ratio");
+            height: spread-sprite-height("spread-ratio");
+        }
+    }
+
+    &.spread-plus {
+        &:after {
+            @include spread-sprite("spread-plus");
+            width: spread-sprite-width("spread-plus");
+            height: spread-sprite-height("spread-plus");
+        }
+    }
+
+    &.spread-minus {
+        &:after {
+            @include spread-sprite("spread-minus");
+            width: spread-sprite-width("spread-minus");
+            height: spread-sprite-height("spread-minus");
+        }
+    }
+
+    &.spread-frame-spacing {
+        &:after {
+            @include spread-sprite("spread-frame-spacing");
+            width: spread-sprite-width("spread-frame-spacing");
+            height: spread-sprite-height("spread-frame-spacing");
+        }
+    }
+
+    &.prints-single-view {
+        &:after {
+            @include prints-sprite("prints-single-view");
+            width: prints-sprite-width("prints-single-view");
+            height: prints-sprite-height("prints-single-view");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include prints-sprite("prints-single-view-active");
+            }
+        }
+    }
+
+    &.prints-tile-view {
+        &:after {
+            @include prints-sprite("prints-tile-view");
+            width: prints-sprite-width("prints-tile-view");
+            height: prints-sprite-height("prints-tile-view");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include prints-sprite("prints-tile-view-active");
+            }
+        }
+    }
+
+    &.prints-fill-single {
+        &:after {
+            @include prints-sprite("prints-fill-single");
+            width: prints-sprite-width("prints-fill-single");
+            height: prints-sprite-height("prints-fill-single");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include prints-sprite("prints-fill-single-active");
+            }
+        }
+    }
+
+    &.prints-fill-multi {
+        &:after {
+            @include prints-sprite("prints-fill-multi");
+            width: prints-sprite-width("prints-fill-multi");
+            height: prints-sprite-height("prints-fill-multi");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include prints-sprite("prints-fill-multi-active");
+            }
+        }
+    }
+
+    &.prints-fill-all {
+        &:after {
+            @include prints-sprite("prints-fill-all");
+            width: prints-sprite-width("prints-fill-all");
+            height: prints-sprite-height("prints-fill-all");
+        }
+
+        &:hover,
+        &.active {
+            &:after {
+                @include prints-sprite("prints-fill-all-active");
+            }
+        }
+    }
+
+    &.info {
+        &:after {
+           @include button-sprite("icon-button-info");
+           width: button-sprite-width("icon-button-info");
+           height: button-sprite-height("icon-button-info");
+        }
+    }
+
+    &.play {
+        &:after {
+            display: block;
+            width: 13px;
+            height: 13px;
+
+            background: url('/images/proofer/play.svg') center;
+        }
+
+        &:hover:after {
+            opacity: .7;
+        }
+    }
+
+    &.stop {
+        &:after {
+            display: block;
+            width: 13px;
+            height: 13px;
+
+            background: url('/images/proofer/stop.svg') center;
+        }
+
+        &:hover:after {
+            opacity: .7;
+        }
+    }
+
+    &.skip-prev {
+        &:after {
+            display: block;
+            width: 13px;
+            height: 13px;
+
+            background: url('/images/proofer/skip-prev.svg') center;
+        }
+
+        &:hover:after {
+            opacity: .7;
+        }
+    }
+
+    &.skip-next {
+        &:after {
+            display: block;
+            width: 13px;
+            height: 13px;
+
+            background: url('/images/proofer/skip-next.svg') center;
+        }
+
+        &:hover:after {
+            opacity: .7;
+        }
+    }
+
+    &.trash-flat {
+        &:after {
+           @include designer-qa-sprite("qa-trash-flat");
+           width: designer-qa-sprite-width("qa-trash-flat");
+           height: designer-qa-sprite-height("qa-trash-flat");
+        }
+
+        &:hover:after {
+            @include designer-qa-sprite("qa-trash-active-flat");
+        }
+    }
+
+    &.trash2-flat {
+        &:after {
+           @include button-sprite("icon-button-trash-dark-flat");
+           width: button-sprite-width("icon-button-trash-dark-flat");
+           height: button-sprite-height("icon-button-trash-dark-flat");
+        }
+
+        &:hover:after {
+            @include button-sprite("icon-button-trash-dark-active-flat");
+        }
+    }
+
+    &.trash-darker-flat {
+        &:after {
+            @include button-sprite("icon-button-trash-large-dark-flat");
+            width: button-sprite-width("icon-button-trash-large-dark-flat");
+            height: button-sprite-height("icon-button-trash-large-dark-flat");
+        }
+
+        &:hover:after {
+            @include designer-qa-sprite("qa-trash-flat");
+        }
+    }
+
+    &.save-flat {
+        &:after {
+           @include designer-qa-sprite("qa-spread-layout-flat");
+           width: designer-qa-sprite-width("qa-spread-layout-flat");
+           height: designer-qa-sprite-height("qa-spread-layout-flat");
+        }
+
+        &:hover:after {
+            @include designer-qa-sprite("qa-spread-layout-active-flat");
+        }
+    }
+
+    &.save2-flat {
+        &:after {
+           @include button-sprite("icon-button-save-dark-flat");
+           width: button-sprite-width("icon-button-save-dark-flat");
+           height: button-sprite-height("icon-button-save-dark-flat");
+        }
+
+        &:hover:after {
+            @include button-sprite("icon-button-save-dark-active-flat");
+        }
+    }
+
+    &.plus-flat {
+        &:after {
+           @include button-sprite("icon-button-plus-dark-flat");
+           width: button-sprite-width("icon-button-plus-dark-flat");
+           height: button-sprite-height("icon-button-plus-dark-flat");
+        }
+
+        &:hover:after {
+            @include button-sprite("icon-button-plus-active-flat");
+        }
+    }
+
+    &.plus2-flat {
+        &:after {
+           @include designer-qa-sprite("qa-plus2-flat");
+           width: designer-qa-sprite-width("qa-plus2-flat");
+           height: designer-qa-sprite-height("qa-plus2-flat");
+        }
+
+        &:hover:after {
+            @include designer-qa-sprite("qa-plus2-active-flat");
+        }
+    }
+
+    &.swap-flat {
+        &:after {
+           @include designer-qa-sprite("qa-swap-flat");
+           width: designer-qa-sprite-width("qa-swap-flat");
+           height: designer-qa-sprite-height("qa-swap-flat");
+        }
+
+        &:hover:after {
+            @include designer-qa-sprite("qa-swap-active-flat");
+        }
+    }
+
+    &.type-icon {
+        @include button-type-icon();
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+        padding: 0;
+        text-align: center;
+
+        &.arrow-up-small:after,
+        &.arrow-up-small ul li:last-child:after,
+        &.arrow-down-small:after,
+        &.arrow-down-small ul li:first-child:after {
+            @include button-sprite("icon-button-arrow-bottom-right-small-larger");
+            position: absolute;
+            top: auto;
+            bottom: 0;
+            right: 0;
+            width: button-sprite-width("icon-button-arrow-bottom-right-small-larger");
+            height: button-sprite-height("icon-button-arrow-bottom-right-small-larger");
+        }
+
+        &.active-triangle.active-triangle-hover,
+        &:hover:not(.active-triangle),
+        &:active:not(.active-triangle),
+        &.active:not(.active-triangle),
+        &.active2:not(.active-triangle) {
+            &.arrow-up-small:after,
+            &.arrow-up-small ul li:last-child:after,
+            &.arrow-down-small:after,
+            &.arrow-down-small ul li:first-child:after {
+                @include button-sprite("icon-button-arrow-bottom-right-small-larger-active");
+            }
+        }
+    }
+
+    &.button--debossing-tab {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    &.full-width {
+        width: 100% !important;
+    }
+
+    &.transparent {
+        background: inherit !important;
+        border: none;
+        box-shadow: none;
+        padding: .6rem 0;
+
+        &:before {
+            background: none;
+        }
+    }
+}
+
+@mixin button-type-icon() {
+    > span {
+        margin: 0;
+    }
+
+    ul li {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+        padding: 0;
+    }
+
+    .icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+.type-icon.icon-text-orientation {
+    width: button-sprite-width("icon-button-text-orientation-normal");
+
+    ul li {
+        width: button-sprite-width("icon-button-text-orientation-normal");
+    }
+
+    .icon {
+        width: button-sprite-width("icon-button-text-orientation-normal-dark");
+
+        ul li {
+            width: button-sprite-width("icon-button-text-orientation-normal-dark");
+        }
+
+        &.normal {
+            @include button-sprite("icon-button-text-orientation-normal");
+            width: button-sprite-width("icon-button-text-orientation-normal");
+            height: button-sprite-height("icon-button-text-orientation-normal");
+        }
+
+        &.top-bottom {
+            @include button-sprite("icon-button-text-orientation-top-bottom");
+            width: button-sprite-width("icon-button-text-orientation-top-bottom");
+            height: button-sprite-height("icon-button-text-orientation-top-bottom");
+        }
+
+        &.bottom-top {
+            @include button-sprite("icon-button-text-orientation-bottom-top");
+            width: button-sprite-width("icon-button-text-orientation-bottom-top");
+            height: button-sprite-height("icon-button-text-orientation-bottom-top");
+        }
+    }
+
+    &.dark {
+        .icon {
+            &.normal {
+                @include button-sprite("icon-button-text-orientation-normal-dark");
+                width: button-sprite-width("icon-button-text-orientation-normal-dark");
+                height: button-sprite-height("icon-button-text-orientation-normal-dark");
+            }
+
+            &.top-bottom {
+                @include button-sprite("icon-button-text-orientation-top-bottom-dark");
+                width: button-sprite-width("icon-button-text-orientation-top-bottom-dark");
+                height: button-sprite-height("icon-button-text-orientation-top-bottom-dark");
+            }
+
+            &.bottom-top {
+                @include button-sprite("icon-button-text-orientation-bottom-top-dark");
+                width: button-sprite-width("icon-button-text-orientation-bottom-top-dark");
+                height: button-sprite-height("icon-button-text-orientation-bottom-top-dark");
+            }
+        }
+
+        &:hover:not(.dropdown-button-options),
+        &:active:not(.dropdown-button-options),
+        &.active:not(.dropdown-button-options),
+        .dropdown-button-option:hover,
+        .dropdown-button-option:active,
+        .dropdown-button-option.active {
+            .icon {
+                &.normal {
+                    @include button-sprite("icon-button-text-orientation-normal-dark-active");
+                }
+
+                &.top-bottom {
+                    @include button-sprite("icon-button-text-orientation-top-bottom-dark-active");
+                }
+
+                &.bottom-top {
+                    @include button-sprite("icon-button-text-orientation-bottom-top-dark-active");
+                }
+            }
+        }
+    }
+}
+
+.type-icon.icon-case {
+    width: button-sprite-width("icon-button-case-uppercase");
+
+    ul li {
+        width: button-sprite-width("icon-button-case-uppercase");
+    }
+
+    .icon {
+        &.uppercase {
+            @include button-sprite("icon-button-case-uppercase");
+            width: button-sprite-width("icon-button-case-uppercase");
+            height: button-sprite-height("icon-button-case-uppercase");
+        }
+
+        &.capitalize {
+            @include button-sprite("icon-button-case-capitalize");
+            width: button-sprite-width("icon-button-case-capitalize");
+            height: button-sprite-height("icon-button-case-capitalize");
+        }
+
+        &.lowercase {
+            @include button-sprite("icon-button-case-lowercase");
+            top: 3px;
+            width: button-sprite-width("icon-button-case-lowercase");
+            height: button-sprite-height("icon-button-case-lowercase");
+        }
+    }
+
+    &.dark {
+        width: button-sprite-width("icon-button-case-uppercase-dark");
+
+        ul li {
+            width: button-sprite-width("icon-button-case-uppercase-dark");
+        }
+
+        .icon {
+            &.uppercase {
+                @include button-sprite("icon-button-case-uppercase-dark");
+                width: button-sprite-width("icon-button-case-uppercase-dark");
+                height: button-sprite-height("icon-button-case-uppercase-dark");
+            }
+
+            &.capitalize {
+                @include button-sprite("icon-button-case-capitalize-dark");
+                width: button-sprite-width("icon-button-case-capitalize-dark");
+                height: button-sprite-height("icon-button-case-capitalize-dark");
+            }
+
+            &.lowercase {
+                @include button-sprite("icon-button-case-lowercase-dark");
+                width: button-sprite-width("icon-button-case-lowercase-dark");
+                height: button-sprite-height("icon-button-case-lowercase-dark");
+            }
+        }
+
+        &:hover:not(.dropdown-button-options),
+        &:active:not(.dropdown-button-options),
+        &.active:not(.dropdown-button-options),
+        .dropdown-button-option:hover,
+        .dropdown-button-option:active,
+        .dropdown-button-option.active {
+            .icon {
+                &.uppercase {
+                    @include button-sprite("icon-button-case-uppercase-dark-active");
+                }
+
+                &.capitalize {
+                    @include button-sprite("icon-button-case-capitalize-dark-active");
+                }
+
+                &.lowercase {
+                    @include button-sprite("icon-button-case-lowercase-dark-active");
+                }
+            }
+        }
+    }
+}
+
+.type-icon.icon-text-align {
+    width: button-sprite-width("icon-button-text-align-left");
+
+    ul li {
+        width: button-sprite-width("icon-button-text-align-left");
+    }
+
+    .icon {
+        &.left {
+            @include button-sprite("icon-button-text-align-left");
+            width: button-sprite-width("icon-button-text-align-left");
+            height: button-sprite-height("icon-button-text-align-left");
+        }
+        &.center {
+            @include button-sprite("icon-button-text-align-center");
+            width: button-sprite-width("icon-button-text-align-center");
+            height: button-sprite-height("icon-button-text-align-center");
+        }
+        &.right {
+            @include button-sprite("icon-button-text-align-right");
+            width: button-sprite-width("icon-button-text-align-right");
+            height: button-sprite-height("icon-button-text-align-right");
+        }
+        &.justify {
+            @include button-sprite("icon-button-text-align-justify");
+            width: button-sprite-width("icon-button-text-align-justify");
+            height: button-sprite-height("icon-button-text-align-justify");
+        }
+    }
+
+    &.dark {
+        width: button-sprite-width("icon-button-text-align-left-dark");
+
+        ul li {
+            width: button-sprite-width("icon-button-text-align-left-dark");
+        }
+
+        .icon {
+            &.left {
+                @include button-sprite("icon-button-text-align-left-dark");
+                width: button-sprite-width("icon-button-text-align-left-dark");
+                height: button-sprite-height("icon-button-text-align-left-dark");
+            }
+
+            &.center {
+                @include button-sprite("icon-button-text-align-center-dark");
+                width: button-sprite-width("icon-button-text-align-center-dark");
+                height: button-sprite-height("icon-button-text-align-center-dark");
+            }
+
+            &.right {
+                @include button-sprite("icon-button-text-align-right-dark");
+                width: button-sprite-width("icon-button-text-align-right-dark");
+                height: button-sprite-height("icon-button-text-align-right-dark");
+            }
+
+            &.justify {
+                @include button-sprite("icon-button-text-align-justify-dark");
+                width: button-sprite-width("icon-button-text-align-justify-dark");
+                height: button-sprite-height("icon-button-text-align-justify-dark");
+            }
+        }
+
+        &:hover:not(.dropdown-button-options),
+        &:active:not(.dropdown-button-options),
+        &.active:not(.dropdown-button-options),
+        .dropdown-button-option:hover,
+        .dropdown-button-option:active,
+        .dropdown-button-option.active {
+            .icon {
+                &.left {
+                    @include button-sprite("icon-button-text-align-left-dark-active");
+                }
+
+                &.center {
+                    @include button-sprite("icon-button-text-align-center-dark-active");
+                }
+
+                &.right {
+                    @include button-sprite("icon-button-text-align-right-dark-active");
+                }
+
+                &.justify {
+                    @include button-sprite("icon-button-text-align-justify-dark-active");
+                }
+            }
+        }
+    }
+}
+
+.type-icon.icon-view-mode {
+    width: button-sprite-width("icon-button-view-mode-normal-dark");
+
+    ul li {
+        width: button-sprite-width("icon-button-view-mode-normal-dark");
+    }
+
+    .icon {
+        &.normal {
+            @include button-sprite("icon-button-view-mode-normal-dark");
+            width: button-sprite-width("icon-button-view-mode-normal-dark");
+            height: button-sprite-height("icon-button-view-mode-normal-dark");
+        }
+        &.preview {
+            @include button-sprite("icon-button-view-mode-preview-dark");
+            width: button-sprite-width("icon-button-view-mode-preview-dark");
+            height: button-sprite-height("icon-button-view-mode-preview-dark");
+        }
+        &.trim {
+            @include button-sprite("icon-button-view-mode-trim-dark");
+            width: button-sprite-width("icon-button-view-mode-trim-dark");
+            height: button-sprite-height("icon-button-view-mode-trim-dark");
+        }
+        &.bleed {
+            @include button-sprite("icon-button-view-mode-bleed-dark");
+            width: button-sprite-width("icon-button-view-mode-bleed-dark");
+            height: button-sprite-height("icon-button-view-mode-bleed-dark");
+        }
+        &.presentation {
+            @include button-sprite("icon-button-view-mode-presentation-dark");
+            width: button-sprite-width("icon-button-view-mode-presentation-dark");
+            height: button-sprite-height("icon-button-view-mode-presentation-dark");
+        }
+    }
+}
+
+.type-icon.icon-share {
+    width: button-sprite-width("icon-button-share-share-dark");
+
+    ul li {
+        width: button-sprite-width("icon-button-share-share-dark");
+    }
+
+    .icon {
+        &.share {
+            @include button-sprite("icon-button-share-share-dark");
+            width: button-sprite-width("icon-button-share-share-dark");
+            height: button-sprite-height("icon-button-share-share-dark");
+        }
+        &.facebook {
+            @include button-sprite("icon-button-share-facebook-dark");
+            width: button-sprite-width("icon-button-share-facebook-dark");
+            height: button-sprite-height("icon-button-share-facebook-dark");
+        }
+        &.twitter {
+            @include button-sprite("icon-button-share-twitter-dark");
+            width: button-sprite-width("icon-button-share-twitter-dark");
+            height: button-sprite-height("icon-button-share-twitter-dark");
+        }
+        &.google-plus {
+            @include button-sprite("icon-button-share-google-plus-dark");
+            width: button-sprite-width("icon-button-share-google-plus-dark");
+            height: button-sprite-height("icon-button-share-google-plus-dark");
+        }
+        &.pinterest {
+            @include button-sprite("icon-button-share-pinterest-dark");
+            width: button-sprite-width("icon-button-share-pinterest-dark");
+            height: button-sprite-height("icon-button-share-pinterest-dark");
+        }
+        &.tumblr {
+            @include button-sprite("icon-button-share-tumblr-dark");
+            width: button-sprite-width("icon-button-share-tumblr-dark");
+            height: button-sprite-height("icon-button-share-tumblr-dark");
+        }
+    }
+}
+
+.type-icon.icon-share-medium {
+    width: button-sprite-width("icon-button-share-medium");
+
+    ul li {
+        width: button-sprite-width("icon-button-share-medium");
+    }
+
+    .icon {
+        &.share-medium {
+            @include button-sprite("icon-button-share-medium");
+            width: button-sprite-width("icon-button-share-medium");
+            height: button-sprite-height("icon-button-share-medium");
+        }
+
+        &.facebook-medium {
+            @include button-sprite("icon-button-facebook-medium");
+            width: button-sprite-width("icon-button-facebook-medium");
+            height: button-sprite-height("icon-button-facebook-medium");
+        }
+
+        &.twitter-medium {
+            @include button-sprite("icon-button-twitter-medium");
+            width: button-sprite-width("icon-button-twitter-medium");
+            height: button-sprite-height("icon-button-twitter-medium");
+        }
+
+        &.google-plus-medium {
+            @include button-sprite("icon-button-google-plus-medium");
+            width: button-sprite-width("icon-button-google-plus-medium");
+            height: button-sprite-height("icon-button-google-plus-medium");
+        }
+
+        &.pinterest-medium {
+            @include button-sprite("icon-button-pinterest-medium");
+            width: button-sprite-width("icon-button-pinterest-medium");
+            height: button-sprite-height("icon-button-pinterest-medium");
+        }
+
+        &.tumblr-medium {
+            @include button-sprite("icon-button-tumblr-medium");
+            width: button-sprite-width("icon-button-tumblr-medium");
+            height: button-sprite-height("icon-button-tumblr-medium");
+        }
+    }
+}
+
+.type-icon.icon-auto-arrange {
+    .icon {
+        &.auto-arrange-empty-empty {
+            @include auto-arrange-sprite("icon-auto-arrange-empty-empty");
+            width: auto-arrange-sprite-width("icon-auto-arrange-empty-empty");
+            height: auto-arrange-sprite-height("icon-auto-arrange-empty-empty");
+        }
+
+        &.auto-arrange-vertical-horizontal {
+            @include auto-arrange-sprite("icon-auto-arrange-vertical-horizontal");
+            width: auto-arrange-sprite-width("icon-auto-arrange-vertical-horizontal");
+            height: auto-arrange-sprite-height("icon-auto-arrange-vertical-horizontal");
+        }
+
+        &.auto-arrange-horizontal-empty {
+            @include auto-arrange-sprite("icon-auto-arrange-horizontal-empty");
+            width: auto-arrange-sprite-width("icon-auto-arrange-horizontal-empty");
+            height: auto-arrange-sprite-height("icon-auto-arrange-horizontal-empty");
+        }
+
+        &.auto-arrange-empty-horizontal {
+            @include auto-arrange-sprite("icon-auto-arrange-empty-horizontal");
+            width: auto-arrange-sprite-width("icon-auto-arrange-empty-horizontal");
+            height: auto-arrange-sprite-height("icon-auto-arrange-empty-horizontal");
+        }
+
+        &.auto-arrange-cross-cross {
+            @include auto-arrange-sprite("icon-auto-arrange-cross-cross");
+            width: auto-arrange-sprite-width("icon-auto-arrange-cross-cross");
+            height: auto-arrange-sprite-height("icon-auto-arrange-cross-cross");
+        }
+
+        &.auto-arrange-full-empty {
+            @include auto-arrange-sprite("icon-auto-arrange-full-empty");
+            width: auto-arrange-sprite-width("icon-auto-arrange-full-empty");
+            height: auto-arrange-sprite-height("icon-auto-arrange-full-empty");
+        }
+
+        &.auto-arrange-empty-full {
+            @include auto-arrange-sprite("icon-auto-arrange-empty-full");
+            width: auto-arrange-sprite-width("icon-auto-arrange-empty-full");
+            height: auto-arrange-sprite-height("icon-auto-arrange-empty-full");
+        }
+
+        &.auto-arrange-vertical-sm-horizontal-sm {
+            @include auto-arrange-sprite("icon-auto-arrange-vertical-sm-horizontal-sm");
+            width: auto-arrange-sprite-width("icon-auto-arrange-vertical-sm-horizontal-sm");
+            height: auto-arrange-sprite-height("icon-auto-arrange-vertical-sm-horizontal-sm");
+        }
+
+        &.auto-arrange-vertical-sm-empty {
+            @include auto-arrange-sprite("icon-auto-arrange-vertical-sm-empty");
+            width: auto-arrange-sprite-width("icon-auto-arrange-vertical-sm-empty");
+            height: auto-arrange-sprite-height("icon-auto-arrange-vertical-sm-empty");
+        }
+
+        &.auto-arrange-empty-vertical-sm {
+            @include auto-arrange-sprite("icon-auto-arrange-empty-vertical-sm");
+            width: auto-arrange-sprite-width("icon-auto-arrange-empty-vertical-sm");
+            height: auto-arrange-sprite-height("icon-auto-arrange-empty-vertical-sm");
+        }
+
+        &.auto-arrange-cross-large {
+            @include auto-arrange-sprite("icon-auto-arrange-cross-large");
+            width: auto-arrange-sprite-width("icon-auto-arrange-cross-large");
+            height: auto-arrange-sprite-height("icon-auto-arrange-cross-large");
+        }
+    }
+
+    // &:hover:not(.dropdown-button-options),
+    // &:active:not(.dropdown-button-options),
+    // &.active:not(.dropdown-button-options),
+    // &.active2:not(.dropdown-button-options),
+    .dropdown-button-option:hover,
+    .dropdown-button-option:active,
+    .dropdown-button-option.active {
+        .icon {
+            &.auto-arrange-empty-empty {
+                @include auto-arrange-sprite("icon-auto-arrange-empty-empty-active");
+            }
+
+            &.auto-arrange-vertical-horizontal {
+                @include auto-arrange-sprite("icon-auto-arrange-vertical-horizontal-active");
+            }
+
+            &.auto-arrange-horizontal-empty {
+                @include auto-arrange-sprite("icon-auto-arrange-horizontal-empty-active");
+            }
+
+            &.auto-arrange-empty-horizontal {
+                @include auto-arrange-sprite("icon-auto-arrange-empty-horizontal-active");
+            }
+
+            &.auto-arrange-cross-cross {
+                @include auto-arrange-sprite("icon-auto-arrange-cross-cross-active");
+            }
+
+            &.auto-arrange-full-empty {
+                @include auto-arrange-sprite("icon-auto-arrange-full-empty-active");
+            }
+
+            &.auto-arrange-empty-full {
+                @include auto-arrange-sprite("icon-auto-arrange-empty-full-active");
+            }
+
+            &.auto-arrange-vertical-sm-horizontal-sm {
+                @include auto-arrange-sprite("icon-auto-arrange-vertical-sm-horizontal-sm-active");
+            }
+
+            &.auto-arrange-vertical-sm-empty {
+                @include auto-arrange-sprite("icon-auto-arrange-vertical-sm-empty-active");
+            }
+
+            &.auto-arrange-empty-vertical-sm {
+                @include auto-arrange-sprite("icon-auto-arrange-empty-vertical-sm-active");
+            }
+
+            &.auto-arrange-cross-large {
+                @include auto-arrange-sprite("icon-auto-arrange-cross-large-active");
+            }
+        }
+    }
+}
+
+.type-icon.icon-frame-mode {
+    width: designer-qa-sprite-width("qa-frame-11-flat");
+
+    ul li {
+        width: designer-qa-sprite-width("qa-frame-11-flat");
+    }
+
+    .icon {
+        &.frame11 {
+            @include designer-qa-sprite("qa-frame-11-flat");
+            width: designer-qa-sprite-width("qa-frame-11-flat");
+            height: designer-qa-sprite-height("qa-frame-11-flat");
+        }
+
+        &.frame32 {
+            @include designer-qa-sprite("qa-frame-32-flat");
+            width: designer-qa-sprite-width("qa-frame-32-flat");
+            height: designer-qa-sprite-height("qa-frame-32-flat");
+        }
+    }
+
+    &:hover:not(.dropdown-button-options),
+    &:active:not(.dropdown-button-options),
+    &.active:not(.dropdown-button-options),
+    .dropdown-button-option:hover,
+    .dropdown-button-option:active,
+    .dropdown-button-option.active {
+        .icon {
+            &.frame11 {
+                @include designer-qa-sprite("qa-frame-11-active-flat");
+            }
+
+            &.frame32 {
+                @include designer-qa-sprite("qa-frame-32-active-flat");
+            }
+        }
+    }
+}
+
+.type-icon.icon-new-frame {
+    width: designer-qa-sprite-width("qa-new-frame-11-flat");
+
+    ul li {
+        width: designer-qa-sprite-width("qa-new-frame-11-flat");
+    }
+
+    .icon {
+        &.new-frame11 {
+            @include designer-qa-sprite("qa-new-frame-11-flat");
+            width: designer-qa-sprite-width("qa-new-frame-11-flat");
+            height: designer-qa-sprite-height("qa-new-frame-11-flat");
+        }
+
+        &.new-frame32 {
+            @include designer-qa-sprite("qa-new-frame-32-flat");
+            width: designer-qa-sprite-width("qa-new-frame-32-flat");
+            height: designer-qa-sprite-height("qa-new-frame-32-flat");
+        }
+
+        &.new-frame {
+            @include designer-qa-sprite("qa-new-frame-flat");
+            width: designer-qa-sprite-width("qa-new-frame-flat");
+            height: designer-qa-sprite-height("qa-new-frame-flat");
+        }
+    }
+
+    &:hover:not(.dropdown-button-options),
+    &:active:not(.dropdown-button-options),
+    &.active:not(.dropdown-button-options),
+    &.dropdown-active:not(.dropdown-button-options),
+    .dropdown-button-option:hover,
+    .dropdown-button-option:active,
+    .dropdown-button-option.active {
+        .icon {
+            &.new-frame11 {
+                @include designer-qa-sprite("qa-new-frame-11-active-flat");
+            }
+
+            &.new-frame32 {
+                @include designer-qa-sprite("qa-new-frame-32-active-flat");
+            }
+
+            &.new-frame {
+                @include designer-qa-sprite("qa-new-frame-active-flat");
+            }
+        }
+    }
+}
+
+.type-icon.icon-gap-tool {
+    &.dropdown-button {
+        width: 44px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    &.dropdown-button > .icon {
+        @include designer-sprite("gap-tool-spread");
+        width: designer-sprite-width("gap-tool-spread");
+        height: designer-sprite-height("gap-tool-spread");
+    }
+
+    .icon,
+    .dropdown-button-option .icon {
+        &.gap-tool-spread {
+            @include designer-sprite("gap-tool-spread");
+            width: designer-sprite-width("gap-tool-spread");
+            height: designer-sprite-height("gap-tool-spread");
+        }
+
+        &.gap-tool-selected {
+            @include designer-sprite("gap-tool-selected");
+            width: designer-sprite-width("gap-tool-selected");
+            height: designer-sprite-height("gap-tool-selected");
+        }
+
+        &.gap-tool-left-page {
+            @include designer-sprite("gap-tool-left-page");
+            width: designer-sprite-width("gap-tool-left-page");
+            height: designer-sprite-height("gap-tool-left-page");
+        }
+
+        &.gap-tool-right-page {
+            @include designer-sprite("gap-tool-right-page");
+            width: designer-sprite-width("gap-tool-right-page");
+            height: designer-sprite-height("gap-tool-right-page");
+        }
+
+        &.gap-tool-book {
+            @include designer-sprite("gap-tool-book");
+            width: designer-sprite-width("gap-tool-book");
+            height: designer-sprite-height("gap-tool-book");
+        }
+    }
+
+    .dropdown-button-option {
+        width: 170px !important;
+
+        .icon {
+            display: inline-block;
+            position: relative;
+            top: 3px;
+            margin: 0 6px;
+        }
+    }
+}
+
+.type-icon.icon-design-tools,
+.type-icon.icon-design-tools-top,
+.type-icon.icon-design-tools-prints,
+.type-icon.icon-image-filters,
+.type-icon.icon-content-flip {
+    width: designer-qa-sprite-width("qa-box-flat");
+
+    ul li {
+        width: designer-qa-sprite-width("qa-box-flat");
+    }
+
+    $toolsets: "compass", "type", "box3", "box2", "box",
+        //"prints-mode",
+    "filter-black-and-white",
+    "filter-sepia-black-and-white",
+    "flip-contenth", "flip-contentv";
+
+    .icon {
+        @each $toolset in $toolsets {
+            &.#{$toolset} {
+                @include designer-qa-sprite("qa-" + $toolset + "-active-flat");
+                width: designer-qa-sprite-width("qa-" + $toolset + "-active-flat");
+                height: designer-qa-sprite-height("qa-" + $toolset + "-active-flat");
+            }
+        }
+    }
+
+    &:hover:not(.dropdown-button-options),
+    &:active:not(.dropdown-button-options),
+    &.active:not(.dropdown-button-options),
+    .dropdown-button-option:hover,
+    .dropdown-button-option:active,
+    .dropdown-button-option.active {
+        .icon {
+            @each $toolset in $toolsets {
+                &.#{$toolset} {
+                    @include designer-qa-sprite("qa-" + $toolset + "-active-flat");
+                }
+            }
+        }
+    }
+}
+
+// Merged buttons taking full available width
+.merged-buttons {
+    display: flex;
+
+    .button {
+        flex: 1;
+        padding-left: 0;
+        padding-right: 0;
+        border-radius: 0;
+        text-align: center;
+
+        &:not(:first-child) {
+            border-left: none !important;
+
+            &:before {
+                left: 0;
+            }
+        }
+
+        &:not(:last-child) {
+            &:before {
+                right: 0;
+            }
+        }
+
+        &:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        &:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        &.dark.active {
+            @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-400));
+        }
+    }
+
+    &.is-remove-button-margin .button {
+        margin-bottom: 0;
+    }
+}
+
+button,
+.button {
+    @include button;
+}
+
+@-moz-document url-prefix() {
+    button,
+    .button {
+        padding: 8px 23px 7px;
+    }
+}
+
+.button.large,
+button.large {
+    font-size: 16px;
+}
+
+.button.small,
+button.small {
+    padding: 6px 16px;
+    font-size: 14px;
+}
+.button.full-width,
+button.full-width{
+    width:100%;
+}
+
+.centered-buttons-close {
+    font-size: 0;
+    text-align: center;
+    padding:0 5px;
+
+    .button {
+        @include radius(0);
+        position: relative;
+        left: -1px;
+        width:50%;
+
+        &:first-child {
+            @include radius(4px 0 0 4px);
+            left: 0;
+        }
+
+        &:last-child {
+            @include radius(0 4px 4px 0);
+        }
+    }
+}

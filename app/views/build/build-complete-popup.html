@@ -1,0 +1,37 @@
+<section class="build-complete">
+    <h2>What would you like to do?</h2>
+
+	<div class="box">
+		<div class="box-left">
+            <h3>Proceed to Designer</h3>
+            <span class="desc">
+                Jump right into the Designer and start designing your album.
+            </span>
+        </div>
+		<button class="button color" ng-click="goto('layout') && closeThisDialog()">Select</button>
+	</div>
+
+	<div class="box">
+		<div class="box-left">
+            <h3>Fill Out Project Preferences</h3>
+            <span class="desc">
+                Customise your job defaults (key lines, backgrounds, 1:1 or 2:3 frames, auto/manual design, etc.)
+            </span>
+        </div>
+		<button class="button color" ng-click="goto('layout.prefs') && closeThisDialog()">Select</button>
+	</div>
+
+    <label for="rememberChoice">
+        <input type="checkbox" name="rememberChoice" id="rememberChoice">
+        Remember my choice and don't show this again
+    </label>
+
+    <p class="desc text-center">
+        To change this you can always go to Dashboard General<br>
+        APP preferences and change this setting for all jobs
+    </p>
+
+    <div class="text-center">
+        <a href="#" ng-click="closeThisDialog()">Cancel</a>
+    </div>
+</section>

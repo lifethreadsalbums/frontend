@@ -1,0 +1,248 @@
+//------------------------------------------------------------------
+//                     PROOFER ITEM
+//------------------------------------------------------------------
+.proofer-item {
+    position: relative;
+    width: 100%;
+    height: 124px;
+    margin: 1px 0;
+    overflow: hidden;
+    z-index: 1;
+
+    text-align: left;
+}
+
+.proofer-item__background-image {
+    position: absolute;
+    width: 100%;
+    height: 124px;
+    z-index: 0;
+
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.proofer-item__inner-wrapper {
+    position: relative;
+    height: 100%;
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER ITEM - TOP BAR
+//------------------------------------------------------------------
+.proofer-item__top-bar {
+    position: relative;
+    height: 30px;
+    padding: 6px 10px;
+    z-index: 1;
+
+    background: rgba(map-get($colors, dark-900), .4);
+
+    font-size: 16px;
+}
+
+.proofer-item__status {
+    display: inline-block;
+    float: right;
+    width: 40%;
+    height: 16px;
+    padding-top: 4px;
+
+    border-radius: 4px;
+
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.proofer-item__status--approved {
+    background: map-get($colors, success-100);
+}
+
+.proofer-item__status--pending {
+    background: map-get($colors, warning-500);
+}
+
+.proofer-item__approve-message,
+.proofer-item__unapprove-message {
+    display: inline-block;
+    position: relative;
+    top: -2px;
+    width: 20px;
+    height: 20px;
+
+    background-size: contain;
+    cursor: pointer;
+
+    &:hover {
+        opacity: .7;
+    }
+}
+
+.proofer-item__approve-message {
+    background: url('/images/proofer/check-circle-white.svg') center center no-repeat;
+}
+
+.proofer-item__unapprove-message {
+    background: url('/images/proofer/check-circle-green.svg') center center no-repeat;
+}
+
+.proofer-item__replies {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    margin-left: 15px;
+
+    color: map-get($colors, primary-400);
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    vertical-align: top;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        z-index: -1;
+
+        background: url('/images/proofer/comment.svg') center center no-repeat;
+    }
+}
+
+.proofer-item__replies {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+//------------------------------------------------------------------
+//                     PROOFER ITEM - BOTTOM BAR
+//------------------------------------------------------------------
+.proofer-item__bottom-bar {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 124px;
+    padding: 7px 10px 6px;
+    opacity: 0;
+    visibility: hidden;
+
+    font-size: 12px;
+    text-shadow: map-get($colors, dark-900) .7px .7px .3px;
+
+    cursor: pointer;
+
+    transform: translateY(28px);
+    transition: .5s;
+}
+
+.proofer-item__bottom-bar__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 10px;
+
+    background: rgba(map-get($colors, dark-900), .4);
+}
+
+.proofer-item__arrow {
+    @include proofer-sprite("icon-list-arrow-dark-gray");
+    position: absolute;
+    top: 65px;
+    right: 10px;
+    width: proofer-sprite-width("icon-list-arrow-dark-gray");
+    height: proofer-sprite-height("icon-list-arrow-dark-gray");
+    z-index: 2;
+
+    cursor: pointer;
+}
+
+.proofer-item__message {
+    max-width: 175px;
+    max-height: 38px;
+    padding: 5px;
+    overflow: hidden;
+
+    font-size: 11px;
+    color: map-get($colors, light-50);
+}
+
+.proofer-item__message--done {
+    text-decoration: line-through;
+}
+
+.proofer-item__pages {
+    display: inline-block;
+    vertical-align: middle;
+
+    &:before {
+        content: "";
+        display: inline-block;
+        margin-right: 4px;
+    }
+}
+
+.proofer-item__pages--pages:before {
+    @include proofer-sprite("icon-page-white");
+    width: proofer-sprite-width("icon-page-white");
+    height: proofer-sprite-height("icon-page-white");
+}
+
+.proofer-item__pages--spreads:before {
+    @include proofer-sprite("icon-spread-white");
+    width: proofer-sprite-width("icon-spread-white");
+    height: proofer-sprite-height("icon-spread-white");
+}
+
+.proofer-item__images {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+
+    &:before {
+        @include proofer-sprite("icon-image-logo");
+        content: "";
+        display: inline-block;
+        width: proofer-sprite-width("icon-image-logo");
+        height: proofer-sprite-height("icon-image-logo");
+        margin-right: 4px;
+    }
+}
+
+.proofer-item__trash {
+    @include designer-qa-sprite("qa-trash-small-active-flat");
+    float: right;
+    width: designer-qa-sprite-width("qa-trash-small-active-flat");
+    height: designer-qa-sprite-height("qa-trash-small-active-flat");
+}
+
+.proofer-item__date {
+    float: right;
+    margin-left: 5px;
+
+    font-size: 11px;
+    line-height: 14px;
+    color: map-get($colors, light-50);
+}
+
+
+//------------------------------------------------------------------
+//                     PROOFER ITEM - HOVER
+//------------------------------------------------------------------
+.proofer-item:hover {
+    .proofer-item__bottom-bar {
+        transform: translateY(0px);
+        visibility: visible;
+        opacity: 1;
+    }
+}

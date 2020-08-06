@@ -1,0 +1,93 @@
+<div class="sidebar-creator__content">
+	<header class="header-back" ng-class="{'dark': product.options.productType === 'prints'}">
+		<button id="sidebar-back" ng-click="back()" class="button back big" ng-class="{'dark': darkTheme}">Back</button>
+		<div>
+			<h1>{{model.label}}</h1>
+			<small>{{model.description}}</small>
+		</div>
+	</header>
+	<ul class="item-list standard" ng-show="requiredItems.length>0" ng-class="{'dark': darkTheme}">
+		<li ng-repeat="item in requiredItems | optionVisibility:product" class="item hovering-list"
+			ng-class="{ active: item.code && item.code==product.options[optionCode],
+				disabled: item.disabled,
+				'read-only disabled': !editable && (item.type=='BuildTextOptionWidget' || item.type=='BuildNumericOptionWidget'),
+				single: !item.description && item.type!='BuildNumericOptionWidget',
+				'item-counter': item.type=='BuildNumericOptionWidget',
+				'item-text': item.type=='BuildTextOptionWidget',
+				'item-checkbox': item.type=='BuildBooleanOptionWidget',
+				'item-arrow': !!section && !item.selectionDone,
+				'item-bullet':section && item.selectionDone }"
+				ng-switch on="item.type"
+            id="sidebar-item-{{item.optionCode}}">
+
+			<a ng-switch-default ng-href="{{item.absoluteUrl}}" ng-click="onItemClick(item)">
+				<span class="item-title">
+					<span class="item-title-primary">{{item.label}}</span>
+					<span class="item-title-secondary">{{item.description}}</span>
+				</span>
+				<span class="item-icon"></span>
+			</a>
+			<div ng-switch-when="BuildNumericOptionWidget" counter min="1" max="10000">
+				<span class="counter-minus"><span></span></span>
+				<input type="number" class="counter-value" ng-model="product.options[item.optionCode]"
+					min="1" max="10000"
+					set-focus="{{ !item.selectionDone && !item.disabled && item.optionCode!=='_quantity' ? 'true': 'false'}}"
+					ng-change="onOptionChange(item)" enter-as-tab/>
+				<!-- <span class="counter-title">{{item.label}}</span> -->
+				<span class="counter-title">{{item.optionCode==='_pageCount' ? 'Sides' : item.label}}</span>
+				<span class="counter-plus"><span></span></span>
+			</div>
+			<div ng-switch-when="BuildBooleanOptionWidget">
+				<span class="item-title">{{item.label}}</span>
+	        	<on-off ng-if="yesNo" on-label="Yes" off-label="No" ng-model="product.options[item.optionCode]" on-change="onOptionChange()"></on-off>
+	        	<on-off ng-if="!yesNo" ng-model="product.options[item.optionCode]" on-change="onOptionChange()"></on-off>
+			</div>
+			<div ng-switch-when="BuildTextOptionWidget">
+				<span class="item-title">{{item.label}}</span>
+				<input type="text" class="item-value" ng-model="product.options[item.optionCode]"
+					set-focus="{{ !item.selectionDone && !item.disabled ? 'true': 'false'}}"
+					ng-change="onOptionChange(item)" enter-as-tab/>
+			</div>
+		</li>
+	</ul>
+	<div class="item-list-category-label" ng-if="optionalItems.length>0 && requiredItems.length>0"><span>Optional add-ons</span></div>
+	<ul ng-if="optionalItems.length>0" class="item-list standard" ng-class="{'dark': darkTheme}">
+		<li ng-repeat="item in optionalItems | optionVisibility:product" class="item hovering-list"
+			ng-class="{ active: item.code && item.code==product.options[optionCode],
+				disabled: item.disabled || !model.nextButtonEnabled,
+				single: !item.description && item.type!='BuildNumericOptionWidget',
+				'item-counter': item.type=='BuildNumericOptionWidget',
+				'item-onoff': item.type=='BuildPrintsBooleanOptionWidget',
+				'item-arrow': !!section && !item.selectionDone,
+				'item-bullet':section && item.selectionDone }"
+				ng-switch on="item.type">
+
+			<a ng-switch-default ng-href="{{item.absoluteUrl}}" ng-click="onItemClick(item)">
+				<span class="item-title">
+					<span class="item-title-primary">{{item.label}}</span>
+					<span class="item-title-secondary">{{item.description}}</span>
+				</span>
+				<span class="item-icon"></span>
+			</a>
+			<div ng-switch-when="BuildNumericOptionWidget" counter min="1" max="10000">
+				<span class="counter-minus"><span></span></span>
+				<input type="text" class="counter-value" ng-model="product.options[item.optionCode]" ng-change="saveProduct()">
+				<span class="counter-title">Sides</span>
+				<span class="counter-plus"><span></span></span>
+			</div>
+
+			<div ng-switch-when="BuildPrintsBooleanOptionWidget">
+				 <span class="item-title">
+					<span class="item-title-primary">{{item.label}}</span>
+				</span>
+        		<on-off ng-class="{'dark': darkTheme}" 
+        		    color="dupa"
+        			on-label="Yes" off-label="No" 
+        			ng-model="product.options[item.optionCode]" 
+        			on-change="saveProduct()">
+        		</on-off>
+			</div>
+		</li>
+	</ul>
+
+</div>

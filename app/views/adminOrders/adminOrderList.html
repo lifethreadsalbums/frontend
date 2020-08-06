@@ -1,0 +1,18 @@
+<div style="width:100%; height:100%; position:relative">
+    <div style="height:50%; width:100%; position:relative"
+    	 context-menu="{{contextMenu}}"
+    	 context-menu-click="onProductMenuClick(key)"
+    	 ng-keydown="onKeyDown($event)" tabindex="0">
+
+        <div id="grid" ag-grid="gridOptions" class="ag-fresh ag-grid-pace" ng-style="{visibility:gridVisible ? 'visible':'hidden'}"></div>
+
+        <spinner ng-show="gridSpinner"
+            style="margin-left:-25px;margin-top:-25px;position:absolute;display:block;width:50px;height:50px;top:50%;left:50%;">
+        </spinner>
+
+    </div>
+    <hdivider></hdivider>
+    <div style="height:50%; margin-top: 10px;">
+    	<article style="width:100%; height:100%;" ui-view="productDetails"></article>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+//------------------------------------------------------------------
+//                     TOUR SLIDER
+//------------------------------------------------------------------
+.tour {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: map-get($colors, light-100);
+    overflow: hidden;
+
+    .flex-direction-nav {
+        display: none !important;
+    }
+}
+
+.tour__slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+}
+
+.tour__navigation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    padding-top: 30px;
+    text-align: center;
+    z-index: 3;
+}
+
+.tour__navigation-button {
+    width: 150px;
+    height: 40px;
+    max-height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    &.flex-disabled {
+        display: none;
+    }
+}
+
+.tour__slide {
+    display: block;
+    text-align: center;
+}
+
+.tour__slide-header {
+    @include museo500();
+    margin-top: 40px;
+    font-size: 24px;
+    color: map-get($colors, dark-600);
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            font-size: 32px;
+        }
+    }
+
+    // @media only screen and (min-width: $breakPointXL) {
+    //     & {
+    //         font-size: 42px;
+    //     }
+    // }
+}
+
+.tour__slide-subheader {
+    @include museo500();
+    font-size: 18px;
+    color: map-get($colors, light-800);
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            font-size: 26px;
+        }
+    }
+
+    // @media only screen and (min-width: $breakPointXL) {
+    //     & {
+    //         font-size: 36px;
+    //     }
+    // }
+}
+
+.tour__slide-image-box-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.tour__slide-image-box {
+    display: inline-block;
+    margin: 15px auto;
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            margin-top: 80px;
+        }
+    }
+}
+
+.tour__slide-image-box--full {
+    max-width: 60%;
+}
+
+.tour__slide-image-box--half {
+    width: 380px;
+    margin: 100px 35px 35px;
+
+    .tour__slide-image {
+        height: 200px;
+    }
+
+    @media only screen and (max-width: $breakPointSM) {
+        & {
+            width: 320px;
+            margin: 60px 25px 25px;
+
+            .tour__slide-image {
+                height: 300px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            width: 450px;
+            margin-top: 160px;
+
+            .tour__slide-image {
+                height: 350px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $breakPointXL) {
+        & {
+            width: 600px;
+            margin-top: 200px;
+
+            .tour__slide-image {
+                height: 500px;
+            }
+        }
+    }
+
+    .tour__slide-image-header,
+    .tour__slide-description {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.tour__slide-image {
+    width: auto;
+    height: 330px;
+    margin-bottom: 40px;
+
+    @media only screen and (max-width: $breakPointSM) {
+        & {
+            height: 250px;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            height: 400px;
+            margin-bottom: 60px;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointXL) {
+        & {
+            height: 700px;
+            margin-bottom: 80px;
+        }
+    }
+}
+
+.tour__slide-image-header,
+.tour__slide-description {
+    max-width: 80%;
+    margin: auto;
+}
+
+.tour__slide-image-header {
+    @include museo500();
+    font-size: 21px;
+    margin-bottom: 10px;
+    color: map-get($colors, dark-600);
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            font-size: 28px;
+        }
+    }
+
+    // @media only screen and (min-width: $breakPointXL) {
+    //     & {
+    //         font-size: 36px;
+    //     }
+    // }
+}
+
+.tour__slide-description {
+    @include museo300();
+    font-size: 16px;
+    color: map-get($colors, light-800);
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            font-size: 22px;
+        }
+    }
+
+    // @media only screen and (min-width: $breakPointXL) {
+    //     & {
+    //         font-size: 32px;
+    //     }
+    // }
+}
+
+.tour__slide--designer {
+    .tour__slide-image-box {
+        margin-top: 80px;
+    }
+
+    .tour__slide-image {
+        margin-bottom: 90px;
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        & {
+            .tour__slide-image-box {
+                margin-top: 110px;
+            }
+
+            .tour__slide-image {
+                margin-bottom: 120px;
+            }
+        }
+    }
+
+
+    @media only screen and (min-width: $breakPointXL) {
+        & {
+            .tour__slide-image-box {
+                margin-top: 170px;
+            }
+
+            .tour__slide-image {
+                margin-bottom: 180px;
+            }
+        }
+    }
+}
+
+.tour__close {
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    background: url(/images/tour-close.png) no-repeat;
+    z-index: 2;
+}

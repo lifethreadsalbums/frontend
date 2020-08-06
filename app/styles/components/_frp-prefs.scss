@@ -1,0 +1,605 @@
+//------------------------------------------------------------------
+//                       FRP - PREFS
+//------------------------------------------------------------------
+.frp-prefs {
+    position: relative;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
+    .layout-section__content {
+        position: absolute;
+        top: 0px;
+        bottom: 50px;
+        width: 100%;
+        padding: 20px;
+        overflow: auto;
+        overflow-x: hidden;
+        background: url(../images/designer-dark-pattern-bg.png) repeat 100%;
+
+        .prefs-tabs-inside {
+            .nav-tabs {
+                padding-top: 5px;
+
+                &.tab-size-large,
+                &.tab-size-x-large {
+                    background: none;
+                    border-top: none;
+                    padding-top: 0;
+
+                    li {
+                        a {
+                            border-bottom: none;
+
+                            &.active {
+                                z-index: 1;
+                            }
+
+                            &.small {
+                                padding-bottom: 30px;
+                                margin-right: 5px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        bottom: 0;
+
+        &.project-prefs-tab-footer {
+            border-top: 1px solid map-get($colors, dark-200);
+            background: map-get($colors, light-100);
+
+            .footer-buttons {
+                padding: 8px;
+
+                button {
+                    margin: 0 10px 0 0;
+                }
+            }
+        }
+
+        &.layout-section__footer {
+            padding: 9px 15px;
+            border-top: 1px solid map-get($colors, dark-800);
+            background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+
+            button,
+            .button {
+                width: 110px;
+            }
+        }
+    }
+
+    .album-content,
+    .presentation-content,
+    .notifications-content,
+    .client-send-content,
+    .share-album-content {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 70px;
+        bottom: 20px;
+        border: 1px solid map-get($colors, light-600);
+        @include border-radius(10px);
+        @include border-top-left-radius(0);
+        @include box-shadow(1px 1px 1px rgba(map-get($colors, dark-900),0.1));
+        font-size: 14px;
+        overflow: auto;
+
+        .row {
+            padding: 10px;
+            min-height: 50px;
+
+            &:first-child {
+                margin-top: 20px;
+            }
+
+            h2 {
+                font-size: 16px;
+                font-weight: bold;
+                padding-top: 15px;
+            }
+
+            span {
+                padding-top: 7px;
+                display: inline-block;
+
+                &.gray {
+                    color: map-get($colors, light-800);
+                    font-size: 12px;
+                }
+
+                &.span-margin {
+                    margin: 0 15px;
+                }
+
+                &.text-right {
+                    text-align: right;
+                }
+
+                &.html-info {
+                    color: map-get($colors, light-700);
+                    line-height: 1.5em;
+                    width:100%;
+                }
+            }
+
+            textarea {
+                min-height: 100px;
+            }
+
+            button,
+            .button {
+                margin: 0;
+
+                &.color {
+                    color: map-get($colors, light-50);
+                    text-shadow: none;
+                }
+
+                &.dropdown-button {
+                    width: 100%;
+                }
+
+                &.unapprove {
+                    padding-left: 35px;
+
+                    &:after {
+                        display: inline-block;
+                        content: "";
+                        position: absolute;
+                        left: 10px;
+                        top: 7px;
+                        opacity: 0.8;
+                        @include proofer-sprite("icon-circled-cross-white");
+                        width: proofer-sprite-width("icon-circled-cross-white");
+                        height: proofer-sprite-height("icon-circled-cross-white");
+                    }
+                }
+
+                &.email-client {
+                    padding-left: 35px;
+
+                    &:after {
+                        display: inline-block;
+                        content: "";
+                        position: absolute;
+                        left: 10px;
+                        top: 9px;
+                        @include designer-sprite("icon-email-light");
+                        width: designer-sprite-width("icon-email-light");
+                        height: designer-sprite-height("icon-email-light");
+                    }
+                }
+            }
+
+            .social {
+                margin-right: 20px;
+                display: inline-block;
+
+                &.twitter {
+                    @include social-sprite("icon-circle-twitter");
+                    width: social-sprite-width("icon-circle-twitter");
+                    height: social-sprite-height("icon-circle-twitter");
+                }
+
+                &.facebook {
+                    @include social-sprite("icon-circle-facebook");
+                    width: social-sprite-width("icon-circle-facebook");
+                    height: social-sprite-height("icon-circle-facebook");
+                }
+
+                &.googleplus {
+                    @include social-sprite("icon-circle-googleplus");
+                    width: social-sprite-width("icon-circle-googleplus");
+                    height: social-sprite-height("icon-circle-googleplus");
+                }
+
+                &.pinterest {
+                    @include social-sprite("icon-circle-pinterest");
+                    width: social-sprite-width("icon-circle-pinterest");
+                    height: social-sprite-height("icon-circle-pinterest");
+                }
+
+                &.tumblr {
+                    @include social-sprite("icon-circle-tumblr");
+                    width: social-sprite-width("icon-circle-tumblr");
+                    height: social-sprite-height("icon-circle-tumblr");
+                }
+            }
+
+            .volume {
+                top: 7px;
+                cursor:pointer;
+                display: inline-block;
+                @include dashboard-sprite("volume");
+                width: dashboard-sprite-width("volume");
+                height: dashboard-sprite-height("volume");
+            }
+
+            input {
+                margin: 0;
+
+                &.message-input {
+                    height: 100px;
+                }
+            }
+
+            .info {
+                &:after {
+                    cursor: pointer;
+                    display: inline-block;
+                    content: "";
+                    margin-left: 6px;
+                    @include common-sprite("icon-settings-info");
+                    width: common-sprite-width("icon-settings-info");
+                    height: common-sprite-height("icon-settings-info");
+                }
+            }
+        }
+
+        .info:after {
+            cursor: pointer;
+            display: inline-block;
+            content: "";
+            margin-left: 6px;
+            @include common-sprite("icon-settings-info");
+            width: common-sprite-width("icon-settings-info");
+            height: common-sprite-height("icon-settings-info");
+        }
+    }
+
+    .layout-section__content {
+        .album-content,
+        .presentation-content,
+        .notifications-content,
+        .client-send-content,
+        .share-album-content {
+            border: 1px solid map-get($colors, dark-800);
+            @include box-shadow(1px 1px 2px rgba(map-get($colors, dark-900), 0.25));
+            background: map-get($colors, dark-600);
+            color: map-get($colors, light-600);
+
+            .row {
+                button,
+                .button {
+                    &.dropdown-button {
+                        border-radius: 0;
+                        border: 1px solid map-get($colors, dark-600);
+                    }
+                }
+
+                .social {
+                    &.twitter {
+                        @include social-sprite("icon-circle-twitter-white");
+                        width: social-sprite-width("icon-circle-twitter-white");
+                        height: social-sprite-height("icon-circle-twitter-white");
+                    }
+
+                    &.facebook {
+                        @include social-sprite("icon-circle-facebook-white");
+                        width: social-sprite-width("icon-circle-facebook-white");
+                        height: social-sprite-height("icon-circle-facebook-white");
+                    }
+
+                    &.googleplus {
+                        @include social-sprite("icon-circle-googleplus-white");
+                        width: social-sprite-width("icon-circle-googleplus-white");
+                        height: social-sprite-height("icon-circle-googleplus-white");
+                    }
+
+                    &.pinterest {
+                        @include social-sprite("icon-circle-pinterest-white");
+                        width: social-sprite-width("icon-circle-pinterest-white");
+                        height: social-sprite-height("icon-circle-pinterest-white");
+                    }
+
+                    &.tumblr {
+                        @include social-sprite("icon-circle-tumblr-white");
+                        width: social-sprite-width("icon-circle-tumblr-white");
+                        height: social-sprite-height("icon-circle-tumblr-white");
+                    }
+                }
+
+                .volume {
+                    @include designer-sprite("volume-white");
+                    width: designer-sprite-width("volume-white");
+                    height: designer-sprite-height("volume-white");
+                }
+            }
+        }
+    }
+}
+
+.project-prefs-tab-content {
+    display: inline-block;
+    width: 100%;
+    padding: 0 15px;
+    background: map-get($colors, light-100);
+    overflow: auto;
+
+    &.album-content {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+    }
+
+    h1 {
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    hr {
+        margin-top: 3px;
+    }
+
+    p {
+        padding: 0;
+        font-size: 14px;
+    }
+
+    span {
+        padding: 0;
+
+        &.upload-text {
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: inline-block;
+        }
+    }
+
+    div {
+        margin: 0;
+        padding: 0;
+    }
+
+    .color-select {
+        width: 30px;
+        height: 30px;
+        background: map-get($colors, dark-900);
+        display: inline-block;
+        @include border-radius(3px);
+        @include box-shadow(0 0 1px rgba(map-get($colors, dark-900),1));
+        cursor: pointer;
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            @include linear-gradient(rgba(map-get($colors, light-50),.4), rgba(map-get($colors, light-50),0));
+        }
+    }
+
+    .form-element {
+        .drop-box {
+            border: 1px solid map-get($colors, light-600);
+
+            &:hover {
+                border: 1px solid map-get($colors, primary-400);
+            }
+        }
+    }
+
+    .texture-select {
+        .texture-bar {
+            width: 150px;
+            height: 50px;
+            border: 1px solid map-get($colors, light-600);
+            @include border-radius(5px);
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+            position: relative;
+
+            .texture-img {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+            }
+
+            .chosen {
+                display: inline-block;
+                @include dashboard-sprite("icon-checkmark-circled-blue");
+                width: dashboard-sprite-width("icon-checkmark-circled-blue");
+                height: dashboard-sprite-height("icon-checkmark-circled-blue");
+                top: 17px;
+                position: absolute;
+                left: 75px;
+            }
+
+            .delete {
+                display: inline-block;
+                float: right;
+                @include stamping-sprite("stamping-trash");
+                width: stamping-sprite-width("stamping-trash");
+                height: stamping-sprite-height("stamping-trash");
+                top: 17px;
+                position: absolute;
+                right: 15px;
+            }
+        }
+    }
+
+    .color-selector {
+        margin-right: 15px;
+    }
+
+    .stroke-width {
+        width: 80px;
+    }
+
+    .input-value {
+        height: 25px;
+        position: relative;
+        display: inline-block;
+        width: 120px;
+
+        &.bottom-one {
+            vertical-align: top;
+            margin-top: 2px;
+        }
+
+        .arrows {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 1px solid map-get($colors, light-600);
+            position: relative;
+            @include border-left-radius(3px);
+            overflow: hidden;
+
+            .up,
+            .down {
+                height: 12px;
+                width: 100%;
+                display: block;
+                width: 25px;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .up {
+                &:after {
+                    display: inline-block;
+                    content: "";
+                    top: 50%;
+                    @include transform(translateY(-50%));
+                    @include dashboard-sprite("icon-triangle-arrow-up-grey");
+                    width: dashboard-sprite-width("icon-triangle-arrow-up-grey");
+                    height: dashboard-sprite-height("icon-triangle-arrow-up-grey");
+                }
+            }
+
+            .down {
+                border-top: 1px solid map-get($colors, light-600);
+
+                &:after {
+                    display: inline-block;
+                    content: "";
+                    top: 50%;
+                    @include transform(translateY(-50%));
+                    @include dashboard-sprite("icon-triangle-arrow-down-grey");
+                    width: dashboard-sprite-width("icon-triangle-arrow-down-grey");
+                    height: dashboard-sprite-height("icon-triangle-arrow-down-grey");
+                }
+            }
+        }
+
+        .input-numbers,
+        .input-text {
+            border-radius: 0px;
+            @include border-radius(0px);
+            width: 60px;
+            font-size: 14px;
+            height: 25px;
+            margin: 0;
+            position: absolute;
+            left: 24px;
+            border: 1px solid map-get($colors, light-600);
+
+            &:focus,
+            &:hover,
+            &:active {
+                border: 1px solid map-get($colors, light-600);
+                @include box-shadow(none);
+            }
+        }
+
+        .dropdown-button {
+            height: 25px;
+            border-radius: 0;
+            width: 25px;
+            box-shadow: none;
+            left: 53px;
+            padding: 7px;
+            @include border-right-radius(3px);
+
+            &:after {
+                display: inline-block;
+                content: "";
+                @include dashboard-sprite("icon-triangle-arrow-down-grey");
+                width: dashboard-sprite-width("icon-triangle-arrow-down-grey");
+                height: dashboard-sprite-height("icon-triangle-arrow-down-grey");
+            }
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            @include appearance(none);
+        }
+    }
+
+    .width-text {
+        position: absolute;
+        top: 7px;
+        font-size: 14px;
+    }
+
+    .border-preview {
+        display: inline-block;
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+        border: 1px solid map-get($colors, light-600);
+        background: linear-gradient(map-get($colors, primary-200), map-get($colors, primary-400));
+        @include border-radius(3px);
+        cursor: pointer;
+
+        &:before {
+            content: "";
+            position: absolute;
+            margin: 7px;
+            display: block;
+            width: 14px;
+            height: 14px;
+            background: map-get($colors, light-100);
+            border: 1px solid map-get($colors, light-600);
+            @include border-radius(3px);
+        }
+    }
+}
+
+.project-prefs-tab-content-inside {
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+    background: map-get($colors, light-100);
+    overflow: auto;
+
+    .prefs-tabs-inside {
+        .nav-tabs.tab-size-large,
+        .nav-tabs.tab-size-x-large {
+            background: none;
+            border-top: none;
+            padding-top: 0;
+
+            li {
+                a {
+                    border: 1px solid map-get($colors, light-600);
+                    border-bottom: none;
+
+                    &.active {
+                        z-index: 1;
+                        border-bottom: 1px solid map-get($colors, light-100);
+                    }
+                }
+            }
+        }
+    }
+}

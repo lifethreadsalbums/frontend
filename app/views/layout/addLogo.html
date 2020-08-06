@@ -1,0 +1,19 @@
+<div class="add-logo-container">
+    <ul class="logo-list">
+        <li class="item-logo">
+            <a class="add-logo-button">
+                <span class="add-logo-icon"></span>
+                <p>Add New Logo</p>
+            </a>
+        </li>
+        <li class="item-logo" ng-repeat="logo in logos">
+            <div class="logo-container" ng-class="{active: selectedLogo == logo}" ng-click="selectLogo(logo)">
+                <p class="logo-property" ng-if="logo.default">Default</p>
+                <span class="logo-helper"></span>
+                <img class="logo" ng-src="{{logo.url}}" alt="{{logo.filename}}" />
+                <div class="icon-green-tick"></div>
+                <a class="icon-settings"></a>
+            </div>
+        </li>
+    </ul>
+</div>

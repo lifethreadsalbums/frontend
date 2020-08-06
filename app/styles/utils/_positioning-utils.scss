@@ -1,0 +1,170 @@
+//------------------------------------------------------------------
+//                     POSITIONING UTILS
+//------------------------------------------------------------------
+.hidden {
+    display: none;
+}
+
+.hidden-force {
+    display: none !important;
+}
+
+@media (pointer: coarse) {
+    .hidden-touch {
+        display: none !important;
+    }
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.inline {
+    display: inline-block;
+    vertical-align: top;
+
+    &.form-element {
+        margin-right: 15px;
+    }
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.flex-vertical-center {
+    align-items: center;
+}
+
+.flex-horizontal-center {
+    justify-content: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.space-left-xs {
+    margin-left: 5px;
+}
+
+.space-left-s {
+    margin-left: 10px;
+}
+
+.space-left {
+    margin-left: 20px;
+}
+
+.space-right-xs {
+    margin-right: 5px;
+}
+
+.space-right-s {
+    margin-right: 10px;
+}
+
+.space-right {
+    margin-right: 20px;
+}
+
+.clear-margin {
+    margin: 0 !important;
+}
+
+.clear-padding {
+    padding: 0 !important;
+}
+
+.clear-margin-top {
+    margin-top: 0 !important;
+}
+
+.clear-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.spacer-bullet {
+    margin: 0 5px;
+}
+
+.spacer-bullet--small {
+    margin: 0 3px;
+}
+
+.spacer-bullet--large {
+    margin: 0 12px;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+// Forced width 100px with no horizontal padding. Used mostly for buttons. May cause problems on buttons with icons.
+.width-100 {
+    width: 100px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    &:after {
+        left: 12px;
+    }
+}
+
+// Hides header and pushes content container to the top of browser window
+.content-full-page {
+    .main-nav {
+        display: none;
+    }
+
+    .pageWrap {
+        top: 0;
+    }
+}
+
+.flexslider {
+    background: transparent;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.font-size-zero {
+    font-size: 0;
+
+    .radius-left {
+        @include radius(4px 0 0 4px);
+    }
+
+    .radius-right {
+        @include radius(0 4px 4px 0);
+    }
+
+    .move-left {
+        position: relative;
+        left: -1px;
+    }
+}
+
+.z-index-1 {
+    z-index: 1;
+}

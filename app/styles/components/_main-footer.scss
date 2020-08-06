@@ -1,0 +1,129 @@
+//------------------------------------------------------------------
+//                     MAIN FOOTER
+//------------------------------------------------------------------
+.main-footer {
+    @include transition(bottom .3s ease-in-out);
+    @include museo500();
+    @include clearfix();
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 117px;
+    padding: 15px 0 0;
+    background: map-get($colors, dark-700);
+    color: map-get($colors, dark-200);
+    font-size: 14px;
+    z-index: 20;
+
+    .footer-handle {
+        @include footer-sprite("footer-handle-down-dark");
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: -19px;
+        width: footer-sprite-width("footer-handle-down-dark");
+        height: footer-sprite-height("footer-handle-down-dark");
+        cursor: pointer;
+        z-index: 21;
+
+    }
+
+    &.collapsed {
+        bottom: -117px;
+
+        .footer-handle {
+            @include footer-sprite("footer-handle-up-flat");
+            top: -12px;
+            width: footer-sprite-width("footer-handle-up-flat");
+            height: footer-sprite-height("footer-handle-up-flat");
+        }
+    }
+
+    a {
+        color: map-get($colors, dark-200);
+
+        &:hover {
+            color: lighten(map-get($colors, dark-200), 40%);
+        }
+    }
+
+    ul {
+        display: block;
+        float: left;
+        margin: 0 0 0 55px;
+        padding: 0;
+        list-style-type: none;
+
+        > li {
+            margin-bottom: 0;
+            font-size: 13px;
+            color: map-get($colors, dark-200);
+
+            &:first-child {
+                margin-bottom: 2px;
+                font-size: 16px;
+            }
+        }
+    }
+
+    > span {
+        float: right;
+        margin: 4px 20px 0 0;
+        font-size: 14px;
+    }
+
+    .logo {
+        display: block;
+        float: left;
+        margin: 4px 15px 0 20px;
+    }
+
+    .powered-by-pace {
+        @include footer-sprite("footer-powered-by-pace");
+        display: block;
+        float: right;
+        width: footer-sprite-width("footer-powered-by-pace");
+        height: footer-sprite-height("footer-powered-by-pace");
+        margin: 15px 20px 0 0;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .main-footer.hidden {
+        display: none;
+    }
+}
+
+.main-footer-small {
+    @include transform(rotate(-90deg));
+    display: none;
+    position: fixed;
+    bottom: 55px;
+    left: -45px;
+    font-size: 14px;
+    color: map-get($colors, light-800);
+
+    a {
+        color: map-get($colors, light-800);
+
+        &:hover {
+            color: darken(map-get($colors, light-800), 40%);
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .main-footer-small {
+        @include transform(rotate(0deg));
+        bottom: 5px;
+        left: 5px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .main-footer-small {
+        display: none;
+    }
+}

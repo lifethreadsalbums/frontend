@@ -1,0 +1,108 @@
+<div id="background-stroke-container">
+    <div class="background-stroke-buttons">
+        <div class="wrapper">
+            <a class="background-button" ng-click="mode = 'backgroundColor'"
+                ng-class="{active: mode == 'backgroundColor'}"
+                ng-style="{background: style.backgroundColor ? style.backgroundColor : '#000000'}">
+
+                <div class="triangle" ng-class="{active: (mode == 'backgroundColor')}"></div>
+                <div class="gradient-overlay"></div>
+            </a>
+            <a class="stroke-button" ng-click="mode = 'strokeColor';refresh()"
+                ng-class="{active: (mode == 'strokeColor')}"
+                ng-style="{background: style.strokeColor ? style.strokeColor : '#000000'}">
+
+                <div class="triangle" ng-class="{active: mode == 'strokeColor'}"></div>
+                <div class="gradient-overlay"></div>
+            </a>
+            <div class="small-button-container" init-pace-tooltip>
+                <a class="color-picker-button" ng-click="showPicker()" data-pace-tooltip="Colour Wheel" data-pace-tooltip-position="left">
+                    <span class="icon-color-picker" ></span>
+                </a>
+                <a class="eyedropper-button" ng-click="showEyedropper();"
+                    ng-class="{active: eyedropperActive}" data-pace-tooltip="Eyedropper (E)" data-pace-tooltip-position="left">
+                    <span class="icon-eyedropper"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main-container" tabindex="0" ng-keydown="onKeyDown($event)">
+        <div class="wrapper" ng-show="mode == 'backgroundColor'">
+            <dropdown-button color="dark" direction="down" options="backgroundOptions"
+                label-field="name" value-field="value"
+                ng-model="selectedBackgroundOption"></dropdown-button>
+
+            <div ng-show="selectedBackgroundOption == 'colors'">
+                <color-slider color="style.backgroundColor" on-change="onSliderChange()"></color-slider>
+
+                <div class="wrapper">
+                    <hr/>
+                    <span class="label">Swatches</span>
+                    <ul class="recently-used-colors clearfix"
+                        swatch-apply-to
+                        num-spreads="layout.spreads.length"
+                        page-type="layout.pageType"
+                        apply-to-options="applyToOptions"
+                        apply-to-option="applyToOption"
+                        apply-to-range="applyToRange"
+                        on-apply-to-change="onApplyToChange(value)"
+                        init-pace-tooltip>
+                        <li class="recently-used-color" ng-repeat="color in swatches"
+                            ng-style="{'background-color': (color!=null ? color: '#ffffff')}"
+                            ng-click="onSwatchClick(color)"
+                            data-pace-tooltip="{{colorTooltip(color)}}" data-pace-tooltip-position="top"
+                            ng-class="{none: color === null, active: color===style[mode]}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="background-image-chooser" ng-show="selectedBackgroundOption == 'pictures'">
+                <ul class="background-pictures">
+                    <li class="background-picture">
+                        <a class="add-picture-button">
+                            <span class="add-picture-icon"></span>
+                            <p>Create New</p>
+                        </a>
+                    </li>
+                    <li class="background-picture" ng-repeat="image in backgroundImages" style="background-image: url({{image.url}})">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="" ng-show="mode == 'strokeColor'">
+            <div id="weight-slider" class="color-slider wrapper" ng-if="strokeSliderEnabled">
+                <span class="color-slider-label">Weight:</span>
+                <rzslider class="red" rz-slider-model="style.strokeWidth"
+                    rz-slider-floor="0" rz-slider-ceil="10" rz-slider-step="0.25" rz-slider-precision="2"
+                    on-edit-end="onChange()">
+                </rzslider>
+                <input type="number" min="0" max="10" step="0.25" class="color-slider-result"
+                    ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"
+                    ng-change="onStrokeWeightChange()" ng-model="style.strokeWidth">
+            </div>
+            <color-slider color="style.strokeColor" on-change="onSliderChange()"></color-slider>
+
+            <div class="wrapper">
+                <hr/>
+                <span class="label">Swatches</span>
+                <ul class="recently-used-colors clearfix"
+                    swatch-apply-to
+                    num-spreads="layout.spreads.length"
+                    page-type="layout.pageType"
+                    apply-to-options="applyToOptions"
+                    apply-to-option="applyToOption"
+                    apply-to-range="applyToRange"
+                    on-apply-to-change="onApplyToChange()"
+                    init-pace-tooltip>
+                    <li class="recently-used-color" ng-repeat="color in swatches"
+                        ng-style="{'background-color': (color!=null ? color: '#ffffff')}"
+                        ng-click="onSwatchClick(color)"
+                        data-pace-tooltip="{{colorTooltip(color)}}" data-pace-tooltip-position="top"
+                        ng-class="{none: color === null, active: color===style[mode]}">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

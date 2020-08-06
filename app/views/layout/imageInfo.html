@@ -1,0 +1,52 @@
+<section class="image-info-pop-up" style="width:{{popupWidth}}px; height:{{popupHeight}}px;" tabindex="0" ng-keydown="onKeyPress($event)">
+    <div class="ngdialog-close" ng-click="close()"></div>
+    <article>
+        <aside>
+            <h1>File Info</h1>
+      
+            <div class="hero-image" ng-if="editable"
+                  ng-click="image.rating = image.rating>0 ? 0 : 1">
+                <span class="favorite-star" ng-class="{active: image.rating>0}"></span>
+                <span>Set as Hero photo</span>
+            </div>  
+                  
+            <p>Image Name:</p>
+            <p class="text-break-all">{{image.filename}}</p>
+          
+            <p>ICC Profile:</p>
+            <p>{{image.iccProfile}}</p>
+          
+            <p>Color Space:</p>
+            <p>{{image.colorSpace}}</p>
+          
+            <p>Size:</p>
+            <p>{{sizeText}}</p>
+          
+            <p>Dimensions:</p>
+            <p>{{image.width}} x {{image.height}}</p>
+          
+            <p>Actual DPI:</p>
+            <p>{{image.dpiX}}</p>
+          
+            <p ng-show="effectivePpi">Effective DPI:</p>
+            <p ng-show="effectivePpi">{{effectivePpi}}</p>
+          
+            <p ng-show="showPagesInFileInfo && pages.length>0">{{ (isSpreadBased ? 'Spread' : 'Pages') + (pages.length>1 ? 's:' : ':') }}</p>
+            <p ng-show="showPagesInFileInfo && pages.length>0">
+              <span ng-repeat="page in pages" class="page-icon">{{ (isSpreadBased ? page.spread.spreadNumber : page.page) }}{{$last ? '' : ','}}</span>
+            </p>
+                   
+            <nav class="image-info" ng-if="editable">
+              <button class="replace" ng-click="replace()">Replace</button>
+              <button class="delete" ng-click="delete()">Delete</button> 
+            </nav>
+
+        </aside>
+
+        <div class="image-include" >        
+            <xfade-img url="{{imageUrl}}" style="width:{{imageWidth}}px; height:{{imageHeight}}px;"></xfade-img>
+            <span class="arrow-left ng-animate-disabled" ng-show="items.length>0 && itemIndex>0" ng-click="showItem(itemIndex - 1)"></span>
+            <span class="arrow-right ng-animate-disabled" ng-show="items.length>0 && itemIndex<items.length - 1" ng-click="showItem(itemIndex + 1)"></span>
+        </div>
+    </article>
+</section>

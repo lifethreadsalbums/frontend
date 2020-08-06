@@ -1,0 +1,70 @@
+<div class="font-styles" tabindex="0" ng-keydown="onKeyDown($event)">
+
+    <hr/>
+    <div class="size">
+    	<p>Font size</p>
+        <div class="font-size-widget">
+            <font-size-input min="10" max="{{maxFontSize}}"
+                ng-model="style.fontSize"
+                ng-change="applyStyle('fontSize', style.fontSize)">
+            </font-size-input>
+        </div>
+    </div>
+    <div class="style">
+    	<p>Font style</p>
+    	<dropdown-button color="dark" class="dropdown" direction="down" fixed-width="75px" align-to="right"
+            options="selectedFont.styles" label-field="displayName"
+            label="--"
+            ng-model="selectedFontStyle" on-change="applyStyle('fontFamily', selectedFontStyle.fontFamily)">
+        </dropdown-button>
+    </div>
+    <p>Font color</p>
+    <ul class="recently-used-colors" init-pace-tooltip>
+    	<li>
+    		<a class="color-picker-button" ng-click="showPicker()" data-pace-tooltip="Colour Wheel">
+                <span class="icon-color-picker"></span>
+            </a>
+        </li>
+        <li style="display:inline-block; vertical-align:top; margin-right:4px" data-pace-tooltip="Eyedropper (E)">
+            <a class="eyedropper-button" ng-click="showEyedropper();"
+                ng-class="{active: eyedropperActive}">
+                <span class="icon-eyedropper"></span>
+            </a>
+        </li>
+        <li class="recently-used-color" ng-repeat="color in ['#000000', '#ffffff']"
+            ng-style="{background: color}" ng-class="{active: color==selectedColor}" ng-click="applyStyle('fill', color)">
+        </li>
+        <li class="recently-used-color" ng-repeat="color in swatches"
+            ng-style="{background: color}" ng-class="{active: color==selectedColor}" ng-click="applyStyle('fill', color)">
+        </li>
+    </ul>
+
+    <hr/>
+
+    <span class="search-icon"></span>
+    <input type="search" class="search" ng-model="searchFonts" placeholder="Search Fonts">
+    <p class="uppercase">Recently used</p>
+    <hr/>
+    <ul class="font-list is-animate" init-pace-tooltip>
+    	<li ng-repeat="font in recentlyUsedFonts | filter:searchFonts"
+            ng-click="selectFont(font, true)"
+            ng-style="{'font-family':font.styles[0].fontFamily, 'font-size': (font.styles[0].previewSize || 16) + 'px'}"
+            data-pace-tooltip={{getFontTitle(font)}}>
+    		{{font.displayName}}
+    	</li>
+    </ul>
+
+    <p class="uppercase">Fonts</p>
+    <hr/>
+    <ul class="font-list" init-pace-tooltip>
+    	<li ng-repeat="font in fonts | filter:searchFonts"
+            ng-class="{active: font==selectedFont}"
+            ng-click="selectFont(font, true)"
+            ng-style="{'font-family':(font.previewFontFamily || font.styles[0].fontFamily), 'font-size': (font.styles[0].previewSize || 16) + 'px'}"
+            data-pace-tooltip={{getFontTitle(font)}}>
+    		{{font.displayName}}
+    	</li>
+    </ul>
+
+
+</div>

@@ -1,0 +1,25 @@
+<div class="project-slider">
+    <div class="project-slider__wrapper">
+        <ul class="project-slider__slides" ng-style="slide" style="display:inline-block">
+            <li ng-repeat="project in projects" class="project-slider__slide ng-animate-disabled" ng-class="{'project-slider__slide--active': project.childToggle, 'project-slider__slide--has-child': project.children.length>0 && project.productType !== 'SinglePrintProduct'}" ng-dblclick="childToggleCt(project)" id="parent{{$index}}" >
+                <project-overview project="project" index="1"
+                    index-total="{{project.children.length + 1}}"
+                    is-selected="project.selected"
+                    ng-mousedown="onItemMouseDown(project, $event)">
+                </project-overview>
+                <div class="project-slider__slide-child" ng-if="project.productType !== 'SinglePrintProduct'" ng-show="project.childToggle">
+                    <project-overview ng-repeat="child in project.children | orderBy: '-linkLayout'"
+                        index="{{$index + 2}}" index-total="{{project.children.length + 1}}"
+                        project="child" is-selected="project.selected"
+                        ng-mousedown="onItemMouseDown(project, $event)">
+                    </project-overview>
+                </div>
+            </li>
+        </ul>
+    </div>
+     <ul class="flex-direction-nav">
+        <li><a ng-click="slideTo(-1)" class="flex-prev" href=""></a></li>
+        <li><a ng-click="slideTo(1)" class="flex-next" href=""></a></li>
+    </ul>
+</div>
+

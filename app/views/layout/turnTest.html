@@ -1,0 +1,43 @@
+<div style="width:100%; height:100%">
+	<span class="inline">
+		<input type="range" ng-model="scale" min="0.1" max="2" step="0.05"/>
+		<span>Scale: {{scale}}</span>
+		<button ng-click="undo()">Undo</button>
+		<button ng-click="redo()">Redo</button>
+		<button ng-click="centerContent()">Center Content</button>
+		<button ng-click="selectionTool()">Selection Tool</button>
+		<button ng-click="directSelectionTool()">Direct Selection Tool</button>
+	</span>
+
+	<div class="canvas-container" style="width:100%; height:90%;overflow:auto" layout-key-handler layout-controller="layoutController">
+
+
+		<div book-preview layout-size="layoutSize">
+
+			<canvas layout-renderer layout="coverLayout" layout-size="layoutSize" scale="scale" page="right" class="hard"
+				page-class="Page" padding="0" product="product" product-prototype="productPrototype"
+				layout-controller="layoutController" editable="false"></canvas>
+				
+
+			
+			<canvas ng-repeat-start="page in pages" layout-renderer layout="page" layout-size="layoutSize" scale="scale" page="left"
+				ng-if="!$first"
+				page-class="Page" padding="0"
+				layout-controller="layoutController" editable="false"></canvas>
+
+			<canvas ng-repeat-end layout-renderer layout="page" layout-size="layoutSize" scale="scale" page="right"
+				page-class="Page" padding="0"
+				ng-if="!$last"
+				layout-controller="layoutController" editable="false"></canvas>
+
+			
+
+			<canvas layout-renderer layout="coverLayout" layout-size="layoutSize" scale="scale" page="left" class="hard"
+				page-class="Page" padding="0" product="product" product-prototype="productPrototype"
+				layout-controller="layoutController" editable="false"></canvas>
+			
+		</div>
+
+		
+	</div>
+</div>

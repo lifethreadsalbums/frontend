@@ -1,0 +1,49 @@
+<form class="ng-animate-disabled" name="productForm" form-submit="save()" submit-on="toolbar-save" novalidate>
+    <div class="scrollable-container" ng-show="!!currentProduct">
+        <header class="orders__project-header">
+            <div class="buttons">
+                <price-button price="currentProduct.total" color="light"
+                    direction="down" frp-nav-view="views/orders/frp-cost.html">
+                </price-button>
+
+                <button type="submit" ng-click="purchase($event)" class="button color cart-blue-large"
+                    ng-show="!currentUser.admin"
+                    ng-disabled="saving || currentUser.admin || productForm.$invalid || (currentProduct.orderState && currentProduct.orderState!=='Pending')">
+                </button>
+            </div>
+
+            <div id="prod-tab-nav" class="inline"></div>
+
+            <button type="button" ng-show="!currentProduct.isReprint && !readOnly && productPrototype.allowDuplicates"
+                ng-disabled="productForm.mainProduct.$invalid"
+                class="button plus is-black-active no-round" ng-click="addChild()">Add Parent Album</button>
+        </header>
+        <div class="orders__project-details">
+            <tabs data-gap-bottom="false" data-color="medium-grey"
+                data-round="top" data-size="x-large" data-no-left-border="true" data-gap-side="1px"
+                nav-container="prod-tab-nav" ng-model="selectedTab"
+                on-tab-close="handleTabClose(index)" on-tab-subaction="toggleLinkLayout(index)">
+
+                <tab title="{{currentProduct.options._name}}" close="true" color="medium-grey">
+                    <product-form name="mainProduct" product="currentProduct" read-only="readOnly"></product-form>
+                </tab>
+
+                <tab title="{{child.options._name}}"
+                    ng-repeat="child in children track by $index"
+                    close="true" color="medium-grey"
+                    tab-subaction-type="{{child.linkLayout && 'linked' || 'unlinked'}}">
+                    <product-form name="child" product="child" read-only="readOnly"></product-form>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+
+    <footer class="orders__project-footer">
+        <button type="submit" class="button large color pull-right" ng-hide="!currentProduct || currentProduct.id"
+            ng-disabled="saving || productForm.$invalid || !currentProduct.prototypeId">Finish</button>
+        <button ng-click="cancel($event)" class="button large pull-right" ng-hide="!currentProduct || currentProduct.id" ng-disabled="saving">Cancel</button>
+        <button ng-click="reorder($event)" class="button large color pull-right" ng-hide="!currentProduct || currentProduct.state=='New'">Reorder</button>
+    </footer>
+
+    <frp></frp>
+</form>

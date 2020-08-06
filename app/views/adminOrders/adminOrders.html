@@ -1,0 +1,133 @@
+<section id="orders" class="section section--orders" ng-keyup="onKeyUp($event)">
+
+    <!-- Sidebar -->
+    <aside class="sidebar-menu__container">
+        <div>
+            <header>
+                <style>
+                    ._720kb-datepicker-calendar {
+                        min-width: 190px;
+                    }
+                </style>
+                <span class="sidebar-menu__search" pace-search>
+                   <input  class="sidebar-menu__search-input" type="text" ng-model="searchQuery" ng-model-options="{ debounce: 500 }"
+                        placeholder="Search Projects" ng-change="search()" ng-keyup="paceSearchInputChanged();">
+                    <span class="sidebar-search__clear">x</span>
+                      <input type="checkbox" id="checkByDate" ng-model="model.isSearchByDate">
+                <label for="checkByDate">Search By Date</label>
+                </span>
+                <span ng-show="model.isSearchByDate" class="sidebar-menu__date">
+                        <datepicker date-format="yyyy-MM-dd" date-refocus="true" class="angular-datepicker-input">
+                            <input placeholder="start date" type="text" name="fromDate" ng-model="model.fromDate"
+                                   class="admin_date-input" required>
+                        </datepicker>
+                </span>
+                <span ng-show="model.isSearchByDate" class="sidebar-menu__date">
+                        <datepicker date-format="yyyy-MM-dd" date-refocus="true">
+                            <input placeholder="to date" type="text" name="toDate" ng-model="model.toDate"
+                                   class="admin_date-input" required>
+                        </datepicker>
+                </span>
+                <div ng-show="model.isSearchByDate" class="searchButton"></div>
+                <span ng-show="model.isSearchByDate" class="searchButton">
+                <button class="button" ng-click="searchByDate()">Search</button>
+                <button class="button" ng-click="clearDates()">Clear</button>
+                </span>
+            </header>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('adminOrders.create')}" style="border-top: 1px solid #d6d6d6;">
+                    <a class="sidebar-menu__link" ng-click="create()" data-title="Create New Project">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-new-project"></span>
+                        <div class="sidebar-menu__name">Create New Project</div>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu__item"
+                    ng-class="{active:$state.includes('adminOrders.projects') || ($state.includes('adminOrders.search') && model.currentSection=='adminOrders.project')}"
+                    drop-type="text/x-pace-products" drop-action="handleDrop(data, 'New')">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.projects({q:null})" data-title="Projects">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-projects"></span>
+                        <span class="sidebar-menu__badge" ng-show="unassignedCount.count>0">{{unassignedCount.count}}</span>
+                        <div class="sidebar-menu__name">Projects</div>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu__item"
+                    ng-class="{active:$state.includes('adminOrders.orders') || ($state.includes('adminOrders.search') && model.currentSection=='adminOrders.orders')}"
+                    drop-type="text/x-pace-products" drop-action="handleDrop(data, 'Preflight')">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.orders({q:null})" data-title="Orders">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-orders"></span>
+                        <span class="sidebar-menu__badge" ng-show="readyToPrintProductCount.count>0">{{readyToPrintProductCount.count}}</span>
+                        <div class="sidebar-menu__name">Orders</div>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu__item"
+                    ng-class="{active:$state.includes('adminOrders.currentBatch') || ($state.includes('adminOrders.search') && model.currentSection=='adminOrders.currentBatch')}"
+                    drop-type="text/x-pace-products" drop-action="handleDrop(data, 'Printing')">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.currentBatch({q:null})" data-title="Production">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-production"></div>
+                        <span class="sidebar-menu__badge" ng-show="printedCount.count>0">{{printedCount.count}}</span>
+                        <div class="sidebar-menu__name">Production</div>
+                    </a>
+                </li>
+
+               <!--  <li class="sidebar-menu__item" ng-class="{active:$state.includes('adminOrders.batches')}">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.batches" data-title="Print History">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--completed"></div>
+                        <span class="sidebar-menu__badge" ng-show="batchCount.count>0">{{batchCount.count}}</span></div>
+                        <div class="sidebar-menu__name">Print History</div>
+                    </a>
+                </li> -->
+                <li class="sidebar-menu__item"
+                    ng-class="{active:$state.includes('adminOrders.shipped') || ($state.includes('adminOrders.search') && model.currentSection=='adminOrders.shipped')}"
+                    drop-type="text/x-pace-products" drop-action="handleDrop(data, 'Shipped')">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.shipped({q:null})" data-title="Shipping">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--shipped"></div>
+                        <span class="sidebar-menu__badge" ng-show="shippedCount.count>0">{{shippedCount.count}}</span>
+                        <div class="sidebar-menu__name">Shipping</div>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item"
+                    ng-class="{active:$state.includes('adminOrders.completed') || ($state.includes('adminOrders.search') && model.currentSection=='adminOrders.completed')}"
+                    drop-type="text/x-pace-products" drop-action="handleDrop(data, 'Completed')">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.completed({q:null})" data-title="Completed">
+                        <div class="sidebar-menu__icon sidebar-menu__icon--completed"></div>
+                        <span class="sidebar-menu__badge" ng-show="completedCount.count>0">{{completedCount.count}}</span>
+                        <div class="sidebar-menu__name">Completed</div>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" ng-class="{active:$state.includes('adminOrders.history')}">
+                    <a class="sidebar-menu__link" ui-sref="adminOrders.history({q:$state.params.q})" data-title="Invoice History">
+                        <span class="sidebar-menu__icon sidebar-menu__icon--svg sidebar-menu__icon--svg-invoice-history"></span>
+                        <span class="sidebar-menu__badge" ng-show="orderCount.count">{{orderCount.count}}</span>
+                        <div class="sidebar-menu__name">Invoice History</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <footer class="sidebar-menu__footer" aside-footer>
+            <span collapse-sidebar class="sidebar-menu__collapse" data-target-position="#orders aside" data-target-folded="#orders">
+                <img class="sidebar-menu__collapse-icon" src="/images/sidebar/sidebar-triangle-left-blue.svg" alt="<">
+            </span>
+        </footer>
+    </aside>
+
+    <!-- Content -->
+    <div id="content" class="section__content section__content--sidebar section__content--transition section__content--top-padding section__content--orders">
+        <aside ng-hide="leftPanelHidden" class="section__left-panel section__left-panel--orders">
+            <div ui-view="left"></div>
+        </aside>
+
+        <article ui-view="right" ng-class="{'section__main-content--left-panel': !leftPanelHidden}" class="section__main-content section__main-content--orders"></article>
+
+        <div ng-show="productDetailsSpinner" class="spinner-overlay spinner-overlay--main-content-left-panel">
+            <spinner></spinner>
+        </div>
+    </div>
+
+    <div ng-show="productSpinner" class="spinner-overlay">
+        <spinner></spinner>
+    </div>
+</section>
+

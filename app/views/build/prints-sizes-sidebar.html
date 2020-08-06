@@ -1,0 +1,57 @@
+<div class="sidebar-creator__content">
+	<header class="header-back dark">
+		<button ng-click="back()" class="button back big dark">Back</button>
+		<div>
+			<h1>{{model.label}}</h1>
+			<small>{{model.description}}</small>
+		</div>
+	</header>
+	<div ng-class="{'read-only':!editable}">
+
+		<dropdown-button class="prints-sizes__dropdown"
+                         color="dark"
+                         options="sizeTypeOptions"
+                         value-field="id"
+                         label-field="label"
+                         ng-model="model.sizeTypeOption"
+                         on-change="onSizeTypeChange()">
+        </dropdown-button>
+
+        <ul class="prints-sizes__list"
+            ng-hide="model.sizeTypeOption=='myPackages'">
+            <li class="prints-sizes__item"
+                ng-repeat="size in sizeOptions | filter: { group: model.sizeTypeOption } | optionVisibility:product"
+                ng-click="sizeChanged(size.id)"
+                draggable draggable-data="size" draggable-type="container" 
+                draggable-preview="#prints-sizes__item-box-{{$index}}"
+                ng-style="{width: $last && $index==0 ? '100%' : '50%'}">
+
+                <div id="prints-sizes__item-box-{{$index}}" 
+                     class="prints-sizes__item-box prints-sizes__item-box--{{size.shape}}">
+
+                    <div ng-if="size.gridX>0" class="prints-sizes__grid"
+                        ng-style="{
+                            'grid-template-columns': 'repeat(' + size.gridX + ',' + (100/size.gridX) + '%)',
+                            'grid-template-rows': 'repeat(' + size.gridY + ',' + (100/size.gridY) + '%)'
+                        }">
+                        <div class="prints-sizes__grid-cell" ng-repeat="n in size.gridCells"></div>
+                    </div>
+
+                    <div class="prints-sizes__item-size">{{size.label}}</div>
+                </div>
+                <div class="prints-sizes__item-price">{{size.price}}</div>
+            </li>
+        </ul>
+        <ul class="prints-sizes__list prints-sizes__list--horizontal"
+            ng-show="model.sizeTypeOption=='myPackages'">
+            <li ng-repeat="package in myPackages track by package.id"
+                draggable draggable-data="package" draggable-type="container">
+                <spo-package-preview id="prints-sizes__item-{{$index}}" 
+                    spo-package="package" ng-click="selectPackage(package)">
+                </spo-package-preview>
+            </li>
+        </ul>
+
+	</div>
+
+</div>

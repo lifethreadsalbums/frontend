@@ -1,0 +1,38 @@
+//------------------------------------------------------------------
+//                     MEDIA QUERIES
+//------------------------------------------------------------------
+/*---Mobile---*/
+@media only screen and (max-width: 768px) {}
+
+/* Mobile + iPads (portrait and landscape) ----------- */
+@media only screen and (max-width: 1024px) {}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape) {}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : portrait) {}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: $breakPointSM) {}
+
+/* ----------- 1024px - 1439px ----------- */
+@media only screen and (min-width: 1024px) and (max-width: 1439px) {}
+
+/* Larger laptops ----------- */
+@media only screen and (min-width: $breakPointM) {}
+
+/* Large screens ----------- */
+@media only screen and (min-width: $breakPointL) {}
+
+/* Largest screens ----------- */
+@media only screen and (min-width: $breakPointXL) {}
+
+/* Retina ----------- */
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {}

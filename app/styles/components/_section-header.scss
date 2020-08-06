@@ -1,0 +1,101 @@
+//------------------------------------------------------------------
+//                     SECTION HEADER
+//------------------------------------------------------------------
+.section-header {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: $ordersHeaderBackground;
+    box-shadow: 0 3px 3px 0 $ordersHeaderBackground;
+    color: $ordersHeaderTextColor;
+    z-index: 4;
+
+    &.introjs-fixParent {
+        z-index: 1 !important;
+    }
+
+    .header-primary-button {
+        float: left;
+        margin: 7px 0 0 7px;
+        color: map-get($colors, light-300);
+
+
+        &.first {
+            margin-left: 17px;
+        }
+
+        &.dropdown {
+            padding-right: 14px;
+
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 2px;
+                right: 2px;
+                width: auto;
+                height: 1px;
+                margin: 0;
+                background: map-get($colors, dark-300);
+                border: none;
+            }
+
+            &:after {
+                content: "\25BC";
+                font-size: 11px;
+                margin-left: 7px;
+            }
+        }
+    }
+
+    .header-primary-button ~ .split-button-dropdown {
+        margin-top: 7px;
+    }
+
+    .action-menu {
+        width: 146px;
+    }
+
+    .button.cart-blue-large {
+        width: 100px;
+        display: inline-block;
+    }
+
+    .price-button {
+        .split-button {
+            width: 72px;
+            font-size: 11px;
+        }
+    }
+
+    .position-left {
+        float: left;
+    }
+
+    .position-right {
+        float: right;
+        height: 40px;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        .position-left {
+            position: absolute;
+            float: none;
+            top: 6px;
+            left: 7px;
+        }
+
+        .position-right {
+            position: absolute;
+            float: none;
+            top: 6px;
+            right: 7px;
+        }
+    }
+
+    .projects {
+        width: 262px;
+    }
+}

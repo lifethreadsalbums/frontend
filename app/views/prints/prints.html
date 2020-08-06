@@ -1,0 +1,320 @@
+<section class="prints user-select-none" tabindex="0" ng-keydown="onKeyDown($event)" ng-keyup="onKeyUp($event)"
+         layout-key-handler layout-controller="layoutController" set-focus="true">
+
+    <div class="prints-main" style="top:0px"
+         ng-class="{
+            'prints-main--bottom-collapsed': bottomContainerState === 'collapsed',
+            'prints-main--bottom-expanded': bottomContainerState === 'expanded'
+         }">
+
+        <div class="prints-sidebar prints-sidebar--left">
+
+            <div class="prints-sidebar__content"></div>
+
+            <div class="prints-sidebar__footer" init-pace-tooltip>
+                <button id="save-as-package" class="button dark with-icon-save" ng-click="savePackage()" ng-disabled="layouts.length==0">Save sizes as package</button>
+                <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete Package">
+                    <span class="button dark trash2-flat" ng-show="editable" ng-disabled="!model.selectedPackage" ng-click="deletePackage()"></span>
+                </div>
+            </div><!-- end of prints-sidebar__footer -->
+
+        </div><!-- end of prints-sidebar -->
+
+        <div class="prints-editor">
+
+            <react-component ng-show="layouts.length>0 && editable" name="PrintsToolbarComponent" props="containerListProps" watch-depth="reference">
+            </react-component>
+
+            <div id="prints-editor__main" class="prints-editor__main"
+                 droppable on-drop="onContainerDrop(data)" droppable-type="container"
+                 ng-class="{'not-editable':!editable}">
+
+                <react-component name="PrintsContainerListComponent" props="containerListProps" watch-depth="reference">
+                </react-component>
+
+                <div ng-if="model.printsSizesVisible && layouts.length==0"
+                     class="prints-container--placeholder ng-animate-enabled fade-animation fade-animation--fast">
+                    <span>+ Drag and drop your sizes here</span>
+                </div>
+
+            </div><!-- end of prints-editor__main -->
+
+            <div class="prints-editor__footer">
+                <div class="qa-edit-toolbar qa-edit-toolbar--prints-footer">
+                    <div class="toolset" init-pace-tooltip>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Single Frame View">
+                            <button class="button dark prints-single-view"
+                                    ng-disabled="layout.viewState.viewMode=='filmstrip'"
+                                    ng-class="{active: layout.viewState.viewMode === 'single'}"
+                                    ng-click="setViewMode('single')">
+                            </button>
+                        </div>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Tile View">
+                            <button class="button dark prints-tile-view"
+                                    ng-disabled="layout.viewState.viewMode=='filmstrip'"
+                                    ng-class="{active: layout.viewState.viewMode === 'tile'}"
+                                    ng-click="setViewMode('tile')">
+                            </button>
+                        </div>
+
+                        <div class="pagination-toolbar">
+                            <div class="designer-pagination designer-pagination-horizontal"
+                                 ng-disabled="!(containerListProps.selectedContainer && containerListProps.selectedContainer.spreads.length>0)">
+                                <span class="pagination-first" ng-click="switchPhoto('first')"></span>
+                                <span class="pagination-prev" ng-click="switchPhoto('prev')"></span>
+                                <span class="pagination-pages">
+                                    <input type="text"
+                                           class="pagination-current"
+                                           ng-model="currentPhotoIdx"
+                                           ng-change="currentPhotoInputChanged()"
+                                           ng-focus="onSwitchPhotoFocus()"
+                                           ng-keydown="onSwitchPhotoKeyDown($event)">
+                                    <span class="pagination-total">{{numImages}}</span>
+                                </span>
+                                <span class="pagination-next" ng-click="switchPhoto('next')"></span>
+                                <span class="pagination-last" ng-click="switchPhoto('last')"></span>
+                            </div>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Fill each size separately" >
+                            <button id="fill-single" class="button dark prints-fill-single"
+                                    ng-class="{active: layout.viewState.fillMode === 'single'}"
+                                    ng-click="setFillMode('single')"
+                                    ng-disabled="!editable">
+                            </button>
+                        </div>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Fill all sizes with same photo">
+                            <button id="fill-all" class="button dark prints-fill-all"
+                                    ng-class="{active: layout.viewState.fillMode === 'multi'}"
+                                    ng-click="setFillMode('multi')"
+                                    ng-disabled="!editable">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <span class="layout__saving-status pull-right" style="width:140px;text-align:right;margin-left:-140px;padding-right:15px">{{savingStatus}}</span>
+            </div><!-- end of prints-editor__footer -->
+
+        </div><!-- end of prints-editor -->
+
+        <div class="prints-sidebar prints-sidebar--right">
+
+            <tabs class="sidebar-tabs text-center" round="top" color="dark-flat" gap-side="6px" gap-bottom="false" size="dual"
+              ng-model="layout.viewState.rightTabIndex">
+
+                <tab title="Options">
+                    <div class="prints-sidebar__main prints-sidebar__main--right prints-sidebar__main--medium-padding"
+                         
+                         ng-include="optionsTemplate" ng-disabled="layouts.length==0 || !editable" ng-class="{disabled:layouts.length==0 || !editable}">
+
+                        <!--<p class="prints-sidebar__note">Some options not available for selected sizes.</p>-->
+
+                    </div>
+                </tab>
+
+                <tab title="Styles" ng-if="editable && !canvasMode">
+
+                    <div class="is-animate-sidebar scrollable-content styles ng-animate-enabled" ng-controller="StylesCtrl"
+                         ng-class="{'no-scroll': layout.viewState.stylesViewIndex == 1, 'animate-left': layout.viewState.stylesViewIndex > 0, 'animate-right': layout.viewState.stylesViewIndex == 0}" >
+                        <div ng-show="layout.viewState.stylesViewIndex == 0" class="ng-animate-enabled">
+                            <div class="prints-sidebar__main prints-sidebar__main--right">
+                                <ul class="item-list dark">
+                                    <li class="item single item-arrow" 
+                                        ng-show="containerListProps.bordersEnabled"
+                                        ng-click="layout.viewState.stylesViewIndex = 1">
+                                        <a>
+                                            <span class="item-title">
+                                                <span class="item-title-primary">Backgrounds & Strokes</span>
+                                            </span>
+                                            <span class="item-icon"></span>
+                                        </a>
+                                    </li>
+                                    <li class="item single item-arrow" ng-click="layout.viewState.stylesViewIndex = 3; switchToTextTool();">
+                                        <a>
+                                            <span class="item-title">
+                                                <span class="item-title-primary">Fonts</span>
+                                            </span>
+                                            <span class="item-icon"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="background-stroke-tab ng-animate-enabled" ng-show="layout.viewState.stylesViewIndex == 1">
+                            <div class="background-stroke-tab-scroller">
+                                <header class="header-back dark small">
+                                    <button ng-click="layout.viewState.stylesViewIndex = 0" class="button dark back small double">Back</button>
+                                    <div>
+                                        <h1>Background & strokes</h1>
+                                        <small>Customize colors or pictures</small>
+                                    </div>
+                                </header>
+                                <background-stroke
+                                    style="style"
+                                    custom-apply-to-options="applyToOptions"
+                                    apply-to-option="layout.viewState.stylesApplyToOption"
+                                    apply-to-range="layout.viewState.stylesApplyToRange"
+                                    default-stroke-weight="10"
+                                    mode="layout.viewState.stylesMode"
+                                    swatches="userSettings.settings.swatches"
+                                    show-spine-option="showSpineOption"
+                                    show-left-page-option="showLeftPageOption"
+                                    show-right-page-option="showRightPageOption"
+                                    num-selected-elements="numSelectedElements"
+                                    on-change="onStyleChange()"
+                                    on-swatch-change="onSwatchChange()"
+                                    layout-controller="layoutController"
+                                    layout="layout"
+                                    stroke-slider-enabled="false">
+                                </background-stroke>
+                            </div>
+                        </div>
+
+                        <div ng-show="layout.viewState.stylesViewIndex == 3" class="ng-animate-enabled">
+                            <header class="header-back dark small">
+                                <button ng-click="layout.viewState.stylesViewIndex = 0" class="button dark back small double">Back</button>
+                                <div>
+                                    <h1>Fonts</h1>
+                                    <small>Customize your font</small>
+                                </div>
+                            </header>
+                            <font-styles
+                                style="fontStyle"
+                                num-selected-elements="numSelectedElements"
+                                recently-used-fonts="recentlyUsedFonts"
+                                on-change="onFontStyleChange(prop)"
+                                swatches="userSettings.settings.fontSwatches"
+                                on-swatch-change="onSwatchChange()"
+                                layout-controller="layoutController"
+                                max-font-size="maxFontSize">
+                            </font-styles>
+                        </div>
+
+                    </div>
+                </tab>
+
+            </tabs>
+
+            <div class="prints-sidebar__footer">
+                <button ng-if="editable" class="button dark" ng-click="applyToSelected()">Apply to selected</button>
+            </div><!-- end of prints-sidebar__footer -->
+
+        </div><!-- end of prints-sidebar -->
+    </div><!-- end of prints-main -->
+
+    <div class="prints-bottom"
+         ng-class="{
+            'prints-bottom--collapsed': bottomContainerState === 'collapsed',
+            'prints-bottom--expanded': bottomContainerState === 'expanded'
+         }"
+         ng-controller="FilmstripCtrl as filmstripCtrl" ng-init="initFilmstripCtrl(filmstripCtrl)">
+        <div class="prints-bottom__toolbar">
+            <div class="prints-bottom__toolbar-block--left" init-pace-tooltip>
+                <dropdown-button id="resize-filmstrip"
+                                 class="dark-flat clear-margin-bottom"
+                                 color="dark"
+                                 ng-disabled="!editable"
+                                 direction="up"
+                                 options="bottomContainerStateOptions"
+                                 label="{{bottomContainerStateLabel}}"
+                                 value-field="id"
+                                 label-field="label"
+                                 callback="true">
+                </dropdown-button>
+                <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Group/Ungroup Images">
+                    <span class="button dark dark-flat clear-margin-bottom"
+                          ng-if="editable"
+                          ng-disabled="numSelectedItems==0"
+                          ng-class="{'grouping': !itemsStacked, 'ungroup': itemsStacked}"
+                          ng-click="stackImages()">
+                    </span>
+                </div>
+                <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete Images">
+                    <span class="button dark dark-flat clear-margin-bottom trash-flat"
+                          ng-if="editable"
+                          ng-disabled="numSelectedItems==0"
+                          ng-click="delete()">
+                    </span>
+                </div>
+            </div><!-- end of prints-bottom__toolbar--left -->
+
+            <div class="prints-bottom__toolbar-block--middle">
+                <div ng-if="editable">
+                    <span class="button dark dark-flat"
+                          ng-click="selectNone()"
+                          ng-disabled="!layout.filmStrip.items.length">
+                        Cancel
+                    </span>
+                    <span class="button dark dark-flat"
+                          ng-click="selectAll()"
+                          ng-disabled="!layout.filmStrip.items.length">
+                        Select All
+                    </span>
+                    <span class="button dark dark-flat"
+                          ng-class="{active2: rangeSelectionMode}"
+                          ng-click="selectRange()"
+                          ng-disabled="!layout.filmStrip.items.length">
+                        Select Range
+                    </span>
+                </div>
+            </div><!-- end of prints-bottom__toolbar--middle -->
+
+            <div class="prints-bottom__toolbar-block--right">
+                <button data-pace-tooltip="Toggle File Info"
+                        class="button dark dark-flat info"
+                        ng-class="{active:showInfo}"
+                        ng-click="toggleInfo()">
+                </button>
+                <dropdown-button id="import-dropdown"
+                                 class="dark-flat clear-margin-bottom"
+                                 direction="up"
+                                 color="dark"
+                                 ng-if="editable"
+                                 label="Import Photos"
+                                 options="importPhotosOptions"
+                                 label-pre-icon="upload"
+                                 hide-first-option="true"
+                                 ng-model="importMode"
+                                 on-change="openFileDialog();importMode=''">
+                </dropdown-button>
+                <dropdown-button class="dark-flat clear-margin-bottom"
+                                 ng-disabled="!editable"
+                                 direction="up"
+                                 color="dark"
+                                 label="Filter"
+                                 options="filterOptions"
+                                 label-pre-icon="filter"
+                                 ng-model="layout.viewState.filmstripFilter"
+                                 value-field="value"
+                                 on-change="onFilterChange()"
+                                 hide-first-option="true">
+                </dropdown-button>
+            </div><!-- end of prints-bottom__toolbar--right -->
+        </div><!-- end of prints-bottom__toolbar -->
+
+        <div id="filmstrip-container" class="filmstrip-container" file-drop="uploadFiles(files)"
+            style="position:absolute;left:0;right:0;top:48px;bottom:0;outline:none"
+            ng-keyup="onKeyUp($event)" ng-keydown="onKeyDown($event)" tabindex="1"
+                ng-class="{empty:!(layout.filmStrip.items.length>0)}">
+                <filmstrip filmstrip="layout.filmStrip"
+                           class="animate-show"
+                           layout="layout"
+                           layout-controller="layoutController"
+                           on-file-info-click="onFileInfoClick"
+                           on-selection-change="onSelectionChange"
+                           show-info="showInfo"
+                           show-admin-info="isAdmin"
+                           range-selection-mode="rangeSelectionMode"
+                           disable-dimming-thumbnails="layout.viewState.filmstripFilter=='bySize'"
+                           selected-container="containerListProps.selectedContainer"
+                           filter="layout.viewState.filmstripFilter">
+                </filmstrip>
+                <div id="filmstrip-empty-placeholder" class="empty-placeholder" ng-click="openFileDialog()" ng-if="editable">
+                    <div><span>Click here to browse or drop files here to upload</span></div>
+                </div>
+                <!-- <span class="filmstrip-resize-handle"></span> -->
+            </div>
+    </div><!-- end of prints-bottom -->
+
+</section><!-- end of prints -->

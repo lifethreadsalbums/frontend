@@ -1,0 +1,177 @@
+<section class="calculator">
+	<header>
+		<h1>Pricing calculator</h1>
+		<a href="/#/dashobard/overview"><div class="ngdialog-close right"></div></a>
+	</header> 
+	<div class="section-content {{customClass}}">
+		<div class="main-column">
+			<div class="menu-element" ng-class="{'inactive':!isEnabled($index) || loadingPrototype, 'checkmark':isSelected(item), 'active':currentItem==item}" 
+				ng-click="selectItem(1, item)" ng-repeat="item in menu1 | optionVisibility:product">
+				{{item.displayLabel}}
+			</div>
+		</div> 
+
+		<div class="option-column column-2">
+			
+			<div ng-show="currentItem.type=='BuildNumericOptionWidget'" class="variant-list">
+				<div class="variant">
+					<input type="number" ng-model="product.options[currentItem.option.effectiveCode]"/>
+				</div>
+				<button class="color done" ng-click="done()">Done</button>
+			</div>
+
+			<div ng-hide="currentItem.type=='BuildNumericOptionWidget' || currentItem.type=='AddParentAlbum'" class="variant-list">
+				<div class="variant" ng-repeat="item in menu2" 
+					ng-class="{checkmark:isSelected(item)}" ng-click="selectItem(2, item)">
+					<span>{{item.displayName}}</span>
+				</div>
+			</div>
+
+			<div ng-show="currentItem.type=='AddParentAlbum'" class="variant-list">
+				<div class="variant" ng-repeat="item in menu2">
+					<dropdown-button options="quantityOptions" label-field="value" 
+						value-field="value" ng-model="item.quantity">
+					</dropdown-button>
+					<span class="dup-size">{{item.displayName}}</span>
+				</div>
+				<button class="color done" ng-click="makeDuplicates()">Done</button>
+			</div>
+
+			<!-- <div class="add-ons">
+				<div class="add-ons-header">
+					<span>Optional add-ons</span>
+				</div>				
+				<div class="add-on-type" ng-click="sectionClass(addOn)" ng-repeat="addOn in addOns">
+					<span>{{addOn.name}}</span>
+				</div>
+			</div> -->
+		</div>
+
+		<div class="option-column column-3">
+			<div class="variant-list">
+				<div class="variant" ng-repeat="item in menu3" ng-class="{checkmark:isSelected(item)}"
+					ng-click="selectItem(3, item)">
+					<span>{{item.displayName}}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="option-column column-4">
+			<div class="variant-list">
+				<div class="variant" ng-repeat="item in menu4" ng-class="{checkmark:isSelected(item)}"
+					ng-click="selectItem(4, item)">
+					<span>{{item.displayName}}</span>
+				</div>
+			</div>			
+		</div>
+
+		<div class="total-column">
+
+			<table>
+				<tbody>
+					<tr>
+						<th colspan="6">
+							<div class="project-name">
+								<span>{{order.orderItems[0].product.options._name}}</span>
+								<spinner ng-show="calculatingPrice" radius="6" length="6" lines="10" width="3"></spinner>
+							</div>
+							
+							<dropdown-button class="right" options="mainQuantityOptions" 
+								label-field="value" 
+								value-field="value" ng-model="product.options._quantity"
+								on-change="refreshPrice()">
+							</dropdown-button>
+						</th>
+					</tr>
+					<tr ng-repeat="lineItem in order.orderItems[0].product.productPrice.lineItems">
+						<td>{{lineItem.displayName}}</td>
+						<td></td>
+						<td class="text-center">
+							<span>{{lineItem.quantity}}</span>
+						</td>
+						<td></td>
+						<td class="text-right">{{lineItem.discount.displayPrice}}</td>
+						<td class="text-right">{{lineItem.totalPrice.displayPrice}}</td>
+					</tr>
+					
+					<tr><td colspan="6"><hr></td></tr>
+
+					<tr class="summary">
+						<td colspan="5">SUBTOTAL</td>
+						<td class="text-right">{{order.orderItems[0].product.productPrice.subtotal.displayPrice}}</td>
+					</tr>
+
+					<tr ng-repeat-start="child in order.orderItems[0].product.children">
+						<td colspan="6"><hr></td>
+					</tr>
+					<tr>
+						<th colspan="6">
+							<div class="project-name">
+								<span>{{child.options._name}}</span>
+								<spinner ng-show="calculatingPrice" radius="6" length="6" lines="10" width="3"></spinner>
+							</div>
+							<dropdown-button class="right" options="quantityOptions" label-field="value" 
+								value-field="value" ng-model="product.children[$index].options._quantity"
+								on-change="refreshPrice()">
+							</dropdown-button>
+						</th>
+					</tr>
+					<tr ng-repeat="lineItem in child.productPrice.lineItems">
+						<td>{{lineItem.displayName}}</td>
+						<td></td>
+						<td class="text-center">
+							<span>{{lineItem.quantity}}</span>
+						</td>
+						<td></td>
+						<td class="text-right">{{lineItem.discount.displayPrice}}</td>
+						<td class="text-right">{{lineItem.totalPrice.displayPrice}}</td>
+					</tr>
+					
+					<tr><td colspan="6"><hr/></td></tr>
+
+					<tr ng-repeat-end class="summary">
+						<td colspan="5">SUBTOTAL</td>
+						<td class="text-right">{{child.productPrice.subtotal.displayPrice}}</td>
+					</tr>
+
+					<tr><td colspan="6"><hr/></td></tr>
+
+					<tr class="summary">
+						<td colspan="5">SUBTOTAL</td>
+						<td class="text-right">{{order.subtotal.displayPrice}}</td>
+					</tr>
+
+					<tr class="summary" ng-repeat="item in order.taxes">
+	                	<td colspan="5">{{item.taxRate.tax.name}} {{item.taxRate.rate}}%</td>
+						<td class="text-right">{{item.tax.displayPrice}}</td>
+					</tr>
+
+					<tr class="summary">
+						<td colspan="5">EST. SHIPPING</td>
+						<td class="text-right">{{order.shippingCost.displayPrice}}</td>
+					</tr>
+
+					<tr>
+						<td colspan="6">
+							<on-off ng-model="dropShipping"
+								on-label="Yes" off-label="No">
+							</on-off>
+							<span>Drop Shipping</span>
+						</td>
+					</tr>
+
+					<tr class="grand-total">
+						<td colspan="5">GRAND TOTAL</td>
+						<td class="text-right">{{order.total.displayPrice}}</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<footer> 
+		<button class="reset" ng-click="reset()">Reset all options</button>
+		<button class="email">Email Quotation</button>
+	</footer>
+</section>

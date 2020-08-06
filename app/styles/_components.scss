@@ -1,0 +1,1482 @@
+//
+// Panel
+//
+// simon, chnage from gradien to bg-color -> panel header
+
+
+$ui-panel-bg: map-get($colors, light-100);
+
+.tab-content { // on off widget accordion
+	.ui-panel-content {
+		background-color: map-get($colors, dark-50);
+	}
+}
+
+
+.ui-panel {
+	@include box-shadow(0 0 3px 0 rgba(map-get($colors, dark-900), 0.2));
+	@include radius(0);
+	margin: 0;
+	padding: 0;
+
+	&[disabled] {
+  		cursor: default;
+  		pointer-events: none;
+	}
+
+	&.round {
+		@include radius(5px);
+	}
+
+    &.dark {
+        color: map-get($colors, light-700);
+
+        header {
+            background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+            border-bottom-color: map-get($colors, dark-700);
+
+            h2,
+            .ui-panel-header-content {
+                color: map-get($colors, light-700);
+            }
+
+            &:hover {
+                color: map-get($colors, light-700);
+
+                header,
+                h2,
+                .ui-panel-header-content {
+                    @include museo300();
+                    color: map-get($colors, light-700);
+                }
+            }
+        }
+
+        .ui-panel-content {
+            background: map-get($colors, light-900);
+            color: map-get($colors, light-700);
+        }
+    }
+
+	header {
+		background: $ui-panel-bg;
+		@include user-select("none");
+		@include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+		@include clearfix();
+		position: relative;
+		padding: 10px 20px 11px;
+		font-size: 16px;
+		color: map-get($colors, dark-900);
+		border-bottom: 1px solid map-get($colors, light-400);
+
+		&.collapsed {
+			@include radius(5px);
+
+			h2 {
+				color: map-get($colors, light-800);
+			}
+
+			> span {
+				float: none;
+			}
+		}
+
+		> .row {
+			max-width: 100%;
+		}
+
+		h2 {
+			@include museo300();
+			float: left;
+			min-width: 100px;
+			margin-right: 10px;
+			color: map-get($colors, dark-900);
+			font-size: 16px;
+			line-height: 28px;
+		}
+
+		.ui-panel-header {
+			padding: 0;
+
+			.ui-panel-header-content {
+				float: left;
+				font-size: 13px;
+				line-height: 28px;
+
+				> span {
+					@include transition(opacity linear .3s);
+					opacity: 1;
+
+					&.ng-hide-add,
+					&.ng-hide-remove {
+						display: block !important;
+					}
+
+					&.ng-hide {
+						opacity: 0;
+					}
+				}
+
+			}
+
+			@media only screen and (min-width: $breakPointL) {
+				.ui-panel-header-content {
+					font-size: 15px;
+				}
+			}
+		}
+
+		.icons {
+			position: relative;
+			float: right;
+			height: 24px;
+
+			.iconArrow {
+				@include transition(transform .3s ease-in-out);
+				@include user-select("none");
+				@include panel-sprite("icon-panel-arrow-2");
+				position: relative;
+				top: 8px;
+				width: panel-sprite-width("icon-panel-arrow-2");
+				height: panel-sprite-height("icon-panel-arrow-2");
+			}
+		}
+
+		&:hover {
+			color: map-get($colors, dark-900);
+
+			h2,
+			.ui-panel-header-content {
+				@include museo700();
+				color: map-get($colors, dark-900);
+			}
+
+			.icons .iconArrow,
+			.icons .iconArrow.active {
+				@include panel-sprite("icon-panel-collapsed-arrow-2-black");
+				width: panel-sprite-width("icon-panel-collapsed-arrow-2-black");
+				height: panel-sprite-height("icon-panel-collapsed-arrow-2-black");
+			}
+
+			.icons .iconArrow.active {
+				@include rotate(-90deg);
+			}
+		}
+
+		.icons .iconArrow.active {
+			@include rotate(-90deg);
+			@include panel-sprite("icon-panel-collapsed-arrow-2");
+			width: panel-sprite-width("icon-panel-collapsed-arrow-2");
+			height: panel-sprite-height("icon-panel-collapsed-arrow-2");
+		}
+
+		.icons .iconArrow.active.active-panel {
+			@include rotate(-90deg);
+			@include panel-sprite("icon-panel-collapsed-arrow-2-blue");
+			width: panel-sprite-width("icon-panel-collapsed-arrow-2-blue");
+			height: panel-sprite-height("icon-panel-collapsed-arrow-2-blue");
+		}
+	}
+
+	&.panel-collapsed header {
+		@include linear-gradient(map-get($colors, light-300), map-get($colors, light-500));
+		background: $ui-panel-bg;
+		color: map-get($colors, light-800);
+
+
+		h2 {
+			color: map-get($colors, light-800);
+
+		}
+
+		.icons {
+			.iconArrow {
+				@include panel-sprite("icon-panel-collapsed-arrow-2");
+				width: panel-sprite-width("icon-panel-collapsed-arrow-2");
+				height: panel-sprite-height("icon-panel-collapsed-arrow-2");
+			}
+		}
+
+		&:hover {
+
+			h2{
+				color:map-get($colors, dark-900);
+			}
+			.icons {
+				.iconArrow {
+					@include panel-sprite("icon-panel-collapsed-arrow-2-black");
+					width: panel-sprite-width("icon-panel-collapsed-arrow-2-black");
+					height: panel-sprite-height("icon-panel-collapsed-arrow-2-black");
+				}
+			}
+		}
+	}
+
+	.ui-panel-content {
+		@include transition(all linear .3s);
+		@include clearfix();
+		padding: 20px 0;
+		background: map-get($colors, light-100);
+		height: auto;
+
+		//&.ng-hide-add,
+		//&.ng-hide-remove {
+		//	display: block !important;
+		//}
+        //
+		//&.ng-hide {
+		//	height: 0;
+		//	padding: 0;
+		//	overflow: hidden;
+		//}
+
+        &.collapsed {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        &.no-content {
+            padding: 0;
+        }
+	}
+
+	&.panel-remove-padding-top .ui-panel-content {
+		padding-top: 0;
+	}
+
+	&.panel-remove-padding-bottom .ui-panel-content {
+		padding-bottom: 0;
+	}
+
+	footer {
+		@include museo300();
+		@include clearfix();
+
+		//@include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+		background: $ui-panel-bg;
+
+		padding: 15px 27px 11px;
+		border-top: 1px solid map-get($colors, light-400);
+		font-size: 15px;
+		color: map-get($colors, light-800);
+		overflow: hidden;
+	}
+}
+
+//.optional-addons ui-panel
+.optional-addons {
+	background-color:map-get($colors, dark-50);
+	padding-top:18px ;
+
+	.optional-addons-header{
+		display:block;
+		width:100%;
+		text-align: left;
+		color:map-get($colors, light-800);
+		text-transform: uppercase;
+		padding-left: 15px;
+		font-size: 14px;
+	}
+
+	.ui-panel{
+		background-color:map-get($colors, dark-50) !important;
+		.ui-panel-content {
+			background-color:map-get($colors, dark-50) !important;
+			.row:nth-of-type(1) {
+					padding:18px;
+					background-color:map-get($colors, dark-50) !important;
+			}
+		}
+		>header{
+			background-color:map-get($colors, dark-50) !important;
+			color:map-get($colors, light-800);
+			@include museo300();
+			h2{
+				margin-left:10px;
+				color:map-get($colors, light-800) !important;
+				@include museo300();
+			}
+			border-bottom:1px solid map-get($colors, light-600) !important;
+		}
+		&.active-panel {
+			header {
+				color:map-get($colors, dark-900) !important;
+				@include museo300();
+				h2{
+					color:map-get($colors, dark-900) !important;
+					@include museo300();
+				}
+			}
+		}
+
+	}
+}// .optional-addons END
+
+
+//
+// Advanced Textarea
+//
+.text-advanced {
+	textarea {
+		height: auto;
+		min-height: 37px;
+	}
+
+	label {
+		position: relative;
+		overflow: hidden;
+		cursor: default;
+
+		.textadvanced-text {
+			display: inline-block;
+			float: left;
+			margin-right: 20px;
+		}
+
+		.textadvanced-alignment {
+			display: inline-block;
+			float: left;
+
+			.justify-left,
+			.justify-center,
+			.justify-right {
+				display: inline-block;
+				width: 14px;
+				height: 10px;
+				margin-right: 10px;
+				text-indent: -999px;
+				overflow: hidden;
+				cursor: pointer;
+			}
+
+			.justify-left {
+				@include text-sprite("icon-justify-left");
+			}
+
+			.justify-center {
+				width: 16px;
+				@include text-sprite("icon-justify-center");
+			}
+
+			.justify-right {
+				@include text-sprite("icon-justify-right");
+			}
+		}
+
+		.textadvanced-addline {
+			display: inline-block;
+			float: right;
+			cursor: pointer;
+		}
+	}
+}
+
+
+//
+// File Upload
+//
+.file-upload {
+	.drop-box {
+		@include radius(4px);
+		padding: 20px;
+		background: map-get($colors, light-300);
+		border: 1px dashed map-get($colors, light-600);
+		font-size: 12px;
+		line-height: 20px;
+		text-align: center;
+		overflow: hidden;
+
+		&:hover{
+			background: map-get($colors, primary-50);
+			border: 1px dashed map-get($colors, primary-400);
+			color: map-get($colors, primary-400);
+			.drop-preview{
+				@include filmstrip-sprite("filmstrip-upload-large-hover");
+				display: inline-block;
+	            width: filmstrip-sprite-width("filmstrip-upload-large");
+	            height: filmstrip-sprite-height("filmstrip-upload-large");
+				margin-right: 25px;
+				text-align: center;
+				overflow: hidden;
+
+				img {
+					width: 100%;
+				}
+			}
+		}
+
+		&.active {
+			border-color: map-get($colors, primary-400);
+		}
+
+		.drop-preview {
+			@include filmstrip-sprite("filmstrip-upload-large");
+			display: inline-block;
+            width: filmstrip-sprite-width("filmstrip-upload-large");
+            height: filmstrip-sprite-height("filmstrip-upload-large");
+			margin-right: 25px;
+			text-align: center;
+			overflow: hidden;
+
+			img {
+				width: 100%;
+			}
+		}
+
+		.drop-text {
+			display: inline-block;
+
+            color: map-get($colors, light-800);
+			text-align: center;
+
+			.drop-browse {
+				display: block;
+				position: relative;
+
+				input {
+					position:absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					margin: 0;
+					padding: 0;
+					opacity:0;
+					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+					filter: alpha(opacity=0);
+				}
+
+				a {
+					margin: 0;
+					padding: 2px 29px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+
+	.drop-info {
+		display: none;
+		margin: 5px 0 20px;
+		padding: 0 7px;
+		font-size: 11px;
+		color: map-get($colors, light-800);
+		text-align: center;
+	}
+
+	&.drop-box-centered {
+		.form-element.inline {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		.drop-box {
+			&.active {
+				background: map-get($colors, primary-50);
+
+				.drop-text {
+					color: map-get($colors, primary-100);
+				}
+			}
+
+			.drop-preview {
+				float: none;
+				margin: 0 auto 5px;
+			}
+
+			.drop-text {
+				float: none;
+
+				.drop-browse {
+					@include radius(15px);
+					width: 100px;
+					margin: 0 auto;
+				}
+			}
+		}
+
+	}
+
+	.form-element span.label,
+	.form-element span.error {
+		margin-top: 5px;
+	}
+}
+
+
+//
+// Die
+//
+.die {
+	.die-container {
+		width: 190px;
+		margin-bottom: 7px;
+		padding: 3px 3px 2px;
+		background: map-get($colors, light-100);
+		border: 1px solid map-get($colors, light-600);
+		font-size: 14px;
+		overflow: hidden;
+
+		.die-preview {
+			display: inline-block;
+			float: left;
+			width: 18px;
+			height: 18px;
+			margin-right: 9px;
+			border: 1px dashed map-get($colors, light-600);
+		}
+
+		.die-name {
+			display: inline-block;
+			float: left;
+			max-width: 110px;
+			line-height: 18px;
+			overflow: hidden;
+		}
+
+		.die-buttons {
+			display: inline-block;
+			float: right;
+
+			.die-status,
+			.die-remove {
+				display: inline-block;
+				position: relative;
+				top: 1px;
+				width: 16px;
+				height: 16px;
+				margin-right: 4px;
+			}
+
+			.die-status {
+				@include die-sprite("die-status");
+			}
+
+			.die-remove {
+				@include die-sprite("die-remove");
+				width: 11px;
+
+				&:hover,
+				&:focus {
+					@include die-sprite("die-remove-hover");
+				}
+			}
+		}
+
+		&.active {
+			.die-name {
+				color: map-get($colors, primary-500);
+			}
+
+			.die-buttons {
+				.die-status {
+					@include die-sprite("die-status-active");
+				}
+			}
+		}
+	}
+
+	.form-element span.label,
+	.form-element span.error {
+		margin-top: 5px;
+	}
+}
+
+
+//
+// Status label
+//
+.status-label {
+	@include radius(4px);
+	display: inline-block;
+	float: right;
+	margin-bottom: 10px;
+	padding: 5px 25px 3px;
+	font-size: 12px;
+	line-height: 14px;
+	color: map-get($colors, light-50);
+	text-transform: uppercase;
+
+	&.status-label-green {
+		background: map-get($colors, success-100);
+	}
+
+	&.status-label-blue {
+		background: map-get($colors, primary-200);
+	}
+
+	&.status-label-orange {
+		background: map-get($colors, warning-300);
+	}
+
+	&.status-label-red {
+		background: map-get($colors, danger-500);
+	}
+}
+
+
+//
+// Content Editor
+//
+.content-editor {
+	.toolbar {
+		.tool-label {
+			display: inline-block;
+			margin-right: 5px;
+			font-size: 14px;
+			line-height: 29px;
+			vertical-align: top;
+		}
+
+		.form-element.inline {
+			margin-right: 13px;
+		}
+
+		.icon-font-family {
+			@include text-sprite("icon-font-family");
+			margin-top: 3px;
+			width: 27px;
+			height: 23px;
+		}
+
+		.icon-font-size {
+			@include text-sprite("icon-font-size");
+			margin-top: 2px;
+			width: 31px;
+			height: 26px;
+		}
+
+		.icon-move {
+			@include button-sprite("icon-move");
+			margin-top: 2px;
+			width: 24px;
+			height: 24px;
+		}
+
+		label {
+			display: inline-block;
+			margin-right: 5px;
+			line-height: 29px;
+			vertical-align: top;
+
+			& + input[type="text"],
+			& + input[type="number"],
+			& + select {
+				display: inline-block;
+				width: auto;
+				vertical-align: top;
+			}
+		}
+
+		input[type="text"],
+		input[type="number"],
+		select {
+			height: 29px;
+			padding: 0 10px;
+		}
+
+		select {
+			padding-right: 27px;
+		}
+
+		ul.tools-icon-bar {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		    font-size: 0;
+
+		    &[disabled] {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+
+			li {
+				display: inline-block;
+				border: 1px solid map-get($colors, light-600);
+				border-left: none;
+
+				&:first-child {
+					border-left: 1px solid map-get($colors, light-600);
+				}
+
+				a {
+					display: block;
+					border-bottom: none;
+
+					&:hover,
+					&.sc-active,
+					&.active {
+						background-color: map-get($colors, dark-500);
+					}
+
+					&[disabled] {
+						pointer-events: none;
+                		opacity: 0.5;
+					}
+				}
+
+				.icon {
+					display: block;
+					width: 27px;
+					height: 27px;
+				}
+
+				.icon-text-underline {
+					@include text-sprite("icon-text-underline");
+				}
+
+				.icon-text-bold {
+					@include text-sprite("icon-text-bold");
+				}
+
+				.icon-text-italic {
+					@include text-sprite("icon-text-italic");
+				}
+
+				.icon-text-lowercase {
+					@include text-sprite("icon-text-lowercase");
+				}
+
+				.icon-text-first-uppercase {
+					@include text-sprite("icon-text-first-uppercase");
+				}
+
+				.icon-text-uppercase {
+					@include text-sprite("icon-text-uppercase");
+				}
+
+				.icon-text-align-left {
+					@include text-sprite("icon-text-align-left");
+				}
+
+				.icon-text-align-center {
+					@include text-sprite("icon-text-align-center");
+				}
+
+				.icon-text-align-right {
+					@include text-sprite("icon-text-align-right");
+				}
+                .icon-text-align-justify {
+                    @include text-sprite("icon-text-align-justify");
+                }
+			}
+		}
+	}
+
+	textarea {
+		height: auto;
+		margin: 0;
+	}
+
+	.tool-link {
+		> span {
+			font-size: 14px;
+		}
+	}
+
+	> div:first-child {
+		.form-element.inline {
+			font-size: 0;
+
+			.button {
+				@include radius(0);
+				margin-bottom: 25px;
+
+				&.active,
+				&:hover {
+					@include linear-gradient(map-get($colors, primary-700), map-get($colors, primary-500));
+					@include box-shadow(0 2px 3px 0px rgba(map-get($colors, primary-900), .4) inset);
+					border-color: map-get($colors, primary-700);
+					color: map-get($colors, light-50);
+
+					&:before {
+						background: map-get($colors, primary-700);
+					}
+				}
+			}
+		}
+	}
+}
+
+
+//
+// Loader
+//
+.loader {
+	display: inline-block;
+	position: relative;
+
+	&.global-loader {
+		position: absolute;
+		top: 50%;
+		right: -15px;
+	}
+}
+
+
+//
+// Landingpage
+//
+.landingpage {
+	display: block;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: map-get($colors, light-100);
+	z-index: 9999;
+
+	> div {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 250px;
+		height: 100px;
+		margin: auto;
+
+		.spinner-container {
+			display: block;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			width: 200px;
+			height: 100px;
+			margin: 0 auto;
+		}
+
+		.message {
+			@include museo500();
+			text-align: center;
+		}
+	}
+}
+
+
+
+
+//
+// Split input
+//
+.split-input {
+	display: inline-block;
+	position: relative;
+	margin-bottom: 20px;
+	overflow: hidden;
+
+	&.small-75 {
+		width: 75px;
+	}
+	&.small-100 {
+		width: 100px;
+	}
+	&.small-125 {
+		width: 125px;
+	}
+	&.small-150 {
+		width: 150px;
+	}
+	&.small-175 {
+		width: 175px;
+	}
+	&.small-200 {
+		width: 200px;
+	}
+	&.small-225 {
+		width: 225px;
+	}
+	&.small-250 {
+		width: 250px;
+	}
+	&.small-275 {
+		width: 275px;
+	}
+	&.small-300 {
+		width: 300px;
+	}
+
+	input,
+	input[type="text"],
+	input[type="password"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="month"],
+	input[type="week"],
+	input[type="email"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="time"],
+	input[type="url"] {
+		margin-bottom: 0;
+		padding-left: 32px;
+		font-size: 13px;
+	}
+
+	.split-prefix {
+		@include linear-gradient(map-get($colors, light-400), map-get($colors, light-600));
+		display: block;
+		position: absolute;
+		top: 1px;
+		bottom: 1px;
+		left: 1px;
+		width: 25px;
+		border-right: 1px solid map-get($colors, light-400);
+		font-size: 15px;
+		line-height: 30px;
+		color: map-get($colors, light-800);
+		text-align: center;
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
+
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: map-get($colors, light-300);
+		}
+
+
+		&.icon-rotate,
+		&.icon-zoom,
+		&.icon-move {
+			width: 30px;
+			text-indent: -100px;
+			overflow: hidden;
+			&:after {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+		}
+
+		&.icon-rotate {
+			&:after {
+				@include button-sprite("icon-button-rotate-cw");
+				width: button-sprite-width("icon-button-rotate-cw");
+				height: button-sprite-height("icon-button-rotate-cw");
+			}
+		}
+
+		&.icon-move {
+			&:after {
+				@include button-sprite("icon-button-move");
+				width: button-sprite-width("icon-button-move");
+				height: button-sprite-height("icon-button-move");
+			}
+		}
+
+		&.icon-zoom {
+			&:after {
+				@include button-sprite("icon-button-search-dark");
+				width: button-sprite-width("icon-button-search-dark");
+				height: button-sprite-height("icon-button-search-dark");
+			}
+		}
+	}
+
+	&.dark {
+		.split-prefix {
+			@include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+			border-color: map-get($colors, dark-700);
+			color: map-get($colors, light-600);
+
+			&:before {
+				background: map-get($colors, dark-300);
+			}
+
+			&.icon-rotate:after {
+				@include button-sprite("icon-button-rotate-cw-dark");
+				width: button-sprite-width("icon-button-rotate-cw-dark");
+				height: button-sprite-height("icon-button-rotate-cw-dark");
+			}
+		}
+	}
+}
+
+//
+// Centerize
+//
+.centerize {
+	display: block;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+
+//
+// Slider
+//
+.slider-container {
+	display: inline-block;
+	position: relative;
+	width: 100px;
+	height: 5px;
+
+	&.topx {
+		top: 5px;
+	}
+
+	rzslider {
+		@include radius(2px);
+		@include linear-gradient(map-get($colors, light-500), map-get($colors, light-400));
+		display: block;
+		position: relative;
+		width: 100px;
+		height: 5px;
+		margin: 0;
+		border: 1px solid map-get($colors, light-700);
+
+		.bar {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.pointer {
+			@include radius(15px);
+			@include linear-gradient(map-get($colors, light-100), map-get($colors, light-600));
+			display: block;
+			position: relative;
+			top: -9px !important;
+			width: 15px;
+			height: 15px;
+			border: 1px solid map-get($colors, light-700);
+			cursor: pointer;
+			z-index: 1;
+		}
+
+		.bubble {
+			display: none;
+		}
+	}
+
+	.slider-scale {
+		display: none;
+		position: absolute;
+		bottom: -4px;
+		width: 2px;
+		height: 5px;
+		background: map-get($colors, light-700);
+
+		&.scale-1 {
+			left: 10%;
+		}
+		&.scale-2 {
+			left: 23%;
+		}
+		&.scale-3 {
+			left: 36%;
+		}
+		&.scale-4 {
+			left: 50%;
+		}
+		&.scale-5 {
+			left: 63%;
+		}
+		&.scale-6 {
+			left: 76%;
+		}
+		&.scale-7 {
+			left: 90%;
+		}
+
+		&.scale-type-middle {
+			&.scale-4 {
+				display: block;
+			}
+		}
+
+		&.scale-type-triple {
+			&.scale-2,
+			&.scale-4,
+			&.scale-6 {
+				display: block;
+			}
+		}
+
+		&.scale-type-full {
+			&.scale-1,
+			&.scale-2,
+			&.scale-3,
+			&.scale-4,
+			&.scale-5,
+			&.scale-6,
+			&.scale-7 {
+				display: block;
+			}
+		}
+	}
+
+	&.dark {
+		rzslider {
+			@include linear-gradient(map-get($colors, dark-500), map-get($colors, dark-300));
+			border: 1px solid map-get($colors, dark-700);
+
+			.pointer {
+				@include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+				border: 1px solid map-get($colors, dark-700);
+			}
+		}
+
+		.slider-scale {
+			background: map-get($colors, dark-700);
+		}
+	}
+}
+
+//
+// Media block (imported from bootstrap 3.1.1)
+//
+.media,
+.media-body {
+	overflow: hidden;
+	zoom: 1;
+}
+
+.media,
+.media .media {
+	margin-top: 15px;
+}
+
+.media:first-child {
+	margin-top: 0;
+}
+
+.media-object {
+	display: block;
+}
+
+.media-heading {
+	margin: 0 0 5px;
+}
+
+.media {
+	> .pull-left {
+		margin-right: 10px;
+	}
+	> .pull-right {
+		margin-left: 10px;
+	}
+}
+
+.media-list {
+	padding-left: 0;
+	list-style: none;
+}
+
+
+//
+// Instagram feed
+//
+.instagram-feed-container {
+	.instagram-item {
+		@include radius(4px);
+		display: inline-block;
+		width: 170px;
+		height: 214px;
+		margin: 12px 15px;
+		padding: 10px;
+		border: 1px solid map-get($colors, light-500);
+		font-size: 13px;
+		line-height: 15px;
+		color: map-get($colors, dark-200);
+		vertical-align: top;
+
+		&:hover {
+			color: map-get($colors, dark-200);
+		}
+
+		.title {
+			display: block;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		img {
+			display: block;
+			width: 150px;
+			height: 150px;
+			margin: 4px auto 6px;
+		}
+
+		div {
+			text-align: right;
+		}
+
+		.likes,
+		.comments {
+			display: inline-block;
+
+			&:before {
+				content: "";
+				display: inline-block;
+				position: relative;
+				top: 2px;
+				margin-right: 6px;
+			}
+		}
+
+		.likes {
+			margin-right: 16px;
+
+			&:before {
+				@include social-sprite("instagram-likes");
+				width: social-sprite-width("instagram-likes");
+				height: social-sprite-height("instagram-likes");
+			}
+		}
+
+		.comments {
+			&:before {
+				@include social-sprite("instagram-comments");
+				top: 3px;
+				width: social-sprite-width("instagram-comments");
+				height: social-sprite-height("instagram-comments");
+			}
+		}
+	}
+
+	.load-more-container {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+	}
+}
+
+
+//
+// Split button with dropdown
+//
+.split-button-dropdown {
+	display: inline-block;
+	font-size: 0;
+
+	.split-button {
+		@include radius(4px 0 0 4px);
+		margin-right: 0 !important;
+		padding-left: 12px;
+		padding-right: 12px;
+		font-size: 13px;
+	}
+
+	.split-dropdown {
+		@include radius(0 4px 4px 0);
+		left: -1px;
+		margin-left: 0 !important;
+		font-size: 13px;
+	}
+}
+
+
+
+
+//
+// Header back
+//
+.header-back {
+	//margin-bottom: 20px;
+	overflow: hidden;
+	text-align: left;
+
+	.back {
+		float: left;
+	}
+
+	> div {
+		float: left;
+		margin-top: 5px;
+		max-width: 178px;
+
+		h1 {
+			font-size: 17px;
+		}
+
+		small {
+			color: map-get($colors, light-700);
+		}
+	}
+
+	&.dark {
+		> div {
+			h1,
+			small {
+				color: map-get($colors, dark-100);
+			}
+		}
+	}
+
+	&.small {
+		margin-bottom: 4px;
+		> div {
+			margin-top: 2px;
+
+			h1 {
+				font-size: 13px;
+			}
+
+			small {
+				font-size: 11px;
+			}
+		}
+	}
+}
+
+
+//
+// xfadeImg directive
+//
+.xfade-img {
+
+	position: relative;
+	width:100%;
+	height:100%;
+
+	img {
+		position: absolute;
+		left:50%;
+		top:50%;
+		transform: translate(-50%,-50%);
+
+		@include transition(all ease-in 0.5s);
+		&.fade-in { opacity:1 }
+		&.fade-out { opacity:0 }
+
+        overflow: hidden;
+        max-height:100%;
+        max-width:100%;
+	}
+}
+
+//Slide up
+
+@-webkit-keyframes slideInUp {
+  0% {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+}
+
+@-webkit-keyframes slideOutDown {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    visibility: hidden;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+}
+
+.animated {
+  	-webkit-animation-duration: 1s;
+  	animation-duration: 1s;
+  	-webkit-animation-fill-mode: both;
+  	animation-fill-mode: both;
+}
+
+
+//horizontal divider
+.divider {
+	background-color: map-get($colors, dark-900);
+	position: absolute;
+
+	&.horizontal {
+		width: 100%;
+		height: 12px;
+	}
+
+	&.vertical {
+		width: 12px;
+		height: 100%;
+	}
+
+	.resize-handle {
+	    display: block;
+	    position: absolute;
+	    top: 0;
+	    left: 49%;
+	    width: 30px;
+	    height: 15px;
+	    cursor: ns-resize;
+
+	    &:after {
+	        @include filmstrip-sprite("filmstrip-resize-handle");
+	        content: "";
+	        display: block;
+	        position: absolute;
+	        top: 2px;
+	        left: 0;
+	        right: 0;
+	        bottom: 0;
+	        width: filmstrip-sprite-width("filmstrip-resize-handle");
+	        height: filmstrip-sprite-height("filmstrip-resize-handle");
+	        margin: 0 auto;
+	    }
+	}
+}
+
+.spinner-overlay {
+	z-index: 1000;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(map-get($colors, dark-900),0.3);
+
+	.spinner-container {
+	    margin-left: -25px;
+	    margin-top: -25px;
+	    position: absolute;
+	    display: block;
+	    width: 50px;
+	    height: 50px;
+	    top: 50%;
+	    left: 50%;
+	}
+}
+

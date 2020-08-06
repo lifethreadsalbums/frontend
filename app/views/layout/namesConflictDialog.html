@@ -1,0 +1,17 @@
+<section>
+	<article>
+		<h2>Upload</h2>
+		<p>A file named {{currentFile.name}} already exists. Do you want to replace it with the one you're uploading?</p>
+	</article>
+	<footer>
+		<label ng-show="conflictIndices.length > 0">
+			<input type="checkbox" ng-model="applyToAll">
+			<span>Apply to All</span>
+		</label>
+		<div class="text-center">
+			<button type="button" class="button dark" ng-click="stop() && closeThisDialog()">Cancel</button>
+			<button type="button" class="button color" ng-click="replace() && closeThisDialog()">Replace</button>
+			<!-- <button type="button" class="button dark" ng-click="dontReplace() && closeThisDialog()">Don't replace</button> -->
+		</div>
+	</footer>
+</section>

@@ -1,0 +1,26 @@
+<div class="sidebar-creator__content">
+	<header class="header-back" ng-class="{'dark': darkTheme}">
+		<button ng-click="back()" class="button back big" ng-class="{'dark': darkTheme}">Back</button>
+		<div>
+			<h1>{{model.label}}</h1>
+			<small>{{model.description}}</small>
+		</div>
+	</header>
+	<ul class="item-list standard" ng-class="{'dark': darkTheme}">
+		<li ng-repeat="item in items | optionVisibility:product" class="item"
+			ng-class="{ active: item.code && item.code==product.options[optionCode],
+				disabled: item.disabled,
+				single: !item.description,
+				'read-only disabled': !editable,
+				'item-arrow': !!section && !item.selectionDone,
+				'item-bullet':section && item.selectionDone }">
+			<a ng-click="selectItem(item)">
+				<span class="item-title">
+					<span class="item-title-primary">{{item.productOptionValue.displayName}}</span>
+					<span class="item-title-secondary">{{item.productOptionValue.description}}</span>
+				</span>
+				<span class="item-icon"></span>
+			</a>
+		</li>
+	</ul>
+</div>

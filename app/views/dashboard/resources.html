@@ -1,0 +1,36 @@
+<aside id="resources-aside">
+	<div>
+		<ul class="sidebar-menu">
+			<li class="sidebar-menu-top" ng-class="{active:$state.includes('dashboard.resources.preview.2014-price-list-pdf')}">
+				<a ui-sref="dashboard.resources.preview.2014-price-list-pdf" init-pace-tooltip>
+					<div class="sidebar-menu__icon sidebar-menu__icon--pdf"></div>
+					<div class="sidebar-menu__name has-tip" data-pace-tooltip="2014 Price List.pdf" data-pace-tooltip-position="top">{{"2014 Price List.pdf"|truncate:18}}</div>
+				</a>
+			</li>
+			<li class="sidebar-menu-top" ng-class="{active:$state.includes('dashboard.resources.preview.2014-some-very-very-long-filename-pdf')}">
+				<a ui-sref="dashboard.resources.preview.2014-some-very-very-long-filename-pdf" init-pace-tooltip>
+					<div class="sidebar-menu__icon sidebar-menu__icon--pdf"></div>
+					<div class="sidebar-menu__name has-tip" data-pace-tooltip="2014 Some Very Very Long Filename.pdf" data-pace-tooltip-position="top">{{"2014 Some Very Very Long Filename.pdf"|truncate:17}}</div>
+				</a>
+			</li>
+			<li class="sidebar-menu-top" ng-class="{active:$state.includes('dashboard.resources.documents')}">
+				<a ui-sref="dashboard.resources.documents">
+					<div class="sidebar-menu__icon sidebar-menu__icon--documents"></div>
+					<div class="sidebar-menu__name">Documents</div>
+				</a>
+			</li>
+			<li class="sidebar-menu-top" ng-class="{active:$state.includes('dashboard.resources.marketing-materials')}">
+				<a ui-sref="dashboard.resources.marketing-materials">
+					<div class="sidebar-menu__icon sidebar-menu__icon--marketing-materials"></div>
+					<div class="sidebar-menu__name">Marketing Materials</div>
+				</a>
+			</li>
+			<li class="sidebar-menu-top" ng-class="{active:$state.includes('dashboard.resources.videos')}">
+				<a ui-sref="dashboard.resources.videos">
+					<div class="sidebar-menu__icon sidebar-menu__icon--videos"></div>
+					<div class="sidebar-menu__name">Videos</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</aside>

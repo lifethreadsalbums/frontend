@@ -1,0 +1,50 @@
+//------------------------------------------------------------------
+//              MODAL - NAME CONFLICT
+//------------------------------------------------------------------
+.names-conflict-modal section {
+    width: 460px;
+    background: map-get($colors, light-900);
+    border: 1px solid map-get($colors, light-900);
+    color: map-get($colors, light-600);
+    text-align: center;
+
+    article {
+        padding: 25px 45px 0;
+        font-size: 12px;
+    }
+
+    footer {
+        padding: 0 45px 25px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 17px;
+        color: map-get($colors, light-50);
+        text-align: center;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    label {
+        margin-bottom: 5px;
+        color: map-get($colors, light-600);
+        line-height: 31px;
+        text-align: center;
+
+        input {
+            margin-bottom: 0;
+        }
+
+        span {
+            vertical-align: top;
+        }
+    }
+
+    button {
+        display: inline-block;
+        margin: 0 5px;
+    }
+}

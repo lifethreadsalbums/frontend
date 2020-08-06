@@ -1,0 +1,187 @@
+//-----------------------------------------------------------
+//              LOGO SETTINGS DIRECTIVE
+//-----------------------------------------------------------
+.logo-settings-container {
+    display: block;
+    width: 200px;
+    margin: auto;
+    color: map-get($colors, dark-200);
+
+    hr {
+        margin: 8px 0 12px 0;
+        border-color: map-get($colors, light-900);
+    }
+
+    h4 {
+        font-size: 14px;
+        color: map-get($colors, light-600);
+    }
+
+    p {
+        display: inline-block;
+        width: 144px;
+        margin-bottom: 10px;
+        font-size:12px;
+    }
+
+    .row {
+        white-space: nowrap;
+    }
+
+    .logo-preview {
+        width: 200px;
+        height: 110px;
+        background-color: map-get($colors, light-900);
+        border: 1px solid map-get($colors, dark-700);
+        text-align: center;
+
+        .logo {
+            display: inline-block;
+            max-height: 110px;
+            max-width: 200px;
+            vertical-align: middle;
+        }
+
+        .logo-helper {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
+
+    .icon-settings-info {
+        position: relative;
+        cursor: pointer;
+
+        &:hover span.tooltip-info {
+            display: block;
+            opacity: 1;
+        }
+
+        span.tooltip-info {
+            @include transition(all 0.3s ease);
+            @include border-radius(3px);
+            display: none;
+            position: absolute;
+            bottom: 22px;
+            left: -50px;
+            width: 110px;
+            height: 50px;
+            padding: 8px;
+            background-color: map-get($colors, dark-800);
+            font-size: 12px;
+            opacity: 0;
+            z-index: 3;
+
+            &.tooltip-info-big {
+                width: 160px;
+                left: -75px;
+            }
+
+            &:before {
+                @include rotate(45deg);
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                width: 16px;
+                height: 16px;
+                margin-left: -8px;
+                background-color: map-get($colors, dark-800);
+                z-index: -1;
+            }
+        }
+    }
+
+    .on-off-container {
+        display: inline-block;
+
+        .on-off-pre-label {
+            margin: 0;
+        }
+
+        .on-off {
+            @include border-radius(3px);
+            @include linear-gradient(map-get($colors, primary-800),map-get($colors, primary-400));
+            display: inline-block;
+            width: 52px;
+            min-width: 52px;
+            border: 1px solid map-get($colors, dark-700);
+            box-shadow: none;
+
+            input {
+                &:first-of-type:checked ~ span:last-child {
+                    margin-left: -1.1875rem;
+                }
+            }
+
+            span {
+                @include linear-gradient(map-get($colors, dark-400),map-get($colors, dark-500));
+                @include box-shadow(-1px 0 1px rgba(map-get($colors, dark-900),0.5));
+                @include border-radius(2px);
+                display: block;
+                position: relative;
+                width: 22px;
+                height: 20px;
+                background-color: map-get($colors, light-50);
+                border: 1px solid map-get($colors, dark-700);
+            }
+        }
+
+        &.is-on .on-off {
+            @include linear-gradient(map-get($colors, primary-800),map-get($colors, primary-400));
+        }
+    }
+
+    .settings-main {
+        margin-top: 10px;
+    }
+
+    .settings-placement {
+        margin-top: 12px;
+
+        p {
+            margin-bottom: 5px;
+        }
+
+        .on-off-container {
+            margin-right: 10px;
+        }
+    }
+
+    .table-position-container {
+        display: inline-block;
+        width: 34px;
+        height: 25px;
+        margin: 0 6px;
+        border: 1px solid map-get($colors, dark-700);
+        vertical-align: top;
+
+        .table-position {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+
+            tr td {
+                width: 8px;
+                height:5px;
+                padding:0;
+                background-color:map-get($colors, dark-600);
+                border:2px solid map-get($colors, light-900);
+                cursor: pointer;
+
+                &.active {
+                    background-color:map-get($colors, primary-400);
+                }
+            }
+        }
+    }
+
+    .button.dark {
+        height: 27px;
+        padding: 5px 10px;
+        margin-bottom: 16px;
+        font-size: 12px;
+    }
+}

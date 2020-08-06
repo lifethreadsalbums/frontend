@@ -1,0 +1,22 @@
+<section id="notifications" class="preferences-notifications">
+	<form novalidate>
+		<header>
+			<h2>Notifications </h2>
+			<hr/>
+		</header>
+
+		<div ng-repeat="prop in notifications" class="label-repeater">
+			<div class="labels">{{prop.label}}</div>
+			<on-off ng-model="userSettings.settings[prop.key]"></on-off>
+		</div>
+
+	</form>
+	<footer>
+		<button ng-click="reset()" ng-disabled="!isChanged()">
+			Reset
+		</button>
+		<button ng-click="save()" ng-disabled="!isChanged()" class="color">
+			Save
+		</button>
+	</footer>
+</section>

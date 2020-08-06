@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="25px" viewBox="0 0 21 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.1 (35376) - http://www.bohemiancoding.com/sketch -->
+    <title>Orders Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-1" transform="translate(-18.000000, -270.000000)">
+            <g id="Orders-Icon" transform="translate(18.000000, 270.000000)">
+                <rect id="Rectangle-18" fill="#A9A9A9" x="0" y="1" width="21" height="24" rx="1"></rect>
+                <rect id="Rectangle-18-Copy" fill="#FFFFFF" x="3" y="3" width="15" height="19" rx="1"></rect>
+                <rect id="Rectangle-15" fill="#A9A9A9" x="5" y="9" width="11" height="2"></rect>
+                <rect id="Rectangle-15-Copy" fill="#A9A9A9" x="5" y="13" width="9" height="2"></rect>
+                <rect id="Rectangle-15-Copy-2" fill="#A9A9A9" x="5" y="17" width="7" height="2"></rect>
+                <path d="M8.05000906,2 L4.99850233,2 C4.44748943,2 4,2.44724809 4,2.99895656 L4,4.00104344 C4,4.55733967 4.44704472,5 4.99850233,5 L16.0014977,5 C16.5525106,5 17,4.55275191 17,4.00104344 L17,2.99895656 C17,2.44266033 16.5529553,2 16.0014977,2 L12.9499909,2 C12.7183558,0.858879839 11.709479,0 10.5,0 C9.29052104,0 8.28164422,0.858879839 8.05000906,2 Z" id="Combined-Shape" fill="#CDCDCD"></path>
+            </g>
+        </g>
+    </g>
+</svg>

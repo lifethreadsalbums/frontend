@@ -1,0 +1,620 @@
+//------------------------------------------------------------------
+//                     PROJECT OVERVIEW
+//------------------------------------------------------------------
+.project-overview {
+    display: inline-block;
+    position: relative;
+    width: 172px !important;
+    height: 255px;
+    margin: 0;
+    padding: 17px 14px;
+    -webkit-transform: translate3d(0px, 0px, 0px); // Fix for Safari flip bug, which loses z-index when transforming child elements
+
+    &:hover,
+    &.project-overview--active {
+        background-color: map-get($colors, light-800);
+    }
+
+    &.ng-move {
+        opacity: 0;
+        transition: all linear .5s;
+    }
+
+    &.ng-move.ng-move-active {
+        opacity: 1;
+    }
+
+    &.ng-move-stagger {
+        -webkit-transition-delay: .1s;
+        transition-delay: .1s;
+    }
+}
+
+.project-slider__slide--has-child.project-slider__slide--active,
+.project-slider__slide--has-child.project-slider__slide--active .project-overview--active,
+.project-slider__slide--has-child.project-slider__slide--active .project-overview:hover {
+    background-color: map-get($colors, dark-700);
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview {
+        width: 142px !important;
+        height: 205px;
+        padding: 12px 10px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview {
+        width: 188px !important;
+        height: 265px;
+        padding: 22px 22px 0;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-overview {
+        width: 188px !important;
+        height: 265px;
+        padding: 24px 22px 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     HEADER
+//------------------------------------------------------------------
+.project-overview__header {
+    margin-bottom: 5px;
+
+    .dropdown-button.neutral,
+    .dropdown-button.info,
+    .dropdown-button.warning,
+    .dropdown-button.alert,
+    .dropdown-button.success {
+        max-height: 23px;
+        padding-top: 4px;
+        padding-bottom: 3px;
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__header {
+        .dropdown-button.neutral,
+        .dropdown-button.info,
+        .dropdown-button.warning,
+        .dropdown-button.alert,
+        .dropdown-button.success {
+            max-height: 19px;
+            padding-top: 2px;
+            padding-bottom: 0;
+            font-size: 10px;
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__header {
+        margin-bottom: 8px;
+
+        .dropdown-button.neutral,
+        .dropdown-button.info,
+        .dropdown-button.warning,
+        .dropdown-button.alert,
+        .dropdown-button.success {
+            max-height: 25px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 12px;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     STATUS
+//------------------------------------------------------------------
+.project-overview__status {
+    @include museo500();
+    width: 100%;
+    padding-top: 3px;
+}
+
+
+//------------------------------------------------------------------
+//                     MESSAGE COUNT
+//------------------------------------------------------------------
+.project-overview__message-count {
+    @include dashboard-sprite("icon-message-count");
+    display: none;
+    width: dashboard-sprite-width("icon-message-count");
+    height: dashboard-sprite-height("icon-message-count");
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 23px;
+    color: map-get($colors, primary-400);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.project-overview__message-count--no-messages {
+    color: map-get($colors, dark-200);
+}
+
+
+//------------------------------------------------------------------
+//                     FOOTER
+//------------------------------------------------------------------
+.project-overview__footer {
+    .split-button {
+        width: 70px;
+        margin-bottom: 0;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    > .dropdown-button,
+    > div > .dropdown-button {
+        margin-bottom: 0;
+
+        .button,
+        .button:hover {
+            @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+            @include box-shadow(0 1px 1px 0px map-get($colors, light-600));
+            margin-bottom: 0;
+            border: 1px solid map-get($colors, light-600);
+            color: map-get($colors, light-800);
+
+            &:before {
+                background: map-get($colors, light-50);
+            }
+        }
+
+        .sub-button > ul > li[index="0"] {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__footer {
+        .split-button {
+            width: 50px;
+            font-size: 10px;
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__footer {
+        .split-button {
+            width: 70px;
+            font-size: 13px;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CONTENT
+//------------------------------------------------------------------
+.project-overview__content {
+    height: 155px;
+    margin-bottom: 7px;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__content {
+        height: 122px;
+        margin-bottom: 5px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__content {
+        height: 157px;
+        margin-bottom: 8px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-overview__content {
+        height: 156px;
+        margin-bottom: 8px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     FRONT / BACK
+//------------------------------------------------------------------
+.project-overview__front,
+.project-overview__back {
+    width: 144px;
+    height: 155px;
+    border-radius: 4px;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__front,
+    .project-overview__back {
+        width: 122px;
+        height: 122px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__front,
+    .project-overview__back {
+        width: 144px;
+        height: 157px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-overview__content {
+        .project-overview__front,
+        .project-overview__back {
+            width: 144px;
+            height: 156px;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     FRONT
+//------------------------------------------------------------------
+.project-overview__front-image {
+    @include radius(4px 4px 0 0);
+    max-width: 144px;
+    height: 125px;
+    background: map-get($colors, light-600) url(../images/dashboard-project-default.png) no-repeat center center;
+}
+
+.project-overview__front-image--prints {
+    background: map-get($colors, light-600);
+}
+
+.project-overview__prints-image {
+    float: left;
+    width: calc(50% - 2px);
+    height: calc(50% - 2px);
+    margin: 1px;
+    padding: 0;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.project-overview__link-container {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-color: map-get($colors, light-50);
+    padding: 5px 4px;
+    border-radius: 2px;
+    font-size: 11px;
+}
+
+.project-overview__link-icon {
+    @include dashboard-sprite("icon-link");
+    width: dashboard-sprite-width("icon-link");
+    height: dashboard-sprite-height("icon-link");
+    vertical-align: middle;
+    display: block;
+}
+
+.project-overview__unlink-icon {
+    @include dashboard-sprite("icon-unlink");
+    width: dashboard-sprite-width("icon-unlink");
+    height: dashboard-sprite-height("icon-unlink");
+    vertical-align: middle;
+    display: block;
+}
+
+.project-overview__slides-stack-order {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: map-get($colors, light-50);
+    padding: 0 5px;
+    border-radius: 2px;
+    font-size: 11px;
+}
+
+.project-overview__title {
+    @include radius(0 0 4px 4px);
+    display: block;
+    width: 144px;
+    height: 30px;
+    padding: 5px 5px 0;
+    background: map-get($colors, light-100);
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.project-overview__stack-image {
+    @include radius(4px);
+    @include box-shadow(1px 1px 2px 0 map-get($colors, light-700));
+    width: 132px;
+    position: absolute;
+    left: 12px;
+    top: 0px;
+    z-index: -1;
+    border: 1px solid map-get($colors, light-700);
+}
+
+.project-overview__stack-image span {
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+
+.project-overview__stack-image:nth-child(n+2) {
+    border: 1px solid map-get($colors, light-700);
+}
+
+.project-overview__stack-image:nth-child(2) {
+    left: 6px;
+    top: 4px;
+    z-index: -2;
+}
+
+.project-overview__stack-image:nth-child(3) {
+    left: 0px;
+    top: 8px;
+    z-index: -3;
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__stack-image {
+        max-width: 106px;
+    }
+
+    .project-overview__front-image {
+        max-width: 122px;
+        height: 100px;
+    }
+
+    .project-overview__title {
+        max-width: 122px;
+        height: 20px;
+        padding-top: 0;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__stack-image {
+        max-width: 144px;
+    }
+
+    .project-overview__front-image {
+        max-width: 144px;
+        height: 124px;
+    }
+
+    .project-overview__title {
+        max-width: 155px;
+        height: 33px;
+        padding-top: 6px;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .project-overview__front-image {
+        width: 144px;
+        height: 122px;
+    }
+
+    .project-overview__title {
+        width: 144px;
+        height: 34px;
+        padding-top: 6px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BACK
+//------------------------------------------------------------------
+.project-overview__back {
+    background: map-get($colors, dark-800);
+}
+
+.project-overview__actions {
+    margin: 0;
+    padding: 13px 0 0;
+    list-style: none;
+}
+
+.project-overview__action {
+    height: 28px;
+    padding: 0;
+    margin-bottom: 3px;
+
+    &[disabled] {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    &:hover {
+        background: map-get($colors, light-900);
+    }
+}
+
+.project-overview__action-link {
+    display: block;
+    padding: 0 0 0 18px;
+    font-size: 13px;
+    line-height: 28px;
+    color: map-get($colors, light-50);
+
+    &:hover {
+        color: map-get($colors, light-50);
+    }
+}
+
+.project-overview__action-label {
+    display: inline-block;
+    vertical-align: top;
+
+    &:before {
+        content: "";
+        display: inline-block;
+        position: relative;
+        margin-right: 10px;
+    }
+}
+
+.project-overview__action-label--svg:before {
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.project-overview__action-label--png:before {
+    background-repeat: no-repeat;
+}
+
+.project-overview__action-label--cover-builder:before {
+    top: 5px;
+    width: 14px;
+    height: 15px;
+
+    background-image: url('/images/nav/builder-active.svg');
+}
+
+.project-overview__action-label--designer:before {
+    top: 3px;
+    width: 14px;
+    height: 14px;
+
+    background-image: url('/images/nav/designer-active.svg');
+}
+
+.project-overview__action-label--projects:before {
+    top: 3px;
+    width: 14px;
+    height: 16px;
+
+    background-image: url('/images/nav/projects.svg');
+}
+
+.project-overview__action-label--upload:before {
+    top: 2px;
+    width: project-sprite-width("projects-icon-upload-cloud");
+    height: project-sprite-height("projects-icon-upload-cloud");
+
+    @include project-sprite("projects-icon-upload-cloud");
+}
+
+.project-overview__action-label--invoice-history:before {
+    top: 4px;
+    width: 14px;
+    height: 17px;
+
+    background-image: url('/images/svg/invoice-history.svg');
+}
+
+.project-overview__action-label--prints:before {
+    top: 4px;
+    width: 17px;
+    height: 14px;
+
+    background-image: url('/images/nav/prints-active.svg');
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .project-overview__actions {
+        padding-top: 10px;
+    }
+
+    .project-overview__action {
+        height: 23px;
+        padding: 0;
+    }
+
+    .project-overview__action-link {
+        padding: 0 0 0 12px;
+        font-size: 11px;
+        line-height: 23px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-overview__actions {
+        padding-top: 14px;
+    }
+
+    .project-overview__action {
+        height: 30px;
+        padding: 0;
+    }
+
+    .project-overview__action-link {
+        padding: 0 0 0 12px;
+        font-size: 13px;
+        line-height: 30px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     TOGGLE LINK
+//------------------------------------------------------------------
+.project-toggle-link {
+    display: block;
+    position: absolute;
+    left: -15px;
+    top: 44%;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+
+    &:hover {
+        .project-toggle-link__icon--is-linked {
+            @include dashboard-sprite("icon-link-large-light");
+            width: dashboard-sprite-width("icon-link-large-light");
+            height: dashboard-sprite-height("icon-unlink-large-light");
+        }
+
+        .project-toggle-link__icon--is-unlinked {
+            @include dashboard-sprite("icon-unlink-large-light");
+            width: dashboard-sprite-width("icon-unlink-large-light");
+            height: dashboard-sprite-height("icon-unlink-large-light");
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .project-toggle-link {
+        top: 47%;
+    }
+}
+
+.project-toggle-link__icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.project-toggle-link__icon--is-linked {
+    @include dashboard-sprite("icon-link-large");
+    width: dashboard-sprite-width("icon-link-large");
+    height: dashboard-sprite-height("icon-link-large");
+}
+
+.project-toggle-link__icon--is-unlinked {
+    @include dashboard-sprite("icon-unlink-large");
+    width: dashboard-sprite-width("icon-unlink-large");
+    height: dashboard-sprite-height("icon-unlink-large");
+}

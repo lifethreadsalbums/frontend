@@ -1,0 +1,35 @@
+<section>
+<form name="form1" novalidate style="margin:40px">
+    
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="form-element">
+                <label for="inputPTS">Please enter your {{taxNumberLabel}}</label>
+                
+                <input ng-if="taxNumberMask" type="text" placeholder="{{taxNumberLabel}}" name="pts" id="inputPTS"
+                    ui-mask="{{taxNumberMask}}" ui-mask-placeholder ui-mask-placeholder-char="_"
+                    ng-disabled="noPST"
+                    ng-model="taxExemptionNumber" 
+                    style="margin-bottom:2px"
+                    set-focus="true">
+
+                <input ng-if="!taxNumberMask" type="text" placeholder="{{taxNumberLabel}}" name="pts" id="inputPTS"
+                    ng-disabled="noPST"
+                    ng-model="taxExemptionNumber" 
+                    style="margin-bottom:2px"
+                    set-focus="true">
+                    
+                <input type="checkbox" id="noPST" ng-model="noPST">
+                <label for="noPST">I do not have one</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <button class="button pull-right" ng-disabled="(!taxExemptionNumber || taxExemptionNumber=='') && !noPST"  ng-click="save() && closeThisDialog()">Save</button>
+        </div>
+    </div>
+
+</form>
+</section>

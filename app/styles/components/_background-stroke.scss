@@ -1,0 +1,436 @@
+//-----------------------------------------------------------
+//              BACKGROUND & STROKES DIRECTIVE
+//-----------------------------------------------------------
+#background-stroke-container {
+    background: map-get($colors, dark-700);
+
+    .wrapper {
+        width: 200px;
+        margin: auto;
+    }
+
+    .label {
+        margin-bottom: 12px;
+        padding: 0;
+        background: none;
+        font-size: 14px;
+        color: map-get($colors, dark-200);
+    }
+
+    .dropdown-button ul li:hover,
+    .dropdown-button ul li.active {
+        @include linear-gradient(map-get($colors, primary-300), map-get($colors, primary-400));
+        color: map-get($colors, light-50);
+    }
+
+    .background-stroke-buttons {
+        @include box-shadow(0 0 2px map-get($colors, dark-800));
+        width: 100%;
+        padding: 16px 0;
+        background-color: map-get($colors, dark-600);
+        font-size: 0;
+
+        .background-button,
+        .stroke-button {
+            @include border-radius(5px);
+            width: 74px;
+            height: 74px;
+            border: 2px solid map-get($colors, dark-700);
+            position: relative;
+            display: inline-block;
+
+            .triangle {
+                @include border-top-left-radius(2px);
+                position: absolute;
+                bottom: 0;
+                right: 28px;
+                width: 14px;
+                height: 7px;
+                background-color: map-get($colors, dark-700);
+
+                &.active:after {
+                    border-top: 4px solid map-get($colors, dark-200);
+                }
+            }
+
+            .triangle:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 3px;
+                width: 0;
+                height: 0;
+                border-top: 4px solid map-get($colors, dark-500);
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+            }
+
+            &.active:before {
+                content: '';
+                position: absolute;
+                bottom: -19px;
+                left: 50%;
+                width: 0;
+                height: 0;
+                margin-left:-8px;
+                border-bottom: 8px solid map-get($colors, dark-200);
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+            }
+
+            .gradient-overlay {
+                @include border-radius(4px);
+                width: 100%;
+                height: 100%;
+            }
+
+            &.active .gradient-overlay {
+                @include linear-gradient(rgba(map-get($colors, light-50),0.3), rgba(map-get($colors, light-50),0.1));
+            }
+        }
+
+        .background-button {
+            &.active {
+                @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-800));
+            }
+        }
+
+        .stroke-button{
+            margin: 0 8px;
+            background: map-get($colors, danger-800);
+
+            &:after {
+                @include border-radius(2px);
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 44px;
+                height: 44px;
+                margin:-22px 0 0 -22px;
+                background:map-get($colors, dark-600);
+                border: 2px solid map-get($colors, dark-700);
+            }
+
+            &.active {
+                @include linear-gradient(map-get($colors, warning-800), map-get($colors, warning-900));
+            }
+        }
+
+        .small-button-container {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .eyedropper-button,
+        .color-picker-button {
+            @include border-radius(4px);
+            @include linear-gradient(map-get($colors, dark-400),map-get($colors, dark-600));
+            display: block;
+            position: relative;
+            width: 35px;
+            height: 35px;
+            padding-top: 8px;
+            border: 1px solid map-get($colors, dark-700);
+            text-align: center;
+            vertical-align: middle;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 5%;
+                width: 90%;
+                height: 1px;
+                background-color: map-get($colors, dark-300);
+            }
+
+            &.active, &:active {
+                @include linear-gradient(map-get($colors, dark-800),map-get($colors, dark-700));
+                @include box-shadow(1px 1px 1px 0 map-get($colors, dark-800) inset);
+            }
+
+            &.active:before, &:active:before {
+                background-color: map-get($colors, dark-800);
+            }
+        }
+
+        .color-picker-button {
+            margin-bottom: 4px;
+        }
+    }
+
+    .main-container {
+        position: relative;
+        width: 100%;
+        margin: auto;
+        padding: 12px 0;
+        background-color: map-get($colors, dark-700);
+        border-top: 1px solid map-get($colors, dark-600);
+        z-index: 0;
+        outline: none;
+
+        .dropdown-button {
+            width: 200px;
+            margin-bottom: 5px;
+        }
+
+        .recently-used-colors {
+            margin: 0;
+            padding-left: 5px;
+            text-align: left;
+        }
+
+        .recently-used-color {
+            @include border-radius(4px);
+            display: block;
+            position: relative;
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-right: 5px;
+            border: 2px solid map-get($colors, dark-700);
+            cursor: pointer;
+
+            &:after {
+                @include linear-gradient(transparent 50%,rgba(map-get($colors, dark-900),0.1) 100%);
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+            }
+
+            &.active {
+                border: 2px solid map-get($colors, primary-500);
+            }
+
+            &.none {
+                background: map-get($colors, light-50) url(../images/material-empty.png) no-repeat center;
+                background-color: map-get($colors, light-50);
+                background-size: cover;
+            }
+        }
+
+        hr {
+            margin: 13px 0;
+            border-color: map-get($colors, light-900);
+        }
+
+        .background-pictures {
+            margin: 0;
+            margin-top:8px;
+            font-size: 0;
+
+            .background-picture {
+                @include border-radius(2px);
+                display: inline-block;
+                width: 96px;
+                height: 86px;
+                margin: 0 7px 7px 0;
+                background: map-get($colors, danger-50);
+                list-style-type:none;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .background-picture:nth-child(even) {
+                margin-right: 0;
+            }
+
+            .add-picture-button {
+                @include border-radius(2px);
+                display: block;
+                float: left;
+                padding: 15px 0;
+                width: 100%;
+                height: 100%;
+                background: map-get($colors, dark-700);
+                border: 1px dashed map-get($colors, light-800);
+                font-size: 14px;
+                color: map-get($colors, light-800);
+
+                > span.add-picture-icon {
+                    @include icon("icon-add-new-dark");
+                    margin: 0;
+                }
+
+                > p {
+                    font-size: 14px;
+                }
+            }
+
+            .add-picture-button.active,
+            .add-picture-button:hover {
+                background: map-get($colors, primary-400);
+                border: 1px solid map-get($colors, primary-400);
+                color: map-get($colors, light-50);
+
+                > span.add-picture-icon {
+                    @include icon("icon-add-new-light");
+                }
+            }
+        }
+
+        #weight-slider {
+            font-size: 0;
+            overflow: hidden;
+            white-space: nowrap;
+
+            rzslider {
+                @include linear-gradient(map-get($colors, dark-700),map-get($colors, dark-300));
+                width: 99px;
+                height: 3px;
+                margin-top: 8px;
+
+                span.bar {
+                    width: 99px;
+                }
+
+                span.pointer {
+                    @include designer-sprite("icon-color-slider-circle-indicator");
+                    width: designer-sprite-width("icon-color-slider-circle-indicator");
+                    height: designer-sprite-height("icon-color-slider-circle-indicator");
+                    bottom: -5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .background-stroke-footer {
+        @include linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 38px;
+        padding: 3px 0 0;
+        border-bottom: 1px solid map-get($colors, dark-700);
+        text-align: center;
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: map-get($colors, dark-300);
+        }
+
+        .button {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        .apply-to-selected {
+            padding-left: 0;
+            padding-right: 0;
+            width: 170px;
+            border-radius: 4px 0 0 4px;
+
+            &:before {
+                right: 0;
+            }
+        }
+
+        .apply-to-options {
+            margin-left: -5px;
+            padding-left: 9px;
+            padding-right: 9px;
+            border-radius: 0 4px 4px 0;
+
+            &:before {
+                left: 0;
+            }
+        }
+
+        .apply-to-options-list {
+            display: none;
+            background: map-get($colors, light-900);
+            border: 1px solid transparent;
+            border-radius: 4px;
+
+            li {
+                a {
+                    color: map-get($colors, light-600);
+                }
+
+                &:hover a {
+                    background: map-get($colors, light-800);
+                }
+            }
+
+            &.open {
+                display: block;
+                text-align: left;
+
+                &:before {
+                    top: auto !important;
+                    bottom: -6px;
+                    left: auto !important;
+                    right: 26px;
+                    border-color: map-get($colors, light-900) transparent transparent transparent;
+                    border-top-style: solid;
+                    border-bottom-style: none;
+                }
+
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.swatch-options {
+    position: fixed;
+    display: none;
+    margin: 0;
+    padding: 8px 0;
+    background: map-get($colors, light-900);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px 0px rgba(map-get($colors, dark-900), 0.25);
+    color: map-get($colors, light-800);
+    z-index: 1000;
+
+    .swatch-options-list {
+        margin: 0;
+        list-style-type: none;
+    }
+
+    .swatch-option {
+        position: relative;
+        padding: 0 12px;
+        font-size: 14px;
+        line-height: 31px;
+        color: map-get($colors, light-600);
+        white-space: nowrap;
+        user-select: none;
+
+        &:hover {
+            background: map-get($colors, light-800);
+        }
+    }
+
+    .swatch-bar {
+        position: absolute;
+        top: -12px;
+        width: 200px;
+        height: 12px;
+    }
+
+    .swatch-arrow {
+        content: "";
+        position: fixed;
+        height: 0;
+        width: 0;
+        margin-left: -12px;
+        border: solid transparent;
+        border-width: 12px;
+        border-bottom-color: map-get($colors, light-900);
+    }
+}

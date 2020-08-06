@@ -1,0 +1,65 @@
+//------------------------------------------------------------------
+//                     TEXT UTILS
+//------------------------------------------------------------------
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-small {
+    font-size:0.85em;
+    line-height:1.0em;
+}
+
+.text-smaller {
+    font-size:0.75em;
+    line-height:1.0em;
+}
+
+.text-tiny {
+    font-size:0.55em;
+    line-height:1.0em;
+}
+
+.text-disabled {
+    color: map-get($colors, light-700);
+}
+
+.text-mute {
+    opacity: .6;
+}
+
+.text-error {
+    color: $formErrorLabelColor;
+}
+
+.text-break-all {
+    word-break: break-all;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text--dark {
+    color: map-get($colors, light-700);
+}

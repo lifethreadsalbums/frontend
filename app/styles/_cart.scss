@@ -1,0 +1,730 @@
+//------------------------------------------------------------------
+//                     CART WRAPPER OUTER
+//------------------------------------------------------------------
+.cart__wrapper-outer {
+    position: absolute;
+    top: 0;
+    right: 400px;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__wrapper-outer {
+        right: 285px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART SPINNER
+//------------------------------------------------------------------
+.cart__spinner-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(map-get($colors, dark-300),0.3);
+}
+
+.cart__spinner {
+    margin-left: -25px;
+    margin-top: -25px;
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+}
+
+
+//------------------------------------------------------------------
+//                     CART WRAPPER
+//------------------------------------------------------------------
+.cart__wrapper {
+    @include radius(15px);
+    @include box-shadow(0 0 3px 0 rgba(map-get($colors, dark-900), 0.2));
+    width: 95%;
+    max-width: 950px;
+    margin: 75px auto;
+    padding: 32px 46px;
+    background: map-get($colors, light-50);
+    background: rgba(map-get($colors, light-50), 0.6);
+    line-height: 1.3em;
+    color: $darkGrey;
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__wrapper {
+        @include box-shadow(0 0 0 0 rgba(map-get($colors, dark-900), 0.2));
+        margin-top: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: none;
+
+        // not showing border underneath h1
+        h1 + .borderDefault {
+            display: none;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART SIDEBAR
+//------------------------------------------------------------------
+.cart__sidebar {
+    @include clearfix();
+    @include museo500();
+    @include box-shadow(0 0 3px 0 rgba(map-get($colors, dark-900), 0.2));
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    background: map-get($colors, light-100);
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__sidebar {
+        width: 285px;
+    }
+}
+
+.cart__sidebar-inner {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+}
+
+.cart__sidebar-scrollable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    overflow: auto;
+}
+
+.cart__sidebar__section {
+    position: relative;
+    border-top: 1px solid map-get($colors, light-400);
+    padding: 31px 28px;
+
+    &:first-child {
+        border: 0;
+        padding-top: 48px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__sidebar__section {
+        padding-left: 16px;
+        padding-right: 16px;
+
+        padding: 25px 16px;
+
+        &:first-child {
+            padding-top: 32px;
+        }
+    }
+}
+
+.cart__sidebar__title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"].cart__sidebar__coupon-input {
+    display: inline-block;
+    width: 240px;
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 1024px) {
+    input[type="text"].cart__sidebar__coupon-input {
+        width: 120px;
+    }
+}
+
+.cart__sidebar__table {
+    @include museo300();
+    width: 100%;
+    border: none;
+    font-size: 18px;
+    color: map-get($colors, light-800);
+    text-align: right;
+
+    tr {
+        height: 52px;
+    }
+
+    td {
+        background: map-get($colors, light-100);
+        color: map-get($colors, light-800);
+
+        &:first-child {
+            text-align: left;
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__sidebar__table {
+        font-size: 14px;
+
+        tr {
+            height: 36px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    }
+}
+
+.cart__sidebar__buttons-container {
+    position: absolute;
+    right: 16px;
+    bottom: 20px;
+    left: 16px;
+    padding: 0 16px;
+    overflow: hidden;
+
+    .button {
+        width: 48%;
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .expand {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .cart__sidebar__buttons-container {
+        padding: 0;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART CONTENT
+//------------------------------------------------------------------
+.cart__section {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.cart__section__title {
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+.cart__section__back {
+    position: absolute;
+    top: -10px;
+}
+
+
+//------------------------------------------------------------------
+//                     CART SECTION HEADER
+//------------------------------------------------------------------
+.cart__section header {
+    @include border-top-right-radius(5px);
+    @include border-top-left-radius(5px);
+    @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+    @include clearfix();
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    padding: 9px 20px 8px;
+    font-size: 16px;
+    color: map-get($colors, light-800);
+    border-bottom: 1px solid map-get($colors, light-400);
+
+    &.collapsed {
+        @include radius(5px);
+
+        h2 {
+            color: map-get($colors, light-800);
+        }
+
+        > span {
+            float: none;
+        }
+    }
+
+    h2 {
+        @include museo500();
+        float: left;
+        margin-right: 10px;
+        color: map-get($colors, light-800);
+        font-size: 15px;
+        line-height: 28px;
+    }
+
+    .ui-panel-header {
+        padding: 0;
+    }
+
+    .ui-panel-header-content {
+        float :left;
+    }
+
+    // container holding buttons
+    .icons {
+        float: right;
+        height: 24px;
+        margin-top: 3px;
+
+        .iconPersonDetails {
+            margin: 0 12px -2px 0;
+        }
+
+        .iconArrow {
+            top: 3px;
+        }
+    }
+
+    .button.small {
+        margin: 0 7px 0 0;
+    }
+}
+
+.cart__header__table-header span {
+    @include museo500();
+    float: left;
+    font-size: 14px;
+    text-align: center;
+
+    &.first {
+        flex: 1;
+        text-align: left;
+    }
+
+    &.second {
+        width: 58px;
+    }
+
+    &.third {
+        width: 88px;
+    }
+
+    &.fourth {
+        width: 88px;
+    }
+
+    &.fifth {
+        width: 58px;
+    }
+
+    &.sixth {
+        width: 88px;
+        text-align: right;
+    }
+
+    &.spo-size {
+        width: 159px;
+    }
+
+    &.spo-prints {
+        width: 66px;
+        white-space: nowrap;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART SECTION FOOTER
+//------------------------------------------------------------------
+.cart__section__footer {
+    @include museo500();
+    @include clearfix();
+    @include border-bottom-right-radius(5px);
+    @include border-bottom-left-radius(5px);
+    @include linear-gradient(map-get($colors, light-100), map-get($colors, light-300));
+    border-top: 1px solid map-get($colors, light-400);
+    padding: 15px 20px 15px;
+    font-size: 15px;
+    color: map-get($colors, light-800);
+    overflow: hidden;
+
+    .button {
+        margin-bottom: 0;
+    }
+
+    .rush {
+        margin-left: 10px;
+    }
+}
+
+.cart__section__footer__subtotal-label,
+.cart__section__footer__subtotal-value {
+    display: inline-block;
+    line-height: 31px;
+}
+
+.cart__section__footer__subtotal-label {
+    margin-right: 25px;
+}
+
+
+//------------------------------------------------------------------
+//                     SHIPPING DETAILS
+//------------------------------------------------------------------
+.shipping-details {
+    .ui-panel-header .icons {
+        display: none;
+    }
+}
+
+.shipping-details__loader {
+    font-size: 13px;
+    padding: 6px;
+    height: 50px;
+}
+
+.shipping-details__loader-spinner {
+    display: inline-block;
+    width: 35px;
+    height: 12px;
+}
+
+
+//------------------------------------------------------------------
+//                     CART PROJECT
+//------------------------------------------------------------------
+.cart__project {
+    @include clearfix();
+    padding: 20px;
+
+    .onLeft {
+        width: 200px;
+        float: left;
+        padding-top: 12px;
+
+        .image {
+            position: relative;
+            width: 180px;
+            height: 150px;
+            background: map-get($colors, light-600) url(../images/dashboard-project-default.png) no-repeat center center;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .price {
+            position: absolute;
+            top: 63px;
+            left: 0;
+            right: 0;
+            font-size: 26px;
+            text-align: center;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        .onLeft {
+            float: none;
+        }
+    }
+
+    .onRight {
+        padding-top: 12px;
+        padding-left: 200px;
+    }
+
+    @media only screen and (max-width: 1400px) {
+        .onRight {
+            padding-left: 0;
+        }
+    }
+
+    .on-right-spo {
+        padding-top: 12px;
+        padding-left: 220px;
+    }
+    
+    @media only screen and (max-width: 1400px) {
+        .on-right-spo {
+            padding-left: 85px;
+        }
+    }
+
+    .spo-copies {
+        font-size: 14px;
+        text-align: center;
+        padding: 2px 3px;
+        height: 26px;
+        margin-bottom: 0px;
+        z-index: 100;
+    }
+
+    .iconMinus {
+        margin-bottom: -2px;
+    }
+
+    .iconPlus {
+        margin-bottom: -2px;
+    }
+
+    .iconPlusBg {
+        margin-top: 6px;
+    }
+
+    .iconMinusBg {
+        margin-top: 6px;
+    }
+}
+
+.cart__project__subtotal {
+    @include museo500();
+    font-size: 16px;
+    color: map-get($colors, light-800);
+    text-align: right;
+    text-transform: uppercase;
+
+    span:first-child {
+        display: inline-block;
+    }
+
+    span:last-child {
+        display: inline-block;
+        margin: 0 20px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART PROJECT TABLE
+//------------------------------------------------------------------
+.cart__project__table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.cart__project__table-row:first-child {
+    border: 0;
+
+    .cart__project__table-cell {
+        border: 0;
+    }
+}
+
+.cart__project__table-header {
+    padding: 0 0 11px;
+}
+
+.cart__project__table-cell {
+    @include museo300();
+    position: relative;
+    text-align: center;
+    border-top: 1px solid map-get($colors, light-300);
+    padding: 3px 0 5px;
+    vertical-align: middle;
+    text-align: center;
+
+    &.project-label {
+        div {
+            display: flex;
+        }
+
+        b {
+            width: 115px;
+            margin-right: 5px;
+            color: map-get($colors, dark-900);
+        }
+
+        span {
+            flex: 1;
+            color: map-get($colors, light-800);
+            text-align: left;
+        }
+    }
+}
+
+.cart__project__table-row--spacer .cart__project__table-cell {
+    border: 0;
+    height: 16px;
+}
+
+.cart__project__table-row--summing-up .cart__project__table-cell {
+    @include museo500();
+    border-bottom: 0;
+    text-align: right;
+    text-transform: uppercase;
+
+    &:first-child {
+        padding-top: 4px;
+    }
+
+    &:last-child {
+        width: 100px;
+    }
+}
+
+.cart__project__table-header,
+.cart__project__table-cell {
+    &.project-label {
+        width: auto;
+        text-align: left;
+    }
+
+    &.project-quantity {
+        width: 60px;
+    }
+
+    &.project-price {
+        width: 90px;
+    }
+
+    &.project-discount {
+        width: 60px;
+        color: map-get($colors, danger-400);
+    }
+
+    &.project-total-price {
+        width: 90px;
+        text-align: right;
+    }
+
+    .project-quantity-input {
+        width: 55px;
+        text-align: center;
+    }
+
+    &.is-long {
+        font-size: 13px;
+    }
+
+    &.spo-container-label {
+        width: 160px;
+        overflow: hidden;
+        //text-overflow: ellipsis;
+        //white-space: nowrap;
+    }
+
+    &.spo-prints {
+        width: 66px;
+    }
+}
+
+.project-label__custom-type {
+    @include museo500();
+    display: inline-block;
+    width: 140px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: map-get($colors, dark-900) !important;
+}
+
+.project-label__custom-value {
+    display: inline-block;
+    color: map-get($colors, light-800) !important;
+}
+
+.project-label__custom-product-no {
+    margin-bottom: 0 !important;
+}
+
+
+//------------------------------------------------------------------
+//                     CART COMMENTS
+//------------------------------------------------------------------
+.cart__comments {
+    box-sizing: border-box;
+    padding: 0.9375rem;
+
+    textarea {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     CART ADDRESS CHOOSING
+//------------------------------------------------------------------
+.addressChoosing {
+    @include box-shadow(0 0 3px 0 rgba(map-get($colors, dark-900), 0.2));
+    @include radius(5px);
+    margin: 40px 0;
+
+    > div {
+        @include clearfix();
+        @include border-bottom-right-radius(5px);
+        @include border-bottom-left-radius(5px);
+        padding: 20px 0;
+        background: map-get($colors, light-100);
+
+        > span {
+            color: map-get($colors, light-800);
+            font-size: 16px;
+            margin: 0 7px;
+        }
+    }
+
+    .postalCode {
+        margin-right: 154px;
+    }
+}
+
+.checkout-phone-country {
+    margin-right: 10px;
+}
+
+.checkout-phone-number {
+    max-width: 210px;
+}
+
+
+//------------------------------------------------------------------
+//                     CART DELIVERY DETAILS
+//------------------------------------------------------------------
+.address-ready {
+    @include clearfix();
+    padding-top: 15px;
+}
+
+.address-ready__inner-container {
+    margin-bottom: 25px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid map-get($colors, light-400);
+}
+
+@media only screen and (min-width: $breakPointSM) {
+    .address-ready__inner-container {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+}
+
+.address-ready__header {
+    color: map-get($colors, dark-900);
+    text-transform: uppercase;
+}
+
+.address-ready__label {
+    @include museo500();
+    color: map-get($colors, dark-900);
+
+    &:first-child {
+        width: 160px;
+    }
+}
+
+.address-ready__value {
+    color: map-get($colors, light-800);
+}

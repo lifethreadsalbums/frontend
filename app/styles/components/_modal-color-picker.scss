@@ -1,0 +1,63 @@
+//------------------------------------------------------------------
+//              MODAL - COLOR PICKER
+//------------------------------------------------------------------
+.color-picker-content {
+    #picker .colpick {
+        background: transparent;
+        border: none;
+    }
+
+    footer {
+        margin-top: 10px;
+
+        button,
+        .button {
+            margin-bottom: 0;
+        }
+    }
+
+    .eyedropper-button {
+        box-sizing: border-box;
+        display: inline-block;
+        position: relative;
+        width: 31px;
+        height: 31px;
+        padding: 0;
+        background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+        border: 1px solid map-get($colors, dark-700);
+        border-radius: 4px;
+        text-align: center;
+        vertical-align: middle;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 5%;
+            width: 90%;
+            height: 1px;
+            background-color: map-get($colors, dark-300);
+        }
+
+        &.active,
+        &:active {
+            background: linear-gradient(map-get($colors, dark-800), map-get($colors, dark-700));
+            box-shadow: 1px 1px 1px 0 map-get($colors, dark-800) inset;
+        }
+
+        &.active:before,
+        &:active:before {
+            background-color: map-get($colors, dark-800);
+        }
+
+        .icon-eyedropper {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}

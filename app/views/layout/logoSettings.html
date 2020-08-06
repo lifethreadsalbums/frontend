@@ -1,0 +1,64 @@
+<div class="logo-settings-container">
+    <div class="logo-preview">
+        <span class="logo-helper"></span>
+        <img class="logo" alt="{{logo.filename}}" ng-src="{{logo.url}}">
+    </div>
+<div class="settings-main">
+    <div class="row">
+        <p>Print Logo</p>
+        <on-off on-label="Yes" off-label="No" 
+            ng-model="logo.printLogo" on-change=""/>
+    </div>
+    <div class="row">
+    <p>Set as default logo <span class="icon-settings-info">
+        <span class="tooltip-info">
+            All future albums 
+            <br/>will use this logo.
+        </span>
+    </span></p>
+        <on-off on-label="Yes" off-label="No" 
+            ng-model="logo.default" on-change=""/>
+    </div>
+    <div class="row">
+        <p>Leave last page blank <span class="icon-settings-info">
+            <span class="tooltip-info tooltip-info-big">
+                No pictures will be placed 
+                <br/>on the last page.
+            </span>
+        </span></p>
+        <on-off on-label="Yes" off-label="No" 
+            ng-model="logo.leaveLastPageBlank" on-change=""/>
+    </div>
+</div>
+<div class="settings-placement">
+    <h4>Placement</h4>
+    <hr/>
+    <p>First Page</p>
+    <div class="row">
+        <on-off on-label="On" off-label="Off" 
+            ng-model="logo.firstPage" on-change="" ></on-off>
+        <div class="table-position-container">
+            <table class="table-position">
+                <tr ng-repeat="i in [1,2,3]">
+                    <td ng-repeat="j in [1,2,3]" ng-click="selectFirstPagePosition(i, j)"
+            ng-class="{active: (selectedFirstPagePosition.row == i && selectedFirstPagePosition.index == j )}"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="button dark">Customize</button>
+    </div>
+    <p>Last Page</p>
+    <div class="row">
+        <on-off on-label="On" off-label="Off" 
+            ng-model="logo.lastPage" on-change="" ></on-off>
+        <div class="table-position-container">
+            <table class="table-position">
+                <tr ng-repeat="i in [1,2,3]">
+                    <td ng-repeat="j in [1,2,3]" ng-click="selectLastPagePosition(i, j)"
+            ng-class="{active: (selectedLastPagePosition.row == i && selectedLastPagePosition.index == j )}"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="button dark">Customize</button>
+    </div>
+</div>

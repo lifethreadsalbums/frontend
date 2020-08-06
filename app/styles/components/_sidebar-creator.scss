@@ -1,0 +1,251 @@
+//------------------------------------------------------------------
+//                     SIDEBAR CREATOR
+//------------------------------------------------------------------
+.sidebar-creator {
+    position: absolute;
+    top: 37px;
+    bottom: 0;
+    left: 0;
+    width: 276px !important;
+    background: $ordersSidebarBackground;
+    border-right: 1px solid $ordersSidebarBorderColor;
+    overflow: auto;
+    overflow-x: hidden;
+
+    transition: bottom 1s ease;
+
+    .back.introjs-showElement {
+        z-index: 0 !important;
+    }
+}
+
+.sidebar-creator--dark {
+    background: map-get($colors, dark-600);
+    border-color: map-get($colors, dark-700);
+}
+
+.sidebar-creator--prints-bottom-normal,
+.sidebar-creator--prints-bottom-expanded {
+    bottom: 220px;
+}
+
+.sidebar-creator--prints-bottom-collapsed {
+    bottom: 45px;
+}
+
+
+//------------------------------------------------------------------
+//                     SIDEBAR CREATOR CONTENT CONTAINER
+//------------------------------------------------------------------
+.sidebar-creator__content-container {
+    position: absolute;
+    top: 0;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.sidebar-creator__content-container--optional-addon {
+    bottom: 130px;
+}
+
+
+.sidebar-creator__content-container--animate-left {
+    &.ng-enter,
+    &.ng-leave {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) .7s);
+        position: absolute;
+    }
+
+    &.ng-enter {
+        left: 100%;
+        overflow: hidden;
+    }
+    &.ng-enter.ng-enter-active {
+        left: 0;
+    }
+
+    &.ng-leave {
+        left: 0;
+        overflow: hidden;
+    }
+    &.ng-leave.ng-leave-active {
+        left: -100%;
+    }
+}
+
+.sidebar-creator__content-container--animate-right {
+    left: auto;
+    right: 0;
+
+    &.ng-enter,
+    &.ng-leave {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) .7s);
+        position: absolute;
+    }
+
+    &.ng-enter {
+        right: 100%;
+        overflow: hidden;
+    }
+    &.ng-enter.ng-enter-active {
+        right: 0;
+    }
+
+    &.ng-leave {
+        right: 0;
+        overflow: hidden;
+    }
+    &.ng-leave.ng-leave-active {
+        right: -100%;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     SIDEBAR CREATOR CONTENT
+//------------------------------------------------------------------
+.sidebar-creator__content {
+    padding: 20px;
+
+    .tab-pane .columns {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .drop-info {
+        margin-bottom: 5px;
+    }
+
+    .button.font,
+    .button.upload {
+        @include radius(0);
+        @include linear-gradient(map-get($colors, light-300), map-get($colors, light-400));
+        @include box-shadow(none);
+        border: 1px solid map-get($colors, light-600);
+        color: map-get($colors, light-800);
+
+        &:before {
+            display: none;
+        }
+
+        &.active {
+            @include linear-gradient(map-get($colors, dark-600), map-get($colors, dark-400));
+            border: 1px solid map-get($colors, dark-600);
+            color: map-get($colors, dark-200);
+        }
+
+        &:hover {
+            @include box-shadow(0 1px 1px 0px map-get($colors, light-600));
+        }
+    }
+
+    .color-picker {
+        &.disabled {
+            pointer-events: none;
+            opacity: .5;
+            border-color: map-get($colors, light-600);
+        }
+
+        .blind {
+            background: map-get($colors, light-50) url(../images/material-empty.png) no-repeat center;
+            background-color: map-get($colors, light-50) !important;
+            background-size: cover;
+        }
+    }
+}
+
+.sidebar-creator__album-link {
+    font-size: 12px;
+    line-height: 20px;
+    padding: 2px;
+    margin-top: 5px;
+
+    .on-off-container {
+        float: right;
+    }
+}
+
+.sidebar-creator__font-style-separator {
+    display: block;
+    margin: 2px 0 10px;
+    border-bottom: 1px solid map-get($colors, light-500);
+}
+
+
+//------------------------------------------------------------------
+//                     UPLOAD LOGO INFO
+//------------------------------------------------------------------
+.upload-logo-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 72px;
+    margin-bottom: 12px;
+    padding: 12px 12px 8px 78px;
+    background: map-get($colors, primary-50);
+    border: 1px solid map-get($colors, light-600);
+    border-radius: 4px;
+}
+
+.upload-logo-info--logo {
+    padding-left: 138px;
+
+    .upload-logo-info-preview {
+        @include build-sprite("upload-logo-preview-horizontal");
+        top: 19px;
+        width: build-sprite-width("upload-logo-preview-horizontal");
+        height: build-sprite-height("upload-logo-preview-horizontal");
+    }
+}
+
+.upload-logo-info-preview {
+    @include build-sprite("upload-logo-info-preview");
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    width: build-sprite-width("upload-logo-info-preview");
+    height: build-sprite-height("upload-logo-info-preview");
+}
+
+.upload-logo-info-notice {
+    font-size: 12px;
+    line-height: 14px;
+    color: map-get($colors, dark-900);
+    vertical-align: top;
+}
+
+
+//------------------------------------------------------------------
+//                     SIDEBAR CREATOR FOOTER
+//------------------------------------------------------------------
+.sidebar-creator__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 20px 0;
+
+    &.relative {
+        position: relative;
+    }
+
+    .button {
+        width: 100%;
+
+        &.closer {
+            margin-bottom: 4px;
+        }
+
+        &.half {
+            max-width: 113px;
+        }
+
+        &.last {
+            margin-right: 9px;
+        }
+    }
+}

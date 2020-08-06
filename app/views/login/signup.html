@@ -1,0 +1,487 @@
+<form class="custom" name="form1" data-ng-show="actPage == 'signup1'" form-submit="validate(2)" novalidate ng-cloak>
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'step1title'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputEmail" >{{'mail'|i18n}}</label>
+				<input set-focus="true" type="email" placeholder="{{'mailPlaceholder'|i18n}}" id="inputEmail" name="inEmail"
+					required ng-focus data-ng-model="dataIn.mail" unique-email autocomplete="off" >
+				<span ng-show="form1.inEmail.$blurred && form1.inEmail.$invalid && !form1.inEmail.$error.email && !form1.inEmail.$error.unique"
+					class="alert label">{{'emailRequired'|i18n}}</span>
+	          	<span ng-show="form1.inEmail.$blurred && form1.inEmail.$error.email && form1.inEmail.$invalid"
+	          		class="alert label">{{'emailNotValid'|i18n}}</span>
+	          	<span ng-show="form1.inEmail.$blurred && form1.inEmail.$error.unique && form1.inEmail.$invalid"
+	          		class="alert label">{{'emailExists'|i18n}}</span>
+      		</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputEmailConfirm" >{{'confirmMail'|i18n}}</label>
+				<input type="email" placeholder="{{'mailConfirmPlaceholder'|i18n}}" id="inputEmailConfirm" name="inEmailConfirm"
+					required ng-focus data-ng-model="dataIn.mailConfirm"  match-fields="dataIn.mail" autocomplete="off">
+	          	<span ng-show="(form1.inEmailConfirm.$blurred || form1.submitted) && form1.inEmailConfirm.$invalid &&
+	          		(form1.inEmailConfirm.$error.email || form1.inEmailConfirm.$error.required)"
+	          		class="alert label">{{'emailConfirmationRequired'|i18n}}</span>
+	          	<span ng-show="form1.inEmailConfirm.$blurred && form1.inEmailConfirm.$invalid &&
+	          		form1.inEmailConfirm.$error.doesntMatch && !form1.inEmailConfirm.$error.email && !form1.inEmailConfirm.$error.required"
+	          		class="alert label">{{'emailNotMatch'|i18n}}</span>
+      		</div>
+        </div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputPassword" >{{'password'|i18n}}</label>
+				<input type="password" placeholder="{{'passwordPlaceholder'|i18n}}" id="inputPassword" data-min-length="6"
+					data-ng-model="dataIn.password" name="inPassword" data-correct-password="" required ng-focus autocomplete="off">
+				<span ng-show="form1.inPassword.$blurred && form1.inPassword.$error.required" class="alert label">{{'passwordRequired'|i18n}}</span>
+				<span ng-show="form1.inPassword.$blurred && form1.inPassword.$error.short && !form1.inPassword.$error.required" class="alert label">{{'passwordTooShort'|i18n}}</span>
+				<span ng-show="form1.inPassword.$blurred && form1.inPassword.$error.wrong && !form1.inPassword.$error.required" class="alert label">{{'passwordWrongChars'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputPasswordConfirm" >{{'confirmPassword'|i18n}}</label>
+				<input type="password" placeholder="{{'passwordConfirmPlaceholder'|i18n}}"  id="inputPasswordConfirm"
+					name="inPasswordConfirm" data-ng-model="dataIn.passwordConfirm"  data-match-fields="dataIn.password"
+					required ng-focus autocomplete="off">
+				<span ng-show="form1.inPasswordConfirm.$blurred && form1.inPasswordConfirm.$error.required" class="alert label">{{'passwordConfirmationRequired'|i18n}}</span>
+	          	<span ng-show="form1.inPasswordConfirm.$blurred && form1.inPasswordConfirm.$error.doesntMatch && !form1.inPasswordConfirm.$error.required"
+	          		class="alert label">{{'passwordNotMatch'|i18n}}</span>
+      		</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+
+</form>
+
+
+<form class="custom" name="form2" data-ng-show="actPage == 'signup2'" novalidate form-submit="validate(3)" ng-cloak>
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'step2title'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputFname" >{{'firstName'|i18n}}</label>
+				<input set-focus="true" type="text" placeholder="{{'firstNamePlaceholder'|i18n}}" id="inputFname" name="inFname" data-ng-model="dataIn.firstName"
+					required ng-focus ng-minlength="2" >
+				<span ng-show="form2.inFname.$blurred && form2.inFname.$invalid && !form2.inFname.$error.minlength" class="alert label">{{'firstNameRequired'|i18n}}</span>
+				<span ng-show="form2.inFname.$blurred && form2.inFname.$invalid && form2.inFname.$error.minlength" class="alert label">{{'firstNameTooShort'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputLname" >{{'lastName'|i18n}}</label>
+				<input type="text" placeholder="{{'lastNamePlaceholder'|i18n}}" id="inputLname" name="inLname" data-ng-model="dataIn.lastName"
+					required ng-focus ng-minlength="2">
+				<span ng-show="form2.inLname.$blurred && form2.inLname.$invalid && !form2.inLname.$error.minlength" class="alert label">{{'lastNameRequired'|i18n}}</span>
+				<span ng-show="form2.inLname.$blurred && form2.inLname.$invalid && form2.inLname.$error.minlength" class="alert label">{{'lastNameTooShort'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputCompany" >{{'company'|i18n}}</label>
+				<input type="text" placeholder="{{'companyPlaceholder'|i18n}}" id="inputCompany" name="inComp" data-ng-model="dataIn.company"
+					required ng-focus>
+				<span ng-show="form2.inComp.$blurred && form2.inComp.$invalid" class="alert label">{{'companyNameRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputWebsite" >{{'website'|i18n}}</label>
+				<input type="text" placeholder="{{'websitePlaceholder'|i18n}}" id="inputWebsite"
+					name="inWeb" data-ng-model="dataIn.website"
+					input-url
+					required ng-focus>
+				<span ng-show="form2.inWeb.$blurred && form2.inWeb.$error.required" class="alert label">{{'websiteRequired'|i18n}}</span>
+				<span ng-show="form2.inWeb.$blurred && !form2.inWeb.$error.required && form2.inWeb.$error.url" class="alert label">{{'properUrl'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="userGroup" >{{'userGroup'|i18n}}</label>
+				<dropdown-button
+					name="userGroup"
+					options="userGroups"
+                    label="{{'userGroupPlaceholder'|i18n}}"
+                    label-field="name"
+                    track-by="id"
+                    ng-model="dataIn.group"
+                    required>
+                </dropdown-button>
+				<span ng-show="form2.userGroup.$blurred && form2.userGroup.$invalid" class="alert label">{{'userGroupRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<div class="form-element">
+				<label for="countryPhone">{{'phoneNbr'|i18n}}</label>
+				<dropdown-button
+					name="countryPhone"
+					options="countries"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    ng-model="dataIn.countryPhone"
+                    ng-change="checkCountries()"
+                    required>
+                </dropdown-button>
+				<span ng-show="form2.countryPhone.$blurred && form2.countryPhone.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+			</div>
+		</div>
+		<div class="large-6 columns">
+			<div class="form-element">
+				<label>&nbsp;</label>
+				<input type="text" data-ng-model="dataIn.phoneNumber" name="inPhoneNbr" id="phoneNumber"
+					model-view-value="true"
+					ui-mask="{{dataIn.countryPhone.phoneMask}}" ui-mask-placeholder ui-mask-placeholder-char="_"
+					required ng-focus>
+				<span ng-show="form2.inPhoneNbr.$blurred && form2.inPhoneNbr.$invalid" class="alert label">{{'phoneNumberRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<span class="button" ng-mousedown="goBack(1)">Back</span>
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+
+</form>
+
+<form class="custom" data-ng-show="actPage == 'signup3'" name="form3" form-submit="validate(4)" ng-cloak novalidate>
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'step3title'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputAddr1" >{{'adrL1'|i18n}}</label>
+				<input set-focus="true" type="text" placeholder="{{'adrL1'|i18n}}" name="adrL1" id="inputAddr1" data-ng-model="dataIn.addresses[0].address1"
+					required ng-focus ng-minlength="5">
+				<span ng-show="form3.adrL1.$blurred && form3.adrL1.$invalid && form3.adrL1.$error.required" class="alert label">{{'addressRequired'|i18n}}</span>
+                <span ng-show="form3.adrL1.$blurred && form3.adrL1.$invalid && form3.adrL1.$error.minlength && !form3.adrL1.$error.required" class="alert label">{{'addressTooShort'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputAddr2" >{{'adrL2'|i18n}}</label>
+				<input type="text" placeholder="{{'adrL2'|i18n}}" id="inputAddr2"  name="adrL2" data-ng-model="dataIn.addresses[0].address2">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputCity" >{{'city'|i18n}}</label>
+				<input type="text" placeholder="{{'cityPlaceholder'|i18n}}" name="city" id="inputCity" data-ng-model="dataIn.addresses[0].city"
+					required ng-focus>
+				<span ng-show="form3.city.$blurred && form3.city.$invalid" class="alert label">{{'cityRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label>{{'country'|i18n}}</label>
+				<dropdown-button
+					name="country0"
+					options="countries"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    ng-model="dataIn.addresses[0].country"
+                    ng-change="checkCountries();loadProvinces(0)"
+                    required>
+                </dropdown-button>
+				<span ng-show="form3.country0.$blurred && form3.country0.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label>{{'province'|i18n}}</label>
+				<dropdown-button
+					name="prov0"
+					options="prov0"
+                    label="{{'provincePlaceholder'|i18n}}"
+                    label-field="name"
+                    ng-model="dataIn.addresses[0].province"
+                    required>
+                </dropdown-button>
+				<span ng-show="form3.prov0.$blurred && form3.prov0.$invalid" class="alert label">{{'provinceRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns" ng-if="dataIn.addresses[0].country.id==taxCountryId && dataIn.addresses[0].province.id==taxStateId">
+			<div class="form-element">
+				<label for="inputPTS">{{taxNumberLabel}}</label>
+
+				<input ng-if="taxNumberMask" type="text" placeholder="Please enter your {{taxNumberLabel}}" name="pts" id="inputPTS"
+					ui-mask="{{taxNumberMask}}" ui-mask-placeholder ui-mask-placeholder-char="_"
+					model-view-value="true"
+					ng-required="dataIn.addresses[0].country.id==taxCountryId && dataIn.addresses[0].province.id==taxStateId && !dataIn.noPST"
+					ng-disabled="dataIn.noPST"
+					ng-model="dataIn.taxNumber"
+					ng-focus>
+
+				<input ng-if="!taxNumberMask" type="text" placeholder="Please enter your {{taxNumberLabel}}" name="pts" id="inputPTS"
+					ng-required="dataIn.addresses[0].country.id==taxCountryId && dataIn.addresses[0].province.id==taxStateId && !dataIn.noPST"
+					ng-disabled="dataIn.noPST"
+					ng-model="dataIn.taxNumber"
+					ng-focus>
+
+				<span ng-show="form3.pts.$blurred && form3.pts.$invalid" class="alert label">Please enter your {{taxNumberLabel}}</span>
+				<input type="checkbox" name="noPST" id="noPST"
+					ng-model="dataIn.noPST"
+					ng-change="noPSTChanged()">
+				<label for="noPST">I don't have {{taxNumberLabel}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputCity" >{{'postalCode'|i18n}}</label>
+				<input type="text" placeholder="{{'postalCodePlaceholder'|i18n}}" name="zip" id="inputZip" data-ng-model="dataIn.addresses[0].zipCode"
+					required ng-focus>
+				<span ng-show="form3.zip.$blurred && form3.zip.$invalid" class="alert label">{{'postalCodeRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<span class="button" ng-mousedown="goBack(2)">Back</span>
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+
+</form>
+
+
+<form class="custom" data-ng-show="actPage == 'signup4'" name="form4" form-submit="validate(5)" ng-cloak novalidate>
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'step4title'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<div class="form-element">
+				<input type="checkbox" name="inSameAsBiling" id="inSameAsBiling"
+					data-ng-change="onSameAsBillingChange()"
+					data-ng-model="dataIn.addresses[1].sameAsBiling">
+				<label for="inSameAsBiling">{{'sameAsBiling'|i18n}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputAddr1" >{{'adrL1'|i18n}}</label>
+				<input type="text" placeholder="{{'adrL1'|i18n}}" name="adrL1" id="inputAddr1" data-ng-model="dataIn.addresses[1].address1"
+					required ng-focus>
+				<span ng-show="form4.adrL1.$blurred && form4.adrL1.$invalid" class="alert label">{{'addressRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputAddr2" >{{'adrL2'|i18n}}</label>
+				<input type="text" placeholder="{{'adrL2'|i18n}}" id="inputAddr2"  name="adrL2"  data-ng-model="dataIn.addresses[1].address2">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputCity" >{{'city'|i18n}}</label>
+				<input type="text" placeholder="{{'cityPlaceholder'|i18n}}" name="city" id="inputCity" data-ng-model="dataIn.addresses[1].city"
+					required ng-focus>
+				<span ng-show="form4.city.$blurred && form4.city.$invalid" class="alert label">{{'cityRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label>{{'country'|i18n}}</label>
+				<dropdown-button
+					name="country1"
+					options="countries"
+                    label="{{'countryPlaceholder'|i18n}}"
+                    label-field="name"
+                    ng-model="dataIn.addresses[1].country"
+                    ng-change="checkCountries();loadProvinces(1)"
+                    required>
+                </dropdown-button>
+				<span ng-show="form4.country1.$blurred && form4.country1.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label>{{'province'|i18n}}</label>
+				<dropdown-button
+					name="prov1"
+					options="prov1"
+                    label="{{'provincePlaceholder'|i18n}}"
+                    label-field="name"
+                    ng-model="dataIn.addresses[1].province"
+                    required>
+                </dropdown-button>
+				<span ng-show="form4.prov1.$blurred && form4.prov1.$invalid" class="alert label">{{'provinceRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<label for="inputCity" >{{'postalCode'|i18n}}</label>
+				<input type="text" placeholder="{{'postalCodePlaceholder'|i18n}}" name="zip2" id="inputZip2" data-ng-model="dataIn.addresses[1].zipCode"
+					required ng-focus>
+				<span ng-show="form4.zip2.$blurred && form4.zip2.$invalid" class="alert label">{{'postalCodeRequired'|i18n}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<span class="button" ng-mousedown="goBack(3)">Back</span>
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+</form>
+
+
+<form class="custom" data-ng-show="actPage == 'signup5'" name="form5" data-ng-submit="validate(6)" novalidate>
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'eulatitle'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<div class="signup-terms-box text-justify" on-scroll-end="onReadEnd('eulaText')"
+					ng-include="eulaUrl">
+					
+				</div>
+			</div>
+			<p class="subheader2 text-justify" for="eulaText">{{'mustCheckEula'|i18n}}</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<input type="checkbox" value="acceptEULA" name="inAcceptsEula" id="inAcceptsEula" data-ng-model="dataIn.agreeEula"
+					data-ng-disabled="!eulaAgreeActive && !dataIn.agreeEula">
+				<label for="inAcceptsEula" class="agreeChck" data-ng-class="{'inactive':!eulaAgreeActive && !dataIn.agreeEula}">{{'agreeEULA'|i18n}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<span class="button" ng-mousedown="goBack(4)">Back</span>
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+
+</form>
+
+
+<form class="custom" data-ng-show="actPage == 'signup6'" name="form6" data-ng-submit="validate('end')">
+	<h2>{{'createNewAccount'|i18n}}</h2>
+	<h3 class="subheader">{{'conditionsTitle'|i18n}}</h3>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<div class="signup-terms-box text-justify" on-scroll-end="onReadEnd('termsText')" ng-include="termsUrl">
+					
+				</div>
+			</div>
+			<p class="subheader2 text-justify" for="eulaText">{{'mustCheckTerms'|i18n}}</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="form-element">
+				<input type="checkbox" value="acceptTerms" name="inAcceptsTerms" id="inAcceptsTerms" data-ng-model="dataIn.agreeTerms"
+					data-ng-disabled="!termsAgreeActive && !dataIn.agreeTerms">
+				<label for="inAcceptsTerms" class="agreeChck" data-ng-class="{'inactive':!termsAgreeActive && !dataIn.agreeTerms}">{{'conditionsArgee'|i18n}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns cntr">
+			<span class="button" ng-mousedown="goBack(5)">Back</span>
+			<a ui-sref="login.login" class="button">Cancel</a>
+			<button class="button">{{'nextMeski'|i18n}}</button>
+		</div>
+	</div>
+</form>
+
+
+<div data-ng-show="actPage == 'signupend'">
+	<h2>{{'thanksForRegistering'|i18n}}</h2>
+	<h3 class="subheader text-justify" ng-bind-html="'verificationLinkHasBeenSent'|i18n"></h3>
+	<div class="row">
+		<div class="large-12 columns text-part">
+			<p>{{'addToSafeSenders'|i18n}}</p>
+		</div>
+	</div>
+</div>

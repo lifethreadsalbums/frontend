@@ -1,0 +1,225 @@
+<div class="dashboard-overview" tabindex="0" ng-keydown="onKeyDown($event)">
+    <div class="dashboard-notification {{notificationsClass}}" ng-show="showNotifications"></div>
+
+    <div class="promo-carousel-container">
+        <div class="promo-carousel" flexslider data-slider-loop="true" data-slider-autostart="true" data-animation-speed="1500" data-slideshow-speed="6000" data-control-nav="true">
+            <ul class="slides">
+                <li flexslider-item ng-repeat="promotion in promotions" ng-style="{ 'background-image': 'url(' + promotion.background + ')' }">
+                    <div class="promo-box">
+                        <span class="sub-title">{{promotion.subtitle}}</span>
+                        <span class="title">{{promotion.title}}</span>
+                        <p ng-bind-html="promotion.body"></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container-1-cols clearfix user-select-none">
+        <div class="dashboard-overview__panel dashboard-overview__panel--projects">
+            <header class="dashboard-overview__panel-header">
+                <span class="title">
+                    <span class="icon icon-projects"></span>
+                    Projects
+                </span>
+                <div id="projects-tab-nav" class="tab-nav tab-nav--dashboard-projects" ng-mouseenter="loadMyProductionProducts()"></div>
+            </header>
+            <div class="dashboard-overview__panel-content dashboard-overview__panel-content--projects">
+                <tabs nav-container="projects-tab-nav" data-color="black" data-gap-bottom="false" ng-model="selectedTab">
+                    <tab title="Current" data-tab-badge="{{currentCount.count}}">
+                        <project-slider projects="projects.current"
+                            selected-project="model.selectedProject"
+                            selected-projects="model.selectedProjects">
+                        </project-slider>
+                    </tab>
+                    <tab title="In Production" data-tab-badge="{{productionCount.count}}">
+                        <project-slider projects="projects.production" selected-project="model.selectedProject"
+                            selected-projects="model.selectedProjects"></project-slider>
+                    </tab>
+                    <!-- <tab title="Shipped" data-tab-badge="{{projectsShipped.length}}">
+                        <project-slider projects="projects.shipped"></project-slider>
+                    </tab> -->
+                    <tab title="Completed" data-tab-badge="{{completedCount.count}}">
+                        <project-slider projects="projects.completed" selected-project="model.selectedProject"
+                            selected-projects="model.selectedProjects"></project-slider>
+                    </tab>
+                </tabs>
+            </div>
+            <footer class="dashboard-overview__panel-footer dashboard-overview__panel-footer--projects clearfix">
+                <div class="pull-left">
+
+                    <a ng-repeat="button in dashboardConfig.buttons" class="button color" title="{{button.title}}" ng-href="{{button.url}}" target="_blank">{{button.label}}</a>
+                </div>
+                <div class="pull-right">
+                    <button ng-click="createNew()" class="button color plus-blue" id="create-new-project">Create New</button>
+
+                    <!-- <button ng-click="addToCart()" ng-disabled="selectedProjectView.numRequired>0 || !model.selectedProject || !!model.selectedProject.orderState || addingToCart" class="button color cart-blue">Add to Cart</button> -->
+
+                    <dropdown-button-split options="addToCartOptions"
+                                           is-disabled-primary="model.selectedProjects.length==0 || !!model.selectedProject.orderState || addingToCart"
+                                           is-disabled-drop="isAvailableToAddToCart() || addingToCart"
+                                           color="color"
+                                           id="add-to-cart">
+                    </dropdown-button-split>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="container-2-cols split-small clearfix">
+        <div class="dashboard-overview__panel dashboard-overview__panel--cart col-1" droppable="!data.inCart" on-drop="onCartDrop(data)">
+            <header class="dashboard-overview__panel-header">
+                <span class="title">
+                    <span class="icon icon-cart"></span>
+                    Cart
+                    <span class="badge medium inline">{{cart.orderItems.length}}</span>
+                </span>
+            </header>
+            <div class="dashboard-overview__panel-content dashboard-overview__panel-content--cart" ng-class="{'dashboard-overview__panel-content--cart-empty': cart.orderItems.length === 0}">
+                <div class="dashboard-cart__empty" ng-show="cart.size==0">
+                    Your cart is empty
+                </div>
+                <ul class="dashboard-cart__items">
+                    <li class="dashboard-cart__item dashboard-cart__item--marked" ng-repeat="order in cart.orderItems">
+                        <span class="dashboard-cart__item-cross" ng-click="removeOrderItem(order)"></span>
+
+                        <div ng-if="order.product.options.productType !== 'custom_services'" class="dashboard-cart__item-inner-box">
+                            <div class="dashboard-cart__item-title">{{order.product.options._name}}</div>
+                            <div class="dashboard-cart__item-content">
+                                {{order.product.productInfo}}
+                            </div>
+                        </div>
+
+                        <div ng-if="order.product.options.productType === 'custom_services'" class="dashboard-cart__item-inner-box">
+                            <div class="dashboard-cart__item-title">Custom Services</div>
+                            <div class="dashboard-cart__item-content">
+                                <span ng-if="order.product.options._custom_service_invoice">#{{order.product.options._custom_service_invoice}} &#x2022; </span>
+                                {{order.product.options._name}}
+                                &#x2022;
+                                {{order.product.options.custom_amount_desc}}
+                            </div>
+                        </div>
+
+                        <span class="dashboard-cart__item-cost flag-{{currency}}">{{order.subtotal.displayPrice}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-overview__panel-sub-footer" ng-show="cart.orderItems.length>0">
+                <div class="pull-left">
+                    <span class="dashboard-overview__panel-sub-footer-label">TOTAL</span>
+                </div>
+                <div class="pull-right">
+                    <price-button price="cart.subtotal" color="light" class="pull-left" direction="up">
+                    </price-button>
+                </div>
+            </div>
+
+            <footer class="dashboard-overview__panel-footer">
+                <div class="pull-left" ng-show="cart.orderItems.length>0">
+                    <button ng-click="emptyCart()" class="button">Empty Cart</button>
+                </div>
+                <div class="pull-right">
+                    <button ng-click="checkout()" ng-disabled="cart.orderItems.length==0" class="button color" id="checkout">Checkout</button>
+                </div>
+            </footer>
+        </div>
+
+        <div class="dashboard-overview__panel dashboard-overview__panel--pricing dashboard-overview__panel--footer-off col-2">
+            <header class="dashboard-overview__panel-header">
+                <span class="title">
+                    <span class="icon icon-pricing"></span>
+                    {{dashboardConfig.priceBox.title}}
+                </span>
+            </header>
+            <div class="dashboard-overview__panel-content dashboard-overview__panel-content--pricing clearfix">
+                <div class="dashboard-pricing-box" ng-repeat="item in dashboardConfig.priceBox.items">
+                    <span class="dashboard-pricing-box__image dashboard-pricing-box__image--document"></span>
+                    <div class="dashboard-pricing-box__title">{{item.title}}</div>
+                    <div class="dashboard-pricing-box__content">{{item.description}}</div>
+                    <footer class="dashboard-pricing-box__footer">
+                        <button class="button color" ng-click="gotoPricingList(item)">Download</button>
+                    </footer>
+                </div>
+                <!-- <div class="dashboard-pricing-box pull-right">
+                    <span class="dashboard-pricing-box__image dashboard-pricing-box__image--calculator"></span>
+                    <div class="dashboard-pricing-box__title">PRICING CALCULATOR</div>
+                    <div class="dashboard-pricing-box__content">Just want a quick quote? Use our Pricing Calculator to get a quick estimate.</div>
+                    <footer class="dashboard-pricing-box__footer">
+                        <button class="button color" ui-sref="dashboard.default.calculator">Calculate Pricing</button>
+                    </footer>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <span class="clearfix"></span>
+    <!-- <button class="test-pop-up" data-target="#overview-messages">TEST POPUP CONTENT</button> -->
+
+    <frp></frp>
+
+    <li class="tour-project-placeholder hidden">
+        <div class="project-overview">
+            <header class="project-overview__header clearfix flip__area">
+                <span class="project-overview__status dropdown-button warning pull-left">Designing</span>
+            </header>
+            <div class="project-overview__content flip__container flip__area">
+                <div class="flip__flipper">
+                    <div class="project-overview__front flip__front pointer-events-none">
+                        <div>
+                            <div class="project-overview__front-image" style="background-image: url(/images/dashboard-project-default.png);"></div>
+                            <span class="project-overview__title ng-binding">Sample</span>
+                        </div>
+                    </div>
+                    <div class="project-overview__back flip__back">
+                        <ul class="project-overview__actions">
+                            <li class="project-overview__action">
+                                <a class="project-overview__action-link" href="#">
+                                    <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--cover-builder">Product Builder</span>
+                                </a>
+                            </li>
+                            <li class="project-overview__action">
+                                <a class="project-overview__action-link" href="#">
+                                    <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--designer">Designer</span>
+                                </a>
+                            </li>
+                            <li class="project-overview__action">
+                                <a class="project-overview__action-link" href="#">
+                                    <span class="project-overview__action-label project-overview__action-label--svg project-overview__action-label--projects">Projects</span>
+                                </a>
+                            </li>
+                            <li class="project-overview__action">
+                                <a class="project-overview__action-link" href="#">
+                                    <span class="project-overview__action-label project-overview__action-label--png project-overview__action-label--upload">Upload</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <footer class="project-overview__footer">
+                <div class="pull-left dropdown-button dark down type-horizontal icon-three-bars">
+                    <span class="button button-on-off dark three-bars"></span>
+                </div>
+                <div class="pull-right split-button-dropdown price-button">
+                    <button class="button split-button pull-left light">$155.00</button>
+                    <div class="button dropdown-button light arrow-up-small type-standard icon- split-dropdown pull-left label-pre-icon-on no-label no-arrow">
+                        <span class="dropdown-max-label ng-binding"></span>
+                        <span class="dropdown-button-label">
+                            <span class="label-pre-icon label-icon-currency-cad"></span>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </footer>
+        </div>
+    </li>
+
+    <li class="dashboard-cart__item dashboard-cart__item--marked tour-cart-item-placeholder hidden">
+        <span class="dashboard-cart__item-cross"></span>
+        <div class="dashboard-cart__item-inner-box">
+            <div class="dashboard-cart__item-title">Sample</div>
+            <div class="dashboard-cart__item-content"></div>
+        </div>
+        <span class="dashboard-cart__item-cost">$155.00</span>
+    </li>
+</div>

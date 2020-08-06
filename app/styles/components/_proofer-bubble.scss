@@ -1,0 +1,220 @@
+//------------------------------------------------------------------
+//                     PROOFER - MESSAGE BUBBLE
+//------------------------------------------------------------------
+.proofer-bubble {
+    position: relative;
+    clear: both;
+    max-width: 90%;
+    min-width: 20%;
+    height: auto;
+    margin-top: 15px;
+    padding: 8px 8px 6px;
+
+    background: map-get($colors, light-50);
+    border-radius: 7px;
+
+    line-height: 1.2rem;
+    font-size: 13px;
+    text-align: left;
+    color: map-get($colors, dark-900);
+
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        margin-bottom: -8px;
+
+        border: 8px solid transparent;
+        border-bottom: 0;
+    }
+}
+
+.proofer-bubble--left {
+    float: left;
+
+    background: #E4FFE5;
+
+    &:after {
+        left: 15px;
+
+        border-left: 0;
+        border-top-color: #E4FFE5;
+    }
+}
+
+.proofer-bubble--right {
+    float: right;
+
+    background: #DEE2FF;
+
+    &:after {
+        right: 15px;
+
+        border-right: 0;
+        border-top-color: #DEE2FF;
+    }
+}
+
+.proofer-bubble--canvas {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+
+    background: map-get($colors, light-50);
+    border: 1px solid map-get($colors, dark-50);
+    box-shadow: 1px 1px 3px 0 rgba(map-get($colors, dark-900), .55);
+
+    &:after {
+        right: 15px;
+
+        border-left: 0;
+        border-top-color: map-get($colors, light-50);
+    }
+}
+
+.proofer-bubble__textarea {
+    width: 200px;
+    height: 80px;
+    margin-bottom: 3px;
+
+    border: none !important;
+    box-shadow: none !important;
+
+    font-size: 13px;
+}
+
+.proofer-bubble__save {
+    font-size: 12px;
+    line-height: 18px;
+    color: map-get($colors, dark-300);
+    vertical-align: top;
+
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.proofer-bubble__cancel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 26px;
+    height: 26px;
+
+    line-height: 24px;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.proofer-bubble__cancel-image {
+    width: 11px;
+    height: auto;
+}
+
+.proofer-bubble__save-icon {
+    height: 18px;
+    margin-right: 6px;
+}
+
+.proofer-bubble__footer {
+    float: right;
+    padding: 3px 0 0 12px;
+}
+
+.proofer-bubble__time {
+    display: inline-block;
+    margin-left: 6px;
+
+    font-size: 12px;
+    color: map-get($colors, light-800);
+}
+
+.proofer-bubble__checkmark {
+    margin-left: 4px;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        top: 4px;
+    }
+}
+
+.proofer-bubble__checkmark--delivered:after {
+    @include proofer-sprite("checkmark-gray");
+    width: proofer-sprite-width("checkmark-gray");
+    height: proofer-sprite-height("checkmark-gray");
+}
+
+.proofer-bubble__checkmark--read:after {
+    @include proofer-sprite("checkmark-blue");
+    width: proofer-sprite-width("checkmark-blue");
+    height: proofer-sprite-height("checkmark-blue");
+}
+
+.proofer-bubble__canvas-container {
+    position: absolute;
+    z-index: 10000
+}
+
+.proofer-bubble__date-container {
+    clear: both;
+    margin: 15px auto 0;
+
+    text-align: center;
+}
+
+.proofer-bubble__date {
+    display: inline-block;
+    padding: 6px 12px 5px;
+
+    background: map-get($colors, dark-100);
+    border-radius: 7px;
+
+    font-size: 13px;
+    color: map-get($colors, dark-800);
+}
+
+.proofer-bubble__dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 3px;
+
+    background: map-get($colors, light-800);
+    border-radius: 50%;
+
+    animation: ball-beat 1.1s infinite cubic-bezier(0.445, 0.050, 0.550, 0.950);
+
+    &:nth-child(2) {
+        animation-delay: .3s;
+    }
+
+    &:nth-child(3) {
+        margin-right: 0;
+
+        animation-delay: .6s;
+    }
+}
+
+@keyframes ball-beat {
+    0% {
+        opacity: 0.7;
+    }
+
+    33.33% {
+        opacity: 0.55;
+    }
+
+    66.67% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

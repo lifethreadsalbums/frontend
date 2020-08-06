@@ -1,0 +1,524 @@
+// clearfix
+@mixin clearfix() {
+	*zoom: 1;
+
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+		line-height: 0;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+// default link
+@mixin a($linkColor) {
+	color:$linkColor;
+
+	&:hover{
+		color: darken($linkColor, 20%);
+		cursor: pointer;
+	}
+}
+
+@mixin museo100() {
+    font-family: 'Museo Sans 100', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+
+@mixin museo300() {
+	font-family: 'Museo Sans 300', Helvetica, Arial, sans-serif;
+	font-weight: 300;
+}
+
+@mixin museo500() {
+	font-family: 'Museo Sans 500', Helvetica, Arial, sans-serif;
+	font-weight: 500;
+}
+
+@mixin museo700() {
+	font-family: 'Museo Sans 700', Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+
+@mixin museo900() {
+    font-family: 'Museo Sans 900', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+}
+
+@mixin linear-gradient($topColor, $bottomColor, $direction: top) {
+	background: $bottomColor;
+	background: $bottomColor -moz-linear-gradient($direction, $topColor, $bottomColor);
+	background: $bottomColor -webkit-linear-gradient($direction, $topColor, $bottomColor);
+	background: $bottomColor -o-linear-gradient($direction, $topColor, $bottomColor);
+	background: $bottomColor -ms-linear-gradient($direction, $topColor, $bottomColor);
+	background: linear-gradient($topColor, $bottomColor);
+}
+
+@mixin transform-translate3d($value1,$value2,$value3){
+	-o-transform: translate3d($value1,$value2,$value3);
+	-ms-transform: translate3d($value1,$value2,$value3);
+	-moz-transform: translate3d($value1,$value2,$value3);
+	-webkit-transform: translate3d($value1,$value2,$value3);
+	transform: translate3d($value1,$value2,$value3);
+}
+
+@mixin border-top-left-radius($radius) {
+	-webkit-border-top-left-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	border-top-left-radius: $radius;
+}
+
+@mixin border-top-right-radius($radius) {
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-right-radius($radius) {
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-right-radius: $radius;
+}
+
+@mixin border-bottom-left-radius($radius) {
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	border-bottom-left-radius: $radius;
+}
+
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin borderDefault() {
+	border-top: 1px solid map-get($colors, light-500);
+	border-bottom: 1px solid map-get($colors, light-50);
+	height: 0;
+	display: block;
+	margin: 5px 0;
+}
+
+@mixin pop-up() {
+	@include box-sizing("content-box");
+	@include museo300();
+	position: fixed;
+	top: -104px;
+	width: 100%;
+	font-size: 16px;
+	color: map-get($colors, light-100);
+	overflow: hidden;
+	z-index: 1010;
+	box-shadow: 0px 1px 3px 1px map-get($colors, dark-500);
+
+    .pop-up-inner-container {
+		@include box-sizing("border-box");
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        align-content: center;
+        height: 100%;
+		padding: 0 20px;
+		overflow: hidden;
+	}
+}
+
+@mixin animation($animationConfig) {
+	-webkit-animation: $animationConfig; /* Safari 4+ */
+	-moz-animation:    $animationConfig; /* Fx 5+ */
+	-o-animation:      $animationConfig; /* Opera 12+ */
+	animation:         $animationConfig; /* IE 10+, Fx 29+ */
+}
+
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	@-ms-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	}
+}
+
+@include keyframes(backButton-move) {
+	0% { right: 0px; }
+	30% { left: -85px; }
+	31% { opacity: 0; }
+	69% { opacity: 0; }
+	70% { right: -85px; }
+	100% { right: 0px; }
+}
+
+@include keyframes(backButton-move-double) {
+	0% { left: 0px; }
+	100% { left: -100%; }
+}
+
+@mixin slideHandle(){
+	 content: '';
+	 width: 3px;
+	 height: 40px;
+	 border-left: 1px solid map-get($colors, light-50);
+	 border-right: 1px solid map-get($colors, light-50);
+	 top: 50%;
+	 margin-top: -20px;
+	 position: absolute;
+}
+
+@mixin icon($iconName){
+	@include common-sprite($iconName);
+    width: common-sprite-width($iconName);
+    height: common-sprite-height($iconName);
+    display: inline-block;
+}
+
+@mixin icon-button($iconName){
+	@include button-sprite($iconName);
+    width: button-sprite-width($iconName);
+    height: button-sprite-height($iconName);
+    display: inline-block;
+}
+
+@mixin icon-text($iconName){
+    @include text-sprite($iconName);
+    width: text-sprite-width($iconName);
+    height: text-sprite-height($iconName);
+    display: inline-block;
+}
+
+@mixin flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin flex($values) {
+	-webkit-box-flex: $values;
+	-moz-box-flex:  $values;
+	-webkit-flex:  $values;
+	-ms-flex:  $values;
+	flex:  $values;
+}
+
+@mixin justify-content($values) {
+	-webkit-justify-content: $values;
+	justify-content: $values;
+}
+
+@mixin order($val) {
+	-webkit-box-ordinal-group: $val;
+	-moz-box-ordinal-group: $val;
+	-ms-flex-order: $val;
+	-webkit-order: $val;
+	order: $val;
+}
+
+
+// MIXIN BOX-ARROW
+
+@mixin box-arrow($arrow-position,$arrow-size,$box-color,$box-border-width,$box-border-color) {
+
+    position: relative;
+    background: $box-color;
+    border: $box-border-width solid $box-border-color;
+
+    &:after, &:before {
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &:after {
+        border-color: rgba(map-get($colors, primary-200), 0);
+        border-width: $arrow-size;
+    }
+
+    &:before {
+        border-color: rgba(map-get($colors, primary-50), 0);
+        border-width: $arrow-size + $box-border-width + 4;
+    }
+
+    @if $arrow-position == "top" {
+        &:after, &:before {
+            bottom: 100%;
+            left: 50%;
+        }
+
+        &:after {
+            border-bottom-color: $box-color;
+            margin-left: (-$arrow-size);
+        }
+
+        &:before {
+            border-bottom-color: $box-border-color;
+            margin-left: -($arrow-size + $box-border-width + 4);
+        }
+    }
+
+    @if $arrow-position == "bottom" {
+        &:after, &:before {
+            top: 100%;
+            left: 50%;
+        }
+
+        &:after {
+            border-top-color: $box-color;
+            margin-left: (-$arrow-size);
+        }
+
+        &:before {
+            border-top-color: $box-border-color;
+            margin-left: -($arrow-size + $box-border-width + 4);
+        }
+    }
+
+    @if $arrow-position == "left" {
+        &:after, &:before {
+            right: 100%;
+            top: 50%;
+        }
+
+        &:after {
+            border-right-color: $box-color;
+            margin-top: (-$arrow-size);
+        }
+
+        &:before {
+            border-right-color: $box-border-color;
+            margin-top: -($arrow-size + $box-border-width + 4);
+        }
+    }
+
+    @if $arrow-position == "right" {
+        &:after, &:before {
+            left: 100%;
+            top: 50%;
+        }
+
+        &:after {
+            border-left-color: $box-color;
+            margin-top: (-$arrow-size);
+        }
+
+        &:before {
+            border-left-color: $box-border-color;
+            margin-top: -($arrow-size + $box-border-width + 4);
+        }
+    }
+}
+
+@mixin designer-tool($name, $activeClass: true){
+    $icon: $name + "-flat";
+    $activeIcon: $name + "-active-flat";
+
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 36px;
+
+    &:after {
+        @include designer-qa-sprite($icon);
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: designer-qa-sprite-width($icon);
+        height: designer-qa-sprite-height($icon);
+        margin: auto;
+    }
+
+    &:hover,
+    &:active {
+        &:after {
+            @include designer-qa-sprite($activeIcon);
+        }
+    }
+
+    @if $activeClass {
+        &.active:after {
+            @include designer-qa-sprite($activeIcon);
+            box-shadow: none;
+        }
+    }
+
+    &.active-pressed {
+        background-color: map-get($colors, dark-600);
+        border-radius: 4px;
+    }
+}
+
+
+
+// http://compass-style.org/reference/compass/helpers/sprites/
+@mixin get-sprite($map, $sprite, $repeat: no-repeat, $height: true, $width: true) {
+
+  //http://compass-style.org/reference/compass/helpers/sprites/#sprite-file
+  $sprite-image: sprite-file($map, $sprite);
+
+  // http://compass-style.org/reference/compass/helpers/sprites/#sprite-url
+  $sprite-map: sprite-url($map);
+
+  // http://compass-style.org/reference/compass/helpers/sprites/#sprite-position
+  $sprite-position: sprite-position($map, $sprite);
+
+  // Returns background
+  background: $sprite-map $sprite-position $repeat;
+
+  // http://compass-style.org/reference/compass/helpers/image-dimensions/
+  // Checks to see if the user wants height returned
+  @if $height == true {
+    // Gets the height of the sprite-image
+    $sprite-height: image-height($sprite-image);
+    // Returns the height
+    height: $sprite-height; }
+
+  // http://compass-style.org/reference/compass/helpers/image-dimensions/
+  // Checks to see if the user wants height returned
+  @if $width == true {
+    // Gets the width of the sprite-image
+    $sprite-width: image-width($sprite-image);
+    // Returns the width
+    width: $sprite-width; }
+}
+
+
+//
+// PACE's sprite generator.
+// Requires update after adding new spryte type.
+// For retina support add new variable in app.scss, e.g. $spr-retina: sprite-map("spr-retina/*.png").
+// Defining variable requires at least one png file inside directory.
+//
+// TODO: Use 'global-variable-exists' after updating SASS to 3.3 or higher. Until then make sure to
+// 		 define retina variable when setting retina parameter to true
+//
+// 		 Update to multiple conditions with either xlarge, retina or any other
+//
+@mixin pace-sprite($sprType, $file, $large: false, $xlarge: false, $retina: false) {
+	// @if $sprType == "spr" and global-variable-exists(spr-retina) {
+	@if $sprType == "spr" {
+		@include spr-sprite($file);
+		width: spr-sprite-width($file);
+		height: spr-sprite-height($file);
+
+		@if $large == true {
+			@media only screen and (min-width: $breakPointL) {
+				@include get-sprite($spr-large, #{$file}-large);
+			}
+		}
+
+		@if $xlarge == true {
+			@media only screen and (min-width: $breakPointXL) {
+				@include get-sprite($spr-xlarge, #{$file}-xlarge);
+			}
+		}
+
+		@if $retina == true {
+			@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+			only screen and (-moz-min-device-pixel-ratio: 1.5),
+			only screen and (-o-min-device-pixel-ratio: 3/2),
+			only screen and (min-device-pixel-ratio: 1.5) {
+				@include get-sprite($spr-retina, #{$file}-x2);
+			}
+		}
+	// } @else if $sprType == "designer" and global-variable-exists(designer-retina) {
+	} @else if $sprType == "designer" {
+		@include designer-sprite($file);
+		width: designer-sprite-width($file);
+		height: designer-sprite-height($file);
+
+		@if $large == true {
+			@media only screen and (min-width: $breakPointL) {
+				@include get-sprite($designer-large, #{$file}-large);
+			}
+		}
+
+		@if $xlarge == true {
+			@media only screen and (min-width: $breakPointXL) {
+				@include get-sprite($designer-xlarge, #{$file}-xlarge);
+			}
+		}
+
+		@if $retina == true {
+			@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+			only screen and (-moz-min-device-pixel-ratio: 1.5),
+			only screen and (-o-min-device-pixel-ratio: 3/2),
+			only screen and (min-device-pixel-ratio: 1.5) {
+				@include get-sprite($designer-retina, #{$file}-x2);
+			}
+		}
+	// } @else if $sprType == "dashboard" and global-variable-exists(dashboard-retina) {
+    } @else if $sprType == "dashboard" {
+        @include dashboard-sprite($file);
+        width: dashboard-sprite-width($file);
+        height: dashboard-sprite-height($file);
+
+        @if $large == true {
+            @media only screen and (min-width: $breakPointL) {
+                @include get-sprite($dashboard-large, #{$file}-large);
+            }
+        }
+
+        @if $xlarge == true {
+            @media only screen and (min-width: $breakPointXL) {
+                @include get-sprite($dashboard-xlarge, #{$file}-xlarge);
+            }
+        }
+
+        @if $retina == true {
+            @media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+            only screen and (-moz-min-device-pixel-ratio: 1.5),
+            only screen and (-o-min-device-pixel-ratio: 3/2),
+            only screen and (min-device-pixel-ratio: 1.5) {
+                @include get-sprite($dashboard-retina, #{$file}-x2);
+            }
+        }
+    }
+}
+
+@mixin visible-scrollbar() {
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+        height: 14px;
+    }
+
+    &::-webkit-scrollbar:vertical {
+        height: 14px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: 3px solid map-get($colors, light-100); /* should match background, can't be transparent */
+        background: map-get($colors, light-700);
+        transition: background-color 1000ms linear;;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: map-get($colors, light-800);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: map-get($colors, light-100);
+        border-radius: 4px 4px 4px 4px;
+    }
+}

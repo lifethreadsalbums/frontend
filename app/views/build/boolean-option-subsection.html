@@ -1,0 +1,15 @@
+<div class="sidebar-creator__content">
+   <header class="header-back" ng-class="{'dark': product.options.productType === 'prints'}">
+        <button ng-click="back()" class="button back big" ng-class="{'dark': product.productType === 'SinglePrintProduct'}">Back</button>
+        <div>
+            <h1>{{model.label}}</h1>
+            <small>{{model.description}}</small>
+        </div>
+    </header>
+
+    <div class="sidebar-creator__album-link" ng-class="{'read-only':!editable}">
+        <span style="color:#757575;font-size:14px" class="item-title">{{model.label}}</span>
+        <on-off ng-if="yesNo" on-label="Yes" off-label="No" ng-model="product.options[optionCode]" on-change="onOptionChange()"></on-off>
+        <on-off ng-if="!yesNo" ng-model="product.options[optionCode]" on-change="onOptionChange()"></on-off>
+    </div>
+</div>

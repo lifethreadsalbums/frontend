@@ -1,0 +1,166 @@
+<div class="proofer"
+     tabindex="0"
+     ng-keydown="onKeyDown($event)"
+     ng-class="{folded: model.sidebarFolded}">
+    <div id="content" class="proofer-section proofer-section--middle"
+         ng-class="{
+            'proofer-section--middle-expanded': model.bottomContainerCollapsed
+         }">
+        <div class="proofer-section proofer-section__content">
+            <div class="qa-edit-toolbar qa-edit-toolbar--proofer">
+                <div class="top-spread-toolbar">
+                    <div class="toolset ng-animate-enabled" init-pace-tooltip>
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Previous Edit">
+                            <span class="tool tool-spread-left"
+                                  ng-disabled="model.toolbarEdits !== 'pending' ||
+                                    (model.toolbarEdits === 'completed' && numCompleted==0) ||
+                                    (model.toolbarEdits === 'pending' && numPending==0)"
+                                  ng-click="prevEdit()"></span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Completed Edits">
+                            <div class="tool qa-edit-toolbar__proofer-edits"
+                                 ng-class="{'qa-edit-toolbar__proofer-edits--active': model.toolbarEdits === 'completed'}"
+                                 ng-disabled="numCompleted==0"
+                                 ng-click="toggleEdits('completed')">
+                                <span class="qa-edit-toolbar__proofer-edits-value qa-edit-toolbar__proofer-edits-value--completed">
+                                    {{numCompleted}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Pending Edits">
+                            <div class="tool qa-edit-toolbar__proofer-edits"
+                                 ng-class="{'qa-edit-toolbar__proofer-edits--active': model.toolbarEdits === 'pending'}"
+                                 ng-disabled="numPending==0"
+                                 ng-click="toggleEdits('pending')">
+                                <span class="qa-edit-toolbar__proofer-edits-value qa-edit-toolbar__proofer-edits-value--pending">
+                                    {{numPending}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Next Edit">
+                            <span class="tool tool-spread-right"
+                                  ng-disabled="!model.toolbarEdits ||
+                                    (model.toolbarEdits === 'completed' && numCompleted<=1) ||
+                                    (model.toolbarEdits === 'pending' && numPending==0)"
+                                  ng-click="nextEdit()"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <react-component name="FlipBookComponent" props="flipBookProps" watch-depth="reference"></react-component>
+        </div>
+
+		<footer class="proofer-section__footer" init-pace-tooltip>
+            <div class="proofer-section__footer--left">
+                <span class="button dark arrow-up"
+                      ng-show="!prooferSettings.approved"
+                      ng-click="model.pages=true">
+                    All {{(isSpreadBased ? 'Spreads' : 'Pages')}}</span>
+            </div>
+            <div class="proofer-section__footer--middle" >
+                <quick-arrange-toolbar
+                    layout-controller="toolbarCtrl"
+                    layout="layout"
+                    product="product"
+                    layout-visible="true"
+                    product-prototype="productPrototype"
+                    vertical="false">
+                </quick-arrange-toolbar>
+            </div>
+            <div class="proofer-section__footer--right">
+                <span ng-click="openSlideshow()" class="button dark arrow-up">Slideshow</span>
+
+                <button class="button dark arrow-right proofer__collapse-filmstrip"
+                        ng-class="{'arrow-up': model.bottomContainerCollapsed, 'arrow-down': !model.bottomContainerCollapsed}"
+                        ng-click="toggleBottomContainer()">&nbsp;</button>
+            </div>
+
+            <!--<dropdown-button direction="down"-->
+                             <!--color="dark"-->
+                             <!--label="Share"-->
+                             <!--label-pre-icon="share"-->
+                             <!--options="editTypeOptions"-->
+                             <!--ng-model="selectedEditType"-->
+                             <!--value-field="value">-->
+            <!--</dropdown-button>-->
+		</footer>
+	</div>
+
+    <div class="proofer-section proofer-section--bottom"
+         ng-init="initFilmstrip(filmstripCtrl)"
+         ng-controller="FilmstripCtrl as filmstripCtrl"
+         ng-class="{
+            'proofer-section--bottom-collapsed': model.bottomContainerCollapsed
+         }">
+
+        <header class="section-header section-header--layout filmstrip-toolbar">
+            <div class="flex-container">
+                <div class="left" init-pace-tooltip>
+                    <span class="button dark clear-margin-bottom" ng-class="{active:model.tab==1}" ng-click="model.tab=1">Spreads</span>
+                    <!-- <span class="button dark clear-margin-bottom hidden-touch" ng-class="{active:model.tab==2}" ng-click="model.tab=2">Images</span> -->
+                </div>
+
+                <div class="middle"></div>
+
+                <div class="right" init-pace-tooltip ng-animate-enabled animate-show ng-show="model.tab==2">
+                    <dropdown-button direction="up" color="dark" label="Filter"
+                        options="filterOptions" label-pre-icon="filter"
+                        ng-model="layout.viewState.filmstripFilter"
+                        value-field="value"
+                        on-change="onFilterChange()"
+                        hide-first-option="true"
+                        class="clear-margin-bottom">
+                    </dropdown-button>
+                </div>
+            </div>
+        </header><!-- end of section footer -->
+
+        <div class="bottom-container ng-animate-enabled animate-show" ng-show="model.tab==1">
+            <react-component name="ProoferPageThumbListComponent" props="pagesProps" watch-depth="reference"></react-component>
+        </div>
+
+        <div id="filmstrip-container" class="ng-animate-enabled animate-show bottom-container filmstrip-container" tabindex="1" ng-show="model.tab==2"
+             ng-keyup="onKeyUp($event)" ng-keydown="onKeyDown($event)">
+            <filmstrip filmstrip="layout.filmStrip"
+                       class="animate-show ng-animate-enabled"
+                       layout="layout"
+                       layout-controller="layoutController"
+                       on-file-info-click="onFileInfoClick"
+                       on-selection-change="onSelectionChange"
+                       show-info="showInfo"
+                       show-admin-info="false"
+                       show-page-numbers="true"
+                       is-spread-based="isSpreadBased"
+                       disable-dimming-thumbnails="false"
+                       filter="layout.viewState.filmstripFilter">
+            </filmstrip>
+        </div>
+    </div>
+
+    <div class="proofer-section proofer-section--right"
+         ng-class="{
+            'proofer-section--right-expanded': model.bottomContainerCollapsed
+         }">
+        <span class="badge medium inline" ng-show="numUnreadMessages>0" ng-click="onProoferBadgeClick()">{{numUnreadMessages}}</span>
+        <react-component name="ProoferComponent" props="prooferComponentProps" watch-depth="reference"></react-component>
+    </div>
+
+    <button class="button dark arrow-up proofer__collapse-sidebar"
+            data-pace-tooltip="Toggle sidebar" data-pace-tooltip-position="left"
+            ng-class="{'proofer__collapse-sidebar--higher': model.bottomContainerCollapsed && model.sidebarFolded}"
+            ng-click="toggleSidebar()">&nbsp;</button>
+
+    <div ng-show="model.slideshow"
+         class="ng-animate-enabled frp frp-popup frp-fixed slide-bottom"
+         ng-include="'views/proofer/slideshow.html'">
+    </div>
+
+    <div ng-class="{'slide-hide': !model.pages}"
+        class="ng-animate-enabled frp-proofer frp frp-popup frp-popup--layout frp-fixed slide-bottom slide-hide"
+        ng-include="'views/proofer/pages.html'">
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="sidebar-creator__content">
+	<header class="header-back">
+		<button ng-click="back()" class="button back big">Back</button>
+		<div>
+			<h1>{{model.label}}</h1>
+			<small>{{model.description}}</small>
+		</div>
+	</header>
+	<div ng-class="{'read-only':!editable}">
+		<div ng-if="!customLogo">
+			<div class="form-element inline font-size-zero customLogo">
+				<button class="button font button--debossing-tab" type="button"
+					ng-class="{active:model.type=='standard', disabled: !editable && model.type=='custom'}"
+					ng-click="model.debossingCtrl.setStampType('standard')">Use Fonts</button>
+				<button class="button upload button--debossing-tab" type="button"
+					ng-class="{active:model.type=='custom', disabled: !editable && model.type=='standard'}"
+					ng-click="model.debossingCtrl.setStampType('custom')">Upload Art</button>
+			</div>
+		</div>
+
+		<div ng-show="model.type=='standard'" class="text-center" ng-class="{'read-only':!editable}">
+            <p class="text-uppercase text-left all-fonts">Fonts</p>
+            <hr class="all-fonts__hr">
+
+			<span ng-show="enableFontSearch" class="sidebar-creator__font-style-separator"></span>
+			<input ng-show="enableFontSearch" type="text" ng-model="searchFonts" placeholder="Search Fonts"/>
+			<ul class="item-list font-list">
+				<!-- <li class="item-font-category" ng-repeat-start="category in fonts | filter:searchFonts">{{category.name}}</li> -->
+
+				<li ng-show="item.visible" ng-repeat="item in model.fonts | filter:searchFonts"
+					class="item item-font" ng-class="{active:model.selectedFont==item, disabled: !item.enabled || (!editable && model.selectedFont!=item)}">
+					<a ng-mousedown="model.debossingCtrl.changeFont(item)">
+						<span class="item-title">
+							<span class="item-title-primary">
+								<span ng-style="{'font-family':item.styles[0].fontFamily}">{{item.displayName}}</span>
+							</span>
+						</span>
+					</a>
+				</li>
+				<li ng-repeat-end ng-show="fonts.length>1" style="margin-bottom:20px"></li>
+			</ul>
+		</div>
+
+		<div ng-show="model.type=='custom'" ng-class="{'read-only':!editable}">
+			<div class="upload-logo-info" ng-hide="!editable">
+				<span class="upload-logo-info-preview"></span>
+				<span class="upload-logo-info-notice">Files must be a {{customDieDPI}} DPI PNG and be black on a transparent background.</span>
+			</div>
+
+			<file-upload-placeholder-stamp
+                ng-hide="!editable"
+				dropbox-centered="true"
+				on-files-dropped="model.debossingCtrl.onFilesDropped(files)">
+        	</file-upload-placeholder-stamp>
+
+        	<br/>
+
+			<ul class="layers">
+				<li id="{{file.filename}}" class="layer"
+					ng-class="{active:file.id==model.selectedFile.id || file==model.selectedFile, disabled: !editable && (file.id!=model.selectedFile.id && file!=model.selectedFile)}"
+					ng-repeat="file in model.files"  ng-click="model.debossingCtrl.setLogo(file)"
+                    init-pace-tooltip>
+					<span class="layer__preview">
+						<img class="layer__preview-image" thumb-src="file"/>
+					</span>
+					<span class="layer__name" data-pace-tooltip="{{file.filename}}" aria-haspopup="true">{{file.filename}}</span>
+					<span class="layer__buttons">
+						<a class="layer__button layer__button--active"></a>
+						<a class="layer__button layer__button--remove" ng-click="model.debossingCtrl.deleteImageFile($event, file)"></a>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

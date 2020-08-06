@@ -1,0 +1,293 @@
+<div class="frp-content" tabindex="0" ng-keydown="onKeyDown($event)" set-focus="true"
+     ng-controller="LayoutCtrl as quickArrangeCtrl" ng-init="initQuickArrange()">
+
+    <aside class="frp-quick-arrange">
+
+        <div class="layout-section layout-section--top layout-section--top-qa layout-section--header">
+
+            <div class="layout-section layout-section--left layout-section--header">
+                <header class="section-header section-header--layout">
+                    <dropdown-button options="products" color="dark"
+                                     label="{{product.options._name}}" label-field="name" ng-model="selectedProduct"
+                                     value-field="id" label-pre-icon="projects" fixed-width="85%">
+                    </dropdown-button>
+                </header><!-- end of section header -->
+            </div><!-- end of left section -->
+
+            <div class="layout-section layout-section--middle layout-section--header">
+                <header class="section-header section-header--layout">
+                    <div class="pull-left">
+                        <span ng-click="undo()" class="button dark undo"></span>
+                        <span ng-click="redo()" class="button dark redo"></span>
+                    </div>
+
+                    <div class="pull-right">
+                        <div class="pdf-progress-bar" ng-show="recentJob && recentJob.progressPercent < 100">
+                            <span class="pdf-progress-bar-label">
+                                Generating PDF
+                                <span class="pdf-progress-bar-progress">{{recentJob.progressPercent}}%</span>
+                            </span>
+                            <span class="pdf-progress-bar-track">
+                                <span class="pdf-progress-bar-step" style="width: {{recentJob.progressPercent}}%;"></span>
+                            </span>
+                        </div>
+
+                        <button class="button dark pdf" ng-click="generateLowResPdf()">Generate PDF</button>
+
+                        <!-- <dropdown-button class="action-menu" label="Action Menu" color="dark" label-pre-icon="export" direction="down"
+                            options="actionsOptions" label-field="label" value-field="value" callback="true">
+                        </dropdown-button> -->
+                    </div>
+                </header><!-- end of section header -->
+            </div>
+
+            <div class="layout-section layout-section--right layout-section--header">
+                <header class="section-header section-header--layout">
+                    <price-button price="product.total" color="dark" direction="down" frp-nav-view="views/orders/frp-cost.html">
+                    </price-button>
+                    <span class="button color cart-blue-large" ng-click="addToCart()"></span>
+                </header>
+            </div>
+
+            <div class="qa-top-spread-toolbar" style="display:none" ng-controller="SpreadTopToolbarCtrl">
+
+                <div class="toolset" init-pace-tooltip>
+
+                    <dropdown-button
+                        aria-haspopup="true"
+                        data-pace-tooltip="Frame mode"
+                        direction="down" color="dark" type="icon"
+                        ng-model="model.frameMode"
+                        icon="frame-mode" on-change="frameModeChanged(index)">
+                    </dropdown-button>
+
+                    <span>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Previous layout (←)">
+                            <span class="tool tool-spread-left"
+                                  ng-click="prevTemplate()"
+                                  pulse-class
+                                  pulse-on-class="active"
+                                  pulse-on-event="tool-spread-left"
+                                  should-pulse="true">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Left Side (⌥→)">
+                            <span class="tool tool-rotate-left-page"
+                                  ng-class="{active: (layoutController.hoveredSpread.lastTemplateMode === 'left')}"
+                                  ng-click="(selectSpread(layoutController.hoveredSpread) && autoLayout('left'))"
+                                  ng-disabled="autoLayoutDisabled(layoutController.hoveredSpread, 'left')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Spread (→)">
+                            <span class="tool tool-rotate-middle-page"
+                                  ng-class="{active: (layoutController.hoveredSpread.lastTemplateMode === 'spread')}"
+                                  ng-click="(selectSpread(layoutController.hoveredSpread) && autoLayout('spread'))"
+                                  ng-disabled="autoLayoutDisabled(layoutController.hoveredSpread, 'spread')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Generate Right Side (⇧→)">
+                            <span class="tool tool-rotate-right-page"
+                                  ng-class="{active: (layoutController.hoveredSpread.lastTemplateMode === 'right')}"
+                                  ng-click="(selectSpread(layoutController.hoveredSpread) && autoLayout('right'))"
+                                  ng-disabled="autoLayoutDisabled(layoutController.hoveredSpread, 'right')">
+                            </span>
+                        </div>
+
+                        <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Next layout (→)">
+                            <span class="tool tool-spread-right active"
+                                  ng-click="nextTemplate()"
+                                  pulse-class
+                                  pulse-on-class="active"
+                                  pulse-on-event="tool-spread-right"
+                                  should-pulse="true">
+                            </span>
+                        </div>
+                    </span>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Gap spacing (+/-)">
+                        <slider-button-with-dropdown
+                            class="tool-spacing-slider" direction="down" color="dark" icon="tool-spacing"
+                            ng-model="layoutController.frameSpacing"
+                            on-input-change="fixedSpacing(false, true)"
+                            on-change="fixedSpacing(false, false)"
+                            on-edit-end="spacingEditEnd()"
+                            on-edit-begin="spacingEditBegin()"
+                            on-open="onSpacingToolOpen()"
+                            slider-label="true" slider-postfix=" in"
+                            slider-scale="full"
+                            slider-step="0.03125" slider-min="0" slider-max="2"
+                            slider-precision="5"
+                            slider-input="true"
+                            marked-value="{{markedFrameSpacing}}"
+                            has-dropdown="true"
+                            dropdown-icon="gap-tool"
+                            dropdown-options="gapToolOptions"
+                            dropdown-model="selectedGapOption">
+                        </slider-button-with-dropdown>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="qa-bottom-spread-toolbar" style="display:none" ng-controller="SpreadBottomToolbarCtrl">
+                <div class="toolset" init-pace-tooltip>
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Delete">
+                        <span class="tool tool-trash" ng-click="deletePagesOrSelection()"
+                              ng-disabled="!!layoutController.hoveredRenderer.layout.layoutSize.coverType && layoutController.selectedElements.length==0">
+                        </span>
+                    </div>
+
+                    <!-- <span class="tool tool-move"></span> -->
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Lock spread">
+                        <span class="tool"
+                              ng-class="{'tool-lock':!!layoutController.hoveredSpread.locked, 'tool-unlock':!layoutController.hoveredSpread.locked }"
+                              ng-click="lockSpread(layoutController.hoveredSpread)">
+                        </span>
+                    </div>
+
+                    <div class="tooltip__box tooltip__box--button" data-pace-tooltip="Add pages">
+                        <span class="tool tool-plus" ng-click="addPages()"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layout-section__content layout-section__content--qa">
+                <div class="scrollable-container-wrapper">
+                    <book-layout
+                        id="quickArrangeLayout"
+                        layout="layout"
+                        cover-layouts="coverLayouts"
+                        page-class="pageClass"
+                        layout-controller="layoutController"
+                        top-toolbar="qa-top-spread-toolbar"
+                        bottom-toolbar="qa-bottom-spread-toolbar"
+                        horizontal="true"
+                        editable="editable">
+                    </book-layout>
+                </div>
+                <quick-arrange-toolbar
+                    layout-controller="layoutController"
+                    layout="layout"
+                    product="product"
+                    product-prototype="productPrototype">
+                </quick-arrange-toolbar>
+            </div>
+        </div>
+
+        <hdivider min-height="450" collapsed="spreadsCollapsed" collapsed-height="40"></hdivider>
+
+        <div class="layout-section layout-section--bottom layout-section--header layout-section--footer" ng-controller="FilmstripCtrl">
+
+            <header class="section-header section-header--layout filmstrip-toolbar">
+                <div class="flex-container">
+                    <div class="left" init-pace-tooltip>
+                        <button class="button dark arrow-down" ui-sref="layout">Exit Quick Arrange</button>
+                        <span class="font-size-zero clear-margin-bottom auto-fill-container"
+                              auto-arrange-state
+                              ng-show="editable"
+                              ng-class="{active:layout.autoFillEnabled}">
+                            <span class="button auto-fill dark radius-left clear-margin-bottom"
+                                  ng-class="{active:layout.autoFillEnabled}"
+                                  ng-click="autoArrangeOptionChanged()">Auto Fill</span>
+                            <dropdown-button direction="up" color="dark"
+                                             type="icon" icon="auto-arrange" icon-text="true"
+                                             on-change="autoArrangeOptionChanged()"
+                                             ng-model="filmstripModel.autoArrangeOption"
+                                             class="radius-right move-left clear-margin-bottom">
+                            </dropdown-button>
+                        </span>
+                        <span class="button dark clear-margin-bottom" ng-if="editable"
+                              aria-haspopup="true" data-pace-tooltip="Group/Ungroup Images"
+                              ng-disabled="numSelectedItems==0" ng-class="{'grouping':!itemsStacked, 'ungroup':itemsStacked}" ng-click="stackImages()">
+
+                        </span>
+                        <span class="button dark clear-margin-bottom trash-flat" ng-if="editable"
+                              aria-haspopup="true" data-pace-tooltip="Delete Images"
+                              ng-disabled="numSelectedItems==0" ng-click="delete()">
+                        </span>
+                    </div>
+
+                    <div class="middle layout-usage-summary">
+                        <span class="picture-summary clear-margin-bottom">{{layout.filmStrip.items | countUsedFilmstripItems}}/{{layout.filmStrip.items | countFilmstripItems}} Left</span>
+                        <span class="page-summary clear-margin-bottom">{{stats.totalPages - stats.usedPages}}/{{stats.totalPages}} Left</span>
+                    </div>
+
+                    <div class="right">
+                        <button class="button dark info" ng-class="{active:showInfo}" ng-click="toggleInfo()"></button>
+                        <dropdown-button direction="up" color="dark"
+                                         ng-if="editable"
+                                         label="Import Photos"
+                                         options="importPhotosOptions"
+                                         label-pre-icon="upload"
+                                         hide-first-option="true"
+                                         class="clear-margin-bottom"
+                                         ng-model="importMode"
+                                         on-change="openFileDialog();importMode=''">
+                        </dropdown-button>
+                        <dropdown-button direction="up" color="dark"
+                                         label="Filter" options="filterOptions"
+                                         ng-model="layout.viewState.filmstripFilter"
+                                         value-field="value"
+                                         on-change="onFilterChange()"
+                                         label-pre-icon="filter" hide-first-option="true"
+                                         class="clear-margin-bottom">
+                        </dropdown-button>
+                        <button class="button dark collapse" ng-class="{'arrow-up':!spreadsCollapsed, 'arrow-down':spreadsCollapsed}" ng-click="collapseSpreads()"></button>
+                    </div>
+                </div>
+            </header><!-- end of section footer -->
+
+            <div class="layout-section__content animate-show">
+                <div id="autoarrange-filmstrip-container" class="filmstrip-container" file-drop="uploadFiles(files)" ng-keyup="onKeyUp($event)" ng-keydown="onKeyDown($event)"  tabindex="1"
+                     ng-class="{empty:!(layout.filmStrip.items.length>0)}"
+                     context-menu="{{contextMenu}}"
+                     context-menu-click="onFilmstripMenuClick(key)">
+                    <filmstrip filmstrip="layout.filmStrip"
+                               layout="layout"
+                               layout-controller="layoutController"
+                               on-file-info-click="onFileInfoClick"
+                               on-selection-change="onSelectionChange"
+                               show-info="showInfo"
+                               show-admin-info="isAdmin"
+                               disable-dimming-thumbnails="disableDimmingThumbnails"
+                               thumb-scale="thumbScale"
+                               filter="layout.viewState.filmstripFilter">
+                    </filmstrip>
+
+                    <div class="empty-placeholder" ng-click="openFileDialog()" ng-if="editable">
+                        <div><span>Click here to browse or drop files here to upload</span></div>
+                    </div>
+                    <!-- <span class="filmstrip-resize-handle"></span> -->
+                </div>
+            </div><!-- end of section content -->
+
+
+            <footer class="layout-section__footer">
+
+                <span class="bin-info">DRAG PHOTOS YOU DON'T WANT TO USE HERE</span>
+
+                <div class="pull-right">
+                    <span class="button dark resize-inner"></span>
+                    <div class="slider-container dark">
+                        <rzslider rz-slider-model="thumbScale" rz-slider-floor="0.5" rz-slider-ceil="2" rz-slider-step="0.01" rz-slider-precision="2"></rzslider>
+                        <span class="slider-scale scale-1 scale-type-full"></span>
+                        <span class="slider-scale scale-2 scale-type-full"></span>
+                        <span class="slider-scale scale-3 scale-type-full"></span>
+                        <span class="slider-scale scale-4 scale-type-full"></span>
+                        <span class="slider-scale scale-5 scale-type-full"></span>
+                        <span class="slider-scale scale-6 scale-type-full"></span>
+                        <span class="slider-scale scale-7 scale-type-full"></span>
+                    </div>
+                    <span class="button dark resize-outer"></span>
+                </div>
+            </footer><!-- end of section header -->
+
+        </div><!-- end of bottom section -->
+
+    </aside>
+</div>

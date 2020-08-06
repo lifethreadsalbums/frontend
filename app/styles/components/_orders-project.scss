@@ -1,0 +1,216 @@
+//------------------------------------------------------------------
+//                     ORDERS PROJECT HEADER
+//------------------------------------------------------------------
+.orders__project-header {
+    padding-top: 4px;
+    background-color: map-get($colors, light-500);
+
+    #prod-tab-nav {
+        .nav-tabs {
+            background: inherit;
+
+            a.tab-close {
+                padding-right: 42px;
+            }
+        }
+
+        a.small {
+            @include museo500();
+            padding-bottom: 30px;
+            color: map-get($colors, light-800);
+            color: rgba(map-get($colors, light-800), .5);
+
+            &:before {
+                left: 1px;
+                right: 1px;
+            }
+
+            &:hover,
+            &.active {
+                color: map-get($colors, dark-900);
+            }
+        }
+    }
+
+    .buttons {
+        @include user-select(none);
+        float: right;
+        margin-right: 12px;
+
+        font-size: 0;
+
+        a {
+            margin: 11px 0 10px 20px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
+        .dropdown-button,
+        .button,
+        .split-button-dropdown {
+            top: 11px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        > .dropdown-button,
+        > .button,
+        > .split-button-dropdown {
+            margin-left: 1px;
+        }
+
+        .button.cart-blue-large {
+            width: 100px;
+        }
+    }
+
+    .plus {
+        top: 11px;
+        margin-left: 8px;
+        margin-bottom: 0;
+
+        &:hover {
+            color: map-get($colors, dark-900);
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     ORDERS PROJECT DETAILS
+//------------------------------------------------------------------
+.orders__project-details {
+    position: relative;
+    top: -1px;
+
+    .ui-panel {
+        @include radius(0);
+        @include box-shadow(none);
+        background: map-get($colors, light-100);
+
+        &:last-child .ui-panel-content {
+            border-bottom: none;
+        }
+
+        &[disabled] {
+            header {
+                h2 {
+                    color: map-get($colors, light-700);
+                }
+            }
+        }
+
+        header {
+            margin-left: 12px;
+            margin-right: 12px;
+            padding-left: 0;
+            padding-right: 0;
+            background: map-get($colors, light-100);
+
+            &[disabled] {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+
+            .icons {
+                margin-right: 12px;
+            }
+        }
+
+        &.active-panel {
+            > header {
+                h2 {
+                    @include museo700();
+                    color: map-get($colors, primary-500);
+                }
+            }
+        }
+
+        .ui-panel-content {
+            margin-left: 12px;
+            margin-right: 12px;
+            background: map-get($colors, light-100);
+            border-bottom: 1px solid map-get($colors, light-400);
+
+            .row .columns {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .tabs {
+                padding: 12px;
+
+                .nav-tabs {
+                    position: relative;
+                    top: 2px;
+                    //margin-top: 15px;
+                    margin-bottom: 0;
+                    background: inherit;
+                    border-top: none;
+
+                    a {
+                        border-bottom: 1px solid map-get($colors, light-500);
+
+                        &.active {
+                            border-bottom-color: map-get($colors, light-100);
+                        }
+                    }
+                }
+
+                .tab-content {
+                    @include radius(0 4px 4px 4px);
+                    @include box-shadow(0 0 1px 0px map-get($colors, dark-200) inset);
+                    padding: 25px 13px;
+                    border: 1px solid map-get($colors, light-500);
+                }
+            }
+        }
+
+        &:not(.panel-collapsed) {
+            header {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     ORDERS PROJECT FOOTER
+//------------------------------------------------------------------
+.orders__project-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 51px;
+    padding: 10px 20px;
+    background: map-get($colors, light-200);
+    border-top: 1px solid map-get($colors, light-700);
+
+    a,
+    button,
+    .button,
+    .dropdown-button {
+        margin: 0 0 0 20px;
+
+        &.pull-left {
+            margin: 0 7px 0 0;
+        }
+    }
+
+    button.large {
+        padding: 6px 30px;
+    }
+
+    .total {
+        @include museo500();
+        display: inline-block;
+        float: left;
+        margin-right: 12px;
+        font-size: 15px;
+        line-height: 34px;
+    }
+}

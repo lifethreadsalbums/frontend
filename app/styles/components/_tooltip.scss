@@ -1,0 +1,187 @@
+//------------------------------------------------------------------
+//                     PACE TOOLTIP
+//------------------------------------------------------------------
+.pace-tooltip {
+    position: fixed;
+    display: block;
+    max-width: 230px;
+    padding: 5px;
+    z-index: 1010;
+
+    background: map-get($colors, light-500);
+    border: 1px solid map-get($colors, light-600);
+    box-shadow: 0 1px 3px 0 rgba(map-get($colors, dark-900), .25);
+    opacity: 0;
+
+    @include museo300();
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: normal;
+    color: map-get($colors, dark-700);
+
+    transition: opacity .2s linear,
+                transform .3s ease-out;
+}
+
+.pace-tooltip--bottom {
+    transform: translate(0, 25%);
+}
+
+.pace-tooltip--top {
+    transform: translate(0, -25%);
+}
+
+.pace-tooltip--left {
+    transform: translate(-25%, 0);
+}
+
+.pace-tooltip--right {
+    transform: translate(25%, 0);
+}
+
+.pace-tooltip--in {
+    opacity: 1;
+
+    transform: translate(0, 0);
+}
+
+.pace-tooltip__arrow {
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    border: solid 10px;
+
+    pointer-events: none;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+
+        border: solid 9px;
+    }
+}
+
+.pace-tooltip__arrow--bottom {
+    top: -20px;
+    left: 5px;
+
+    border-color: transparent transparent map-get($colors, light-600) transparent;
+
+    &:after {
+        bottom: -10px;
+        left: -9px;
+
+        border-color: transparent transparent map-get($colors, light-500) transparent;
+    }
+}
+
+.pace-tooltip__arrow--top {
+    top: auto;
+    bottom: -20px;
+    left: 5px;
+
+    border-color: map-get($colors, light-600) transparent transparent transparent;
+
+    &:after {
+        bottom: -8px;
+        left: -9px;
+
+        border-color: map-get($colors, light-500) transparent transparent transparent;
+    }
+}
+
+.pace-tooltip__arrow--left {
+    top: 50%;
+    left: auto;
+    right: -20px;
+    margin-top: -10px;
+
+    border-color: transparent transparent transparent map-get($colors, light-600);
+
+    &:after {
+        left: -10px;
+        bottom: -9px;
+
+        border-color: transparent transparent transparent map-get($colors, light-500);
+    }
+}
+
+.pace-tooltip__arrow--right {
+    top: 50%;
+    left: -20px;
+    right: auto;
+    margin-top: -10px;
+
+    border-color: transparent map-get($colors, light-600) transparent transparent;
+
+    &:after {
+        left: -8px;
+        bottom: -9px;
+
+        border-color: transparent map-get($colors, light-500) transparent transparent;
+    }
+}
+
+// container for supporting tooltip on disabled buttons
+.tooltip__box {
+    display: inline-block;
+}
+
+.tooltip__box--button {
+    min-width: 36px;
+    min-height: 36px;
+}
+
+.qa-edit-toolbar .tooltip__box--button {
+    line-height: 0;
+}
+
+// question mark (help) icon button
+.help-icon {
+    display: inline-block;
+    position: relative;
+    width: 31px;
+    height: 31px;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 12px;
+        height: 11px;
+        margin: auto;
+        background: url(/images/help-icon.png) center center no-repeat;
+    }
+}
+
+.has-tip {
+    border-bottom: none;
+}
+
+// designer tooltip container
+.tooltip-container {
+    position: fixed;
+    display: inline-block;
+    height: 28px;
+    padding: 0 7px;
+    z-index: 1000;
+
+    background: map-get($colors, dark-200);
+    border-radius: 3px;
+
+    font-family: Arial;
+    font-size: 13px;
+    line-height: 28px;
+    text-align: center;
+    color: map-get($colors, light-50);
+
+    transform: translate3d(0px, 0px, 0px);
+}
+

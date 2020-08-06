@@ -1,0 +1,22 @@
+<!-- <header class="clear-margin">{{title}}</header> -->
+
+<div class="sort-bar sort-bar--absolute" init-foundation>
+	<span class="sort-label">Sorting</span>
+	<span class="sort-button" data-dropdown="orders-sort-options">Sort</span>
+	<ul id="orders-sort-options" class="sort-options f-dropdown" data-dropdown-content foundation-dropdown-close>
+		<li><a href="" ng-click="sort='_name'">Alpha Order</a></li>
+		<li><a href="" ng-click="sort='_dateCreated'">Date</a></li>
+	</ul>
+</div>
+
+
+<product-list
+	products="products"
+	selected-products="selectedProducts"
+	load-next-page="loadNextPage"
+	can-load-next-page="canLoadNextPage"
+	jobs="jobs">
+</product-list>
+
+<footer aside-footer class="jobs-footer">
+</footer>

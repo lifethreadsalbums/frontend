@@ -1,0 +1,1013 @@
+//------------------------------------------------------------------
+//                    FILMSTRIP CONTAINER
+//------------------------------------------------------------------
+$filmstrip-selection-color: map-get($colors, primary-500);
+$filmstrip-hover-color: map-get($colors, light-50);
+$filmstrip-thumb-color: map-get($colors, dark-800);
+$filmstrip-stack-border: 2px solid map-get($colors, dark-500);
+$filmstrip-stack-gap: 4px;
+$dps-border: 2px solid map-get($colors, success-50);
+$stack-colors: map-get($colors, dark-900), #ffef00, #fd0c9b, #a143ff, #a95400, #66ffff, #a9a903, #ff6666, map-get($colors, primary-700);
+
+.filmstrip-container {
+    height: 134px;
+    overflow: hidden;
+
+    &.empty .empty-placeholder {
+        display: block;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    EMPTY PLACEHOLDER
+//------------------------------------------------------------------
+.empty-placeholder {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: map-get($colors, dark-200);
+    text-align: center;
+    @include transition-duration(1s);
+
+    div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 400px;
+        height: 75px;
+        margin: auto;
+
+        span {
+            display: block;
+            margin-top: 15px;
+        }
+
+        &:before {
+            @include filmstrip-sprite("filmstrip-upload-large");
+            content: "";
+            display: inline-block;
+            width: filmstrip-sprite-width("filmstrip-upload-large");
+            height: filmstrip-sprite-height("filmstrip-upload-large");
+            @include transition-duration(1s);
+            @include transition-property(opacity);
+            opacity: 1;
+        }
+
+        &:after {
+            @include transition-duration(1s);
+            @include transition-property(opacity);
+            content: "";
+            display: inline-block;
+            @include filmstrip-sprite("filmstrip-upload-large-hover");
+            width: filmstrip-sprite-width("filmstrip-upload-large-hover");
+            height: filmstrip-sprite-height("filmstrip-upload-large-hover");
+            position: absolute;
+            top: 0;
+            left: 172.5px;
+            opacity: 0;
+        }
+    }
+
+    &:hover {
+        background: darken(map-get($colors, primary-50), 3%);
+        color: map-get($colors, primary-400);
+        transition-duration: 1s;
+
+        div {
+            &:after {
+                opacity: 1;
+            }
+
+            &:before {
+                opacity: 0;
+            }
+        }
+    }
+
+    &.active {
+        background: map-get($colors, primary-50);
+        color: map-get($colors, primary-400);
+        transition-duration: 1s;
+
+        div {
+            &:after {
+                opacity: 1;
+            }
+
+            &:before {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    FILMSTRIP
+//------------------------------------------------------------------
+.filmstrip {
+    @include visible-scrollbar();
+    @include box-sizing("content-box");
+    position: relative;
+    height: 114px;
+    margin: 0;
+    padding: 0 0 20px 0;
+    background-color: map-get($colors, dark-900);
+    font-size: 0;
+    list-style: none;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &.dragging .filmstrip-item * {
+        pointer-events: none;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    SPREAD / PAGE CUT
+//------------------------------------------------------------------
+.spread-cut,
+.page-cut {
+    display: none;
+    position: relative;
+    height: 125px;
+    cursor: move;
+    z-index: 100;
+    left: -1px;
+
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+    }
+
+    &:before {
+        @include filmstrip-sprite("filmstrip-spread-cut-top");
+        left: -4px;
+        width: filmstrip-sprite-width("filmstrip-spread-cut-top");
+        height: filmstrip-sprite-height("filmstrip-spread-cut-top");
+    }
+
+    &:after {
+        @include filmstrip-sprite("filmstrip-spread-cut-bottom");
+        left: -4px;
+        width: filmstrip-sprite-width("filmstrip-spread-cut-bottom");
+        height: filmstrip-sprite-height("filmstrip-spread-cut-bottom");
+    }
+
+    span {
+        display: block;
+        position: absolute;
+        left: 0;
+        width: filmstrip-sprite-width("filmstrip-spread-cut-middle");
+        background: url('../images/filmstrip-spread-cut-middle.png') left top repeat-y;
+    }
+
+    &:not(.cut-preview):hover,
+    &.selected {
+        &:before {
+            @include filmstrip-sprite("filmstrip-spread-cut-top-selected");
+        }
+
+        &:after {
+            @include filmstrip-sprite("filmstrip-spread-cut-bottom-selected");
+        }
+
+        span {
+            background: url('../images/filmstrip-spread-cut-middle-selected.png') left top repeat-y;
+        }
+    }
+
+    &.visible {
+        display: inline-block;
+    }
+
+    &.left {
+        left: -1px;
+    }
+
+    &.right {
+        left: auto;
+        right: 1px;
+    }
+
+    &.cut-preview {
+        display: block;
+        position: absolute;
+        top: 0;
+
+        bottom: 0;
+        height: auto;
+        cursor: pointer;
+    }
+
+    &.drag-on {
+        bottom: 15px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    SPREAD CUT
+//------------------------------------------------------------------
+.spread-cut {
+    &:before {
+        @include filmstrip-sprite("spread-cut-top");
+        top: 0;
+        width: filmstip-sprite-width("spread-cut-top");
+        height: filmstrip-sprite-height("spread-cut-top");
+    }
+
+    &:after {
+        bottom: 0;
+        @include filmstrip-sprite("spread-cut-bottom");
+        width: filmstip-sprite-width("spread-cut-bottom");
+        height: filmstrip-sprite-height("spread-cut-bottom");
+    }
+
+    span {
+        width:5px;
+        background-color:white;
+        top: filmstrip-sprite-height("spread-cut-top");
+        bottom: filmstrip-sprite-height("spread-cut-bottom");
+    }
+    &:not(.cut-preview):hover,
+    &.selected{
+        &:before {
+            @include filmstrip-sprite("spread-cut-top-selected");
+        }
+
+        &:after {
+            @include filmstrip-sprite("spread-cut-bottom-selected");
+        }
+        span{
+            background-color: map-get($colors, primary-700)fff;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    PAGE CUT
+//------------------------------------------------------------------
+.page-cut {
+    &:before {
+        top: 12px;
+    }
+
+    &:after {
+        bottom: 18px;
+    }
+
+    span {
+        top: filmstrip-sprite-height("filmstrip-spread-cut-top") + 15;
+        bottom: filmstrip-sprite-height("filmstrip-spread-cut-bottom") + 18;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    COVER ZONE
+//------------------------------------------------------------------
+.filmstrip__cover-zone {
+    width: 150px;
+    height: 114px;
+    display: block;
+    position: absolute;
+    background: linear-gradient(map-get($colors, light-600), map-get($colors, dark-50));
+    padding: 13px 12px 18px;
+    pointer-events: none;
+    transition: width 250ms;
+
+    .image-include {
+        width: 126px;
+        height: 100%;
+        background: map-get($colors, light-600);
+        @include border-radius(2px);
+        @include box-shadow (1px 2px 4px rgba(map-get($colors, dark-900),.4));
+        text-align: center;
+        padding: 15px 10px 10px;
+        cursor: pointer;
+        transition: all 250ms;
+
+        .upload-preview {
+            display: block;
+            margin-left: 50%;
+            @include transform(translateX(-50%));
+            @include filmstrip-sprite("icon-photo-upload-preview");
+            width: filmstrip-sprite-width("icon-photo-upload-preview");
+            height: filmstrip-sprite-height("icon-photo-upload-preview");
+        }
+
+        .upload-text {
+            span {
+                display: block;
+                font-size: 13px;
+                height: 14px;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    FILMSTRIP ITEM
+//------------------------------------------------------------------
+.filmstrip-item {
+    display: inline-block;
+    height: 114px;
+    width: 150px;
+    padding: 0;
+    font-size: 14px;
+    vertical-align: top;
+    @include transition(margin-left linear 0.3s, opacity linear 0.3s);
+
+    .filmstrip-item-inner {
+        @include box-sizing("border-box");
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 11px 12px 0;
+    }
+
+    .admin-info {
+        position: absolute;
+        top: -2px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 1;
+        font-size: 10px;
+    }
+
+    .preview {
+        @include box-sizing("border-box");
+        position: relative;
+        height: 85px;
+        margin: 1px auto 4px;
+        background: $filmstrip-thumb-color;
+        border: 3px solid map-get($colors, dark-900);
+        overflow: hidden;
+
+        img {
+            @include transition(opacity linear 0.3s);
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            -webkit-user-drag: none;
+            box-shadow: transparent 0 0 0; // fix to image size on hover with changed opacity
+        }
+
+        .uploading-text {
+            position: absolute;
+            top: 0;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            background: rgba(map-get($colors, dark-800),.8);
+            color: map-get($colors, light-50);
+            font-size: 12px;
+            text-align: center;
+            padding-top: 25px;
+        }
+
+        .upload-progress {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 5px 20px 5px 10px;
+            background-color: rgba(map-get($colors, dark-800), .8);
+
+            .progress {
+                @include radius(3px);
+                height: 6px;
+                margin: 0;
+                padding: 0;
+                background-color: map-get($colors, light-800);
+                border: none;
+                overflow: hidden;
+
+                .meter {
+                    height: 6px;
+                    background-color: map-get($colors, light-50);
+                }
+
+                &.cancel {
+                    &:after {
+                        cursor: pointer;
+                        display: inline-block;
+                        content: "";
+                        position: absolute;
+                        right: 5px;
+                        bottom: 3px;
+                        @include common-sprite("circled-cross");
+                        width: common-sprite-width("circled-cross");
+                        height: common-sprite-height("circled-cross");
+
+                        &:hover,
+                        &:active,
+                        &:focus {
+                            opacity: 0.5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .options-bar {
+        @include transition(bottom linear 0.2s);
+        -webkit-transition-delay: 0.5s;
+        transition-delay: 0.75s;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -30px;
+        height: 30px;
+        padding: 7px 7px;
+        line-height: 16px;
+        background: rgba(map-get($colors, dark-900), 0.6);
+
+        .favorite-star {
+            @include designer-sprite("star");
+            display: block;
+            float: left;
+            width: designer-sprite-width("star");
+            height: designer-sprite-height("star");
+            cursor: pointer;
+
+            &.active,
+            &:hover {
+                @include designer-sprite("star-active");
+                width: designer-sprite-width("star-active");
+                height: designer-sprite-height("star-active");
+                margin-left: -1px;
+                margin-top: -1px;
+            }
+        }
+
+        .details {
+            @include designer-sprite("magnifying-glass");
+            display: block;
+            width: designer-sprite-width("magnifying-glass");
+            height: designer-sprite-height("magnifying-glass");
+            cursor: pointer;
+            float: right;
+        }
+
+
+        .page-number {
+            padding-top: 1px;
+            display: block;
+            font-size: 12px;
+            color: map-get($colors, light-50);
+            float: left;
+
+            &:before {
+                content: "";
+                display: inline-block;
+                margin-right: 4px;
+            }
+        }
+
+        .page-number--pages:before {
+            @include proofer-sprite("icon-page-white");
+            width: proofer-sprite-width("icon-page-white");
+            height: proofer-sprite-height("icon-page-white");
+        }
+
+        .page-number--spreads:before {
+            @include proofer-sprite("icon-spread-white");
+            width: proofer-sprite-width("icon-spread-white");
+            height: proofer-sprite-height("icon-spread-white");
+        }
+
+        .image-number {
+            padding-top: 1px;
+            margin-left: 8px;
+            display: block;
+            font-size: 12px;
+            color: map-get($colors, light-50);
+            float: left;
+
+            &:before {
+                @include proofer-sprite("icon-image-logo");
+                content: "";
+                display: inline-block;
+                width: proofer-sprite-width("icon-image-logo");
+                height: proofer-sprite-height("icon-image-logo");
+                margin-right: 4px;
+            }
+        }
+    }
+
+    .favorite-active {
+        @include transition(opacity linear 0.2s);
+        @include designer-sprite("star-active");
+        display: block;
+        position: absolute;
+        left: 6px;
+        bottom: 7px;
+        width: designer-sprite-width("star-active");
+        height: designer-sprite-height("star-active");
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    .filename {
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        bottom: 2px;
+        font-size: 10px;
+        color: map-get($colors, light-800);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &.rejected,
+    &.low-res-error,
+    &.layout-error {
+        .preview:after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+    }
+
+    .preview .img-error {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 40%;
+    }
+
+    &.rejected .preview .img-error {
+        display: block;
+        pointer-events: none;
+    }
+
+    &.low-res-error {
+        .preview:after {
+            @include designer-sprite("low-res-error");
+            width: designer-sprite-width("low-res-error");
+            height: designer-sprite-height("low-res-error");
+            margin-left: designer-sprite-width("low-res-error") / -2;
+            margin-top: designer-sprite-height("low-res-error") / -2;
+        }
+    }
+
+    &.layout-error {
+        .preview:after {
+            @include designer-sprite("layout-error");
+            width: designer-sprite-width("layout-error");
+            height: designer-sprite-height("layout-error");
+            margin-left: designer-sprite-width("layout-error") / -2;
+            margin-top: designer-sprite-height("layout-error") / -2;
+        }
+    }
+
+    &.uploading {
+        .preview .upload-progress {
+            display: block;
+        }
+    }
+
+    &.active,
+    &:hover.active {
+        .preview {
+            border: 3px solid $filmstrip-selection-color;
+        }
+    }
+
+    &:hover {
+        .preview {
+            border: 3px solid $filmstrip-hover-color;
+        }
+    }
+
+    &:hover,
+    &.hover {
+        .options-bar {
+            bottom: 0;
+        }
+    }
+
+    &.used {
+        .preview,
+        .stack-preview {
+            img {
+                opacity: 0.25;
+            }
+        }
+
+        &.active,
+        &:hover.active {
+            .preview {
+                border-color: $filmstrip-selection-color;
+            }
+        }
+
+        &:hover {
+            .preview {
+                border-color: $filmstrip-hover-color;
+                img {
+                    opacity: 1;
+                }
+            }
+
+            .stack-preview {
+                img {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.highlighted {
+        background: map-get($colors, dark-100);
+    }
+
+    &:hover {
+        ul.rating {
+            display: block;
+        }
+    }
+
+    &.hidden-stack-item {
+        margin-left: -150px;
+        opacity: 0;
+    }
+
+    &.drop-left .filmstrip-item-inner:before,
+    &.drop-right .filmstrip-item-inner:after  {
+        content: "";
+        display: block;
+        position: absolute;
+        background: map-get($colors, light-50);
+        width: 2px;
+        z-index: 1000;
+    }
+
+    &.drop-left .filmstrip-item-inner:before {
+        top: -4px;
+        left: -1px;
+        bottom: -4px;
+    }
+
+    &.drop-right .filmstrip-item-inner:after {
+        top: -4px;
+        right: -1px;
+        bottom: -4px;
+    }
+
+    .stack-info {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 5px;
+
+        .stack-order {
+            @include radius(10px);
+            display: block;
+            float: left;
+            padding: 3px 10px 2px;
+            background: rgba(map-get($colors, dark-900), 0.6);
+            font-size: 11px;
+            line-height: 16px;
+            color: map-get($colors, light-50);
+        }
+
+        .stack-duplicate {
+            @include radius(0 2px 2px 2px);
+            display: block;
+            position: relative;
+            float: right;
+            height: 16px;
+            margin-right: 2px;
+            padding: 2px 4px 0;
+            background: rgba(map-get($colors, danger-400), 0.8);
+            font-size: 11px;
+            line-height: 14px;
+            color: map-get($colors, light-50);
+
+            &:after {
+                @include radius(2px);
+                content: "";
+                display: block;
+                position: absolute;
+                right: -3px;
+                bottom: -3px;
+                width: 16px;
+                height: 16px;
+                border-right: 2px solid rgba(map-get($colors, danger-400), 0.8);
+                border-bottom: 2px solid rgba(map-get($colors, danger-400), 0.8);
+            }
+        }
+    }
+
+    &.double-spread {
+        @include radius(8px);
+        border: $dps-border;
+        margin-right: $filmstrip-stack-gap;
+    }
+
+    &.stack {
+        position: relative;
+        background: map-get($colors, dark-900);
+        border-top: $filmstrip-stack-border;
+        border-bottom: $filmstrip-stack-border;
+
+        @for $i from 1 through length($stack-colors) {
+            &.stack-#{$i} {
+                $stack-border: 2px solid nth($stack-colors, $i);
+                border-top: $stack-border;
+                border-bottom: $stack-border;
+            }
+        }
+
+        .filename {
+            bottom: 0;
+        }
+
+        &.active,
+        &:hover.active,
+        &.hover.active {
+            border-color: $filmstrip-selection-color;
+        }
+
+        .preview,
+        &:hover .preview {
+            border: 3px solid transparent;
+        }
+
+        &:hover,
+        &.hover {
+            border-color: $filmstrip-hover-color;
+        }
+    }
+
+    &.stack-first {
+        @include radius(8px 0 0 8px);
+        border-left: $filmstrip-stack-border;
+        z-index: 1;
+
+        @for $i from 1 through length($stack-colors) {
+            &.stack-#{$i} {
+                border-left: 2px solid nth($stack-colors, $i);
+            }
+        }
+
+        &.active,
+        &:hover.active,
+        &.hover.active {
+            border-color: $filmstrip-selection-color;
+        }
+
+        &:hover,
+        &.hover {
+            border-color: $filmstrip-hover-color;
+        }
+
+        &.stack-first-collapsed {
+            @include radius(8px 8px 8px 8px);
+            border-right: $filmstrip-stack-border;
+
+            @for $i from 1 through length($stack-colors) {
+                &.stack-#{$i} {
+                    border-right: 2px solid nth($stack-colors, $i);
+                }
+            }
+
+            &.active,
+            &:hover.active,
+            &.hover.active {
+                border-color: $filmstrip-selection-color;
+            }
+
+            &:hover,
+            &.hover {
+                border-color: $filmstrip-hover-color;
+            }
+
+            .rotator .item {
+                background: $filmstrip-thumb-color;
+                border: 3px solid transparent;
+            }
+
+            .stack-preview {
+                @include radius(8px 8px 8px 8px);
+            }
+        }
+    }
+
+    &.stack-last {
+        @include radius(0 8px 8px 0);
+        border-right: $filmstrip-stack-border;
+        margin-right: $filmstrip-stack-gap;
+
+        @for $i from 1 through length($stack-colors) {
+            &.stack-#{$i} {
+                border-right: 2px solid nth($stack-colors, $i);
+            }
+        }
+
+        &.active,
+        &:hover.active,
+        &.hover.active {
+            border-color: $filmstrip-selection-color;
+        }
+
+        &:hover,
+        &.hover {
+            border-color: $filmstrip-hover-color;
+        }
+
+        .stack-handle .stack-handle-arrow {
+            @include designer-sprite("stack-handle-arrow-left");
+            display: block;
+            width: designer-sprite-width("stack-handle-arrow-left");
+            height: designer-sprite-height("stack-handle-arrow-left");
+        }
+    }
+
+    &.stack-first-collapsed {
+        .stack-handle .stack-handle-arrow {
+            @include designer-sprite("stack-handle-arrow-right");
+            display: block;
+            width: designer-sprite-width("stack-handle-arrow-right");
+            height: designer-sprite-height("stack-handle-arrow-right");
+        }
+
+        &:hover .stack-handle .stack-handle-arrow {
+            @include designer-sprite("stack-handle-arrow-right-active");
+            display: block;
+            width: designer-sprite-width("stack-handle-arrow-right-active");
+            height: designer-sprite-height("stack-handle-arrow-right-active");
+        }
+
+        .stack-info .stack-order {
+            @include radius(50px);
+            padding-left: 7px;
+            padding-right: 7px;
+        }
+    }
+
+    .stack-handle {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 2px;
+        width: 7px;
+        font-size: 0;
+
+        .stack-handle-arrow {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            vertical-align: middle;
+            right: 1px;
+        }
+    }
+
+    .stack-preview {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: map-get($colors, dark-900);
+
+        .rotator {
+            position: absolute;
+            top: 16px;
+            bottom: 14px;
+            left: 7px;
+            right: 20px;
+            margin: auto;
+
+            .img-container {
+                @include box-sizing(border-box);
+                display: block;
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 90%;
+                width: 95%;
+                background: map-get($colors, dark-900);
+                z-index: 0;
+
+                &:nth-child(1) {
+                    display: block;
+                    opacity: 1;
+                    left: 6px;
+                    bottom: 8px;
+                    z-index: 4;
+                }
+
+                &:nth-child(2) {
+                    display: block;
+                    opacity: 1;
+                    left: 3px;
+                    bottom: 4px;
+                    z-index: 3;
+                }
+
+                &:nth-child(3) {
+                    display: block;
+                    opacity: 1;
+                    z-index: 2;
+                }
+
+                &:nth-child(4) {
+                    display: block;
+                    opacity: 1;
+                    z-index: 1;
+                }
+
+                img {
+                    @include transition(opacity linear 0.3s);
+                    display: block;
+                    max-width: 100%;
+                    max-height: 100%;
+                    margin: 0 auto;
+                    box-shadow: transparent 0 0 0; // fix to image size on hover with changed opacity
+                }
+            }
+
+            .shadow-page-1 {
+                display: block;
+                position: absolute;
+                top: 3px;
+                bottom: 4px;
+                left: 10px;
+                right: -4px;
+                background: map-get($colors, dark-600);
+                z-index: 3;
+            }
+
+            .shadow-page-2 {
+                display: block;
+                position: absolute;
+                top: 6px;
+                bottom: 0px;
+                left: 14px;
+                right: -8px;
+                background: map-get($colors, dark-800);
+                z-index: 2;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                    ERROR POP-UP CONTAINER
+//------------------------------------------------------------------
+.error-popup-container {
+    position: fixed;
+    z-index: 10000;
+
+    .error-popup {
+        @include box-arrow(bottom, 6px, map-get($colors, dark-800), 0px, map-get($colors, dark-800));
+        width: 400px;
+        background-color: map-get($colors, dark-800);
+        color: map-get($colors, light-700);
+        font-size: 16px;
+        padding: 20px;
+    }
+}

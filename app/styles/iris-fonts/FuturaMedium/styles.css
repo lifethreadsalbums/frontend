@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'Futura-Med';
+  src: url('Futura-Med.eot?#iefix') format('embedded-opentype'),  url('Futura-Med.otf')  format('opentype'),
+	     url('Futura-Med.woff') format('woff'), url('Futura-Med.ttf')  format('truetype'), url('Futura-Med.svg#Futura-Med') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

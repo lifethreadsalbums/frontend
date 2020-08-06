@@ -1,0 +1,68 @@
+//------------------------------------------------------------------
+//                     PREFERENCES NOTIFICATIONS
+//------------------------------------------------------------------
+.preferences-notifications {
+    form {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        bottom: 51px;
+        background: map-get($colors, light-100);
+        padding: 30px;
+    }
+
+    .label-repeater > div {
+        display: inline-block;
+        width: 40%;
+        padding: 10px 0;
+
+        &.labels {
+            font-size: 1.1rem;
+        }
+    }
+
+    header {
+        height: 30px;
+        margin-bottom: 20px;
+
+        hr {
+            margin: 0.5rem 0;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointL) {
+        h2 {
+            font-size: 1.3rem;
+        }
+
+        .labels {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media only screen and (min-width: $breakPointXL) {
+        h2 {
+            font-size: 1.4rem;
+        }
+
+        .labels {
+            font-size: 1.2rem;
+        }
+    }
+
+    footer {
+        position: absolute;
+        height: 51px;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid map-get($colors, light-700);
+        background: map-get($colors, light-100);
+        text-align: right;
+        padding: 9px 20px;
+
+        button {
+            margin-bottom: 0;
+            margin-left: 10px;
+        }
+    }
+}

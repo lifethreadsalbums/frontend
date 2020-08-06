@@ -1,0 +1,50 @@
+<div class="frp-overlay"></div>
+<div class="frp-content">
+	<aside class="frp-pages" ng-controller="PagesCtrl as pagesCtrl" ng-init="initCtrl()">
+
+		<header class="section-header section-header--pages">
+			<div class="pull-left">
+				<span>Pages</span>
+			</div>
+
+		</header><!-- end of section header -->
+
+		<div class="layout-section__pages-content">
+			<spread-thumb-list
+				thumb-size="500"
+				thumb-scale="thumbScale"
+                layout="layout"
+                cover-layout="coverLayout"
+                layout-controller="layoutController"
+                selected-indices="selectedPageIndices"
+                auto-center="true"
+                page-type="productPrototype.productPageType">
+            </spread-thumb-list>
+		</div><!-- end of section content -->
+
+		<footer class="layout-section__footer--pages">
+			<button id="close-frp-pages" class="button dark arrow-right button-primary" ui-sref="layout">Close</button>
+
+			<div class="pull-right left-margin">
+				<span class="button dark resize-inner" ng-click="zoomToFit()"></span>
+				<div class="slider-container topx dark">
+					<rzslider rz-slider-model="thumbScale" rz-slider-floor="0.2" rz-slider-ceil="1" rz-slider-step="0.01" rz-slider-precision="2"></rzslider>
+					<span class="slider-scale scale-1 scale-type-full"></span>
+					<span class="slider-scale scale-2 scale-type-full"></span>
+					<span class="slider-scale scale-3 scale-type-full"></span>
+					<span class="slider-scale scale-4 scale-type-full"></span>
+					<span class="slider-scale scale-5 scale-type-full"></span>
+					<span class="slider-scale scale-6 scale-type-full"></span>
+					<span class="slider-scale scale-7 scale-type-full"></span>
+				</div>
+				<span class="button dark resize-outer" ng-click="zoomDefault()"></span>
+			</div>
+
+			<div class="right" ng-if="editable">
+				<span class="button dark plus-large" ng-click="addPages()"></span>
+				<span class="button dark minus-large" ng-click="deletePages()"></span>
+			</div>
+		</footer><!-- end of section footer -->
+
+	</aside>
+</div>

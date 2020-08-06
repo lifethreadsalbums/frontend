@@ -1,0 +1,15 @@
+<section class="color-picker-content">
+	<header>
+		<div class="ngdialog-close right"></div>
+	</header>
+	<article>
+		<div id="picker"></div>
+	</article>
+	<footer>
+        <a class="eyedropper-button">
+            <span class="icon-eyedropper"></span>
+        </a>
+		<button type="button" class="button dark" ng-click="closeThisDialog()">Cancel</button>
+		<button type="button" class="button color" ng-click="ok(selectedColor); closeThisDialog()">Ok</button>
+	</footer>
+</section>

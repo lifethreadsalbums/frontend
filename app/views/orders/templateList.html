@@ -1,0 +1,26 @@
+<header class="sidebar-menu__header sidebar-menu__header--advanced">
+    <a ui-sref="orders.create" class="button back big">Back</a>
+	<span>Create New Order</span>
+	<small>Create Album from Template</small>
+</header>
+
+<div>
+
+	<a ui-sref="orders.create.new({id:product.id, name:$state.params.name})" ng-repeat="product in products">
+		<div class="project-item image-on"
+			ng-class="{active:$state.params.id==product.id}">
+			<img src="" class="project-image">
+			<div class="project-header" init-pace-tooltip>
+				<span class="project-name has-tip" data-pace-tooltip="{{product.name}}" data-pace-tooltip-position="top">{{product.name|truncate:11}}</span>
+			</div>
+			<div class="project-details">
+				{{product.productInfo}}
+			</div>
+		</div>
+	</a>
+
+</div>
+
+<footer aside-footer>
+	<a ui-sref="orders.current" class="button large inline">Cancel</a>
+</footer>

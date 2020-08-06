@@ -1,0 +1,44 @@
+<header class="clear-margin">{{title}}</header>
+
+<div init-foundation>
+	<div class="sort-bar sort-bar--absolute">
+		<span class="sort-label">Sorting</span>
+		<span class="sort-button" data-dropdown="orders-sort-options">Sort</span>
+		<ul id="orders-sort-options" class="sort-options f-dropdown" data-dropdown-content>
+			<li><a href="#">Sort option 1</a></li>
+			<li><a href="#">Sort option 2</a></li>
+			<li><a href="#">Sort option 3</a></li>
+			<li><a href="#">Sort option 4</a></li>
+		</ul>
+	</div>
+	<div class="completed-orders-filter" ng-show="{{$state.current.data.showFilterButtons == true}}">
+		<button class="button small" ng-class="{active: $state.includes('orders.completed-recent')}" ui-sref="orders.completed-recent">Recent Orders</button>
+		<button class="button small" ng-class="{active: $state.includes('orders.completed-archived')}" ui-sref="orders.completed-archived">Archived Orders</button>
+	</div>
+	<div class="sidebar-projects-content" ng-class="{'completed-orders' : $state.current.data.showFilterButtons == true}">
+		<a ui-sref=".details({id:product.id})" ng-repeat="product in products" >
+			<div class="project-item"
+				ng-class="{active:$state.params.id==product.id}">
+				<div class="project-header" init-pace-tooltip>
+					<span ng-if="product.state=='Printing'" class="project-status status-label status-label-green" >Ready to Print</span>
+					<span ng-if="product.state=='Printed'" class="project-status status-label status-label-orange" >Printed</span>
+					<span ng-if="product.state=='Bound'" class="project-status status-label status-label-green" >Bound</span>
+					<span ng-if="product.state=='Shipped'" class="project-status status-label status-label-green" >Shipped</span>
+
+					<span class="project-name" data-pace-tooltip="{{product.options._name}}">{{product.options._name|truncate:11}}</span>
+				</div>
+				<div class="project-details">{{product.productInfo}}</div>
+				<div class="project-footer">
+					<span class="project-date">{{product.options._dateCreated | moment}}</span>
+					<span class="project-price">{{product.subtotal.displayPrice}}</span>
+					<span class="project-copies"><span class="icon-book"></span>{{product.children.length + 1}}</span>
+				</div>
+			</div>
+		</a>
+	</div>
+
+</div>
+
+<!-- <footer aside-footer>
+	<button class="button large">Cancel</button>
+</footer> -->

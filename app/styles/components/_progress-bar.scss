@@ -1,0 +1,26 @@
+//------------------------------------------------------------------
+//              UPLOAD PROGRESS BAR
+//------------------------------------------------------------------
+.upload-progress-bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+    width: 180px;
+
+    .progress-bar {
+        @include radius(3px);
+        height: 6px;
+        padding: 0;
+        background-color: map-get($colors, light-800);
+        border: none;
+        overflow: hidden;
+        margin: 0 15px;
+    }
+
+    .meter-bar {
+        display: block;
+        height: 6px;
+        background-color: map-get($colors, light-50);
+    }
+}

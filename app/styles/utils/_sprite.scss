@@ -1,0 +1,240 @@
+.icon-button-chevron-left-dark {
+    @include icon-button("icon-button-chevron-left-dark");
+}
+
+.icon-settings-info {
+    @include icon("icon-settings-info");
+}
+
+.icon-eyedropper {
+    @include icon("icon-eyedropper");
+}
+
+.icon-color-picker {
+    @include icon("icon-color-picker");
+}
+
+.icon-font-size {
+    @include icon-text("icon-font-size");
+}
+
+.icon-bullet-gray {
+    @include item-list-sprite("icon-list-bullet-gray");
+}
+
+.icon-usd,
+.icon-USD {
+    @include button-sprite("icon-button-currency-usd");
+    display: inline-block;
+    width: button-sprite-width("icon-button-currency-usd");
+    height: button-sprite-height("icon-button-currency-usd");
+}
+
+.icon-cad,
+.icon-CAD {
+    @include button-sprite("icon-button-currency-cad");
+    display: inline-block;
+    width: button-sprite-width("icon-button-currency-cad");
+    height: button-sprite-height("icon-button-currency-cad");
+}
+
+.icon-cross {
+    @include dashboard-sprite("icon-cross");
+    width: dashboard-sprite-width("icon-cross");
+    height: dashboard-sprite-height("icon-cross");
+    display: inline-block;
+    cursor: pointer;
+}
+
+@mixin api-icon {
+    &.www {
+        padding-left: 12px;
+        padding-right: 12px;
+        border:1px solid map-get($colors, dark-900);
+
+        &:after {
+            @include button-sprite("icon-button-www");
+            content: "";
+            display: block;
+            position: relative;
+            float: left;
+            width: button-sprite-width("icon-button-www");
+            height: button-sprite-height("icon-button-www");
+            margin-right: 7px;
+        }
+    }
+}
+
+.icon-www {
+    @include icon-button("icon-button-www");
+    width: button-sprite-width("icon-button-www");
+    height: button-sprite-height("icon-button-www");
+
+    &.active {
+        @include button-sprite("icon-button-www-active");
+        width: button-sprite-width("icon-button-www-active");
+        height: button-sprite-height("icon-button-www-active");
+    }
+
+    &:hover,
+    &.hover,
+    &:active,
+    &:focus {
+        @include button-sprite("icon-button-www-hover");
+        width: button-sprite-width("icon-button-www-hover");
+        height: button-sprite-height("icon-button-www-hover");
+    }
+}
+
+.icon-email {
+    @include icon-button("icon-button-email");
+    width: button-sprite-width("icon-button-email");
+    height: button-sprite-height("icon-button-email");
+
+    &.active {
+        @include button-sprite("icon-button-email-active");
+        width: button-sprite-width("icon-button-email-active");
+        height: button-sprite-height("icon-button-email-active");
+    }
+
+    &:hover,
+    &.hover,
+    &:active,
+    &:focus {
+        @include button-sprite("icon-button-email-hover");
+        width: button-sprite-width("icon-button-email-hover");
+        height: button-sprite-height("icon-button-email-hover");
+    }
+}
+
+.iconClose {
+    width: 20px;
+    height: 20px;
+    display: block;
+    text-indent: -100000px;
+    background: url('../../images/sprite_main.png') -159px -39px no-repeat;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.iconPlus {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: url('../../images/sprite_main.png') -93px -35px no-repeat;
+    cursor: pointer;
+}
+
+.add-user {
+    &:after {
+        content:"";
+        @include common-sprite("icon-add-user");
+        width: common-sprite-width("icon-add-user");
+        height: common-sprite-height("icon-add-user");
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &:hover:after {
+        @include common-sprite("icon-add-user-gray");
+    }
+}
+
+.admin-message {
+    &:after {
+        content:"";
+        @include sidebar-sprite("icon-admin-message");
+        width: sidebar-sprite-width("icon-admin-message");
+        height: sidebar-sprite-height("icon-admin-message");
+        position: absolute;
+        top:0;
+        left:0;
+    }
+}
+
+.iconPlusBg {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: url('../../images/sprite_main.png') -91px -62px no-repeat;
+    cursor: pointer;
+}
+
+.iconMinus {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: url('../../images/sprite_main.png') -59px -35px no-repeat;
+    cursor: pointer;
+}
+
+.iconMinusBg {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: url('../../images/sprite_main.png') -57px -61px no-repeat;
+    cursor: pointer;
+}
+
+.iconPersonDetails {
+    display: inline-block;
+    width: 42px;
+    height: 28px;
+    background: url('../../images/sprite_main.png') -56px -92px no-repeat;
+    cursor: pointer;
+
+    &.active {
+        background: url('../../images/sprite_main.png') -56px -135px no-repeat;
+    }
+}
+
+.iconArrow {
+    display: inline-block;
+    width: 23px;
+    height: 24px;
+    background: url('../../images/sprite_main.png') -118px -94px no-repeat;
+    cursor: pointer;
+
+    &.active {
+        background: url('../../images/sprite_main.png') -159px -93px no-repeat;
+    }
+}
+
+.icon-book {
+    @include orders-sprite("icon-book-gray");
+    display: inline-block;
+    width: 14px;
+    height: 10px;
+}
+
+.icon-add-document {
+    @include common-sprite("icon-add-document");
+    display: block;
+    width: 22px;
+    height: 27px;
+}
+
+.icon-leading {
+    @include common-sprite("icon-leading");
+    display: inline-block;
+    width: common-sprite-width("icon-leading");
+    height: common-sprite-height("icon-leading");
+}
+
+.icon-kerning {
+    @include common-sprite("icon-kerning");
+    display: inline-block;
+    width: common-sprite-width("icon-kerning");
+    height: common-sprite-height("icon-kerning");
+}
+
+.icon-word-tracking {
+    @include common-sprite("icon-word-tracking");
+    display: inline-block;
+    width: common-sprite-width("icon-word-tracking");
+    height: common-sprite-height("icon-word-tracking");
+}

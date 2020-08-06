@@ -1,0 +1,118 @@
+<section id="orders" class="section section--admin">
+
+	<!-- Sidebar -->
+    <aside class="sidebar-menu__container">
+		<div ng-switch="currentUser.admin">
+			<div ng-switch-when="true">
+                <ul class="sidebar-menu">
+                	<li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.coupons')}" ng-if="user.superAdmin">
+						<a class="sidebar-menu__link" ui-sref="admin.coupons" data-title="Coupons">
+							<div class="sidebar-menu__icon sidebar-menu__icon--coupons"
+								ng-class="{active:$state.includes('admin.coupons')}"></div>
+							<div class="sidebar-menu__name">Coupons</div>
+						</a>
+					</li>
+					 <li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.messaging')}" >
+						<a class="sidebar-menu__link" ui-sref="admin.messaging" data-title="Messaging">
+							<div class="sidebar-menu__icon sidebar-menu__icon--messaging"
+								ng-class="{active:$state.includes('admin.messaging')}"></div>
+							<div class="sidebar-menu__name">Messaging</div>
+						</a>
+					</li>
+					<!-- <li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.products')}">
+						<a class="sidebar-menu__link" ui-sref="admin.products" data-title="Products">
+							<div class="sidebar-menu__icon sidebar-menu__icon--products"
+								ng-class="{active:$state.includes('admin.products')}"></div>
+							<div class="sidebar-menu__name">Products</div>
+						</a>
+					</li> -->
+					<li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.reports')}" ng-if="user.superAdmin">
+						<a class="sidebar-menu__link" ui-sref="admin.reports" data-title="Reports">
+							<div class="sidebar-menu__icon sidebar-menu__icon--reports"
+								ng-class="{active:$state.includes('admin.reports')}"></div>
+							<div class="sidebar-menu__name">Reports</div>
+						</a>
+					</li>
+					<li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.system')}">
+						<a class="sidebar-menu__link" ui-sref="admin.system" data-title="System Settings">
+							<div class="sidebar-menu__icon sidebar-menu__icon--preferences"
+								ng-class="{active:$state.includes('admin.system')}"></div>
+							<div class="sidebar-menu__name">System Settings</div>
+						</a>
+					</li>
+					<li class="sidebar-menu__item" ng-class="{active:$state.includes('admin.users') || $state.includes('admin.usersSearch')}" >
+						<a class="sidebar-menu__link" ui-sref="admin.users({status:'New,Verified'})" data-title="Users">
+							<div class="sidebar-menu__icon sidebar-menu__icon--users"
+								ng-class="{active:$state.includes('admin.users') || $state.includes('admin.usersSearch')}"></div>
+							<div class="sidebar-menu__name">Users</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<footer class="sidebar-menu__footer" aside-footer>
+			<span collapse-sidebar class="sidebar-menu__collapse" data-target-position="#orders aside" data-target-folded="#orders">
+                <img class="sidebar-menu__collapse-icon" src="/images/sidebar/sidebar-triangle-left-blue.svg" alt="<">
+            </span>
+			<!-- <button class="button large">Cancel</button> -->
+			<!-- <span class="sidebar-search sidebar-menu__search--is-next-collapse" pace-search>
+				<input class="sidebar-menu__search-input" type="text" placeholder="Search Everything" ng-keyup="paceSearchInputChanged();">
+				<span class="sidebar-search__clear">x</span>
+			</span> -->
+		</footer>
+
+	</aside>
+
+	<!-- Content -->
+	<div id="content" class="section__content section__content--sidebar section__content--transition section__content--orders">
+		<aside ng-hide="leftPanelHidden" class="section__left-panel section__left-panel--admin">
+			<div class="header">
+				<span class="sidebar-menu__search sidebar-search--is-visible" pace-search>
+					<input type="text" placeholder="Search" class="sidebar-menu__search-input"
+						ng-model="searchQuery" ng-model-options="{ debounce: 500 }" ng-change="search()" ng-keyup="paceSearchInputChanged();">
+					</input>
+                    <span class="sidebar-search__clear">x</span>
+				</span>
+
+				<div style="padding:0 10px" class="clearfix">
+					<dropdown-button style="width:48%;margin-bottom:10px" fixed-width="70%" label="Status - All"
+						options="accountStatusOptions"
+						value-field="value"
+						on-change="search()"
+						ng-model="accountStatus">
+					</dropdown-button>
+
+					<dropdown-button style="width:48%;margin-bottom:10px" class="pull-right" fixed-width="70%"
+						label="User Type - All"
+                        options="accountTypeOptions"
+						value-field="value"
+						on-change="search()"
+						ng-model="accountType">
+					</dropdown-button>
+
+					<dropdown-button style="width:100%" fixed-width="85%"
+                        label="Membership - All"
+                        options="userGroupOptions"
+						value-field="id"
+                        label-field="name"
+						on-change="search()"
+						ng-model="userGroup">
+					</dropdown-button>
+
+                    <div class="sort-bar" init-foundation>
+                        <span class="sort-label">Sorting</span>
+                        <span class="sort-button" data-dropdown="orders-sort-options">Sort</span>
+                        <ul id="orders-sort-options" class="sort-options f-dropdown" data-dropdown-content>
+                            <li><a href="#">Ascending</a></li>
+                            <li><a href="#">Descending</a></li>
+                        </ul>
+                    </div>
+				</div>
+			</div><!--div header-->
+
+			<div ui-view="left"></div>
+		</aside>
+
+        <article ui-view="right" ng-class="{'section__main-content--left-panel': !leftPanelHidden}" class="section__main-content section__main-content--admin"></article>
+	</div>
+</section>

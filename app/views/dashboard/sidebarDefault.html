@@ -1,0 +1,37 @@
+<div>
+	<ul class="sidebar-menu">
+		<li  class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.default.overview')}">
+			<a class="sidebar-menu__link" ui-sref="dashboard.default.overview" data-title="Overview">
+				<div class="sidebar-menu__icon sidebar-menu__icon--overview"></div>
+				<div class="sidebar-menu__name">Overview</div>
+			</a>
+		</li>
+		<!-- <li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.default.resources')}" id="resources">
+			<a class="sidebar-menu__link" ui-sref="dashboard.default.resources" data-title="Resources">
+				<div class="sidebar-menu-icon sidebar-menu__icon--resources"></div>
+				<div class="sidebar-menu-name">Resources</div>
+			</a>
+		</li>
+		<li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.default.social-media')}" id="social">
+			<a class="sidebar-menu__link" ui-sref="dashboard.default.social-media" data-title="Social Media">
+				<div class="sidebar-menu-icon sidebar-menu__icon--social-media"></div>
+				<div class="sidebar-menu-name">Social Media</div>
+			</a>
+		</li> -->
+		<li class="sidebar-menu__item" ng-class="{active:$state.includes('dashboard.preferences')}">
+			<a class="sidebar-menu__link" ui-sref="dashboard.preferences.account" data-title="Preferences">
+				<div class="sidebar-menu__icon sidebar-menu__icon--preferences"></div>
+				<div class="sidebar-menu__name">Preferences</div>
+			</a>
+		</li>
+	</ul>
+</div>
+<footer class="sidebar-menu__footer" aside-footer id="sidebar-footer">
+	<span collapse-sidebar class="sidebar-menu__collapse" data-target-position="#dashboard aside" data-target-folded="#dashboard">
+		<img class="sidebar-menu__collapse-icon" src="/images/sidebar/sidebar-triangle-left-blue.svg" alt="<">
+	</span>
+	<span class="sidebar-menu__search sidebar-menu__search--is-next-collapse" pace-search>
+		<input class="sidebar-menu__search-input" type="text" placeholder="Search..." ng-keyup="paceSearchInputChanged();">
+        <span class="sidebar-search__clear">x</span>
+	</span>
+</footer>

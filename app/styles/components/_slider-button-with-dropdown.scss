@@ -1,0 +1,173 @@
+.dropdown-button-controls-wrapper.type-slider-dropdown.dark {
+    .dropdown-button-controls {
+        height: 21px;
+        padding: 0;
+        background: linear-gradient(map-get($colors, dark-300), map-get($colors, dark-300));
+        border: none;
+
+        .controls-triangle {
+            top: -7px;
+
+            &:before {
+                display: none;
+            }
+
+            &:after {
+                border-width: 7px;
+                border-bottom-color: map-get($colors, dark-300);
+            }
+        }
+    }
+
+    .slider-button.dropdown-button {
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+        background: none;
+        height: 21px;
+
+        &.active {
+            border-color: map-get($colors, dark-700);
+        }
+
+        &:active {
+            box-shadow: none;
+        }
+
+        &:before {
+            display: none;
+        }
+
+        &:after {
+            @include button-sprite("icon-button-arrow-bottom-right-small-larger-active");
+        }
+
+    }
+
+    .slider-dropdown-input {
+        position: relative;
+        top: -1px;
+        width: 50px;
+        height: 17px;
+        margin-left: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background: map-get($colors, dark-800);
+        border: none;
+        font-size: 11px;
+        color: map-get($colors, light-300);
+
+        &:focus {
+            background: map-get($colors, dark-400);
+        }
+    }
+
+    .slider-minus,
+    .slider-plus {
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        width: 15px;
+        height: 15px;
+        font-size: 18px;
+        color: map-get($colors, dark-700);
+        cursor: pointer;
+        user-select: none;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+
+    .slider-minus {
+        margin-left: 2px;
+        margin-right: 2px;
+
+        &:after,
+        &:active:hover:after {
+            @include designer-sprite("slider-dropdown-minus");
+            width: designer-sprite-width("slider-dropdown-minus");
+            height: designer-sprite-height("slider-dropdown-minus");
+        }
+
+        &:hover:after,
+        &.active:after,
+        &.active:active:hover:after {
+            @include designer-sprite("slider-dropdown-minus-white");
+        }
+    }
+
+    .slider-plus {
+        margin-left: 2px;
+        margin-right: 2px;
+
+        &:after,
+        &:active:hover:after {
+            @include designer-sprite("slider-dropdown-plus");
+            width: designer-sprite-width("slider-dropdown-plus");
+            height: designer-sprite-height("slider-dropdown-plus");
+        }
+
+        &:hover:after,
+        &.active:after,
+        &.active:active:hover:after {
+            @include designer-sprite("slider-dropdown-plus-white");
+        }
+    }
+
+    .slider-container {
+        position: relative;
+        top: -2px;
+        width: 85px;
+        height: 5px;
+
+        rzslider {
+            width: 85px;
+
+            .bar {
+                background: map-get($colors, dark-700);
+                border: none;
+            }
+
+            .pointer {
+                top: -9px !important;
+                width: 14px;
+                height: 14px;
+                background: linear-gradient(map-get($colors, dark-300), map-get($colors, dark-500));
+                border-radius: 14px;
+                border: none;
+                box-shadow: 0 1px 2px 1px map-get($colors, dark-800);
+
+                &:after {
+                    content: "";
+                    display: block;
+                    box-sizing: border-box;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    width: 10px;
+                    height: 10px;
+                    margin: auto;
+                    background: linear-gradient(map-get($colors, light-800), map-get($colors, dark-500));
+                    border: 2px solid map-get($colors, dark-700);
+                    border-radius: 10px;
+                }
+
+                &.is-marked:after {
+                    background: map-get($colors, primary-400);
+                }
+            }
+        }
+    }
+}

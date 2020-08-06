@@ -1,0 +1,48 @@
+//------------------------------------------------------------------
+//                     CONTAINERS 2-COLS
+//------------------------------------------------------------------
+.container-2-cols {
+    padding-left: 12px;
+
+    .col-1 {
+        float: left;
+        width: 50%;
+        margin-left: -12px;
+        margin-right: 12px;
+    }
+
+    .col-2 {
+        float: left;
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .container-2-cols.split-small {
+        margin-right: -12px;
+
+        .col-1,
+        .col-2 {
+            width: 100%;
+            margin: 0 0 12px -12px;
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .container-1-cols,
+    .container-2-cols {
+        max-width: 1560px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width: $breakPointXL) {
+    .container-1-cols,
+    .container-2-cols {
+        max-width: 1624px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

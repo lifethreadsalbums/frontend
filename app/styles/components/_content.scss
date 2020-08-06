@@ -1,0 +1,87 @@
+//------------------------------------------------------------------
+//                     CONTENT
+//------------------------------------------------------------------
+.pageWrap {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+
+    > form {
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .pageWrap {
+        top: 60px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .pageWrap {
+        top: 70px;
+    }
+}
+
+body.slide-left,
+body.slide-right,
+body.fade {
+    .pageWrap {
+        &.ng-enter,
+        &.ng-leave {
+            @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s);
+        }
+    }
+}
+
+body.slide-left .pageWrap {
+    &.ng-enter {
+        @include transform(translate3d(100%, 0, 0));
+    }
+    &.ng-enter.ng-enter-active {
+        @include transform(translate3d(map-get($colors, dark-900)));
+    }
+
+    &.ng-leave {
+        @include transform(translate3d(map-get($colors, dark-900)));
+    }
+    &.ng-leave.ng-leave-active {
+        @include transform(translate3d(-100%, 0, 0));
+    }
+}
+
+body.slide-right .pageWrap {
+    &.ng-enter {
+        @include transform(translate3d(-100%, 0, 0));
+    }
+    &.ng-enter.ng-enter-active {
+        @include transform(translate3d(map-get($colors, dark-900)));
+    }
+
+    &.ng-leave {
+        @include transform(translate3d(map-get($colors, dark-900)));
+    }
+    &.ng-leave.ng-leave-active {
+        @include transform(translate3d(100%, 0, 0));
+    }
+}
+
+body.fade .pageWrap {
+    &.ng-enter {
+        opacity: 0;
+    }
+    &.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+
+    &.ng-leave {
+        opacity: 1;
+    }
+    &.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+}

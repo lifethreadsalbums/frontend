@@ -1,0 +1,182 @@
+//------------------------------------------------------------------
+//                     GLOBAL
+//------------------------------------------------------------------
+*:not(input):not(textarea):not(select):not(option):not([contenteditable="true"]:not(.ql-editor *)) {
+	@include user-select("none");
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	@include museo300();
+	font-size: $body-font-size;
+	background: $body-bg;
+	overflow-x: hidden;
+	-webkit-font-smoothing: subpixel-antialiased !important;
+	-moz-osx-font-smoothing: auto !important;
+	// -webkit-font-smoothing: antialiased !important;
+    // -moz-osx-font-smoothing: grayscale !important;
+}
+
+@media only screen and (max-width: 1024px) {
+	body {
+		font-size: 15px;
+	}
+}
+
+a {
+	color: $defaultLinkColor;
+	text-decoration: none;
+}
+
+
+h1, h2, h3, h4, h4, h6 {
+	@include museo300();
+	font-size: 24px;
+	line-height: 1em;
+	margin: 0;
+	color: $grey;
+}
+
+@media only screen and (max-width: 1024px) {
+	h1 {
+		font-size: 18px;
+	}
+}
+
+h2 {
+	font-size: 21px;
+}
+
+h3 {
+	font-size: 19px;
+}
+
+.h3--small {
+    margin: 12px 0;
+
+    font-family: 'Museo Sans 500', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+strong,
+b {
+	@include museo500();
+}
+
+.row,
+.row-no-limit {
+	max-width: 100%;
+}
+
+
+//------------------------------------------------------------------
+//                     MISC
+//------------------------------------------------------------------
+.error {
+	margin-top: -0.9em;
+	margin-bottom: 0px;
+	font-size: 12px;
+	font-family: Helvetica, Arial, sans-serif;
+	white-space: normal;
+	color: $formErrorLabelColor;
+	font-weight: normal;
+	text-align: left;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+// standard one
+.borderDefault {
+	@include borderDefault;
+}
+
+// dark one - used for example in address book
+.borderDefaultDark{
+	@include borderDefault;
+	border-top: 1px solid map-get($colors, dark-500);
+	border-bottom: 1px solid map-get($colors, light-800);
+}
+
+[draggable=true] {
+	-khtml-user-drag: element;
+}
+
+.user-select-none {
+	@include user-select("none");
+}
+
+.closeText {
+	font-size: 12px;
+	padding-left: 14px;
+	background: url('../images/sprite_main.png') -171px -5px no-repeat;
+	display: block;
+	margin: 5px 0;
+	color: map-get($colors, danger-50);
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+// bg underneath number when adding something
+.numberDisplay {
+	background: map-get($colors, light-50);
+	padding: 0 2px;
+	line-height: 1.6em;
+	border: 1px solid map-get($colors, light-300);
+	font-size: 12px;
+	display: inline-block;
+	text-align: center;
+	width: 28px;
+}
+
+.customLogo {
+    width: 100%;
+
+    button {
+        width: 50%;
+    }
+}
+
+.christmas-shipping {
+	font-weight: 800;
+	color: map-get($colors, success-800);
+	padding-right: 5px;
+
+	&:after {
+		display: inline-block;
+		content: '';
+		@include common-sprite("icon-green-tick");
+        width: common-sprite-width("icon-green-tick");
+        height: common-sprite-height("icon-green-tick");
+        position: relative;
+    	top: 2px;
+    	margin-left: 3px;
+	}
+}
+
+.no-christmas-shipping {
+	font-weight: 800;
+	color: map-get($colors, light-800);
+	padding-right: 5px;
+	text-decoration: line-through;
+
+	&:after {
+		display: inline-block;
+		content: '';
+		@include common-sprite("icon-circled-cross-large");
+        width: common-sprite-width("icon-circled-cross-large");
+        height: common-sprite-height("icon-circled-cross-large");
+        position: relative;
+    	top: 2px;
+    	margin-left: 3px;
+	}
+}
+
+.read-only {
+    pointer-events: none;
+}

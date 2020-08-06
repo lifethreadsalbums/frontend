@@ -1,0 +1,35 @@
+<div class="proofer"
+     tabindex="0"
+     ng-keydown="onKeyDown($event)">
+    
+    <div class="frp frp-popup frp-fixed slide-bottom">
+        <div class="slideshow">
+
+            <div class="slideshow__content">
+                <react-component name="FlipBookComponent" props="flipBookProps" watch-depth="reference"></react-component>
+            </div>
+
+            <div class="slideshow__footer" init-pace-tooltip>
+                <button class="button dark-flat clear-margin-bottom skip-prev"
+                        data-pace-tooltip="First"
+                        ng-click="changePage(-1000)"></button>
+
+                <button class="button dark-flat clear-margin-bottom play"
+                        data-pace-tooltip="Play"
+                        ng-if="!model.slideshowPlaying"
+                        ng-click="playSlideshow()"></button>
+
+                <button class="button dark-flat clear-margin-bottom stop"
+                        data-pace-tooltip="Stop"
+                        ng-if="model.slideshowPlaying"
+                        ng-click="stopSlideshow()"></button>
+
+                <button class="button dark-flat clear-margin-bottom skip-next"
+                        data-pace-tooltip="Last"
+                        ng-click="changePage(1000)"></button>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

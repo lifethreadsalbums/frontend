@@ -1,0 +1,165 @@
+.dropdown-r {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+
+    font-size: 14px;
+    white-space: nowrap;
+
+    color: map-get($colors, light-50);
+
+    &:after {
+        content: "\25BE";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 5px;
+
+        font-size: 12px;
+        color: map-get($colors, light-800);
+    }
+
+    &.dropdown-r--disabled {
+        opacity: .7;
+        pointer-events: none;
+    }
+
+    &.dropdown-r--green-badge,
+    &.dropdown-r--red-badge,
+    &.dropdown-r--orange-badge {
+        padding: 5px 20px 3px 10px;
+
+        border-radius: 2px;
+
+        font-size: 12px;
+        line-height: 14px;
+        text-transform: uppercase;
+
+        &:after {
+            top: 4px;
+            right: 7px;
+
+            font-size: 10px;
+        }
+
+        &:after,
+        .dropdown-r__label {
+            color: map-get($colors, light-50);
+            text-align: center;
+        }
+
+        &:hover,
+        &.dropdown-r--is-open {
+            box-shadow: none;
+
+        }
+
+        .dropdown-r__option {
+            padding: 0 9px;
+
+            font-size: 12px;
+            line-height: 20px;
+        }
+    }
+
+    &.dropdown-r--green-badge {
+        background: map-get($colors, success-100);
+        box-shadow: 0 1px 1px 0 map-get($colors, success-600);
+
+        &:hover {
+            background: linear-gradient(map-get($colors, success-50), map-get($colors, success-300));
+        }
+
+        &.dropdown-r--is-open {
+            background: linear-gradient(map-get($colors, success-700), map-get($colors, success-900));
+        }
+    }
+
+    &.dropdown-r--red-badge {
+        background: map-get($colors, danger-500);
+        box-shadow: 0 1px 1px 0 map-get($colors, danger-500);
+
+        &:hover {
+            background: linear-gradient(map-get($colors, danger-500), map-get($colors, danger-700));
+        }
+
+        &.dropdown-r--is-open {
+            background: linear-gradient(map-get($colors, danger-700), map-get($colors, danger-800));
+        }
+    }
+
+    &.dropdown-r--orange-badge {
+        background: map-get($colors, warning-300);
+        box-shadow: 0 1px 1px 0 map-get($colors, warning-300);
+
+        &:hover {
+            background: linear-gradient(map-get($colors, warning-300), map-get($colors, warning-600));
+        }
+
+        &.dropdown-r--is-open {
+            background: linear-gradient(map-get($colors, warning-600), map-get($colors, warning-700));
+        }
+    }
+}
+
+.dropdown-r__label {
+    display: block;
+    overflow: hidden;
+
+    color: map-get($colors, light-800);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.dropdown-r__options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    margin: 2px 0 0;
+    z-index: 10001;
+
+    background: map-get($colors, light-200);
+    border: 1px solid map-get($colors, light-600);
+    border-radius: 4px;
+
+    list-style: none;
+
+    font-size: 14px;
+    color: map-get($colors, light-800);
+
+    &.dropdown-r__options--position-right {
+        left: auto;
+        right: 0;
+    }
+
+    &.dropdown-r__options--direction-up {
+        top: auto;
+        bottom: 100%;
+        margin: 0 0 2px;
+    }
+}
+
+    .dropdown-r--is-open .dropdown-r__options {
+        display: block;
+    }
+
+.dropdown-r__option {
+    display: block;
+    padding: 3px 12px 2px;
+
+    white-space: nowrap;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover,
+    &.dropdown-r__option--active {
+        background: map-get($colors, light-800);
+
+        color: map-get($colors, primary-50);
+    }
+}

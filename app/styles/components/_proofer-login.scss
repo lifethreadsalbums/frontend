@@ -1,0 +1,35 @@
+//------------------------------------------------------------------
+//                     PROOFER - LOGIN
+//------------------------------------------------------------------
+.proofer-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow: auto;
+
+    background: map-get($colors, dark-800);
+
+    .form-element:last-child {
+        margin-right: 0;
+    }
+}
+
+.proofer-login__form {
+    box-sizing: border-box;
+    width: 350px;
+    max-width: 100%;
+    padding: 15px;
+    text-align: center;
+}
+
+.proofer-login__info {
+    clear: both;
+    margin-bottom: 10px;
+
+    color: map-get($colors, dark-100);
+}
+
+.proofer-login__password {
+    width: 170px;
+}

@@ -1,0 +1,156 @@
+//-----------------------------------------------------------
+//              DESIGNER FLAT PAGINATION
+//-----------------------------------------------------------
+.designer-pagination {
+    display: inline-block;
+    text-align: left;
+
+    .pagination-first,
+    .pagination-prev,
+    .pagination-next,
+    .pagination-last {
+        display: inline-block;
+        position: relative;
+        top: 7px;
+        margin: 0 18px;
+        cursor: pointer;
+
+        &[disabled] {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    }
+
+    .pagination-pages {
+        display: inline-block;
+        position: relative;
+        margin: 0 18px;
+
+        .pagination-current,
+        input .pagination-current {
+            @include radius(4px);
+            @include box-shadow(none);
+            width: 100px;
+            margin: 0;
+            padding-right: 51px;
+            background: map-get($colors, dark-500);
+            border: 1px solid map-get($colors, light-900);
+            font-size: 13px;
+            color: map-get($colors, dark-50);
+            text-align: right;
+        }
+
+        .pagination-total {
+            position: absolute;
+            left: 51px;
+            top: 9px;
+            font-size: 13px;
+            color: map-get($colors, dark-50);
+            pointer-events: none;
+        }
+    }
+
+    &.designer-pagination-horizontal {
+        .pagination-first {
+            @include designer-sprite("pagination-horizontal-first-flat");
+            width: designer-sprite-width("pagination-horizontal-first-flat");
+            height: designer-sprite-height("pagination-horizontal-first-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-horizontal-first-active-flat");
+            }
+
+        }
+
+        .pagination-prev {
+            @include designer-sprite("pagination-horizontal-prev-flat");
+            width: designer-sprite-width("pagination-horizontal-prev-flat");
+            height: designer-sprite-height("pagination-horizontal-prev-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-horizontal-prev-active-flat");
+            }
+        }
+
+        .pagination-next {
+            @include designer-sprite("pagination-horizontal-next-flat");
+            width: designer-sprite-width("pagination-horizontal-next-flat");
+            height: designer-sprite-height("pagination-horizontal-next-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-horizontal-next-active-flat");
+            }
+        }
+
+        .pagination-last {
+            @include designer-sprite("pagination-horizontal-last-flat");
+            width: designer-sprite-width("pagination-horizontal-last-flat");
+            height: designer-sprite-height("pagination-horizontal-last-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-horizontal-last-active-flat");
+            }
+        }
+    }
+
+    &.designer-pagination-vertical {
+        .pagination-prev,
+        .pagination-next {
+            top: 4px;
+        }
+
+        .pagination-first {
+            @include designer-sprite("pagination-vertical-first-flat");
+            width: designer-sprite-width("pagination-vertical-first-flat");
+            height: designer-sprite-height("pagination-vertical-first-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-vertical-first-active-flat");
+            }
+        }
+
+        .pagination-prev {
+            @include designer-sprite("pagination-vertical-prev-flat");
+            width: designer-sprite-width("pagination-vertical-prev-flat");
+            height: designer-sprite-height("pagination-vertical-prev-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-vertical-prev-active-flat");
+            }
+        }
+
+        .pagination-next {
+            @include designer-sprite("pagination-vertical-next-flat");
+            width: designer-sprite-width("pagination-vertical-next-flat");
+            height: designer-sprite-height("pagination-vertical-next-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-vertical-next-active-flat");
+            }
+        }
+
+        .pagination-last {
+            @include designer-sprite("pagination-vertical-last-flat");
+            width: designer-sprite-width("pagination-vertical-last-flat");
+            height: designer-sprite-height("pagination-vertical-last-flat");
+
+            &:hover,
+            &:active {
+                @include designer-sprite("pagination-vertical-last-active-flat");
+            }
+        }
+    }
+}
+
+@-moz-document url-prefix() {
+    .designer-pagination .pagination-pages .pagination-total {
+        top: 9px;
+    }
+}

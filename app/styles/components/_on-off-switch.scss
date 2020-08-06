@@ -1,0 +1,135 @@
+//------------------------------------------------------------------
+//                       ON/OFF SWITCH - DEFAULT LIGHT
+//------------------------------------------------------------------
+.onoffswitch {
+    position: relative;
+    width: 73px;
+    @include user-select(none);
+
+    &.exception {
+        margin: 0 30px 0 -30px;
+    }
+
+    span {
+        padding: 0;
+    }
+
+    .onoffswitch-checkbox {
+        display: none;
+    }
+
+    .onoffswitch-label {
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid map-get($colors, dark-200);
+        @include border-radius(3px);
+        margin: 0;
+    }
+
+    .onoffswitch-inner {
+        display: block;
+        width: 200%;
+        margin-left: -100%;
+        @include transition(margin 0.3s ease-in 0s);
+    }
+
+    .onoffswitch-inner:before,
+    .onoffswitch-inner:after {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 21px;
+        padding: 0;
+        line-height: 24px;
+        font-size: 14px;
+        color: white;
+        font-family: Trebuchet, Arial, sans-serif;
+        @include box-sizing(border-box);
+    }
+
+    .onoffswitch-inner:before {
+        padding-left: 3px;
+        background: linear-gradient(map-get($colors, primary-200), map-get($colors, primary-100));
+        color: map-get($colors, light-50);
+    }
+
+    .onoffswitch-inner:after {
+        padding-right: 3px;
+        background: map-get($colors, light-100);
+        color: map-get($colors, dark-400)666;
+        text-align: right;
+    }
+
+    .onoffswitch-switch {
+        display: block;
+        width: 36px;
+        margin: 0px;
+        background: linear-gradient(map-get($colors, light-100), map-get($colors, light-600));
+        border: 1px solid map-get($colors, light-600);
+        @include border-radius(3px);
+        position: absolute;
+        top: 1px;
+        bottom: 1px;
+        right: 36px;
+        @include transition(all 0.3s ease-in 0s);
+        background: linear-gradient(center top, rgba(map-get($colors, dark-900),0.1) 0%, rgba(map-get($colors, dark-900),0) 100%);
+    }
+
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 1px;
+    }
+}
+
+//------------------------------------------------------------------
+//                       ON/OFF SWITCH COLOR - DARK
+//------------------------------------------------------------------
+.onoffswitch--dark {
+    .onoffswitch-label {
+        border: 1px solid map-get($colors, dark-600);
+    }
+
+    .onoffswitch-switch {
+        width: 35px;
+        margin: 0px;
+        border: 1px solid map-get($colors, dark-300);
+        top: 2px;
+        bottom: 2px;
+    }
+
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 2px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF SWITCH LABEL - YES/NO
+//------------------------------------------------------------------
+.onoffswitch--yes-no {
+    .onoffswitch-inner:before {
+        content: "YES";
+    }
+
+    .onoffswitch-inner:after {
+        content: "NO";
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF SWITCH LABEL - ON/OFF
+//------------------------------------------------------------------
+.onoffswitch--on-off {
+    .onoffswitch-inner:before {
+        content: "ON";
+    }
+
+    .onoffswitch-inner:after {
+        content: "OFF";
+    }
+}

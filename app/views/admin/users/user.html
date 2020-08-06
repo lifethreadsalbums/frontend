@@ -1,0 +1,390 @@
+<form novalidate form-submit="save($event)" name="userForm" class="admin-user-form">
+	<div class="scrollable-container is-to-bottom">
+
+		<header></header>
+
+		<panel round="true">
+
+	        <panelheader title="Account Details">
+	            <span ng-show="panelCtrl.collapsed">{{model.user.id + (model.isAdminLabel ? '•' + model.isAdminLabel : '') + (model.user.status ? '•' + model.user.status : '') + (model.user.group.name ? ' • ' + model.user.group.name : '')}}</span>
+	        </panelheader>
+
+	        <panelcontent>
+
+    			<!-- <pre><small><b>debug:</b>{{model.user | json}}</small></pre> -->
+
+		        <div class="row collpase">
+			        <div class="large-12 columns">
+
+			        	<div class="row" ng-show="currentUser.admin">
+							<div class="large-12 columns">
+								<div class="row">
+
+									<div class="large-6 columns  form-element">
+										<label>Customer ID</label>
+										<input type="text" ng-model="model.user.id" ng-disabled="true" >
+									</div>
+
+									<div class="large-6 columns form-element">
+										<label>User Type</label>
+										<dropdown-button class="full-width" label="Please select" options="isAdminOptions" value-field="value"
+											ng-model="model.user.admin" name="userType" on-change="isAdminChanged()" required ng-disabled="model.user.id">
+										</dropdown-button>
+										<span ng-show="userForm.userType.$blurred && userForm.userType.$invalid" class="alert label">Please select user type</span>
+									</div>
+
+								</div><!-- row -->
+							</div>
+						</div><!-- row -->
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+
+									<div class="large-6 columns form-element">
+										<label>Account Status</label>
+										<dropdown-button class="full-width" label="Please select" options="accountStatusOptions" value-field="value"
+											ng-model="model.user.status" name="accountStatus" required ng-disabled="!currentUser.admin || !model.user.verified">
+										</dropdown-button>
+										<span ng-show="userForm.accountStatus.$blurred && userForm.accountStatus.$invalid" class="alert label">Please select account status</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>Membership</label>
+										<dropdown-button class="full-width" label="Please select" options="groups" label-field="name" track-by="id"
+											ng-model="model.user.group" name="membership" required ng-focus
+                                            ng-disabled="!currentUser.admin">
+										</dropdown-button>
+										<span ng-show="userForm.membership.$blurred && userForm.membership.$invalid" class="alert label">{{'userGroupRequired'|i18n}}</span>
+									</div>
+								</div><!-- row -->
+								<div class="row" ng-show="currentUser.admin">
+									<div class="large-12 columns">
+										<a ng-click="resendVerificationEmail()" class="left text-smaller">Resend Verification Email</a>
+									</div>
+
+									<div class="large-12 columns">&nbsp;</div>
+								<div><!-- row -->
+							</div>
+						</div><!-- row -->
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+
+									<div class="large-6 columns form-element">
+										<label>{{'password'|i18n}}</label>
+										<input type="password" placeholder="{{'passwordPlaceholder'|i18n}}" id="inputPassword" data-min-length="4"
+											data-ng-model="model.newPassword" name="inPassword" data-correct-password="" required ng-focus autocomplete="off">
+										<span ng-show="userForm.inPassword.$blurred && userForm.inPassword.$error.required" class="alert label">{{'passwordRequired'|i18n}}</span>
+										<span ng-show="userForm.inPassword.$blurred && userForm.inPassword.$error.short && !userForm.inPassword.$error.required" class="alert label">{{'passwordTooShort'|i18n}}</span>
+										<span ng-show="userForm.inPassword.$blurred && userForm.inPassword.$error.wrong && !userForm.inPassword.$error.required" class="alert label">{{'passwordWrongChars'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'confirmPassword'|i18n}}</label>
+										<input type="password" placeholder="{{'passwordConfirmPlaceholder'|i18n}}" id="inputPasswordConfirm" data-ng-model="model.passwordConfirmation" data-match-fields="model.newPassword" required ng-focus autocomplete="off">
+										<span ng-show="userForm.inPasswordConfirm.$blurred && userForm.inPasswordConfirm.$error.required" class="alert label">{{'passwordConfirmationRequired'|i18n}}</span>
+			          					<span ng-show="userForm.inPasswordConfirm.$blurred && userForm.inPasswordConfirm.$error.doesntMatch && !userForm.inPasswordConfirm.$error.required" class="alert label">{{'passwordNotMatch'|i18n}}</span>
+									</div>
+
+								</div><!--  row -->
+							</div>
+						</div><!-- row -->
+
+						<div class="row" ng-show="currentUser.admin">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-12 columns">
+										<input type="checkbox" id="change-password" ng-model="model.user.changePasswordOnNextLogin">
+										<label for="change-password">Change password on next login</label>
+									</div>
+								</div>
+							</div>
+						</div><!-- row -->
+
+					</div>
+				</div>
+
+	        </panelcontent>
+	    </panel>
+
+		<panel round="true">
+
+	        <panelheader title="Personal details">
+	            <span ng-show="panelCtrl.collapsed">{{model.user.firstName + ' ' + model.user.lastName + '•' + model.user.email + (model.user.phone ? ' • ' + model.user.phone : '') + (model.user.website ? ' • ' + model.user.website : '') + (model.user.companyName ? ' • ' + model.user.companyName : '')}}</span>
+	        </panelheader>
+
+	        <panelcontent>
+		        <div class="row collapse">
+					<div class="large-12 columns">
+
+			        	<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'firstName'|i18n}}</label>
+										<input type="text" placeholder="{{'firstNamePlaceholder'|i18n}}" id="inputFname" name="inFname" data-ng-model="model.user.firstName" required ng-focus ng-minlength="2">
+										<span ng-show="userForm.inFname.$blurred && userForm.inFname.$invalid && !userForm.inFname.$error.minlength"
+											class="alert label">{{'firstNameRequired'|i18n}}</span>
+										<span ng-show="userForm.inFname.$blurred && userForm.inFname.$invalid && userForm.inFname.$error.minlength"
+											class="alert label">{{'firstNameTooShort'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'lastName'|i18n}}</label>
+										<input type="text" placeholder="{{'lastNamePlaceholder'|i18n}}" id="inputLname" name="inLname" data-ng-model="model.user.lastName" required ng-focus ng-minlength="2">
+										<span ng-show="userForm.inLname.$blurred && userForm.inLname.$invalid && !userForm.inLname.$error.minlength"
+											class="alert label">{{'lastNameRequired'|i18n}}</span>
+										<span ng-show="userForm.inLname.$blurred && userForm.inLname.$invalid && userForm.inLname.$error.minlength"
+											class="alert label">{{'lastNameTooShort'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'mail'|i18n}}</label>
+										<input type="email" placeholder="{{'mailPlaceholder'|i18n}}" id="inputEmail" name="inEmail"
+											data-ng-model="model.user.email" required ng-focus unique-email="model.user" autocomplete="off"
+											ng-disabled="!currentUser.admin">
+										<span ng-show="userForm.inEmail.$blurred && userForm.inEmail.$invalid && !userForm.inEmail.$error.email && !userForm.inEmail.$error.unique" class="alert label">{{'emailRequired'|i18n}}</span>
+			          					<span ng-show="userForm.inEmail.$blurred && userForm.inEmail.$error.email && userForm.inEmail.$invalid" class="alert label">{{'emailNotValid'|i18n}}</span>
+			          					<span ng-show="userForm.inEmail.$blurred && userForm.inEmail.$error.unique && userForm.inEmail.$invalid" class="alert label">{{'emailExists'|i18n}}</span>
+									</div>
+
+									<div class="large-6 columns form-element">
+										<label>{{'confirmMail'|i18n}}</label>
+										<input type="email" placeholder="{{'mailConfirmPlaceholder'|i18n}}" id="inputEmailConfirm" name="inEmailConfirm"
+											data-ng-model="model.emailConfirmation" required ng-focus match-fields="model.user.email" autocomplete="off"
+											ng-disabled="!currentUser.admin">
+										<span ng-show="(userForm.inEmailConfirm.$blurred || userForm.submitted) && userForm.inEmailConfirm.$invalid && (userForm.inEmailConfirm.$error.email || userForm.inEmailConfirm.$error.required)" class="alert label">{{'emailConfirmationRequired'|i18n}}</span>
+			          					<span ng-show="userForm.inEmailConfirm.$blurred && userForm.inEmailConfirm.$invalid && userForm.inEmailConfirm.$error.doesntMatch && !userForm.inEmailConfirm.$error.email && !userForm.inEmailConfirm.$error.required" class="alert label">{{'emailNotMatch'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'phoneNbr'|i18n}}</label>
+										<input type="text" ng-model="model.user.phone" name="inPhoneNbr" id="phoneNumber" required ng-focus>
+										<span ng-show="userForm.inPhoneNbr.$blurred && userForm.inPhoneNbr.$invalid" class="alert label">{{'phoneNumberRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'website'|i18n}}</label>
+										<input type="text" placeholder="{{'websitePlaceholder'|i18n}}" id="inputWebsite" name="inWeb" input-url required ng-focus data-ng-model="model.user.website">
+										<span ng-show="userForm.inWeb.$blurred && userForm.inWeb.$error.required" class="alert label">{{'websiteRequired'|i18n}}</span>
+										<span ng-show="userForm.inWeb.$blurred && !userForm.inWeb.$error.required && userForm.inWeb.$error.url" class="alert label">{{'properUrl'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-12 columns form-element">
+										<label>{{'company'|i18n}}</label>
+										<input type="text" data-ng-model="model.user.companyName" placeholder="{{'companyPlaceholder'|i18n}}" id="inputCompany" name="inComp" required ng-focus>
+										<span ng-show="userForm.inComp.$blurred && userForm.inComp.$invalid" class="alert label">{{'companyNameRequired'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</panelcontent>
+	    </panel>
+
+	    <panel round="true">
+	        <panelheader title="Billing Details">
+	            <span ng-show="panelCtrl.collapsed">{{model.user.billingAddress.addressLine1 + (model.user.billingAddress.addressLine2 ? ', ' + model.user.billingAddress.addressLine2 : '') + (model.user.billingAddress.city ? ' • ' + model.user.billingAddress.city : '') + (model.user.billingAddress.country ? ' • ' + model.user.billingAddress.country.displayName : '') + (model.user.billingAddress.state ? ' • ' + model.user.billingAddress.state.displayName : '') + (model.user.billingAddress.zipCode ? ' • ' + model.user.billingAddress.zipCode : '')}}</span>
+	        </panelheader>
+	        <panelcontent>
+		        <div class="row collapse">
+					<div class="large-12 columns">
+
+			        	<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'adrL1'|i18n}}</label>
+										<input type="text" placeholder="{{'adrL1'|i18n}}" name="adrL1" id="inputAddr1"
+											data-ng-model="model.user.billingAddress.addressLine1" required ng-focus>
+										<span ng-show="userForm.adrL1.$blurred && userForm.adrL1.$invalid" class="alert label">{{'addressRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'adrL2'|i18n}}</label>
+										<input type="text" placeholder="{{'adrL2'|i18n}}" name="adrL2" data-ng-model="model.user.billingAddress.addressLine2" ng-focus>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'city'|i18n}}</label>
+										<input type="text" data-ng-model="model.user.billingAddress.city" placeholder="{{'cityPlaceholder'|i18n}}" name="city"
+											id="inputCity" required ng-focus>
+										<span ng-show="userForm.city.$blurred && userForm.city.$invalid" class="alert label">{{'cityRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'country'|i18n}}</label>
+										<dropdown-button class="full-width" label="Please select" label-field="displayName" track-by="id"
+											options="countries" ng-model="model.user.billingAddress.country" name="country0" on-change="billingCountryChanged()" required ng-focus>
+										</dropdown-button>
+										<span ng-show="userForm.country0.$blurred && userForm.country0.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'province'|i18n}}</label>
+										<dropdown-button class="full-width" label="Please select" label-field="displayName"
+											options="billingProvinces" track-by="id" ng-model="model.user.billingAddress.state" name="prov0" required ng-focus>
+										</dropdown-button>
+										<span ng-show="userForm.prov0.$blurred && userForm.prov0.$invalid" class="alert label">{{'provinceRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'postalCode'|i18n}}</label>
+										<input type="text" data-ng-model="model.user.billingAddress.zipCode" placeholder="{{'postalCodePlaceholder'|i18n}}"
+											name="zip" id="inputZip" required ng-focus>
+										<span ng-show="userForm.zip.$blurred && userForm.zip.$invalid" class="alert label">{{'postalCodeRequired'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" data-ng-show="model.user.billingAddress.country.id==2 && model.user.billingAddress.state.id==2">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label for="inputPTS">PST #</label>
+										<div class="clearfix" ng-class="{'pst-verified': !userForm.pst.$invalid && model.user.taxNumber !== 'N/A'}">
+											<input type="text" placeholder="{{'enterPST'|i18n}}" name="pst" id="inputPST"
+												ui-mask="{{pstMask}}" clearOnBlurPlaceholder="true" ui-mask-placeholder ui-mask-placeholder-char="_"
+												data-ng-required="model.user.billingAddress.country.id==2 && model.user.billingAddress.state.id==2 && model.user.taxNumber !== 'N/A'"
+												data-ng-disabled="model.user.taxNumber === 'N/A' || pstDisabled"
+												data-ng-model="model.user.taxNumber"
+												ng-focus>
+											<img src="/images/valid.png" ng-show="!userForm.pst.$invalid && model.user.taxNumber !== 'N/A'">
+										</div>
+										<span ng-show="userForm.pst.$blurred && userForm.pst.$invalid" class="alert label">{{'pstRequired'|i18n}}</span>
+										<input type="checkbox" name="noPST" id="noPST"
+											ng-model="model.noPST"
+											ng-change="noPSTChanged()"
+											ng-checked="model.noPST || model.user.taxNumber === 'N/A'"
+											data-ng-disabled="pstDisabled">
+										<label for="noPST" ng-class="{'text-disabled': pstDisabled}">{{'noPST'|i18n}}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns">
+										<input type="checkbox" id="shippingAddressSameAsBillingAddress" ng-change="shippingSameAsBillingChanged()" ng-model="model.user.shippingAddressSameAsBillingAddress">
+										<label for="shippingAddressSameAsBillingAddress">{{'sameAsBiling'|i18n}}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</panelcontent>
+	    </panel>
+
+	    <panel round="true" collapsed="{{model.user.shippingAddressSameAsBillingAddress}}" ng-disabled="model.user.shippingAddressSameAsBillingAddress">
+	        <panelheader title="Shipping Details">
+	            <span ng-show="panelCtrl.collapsed">{{model.user.shippingAddress.addressLine1 + (model.user.shippingAddress.addressLine2 ? ', ' + model.user.shippingAddress.addressLine2 : '') + (model.user.shippingAddress.city ? ' • ' + model.user.shippingAddress.city : '') + (model.user.shippingAddress.country ? ' • ' + model.user.shippingAddress.country.displayName : '') + (model.user.shippingAddress.state ? ' • ' + model.user.shippingAddress.state.displayName : '') + (model.user.shippingAddress.zipCode ? ' • ' + model.user.shippingAddress.zipCode : '')}}</span>
+	        </panelheader>
+	        <panelcontent>
+		        <div class="row collapse">
+					<div class="large-12 columns">
+
+			        	<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'adrL1'|i18n}}</label>
+										<input type="text" placeholder="{{'adrL1'|i18n}}" data-ng-model="model.user.shippingAddress.addressLine1"
+                                            name="shippingAddressLine1"
+											ng-focus ng-required="!model.user.shippingAddressSameAsBillingAddress">
+
+                                        <span ng-show="userForm.shippingAddressLine1.$blurred && userForm.shippingAddressLine1.$invalid" class="alert label">{{'addressRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'adrL2'|i18n}}</label>
+										<input type="text" placeholder="{{'adrL2'|i18n}}" ng-model="model.user.shippingAddress.addressLine2"
+											ng-focus name="shippingAddressLine2">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'city'|i18n}}</label>
+										<input type="text" placeholder="{{'city'|i18n}}" ng-model="model.user.shippingAddress.city" ng-focus
+											ng-required="!model.user.shippingAddressSameAsBillingAddress"
+                                            name="shippingCity">
+                                        <span ng-show="userForm.shippingCity.$blurred && userForm.shippingCity.$invalid" class="alert label">{{'cityRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'country'|i18n}}</label>
+										<dropdown-button class="full-width" label="Please select" label-field="displayName" track-by="id"
+											options="countries" ng-model="model.user.shippingAddress.country" on-change="shippingCountryChanged()"
+											ng-focus ng-required="!model.user.shippingAddressSameAsBillingAddress"
+                                            name="shippingCountry" direction="up">
+										</dropdown-button>
+                                        <span ng-show="userForm.shippingCountry.$blurred && userForm.shippingCountry.$invalid" class="alert label">{{'countryRequired'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="row">
+									<div class="large-6 columns form-element">
+										<label>{{'province'|i18n}}</label>
+										<dropdown-button class="full-width" label="Please select" label-field="displayName" track-by="id"
+											options="shippingProvinces" ng-model="model.user.shippingAddress.state" ng-focus
+											ng-required="!model.user.shippingAddressSameAsBillingAddress"
+                                            name="shippingProvince" direction="up">
+										</dropdown-button>
+                                        <span ng-show="userForm.shippingProvince.$blurred && userForm.shippingProvince.$invalid" class="alert label">{{'provinceRequired'|i18n}}</span>
+									</div>
+									<div class="large-6 columns form-element">
+										<label>{{'postalCode'|i18n}}</label>
+										<input type="text" placeholder="{{'postalCodePlaceholder'|i18n}}" ng-model="model.user.shippingAddress.zipCode"
+											ng-focus ng-required="!model.user.shippingAddressSameAsBillingAddress"
+                                            name="shippingZip">
+                                        <span ng-show="userForm.shippingZip.$blurred && userForm.shippingZip.$invalid" class="alert label">{{'postalCodeRequired'|i18n}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</panelcontent>
+	    </panel>
+
+	</div>
+
+	<footer>
+		<button class="button color pull-right" ng-hide="!userForm.$dirty">Save</button>
+		<button ng-click="cancel($event)" class="button pull-right" ng-hide="!userForm.$dirty">Cancel</button>
+	</footer>
+
+	<frp/>
+</form>

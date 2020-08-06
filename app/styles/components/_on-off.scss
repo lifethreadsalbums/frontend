@@ -1,0 +1,210 @@
+//------------------------------------------------------------------
+//                       ON/OFF - LIGHT
+//------------------------------------------------------------------
+.on-off-container.light {
+    &[disabled] {
+        cursor: default;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .on-off-pre-label {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    .on-off {
+        @include switch($switch-paddle-transition-speed, $switch-paddle-transition-ease, 20px, 13px, 20px, $switch-paddle-bg, map-get($colors, primary-400), map-get($colors, light-500), 2px, false);
+        @include museo300();
+        @include box-shadow(0 0 1px 1px map-get($colors, light-300));
+        display: inline-block;
+        min-width: 60px;
+        margin-bottom: 0;
+        border-color: map-get($colors, light-600);
+        text-transform: uppercase;
+        vertical-align: top;
+
+        > label {
+            font-size: 10px !important;
+            line-height: 20px !important;
+            margin: 0 !important;
+        }
+
+        input {
+            &:first-of-type:checked + label,
+            &:first-of-type:checked + span + label {
+                left: 5px;
+                color: map-get($colors, light-800);
+            }
+
+            &:last-of-type:checked + label,
+            &:last-of-type:checked + span + label {
+                right: 5px;
+                color: map-get($colors, light-50);
+            }
+        }
+
+        span:last-child {
+            @include radius(3px);
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 28px;
+            height: 18px;
+            border-color: map-get($colors, light-600);
+            @include box-shadow(2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                1000px 0 0 980px map-get($colors, primary-400),
+                -2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                -1000px 0 0 1000px map-get($colors, light-300));
+        }
+
+        input:first-of-type:checked ~ span:last-child {
+            margin-left: -28px;
+        }
+    }
+
+    &.is-on {
+        .on-off {
+            @include box-shadow(0 0 1px 1px map-get($colors, primary-100));
+            background-color: map-get($colors, primary-400);
+            border-color: map-get($colors, primary-500);
+
+            span:last-child {
+                @include linear-gradient(map-get($colors, light-100), map-get($colors, light-400));
+                @include box-shadow(2px 0 10px 0 map-get($colors, primary-400),
+                    1000px 0 0 980px map-get($colors, primary-400),
+                    -2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                    -1000px 0 0 1000px map-get($colors, primary-400));
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF - DARK
+//------------------------------------------------------------------
+.on-off-container.dark {
+    &[disabled] {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .on-off-pre-label {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    .on-off {
+        @include switch($switch-paddle-transition-speed, $switch-paddle-transition-ease, 20px, 13px, 20px, $switch-paddle-bg, map-get($colors, dark-800), map-get($colors, dark-900), 0, false);
+        @include museo300();
+        @include box-shadow(0 0 1px 1px map-get($colors, dark-700));
+        display: inline-block;
+        min-width: 60px;
+        margin-bottom: 0;
+        border-color: map-get($colors, dark-700);
+        text-transform: uppercase;
+        vertical-align: top;
+
+        > label {
+            font-size: 10px !important;
+            line-height: 20px !important;
+            margin: 0 !important;
+
+        }
+
+        input {
+            &:first-of-type:checked + label,
+            &:first-of-type:checked + span + label {
+                padding-left: 5px;
+                color: map-get($colors, light-800);
+                background-color: map-get($colors, dark-800);
+            }
+
+            &:last-of-type:checked + label,
+            &:last-of-type:checked + span + label {
+                right: 5px;
+                color: map-get($colors, light-50);
+            }
+        }
+
+        span:last-child {
+            @include radius(3px);
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 28px;
+            height: 18px;
+            border-color: map-get($colors, dark-700);
+            @include box-shadow(2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                1000px 0 0 980px map-get($colors, dark-800),
+                -2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                -1000px 0 0 1000px map-get($colors, dark-800));
+        }
+
+        input:first-of-type:checked ~ span:last-child {
+            margin-left: -28px;
+        }
+    }
+
+    &.is-on {
+        .on-off {
+            span:last-child {
+                @include box-shadow(2px 0 10px 0 map-get($colors, primary-400),
+                    1000px 0 0 980px map-get($colors, primary-400),
+                    -2px 0 10px 0 rgba(map-get($colors, dark-900),0.07),
+                    -1000px 0 0 1000px map-get($colors, dark-800));
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF - INPUT HEIGHT
+//------------------------------------------------------------------
+.on-off-container.on-off-container--input-height {
+    float: left !important;
+
+    &.light,
+    &.dark {
+        .on-off {
+            height: 31px;
+
+            > label {
+                line-height: 30px !important;
+            }
+
+            span:last-child {
+                height: 29px;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF - ON TAB CONTENT
+//------------------------------------------------------------------
+.tab-content {
+    .on-off-container {
+        position: relative !important;
+        float: right;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                       ON/OFF - SPLIT
+//------------------------------------------------------------------
+.on-off-split {
+    // used in debossing-left.html
+    .on-off-container.light {
+        width: 100% !important;
+
+        .on-off-pre-label {
+            margin-right: 135px !important;
+            text-align: left;
+        }
+    }
+}

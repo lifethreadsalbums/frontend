@@ -1,0 +1,731 @@
+//------------------------------------------------------------------
+//                     BUILDER
+//------------------------------------------------------------------
+.builder {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+.builder--sidebar-left-on {
+    .sidebar-creator {
+        display: block;
+    }
+
+    .builder__content {
+        left: 276px;
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER HEADER
+//------------------------------------------------------------------
+.section-header--builder {
+    padding: 6px 7px 0;
+}
+
+.section-header--dark {
+    box-shadow: 0 0 5px 0 map-get($colors, dark-900);
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER CONTENT
+//------------------------------------------------------------------
+.builder__content {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+
+    &.fade-animation .builder__content-inner {
+        &.ng-enter,
+        &.ng-leave {
+            transition: all ease-in 0.8s;
+        }
+
+        &.ng-enter {
+            opacity: 0;
+        }
+        &.ng-enter.ng-enter-active {
+            opacity: 1;
+        }
+
+        &.ng-leave {
+            opacity: 1;
+        }
+        &.ng-leave.ng-leave-active {
+            opacity: 0;
+        }
+    }
+
+    .cover-preview {
+        display: inline-block;
+        position: relative;
+        top: 50%;
+    }
+
+    .preview {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+    }
+}
+
+.builder__content-primary {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.builder__content-primary-inner {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 70px 25px 25px 25px;
+    overflow: auto;
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER CONTENT CONTAINER
+//------------------------------------------------------------------
+.builder__content-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.builder__content-container--panel-on {
+    .builder__content-primary,
+    .builder__footer {
+        right: 280px;
+    }
+}
+
+.builder__content-container--footer-on {
+    .builder__content-primary {
+        bottom: 120px;
+    }
+
+    .builder__footer {
+        display: block;
+    }
+}
+
+.builder__content-container--single-image .builder__content-primary-inner {
+    padding-bottom: 72px;
+}
+
+.builder__content-container--thumbnails {
+    .builder__content-primary {
+        background: map-get($colors, dark-200);
+        bottom: 160px;
+    }
+
+    .builder__footer {
+        display: block;
+        height: 160px;
+        background: map-get($colors, light-700);
+
+        .slider {
+            .flex-viewport {
+                margin-right: 55px;
+            }
+
+            .flex-direction-nav li a {
+                &.flex-prev {
+                    bottom: 85px;
+                }
+
+                &.flex-next {
+                    bottom: 35px;
+                }
+            }
+        }
+
+    }
+}
+
+.builder__content-container--materials {
+    overflow: hidden;
+
+    .builder__footer .slider .flex-viewport {
+        margin-left: 10px;
+    }
+}
+
+.builder__content-container--debossing {
+    overflow-y: hidden;
+
+    .builder__footer {
+        height: 50px;
+        background-color: map-get($colors, light-100);
+        border-top: 1px solid map-get($colors, light-600);
+        overflow: visible;
+    }
+
+    // Animations
+    .builder__footer.debossing-container,
+    .builder__footer.color-picker-container{
+        @include transition(bottom ease 0.5s);
+
+        &.ng-hide-add,
+        &.ng-hide-remove {
+            display: block !important;
+        }
+    }
+
+    .builder__footer.debossing-container {
+        &.ng-hide {
+            bottom: -50px;
+        }
+    }
+
+    .builder__footer.color-picker-container {
+        height: 120px;
+        background: map-get($colors, light-100);
+
+        .slider {
+            height: 120px;
+            margin-left: 10px;
+        }
+
+        .slides,
+        .flex-viewport {
+            top: 0;
+        }
+
+        a {
+            width: 90px;
+        }
+
+        &.ng-hide {
+            bottom: -120px;
+        }
+    }
+}
+
+.builder__content-container--dark {
+    .builder__right-sidebar {
+        background: map-get($colors, dark-600);
+        border-color: map-get($colors, dark-700);
+
+        h2,
+        p {
+            color: map-get($colors, dark-100);
+        }
+    }
+
+    .build-overlay {
+        background: url(../images/designer-dark-pattern-bg.png) repeat;
+    }
+
+    .builder__content-primary {
+        background: url(../images/designer-dark-pattern-bg.png) repeat;
+    }
+
+    .builder__content-container--thumbnails {
+        .builder__footer {
+            background: map-get($colors, light-800);
+            box-shadow: none;
+        }
+
+        .builder__footer-slider {
+            .flex-direction-nav {
+                background: map-get($colors, light-800);
+            }
+        }
+
+        .builder__footer-slide--thumbnail {
+            .builder__footer-slide-link {
+                border-color: map-get($colors, dark-200);
+            }
+
+            &.selected .builder__footer-slide-link {
+                border-color: map-get($colors, primary-500);
+            }
+        }
+
+        .builder__footer-slide-link {
+            width: 42px;
+            height: 42px;
+            max-height: 42px;
+
+            border: 1px solid map-get($colors, dark-700);
+            border-radius: 4px;
+
+            color: transparent;
+            user-select: none;
+
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 2px;
+                right: 2px;
+                height: 1px;
+
+                background: map-get($colors, dark-300);
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: button-sprite-width("icon-back");
+                height: button-sprite-height("icon-back");
+                margin: auto;
+
+                @include button-sprite("icon-back");
+            }
+
+            &.flex-prev,
+            &.flex-next {
+                background: linear-gradient(map-get($colors, dark-400), map-get($colors, dark-600));
+            }
+
+            &.flex-next:after {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER RIGHT SIDEBAR
+//------------------------------------------------------------------
+.builder__right-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 280px;
+    padding: 20px;
+    background: map-get($colors, light-100);
+    overflow-y: scroll;
+    text-align: justify;
+
+    h2 {
+        margin-bottom: 13px;
+        font-size: 16px;
+        color: map-get($colors, light-800);
+    }
+
+    p {
+        font-size: 13px;
+        color: map-get($colors, light-700);
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER FOOTER
+//------------------------------------------------------------------
+.builder__footer {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background-color: map-get($colors, light-300);
+    box-shadow: 0 -3px 3px -2px map-get($colors, light-600);
+    overflow: auto;
+
+    .slider,
+    .slider.flexslider-container .flexslider {
+        position: relative;
+
+        &.nav-off {
+            .flex-viewport {
+                margin-right: 0;
+            }
+
+            .flex-direction-nav {
+                display: none;
+            }
+        }
+
+        .flex-viewport {
+            margin-right: 65px;
+        }
+
+        .flex-direction-nav {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 56px;
+            background-color: map-get($colors, light-100);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            li {
+                width: 56px;
+                height: 48px;
+                position: relative;
+
+                a {
+                    opacity: 1 !important;
+                    outline: none;
+
+                    &:before {
+                        display: none;
+                        content: "";
+                    }
+
+                    &.flex-disabled {
+                        opacity: .5 !important;
+                        pointer-events: none;
+                    }
+
+                    &.flex-prev {
+                        @include build-sprite("slider-prev");
+                        width: build-sprite-width("slider-prev");
+                        height: build-sprite-height("slider-prev");
+                        top: auto;
+                        bottom: 0;
+                        left: auto;
+                        right: 8px;
+                        text-indent: -999px;
+                    }
+
+                    &.flex-next {
+                        @include build-sprite("slider-next");
+                        width: build-sprite-width("slider-next");
+                        height: build-sprite-height("slider-next");
+                        top: auto;
+                        bottom: 0;
+                        left: auto;
+                        right: 8px;
+                        text-indent: 999px;
+                    }
+                }
+            }
+        }
+
+        &.hideDirectionNav {
+            .flex-viewport {
+                margin-right: 10px !important;
+            }
+
+            .flex-direction-nav {
+                display: none;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER FOOTER SLIDES
+//------------------------------------------------------------------
+.builder__footer-slides {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+.builder__footer-slide {
+    display: block;
+    float: left;
+    overflow: hidden;
+}
+
+.builder__footer-slide--cameo {
+    width: 120px;
+    height: 120px;
+    background-color: map-get($colors, light-200);
+
+    .cameo-window {
+        background: map-get($colors, light-500);
+        border: 2px solid map-get($colors, light-800);
+        box-sizing: border-box;
+    }
+
+    .stamp-position {
+        background: map-get($colors, light-800);
+        box-sizing: border-box;
+    }
+
+    &.disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    .builder__footer-slide-link {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        color: map-get($colors, dark-100)aba;
+    }
+
+    .cameo-thumb {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        position: absolute;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .cameo-name {
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        height: 13px;
+        line-height: 13px;
+        font-size: 13px;
+        display: block;
+        padding: 2px;
+        text-align: center;
+        color:map-get($colors, light-800);
+    }
+
+    &:hover {
+        background-color:map-get($colors, light-500);
+    }
+
+    &.active {
+        background-color: map-get($colors, primary-500);
+        color:map-get($colors, light-50) !important;
+
+        .cameo-name {
+            color:map-get($colors, light-50);
+        }
+    }
+}
+
+.builder__footer-slide--shape-size {
+    width: 120px;
+    height: 120px;
+    background-color:map-get($colors, light-200);
+
+    &.disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    .builder__footer-slide-link {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        color: map-get($colors, dark-100)aba;
+    }
+
+    .size-thumb {
+        display: block;
+        border    : 2px solid map-get($colors, light-800);
+        text-align: center;
+        position  : absolute;
+        bottom    : 30px;
+        left: 50%;
+        background-color:map-get($colors, light-500);
+
+        &:hover {
+            cursor: pointer;
+
+        }
+    }
+
+    .shape-name {
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        height: 13px;
+        line-height: 13px;
+        display: block;
+        padding: 2px;
+        text-align: center;
+        color:map-get($colors, light-800);
+    }
+
+    &:hover {
+        background-color:map-get($colors, light-500);
+    }
+
+    &.active {
+        background-color: map-get($colors, primary-500);
+        color:map-get($colors, light-50) !important;
+
+        .shape-name {
+            color:map-get($colors, light-50);
+        }
+    }
+}
+
+.builder__footer-slide--material {
+    width: 100px !important;
+    height: 120px;
+
+    .builder__footer-slide-link {
+        display: block;
+    }
+
+    .material-box-wrap {
+        display: block;
+        width: 78px;
+        height: 78px;
+        margin: 11px 4px 0 14px;
+    }
+
+    .material-box {
+        @include box-sizing("content-box");
+        @include radius(6px);
+        position: relative;
+        display: block;
+        width: 70px;
+        height: 70px;
+        border: 1px solid map-get($colors, light-700);
+        overflow: hidden;
+        @include box-shadow(1px 1px 2px 0px rgba(map-get($colors, dark-300), 0.75));
+    }
+
+    .material-preview {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: map-get($colors, dark-900);
+        background-size: cover;
+    }
+
+    .material-name {
+        display: block;
+        width:100%;
+        margin-top: 2px;
+        font-size: 13px;
+        line-height: 14px;
+        color: map-get($colors, light-800);
+        text-align: center;
+    }
+
+    &.material-none {
+        .material-preview {
+            position: relative;
+            background-color: map-get($colors, light-50);
+            @include build-sprite("material-empty-cb-footer");
+        }
+    }
+
+    &:hover {
+        background-color: map-get($colors, light-500);
+
+        .material-box {
+            margin-top: 0;
+        }
+    }
+
+    &.active,
+    &.selected {
+        background-color:map-get($colors, primary-500);
+        color:map-get($colors, light-50);
+
+        .material-box {
+            color:map-get($colors, light-50);
+        }
+
+        .material-name {
+            color:map-get($colors, light-50);
+        }
+    }
+}
+
+.builder__footer-slide--thumbnail {
+    background-color: map-get($colors, light-700);
+
+    .builder__footer-slide-link {
+        display: block;
+        position: relative;
+        width: 180px;
+        height: 160px;
+        overflow: hidden;
+        border: 4px solid map-get($colors, light-50);
+    }
+
+    .thumbnail-preview {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .thumbnail-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(map-get($colors, dark-900), .5);
+    }
+
+    &.selected .builder__footer-slide-link {
+        border: 4px solid map-get($colors, primary-500);
+    }
+
+    &:hover,
+    &.active {
+        .builder__footer-slide-link {
+            border: 4px solid map-get($colors, dark-900);
+        }
+    }
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER OVERLAY LAYER
+//------------------------------------------------------------------
+.build-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(map-get($colors, dark-900), .5);
+}
+
+
+//------------------------------------------------------------------
+//                     BUILDER MIX
+//------------------------------------------------------------------
+.noneopacity {
+    opacity: 0;
+}
+
+.all-fonts {
+    margin-bottom: 2px;
+}
+
+.all-fonts__hr {
+    margin: 13px 0;
+}

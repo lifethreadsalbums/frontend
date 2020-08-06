@@ -1,0 +1,119 @@
+.sort-bar {
+    width: 100%;
+    height: 34px;
+    padding: 8px 20px;
+
+    border-bottom: 1px solid map-get($colors, light-700);
+
+    &.sort-bar--absolute {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .sort-label {
+        float: left;
+        font-size: 11px;
+        line-height: 17px;
+    }
+
+    .sort-button {
+        @include user-select("none");
+        @include orders-sprite("icon-sort");
+        display: inline-block;
+        float: right;
+        width: 50px;
+        height: 17px;
+        text-indent: -999px;
+        overflow: hidden;
+    }
+
+    .sort-options.open {
+        left: auto !important;
+        right: 10px !important;
+
+        &:before {
+            left: auto;
+            right: 16px;
+        }
+        &:after {
+            left: auto;
+            right: 15px;
+        }
+    }
+
+    .filter-bar {
+        text-align: right;
+
+        .sort-arrow {
+            cursor: pointer;
+            margin-right: 10px;
+            display: inline-block;
+            @include orders-history-sprite("sort-icon");
+            width: orders-history-sprite-width("sort-icon");
+            height: orders-history-sprite-height("sort-icon");
+        }
+
+        .sort-filter {
+            cursor: pointer;
+            display: inline-block;
+            @include orders-history-sprite("filter-icon");
+            width: orders-history-sprite-width("filter-icon");
+            height: orders-history-sprite-height("filter-icon");
+
+            &:hover, &:focus, &:active, &.active {
+                @include orders-history-sprite("filter-icon-active");
+            }
+        }
+
+        #date-sort {
+            padding: 20px;
+            max-width: 255px;
+            text-align: left;
+            margin-left: -230px;
+            width: 95%;
+            border-radius: 5px;
+            border: none;
+            @include box-shadow(0 1px 2px 1px rgba(map-get($colors, dark-900),.2));
+
+
+            &:after, &:before {
+                content: none;
+            }
+
+            input {
+                padding-left: 40px;
+            }
+
+            .calendar {
+                position: absolute;
+                margin: 5px;
+                display: inline-block;
+                cursor: pointer;
+                @include orders-history-sprite("calendar");
+                width: orders-history-sprite-width("calendar");
+                height: orders-history-sprite-height("calendar");
+            }
+
+            button {
+                width: 100%;
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $breakPointM) {
+    .sort-bar .sort-label {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (min-width: $breakPointL) {
+    .sort-bar .sort-label {
+        font-size: 14px;
+    }
+}

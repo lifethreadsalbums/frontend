@@ -1,0 +1,22 @@
+.static-content {
+    position: relative;
+    margin: 20px auto;
+    padding: 40px 50px;
+    background: map-get($colors, light-50);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px 0 rgba(map-get($colors, dark-900), 0.2);
+}
+
+.static-header {
+    margin-bottom: 25px;
+}
+
+.static-section-header {
+    margin: 20px 0;
+}
+
+.static-list {
+    li {
+        margin: 8px 0 8px 15px;
+    }
+}

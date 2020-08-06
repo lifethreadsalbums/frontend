@@ -1,0 +1,19 @@
+<section id="dashboard" class="section section--dashboard">
+	<!-- Sidebar -->
+	<aside class="sidebar-menu__container" ng-class="{'direction-left':$state.current.data.directionLeft, 'direction-right':$state.current.data.directionRight}">
+		<div ui-view="sidebar" class="ng-animate-enabled"></div>
+	</aside>
+
+	<!-- Content -->
+	<div id="content" class="section__content section__content--sidebar section__content--transition section__content--top-padding">
+		<aside ng-hide="$state.current.data.leftPanelHidden" class="section__left-panel">
+			<div ui-view="left"></div>
+		</aside>
+
+        <article ui-view="right" ng-class="{'section__main-content--left-panel': !$state.current.data.leftPanelHidden}" class="section__main-content"></article>
+	</div>
+
+	<div ng-show="designerSpinner" class="spinner-overlay">
+        <spinner></spinner>
+    </div>
+</section>

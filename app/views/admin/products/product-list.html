@@ -1,0 +1,33 @@
+
+
+
+<header class="clear-margin">Products</header>
+	
+<div class="product-list" style="height:100%">
+	
+	<div class="scrollable-container"  style="height:100%">
+
+		<a ui-sref=".details({id:p.id})" ng-repeat="p in prototypes">
+			<div class="project-item" 
+				ng-class="{active: ($state.params.id==p.id)}">
+
+			
+
+				<div class="row collapse">
+					
+
+					<div class="large-12 columns">
+						
+						<span>{{p.code}}</span>
+						
+					</div><!--12-->
+				</div><!-- row -->
+
+			
+			</div>
+		</a>
+	</div> <!--scrollable container-->
+
+	
+
+</div>

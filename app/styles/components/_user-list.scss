@@ -1,0 +1,124 @@
+//------------------------------------------------------------------
+//                     USER LIST ITEM
+//------------------------------------------------------------------
+.user-item {
+    font-size: 12px;
+    line-height: 16px;
+    color: map-get($colors, dark-200);
+    overflow: visible !important;
+
+    &:hover,
+    &.active {
+        color: map-get($colors, light-50);
+
+        .user-item__membership:after,
+        .user-item__membership .dropdown-r__label,
+        .user-item__role:after,
+        .user-item__role .dropdown-r__label,
+        .user-item__name,
+        .user-item__last-login {
+            color: map-get($colors, light-50);
+        }
+    }
+}
+
+.user-item__name {
+    width: 100%;
+    margin-bottom: 3px;
+    overflow: hidden;
+
+    font-size: 16px;
+    line-height: 20px;
+    color: map-get($colors, light-800);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media only screen and (min-width: 1824px) {
+        & {
+            float: left;
+            width: 140px;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.user-item__status {
+    float: right;
+    top: -3px;
+    width: 140px;
+
+    @media only screen and (max-width: 1823px) {
+        & {
+            clear: both;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.user-item__company {
+    clear: both;
+    margin-bottom: 7px;
+
+    @media only screen and (max-width: 1823px) {
+        & {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.user-item__email,
+.user-item__www {
+    float: left;
+    margin-bottom: 7px;
+    cursor: pointer;
+}
+
+.user-item__email .icon {
+    position: relative;
+    top: 1px;
+}
+
+.user-item__www .icon {
+    position: relative;
+    top: -1px;
+    margin-right: 25px;
+}
+
+.user-item__membership,
+.user-item__role {
+    float: right;
+
+    font-size: 12px;
+
+    &:after {
+        color: map-get($colors, dark-200);
+    }
+
+    .dropdown-r__label {
+        color: map-get($colors, dark-200);
+        text-align: right;
+    }
+
+    .dropdown-r__options {
+        font-size: 12px;
+    }
+}
+
+.user-item__membership {
+    width: 160px;
+    margin-bottom: 7px;
+
+    @media only screen and (min-width: 1824px) {
+        & {
+            width: 200px;
+        }
+    }
+}
+
+.user-item__last-login {
+    clear: left;
+    float: left;
+
+    font-size: 10px;
+    color: map-get($colors, light-700);
+}

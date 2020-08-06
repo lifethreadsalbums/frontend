@@ -1,0 +1,116 @@
+.section__left-panel--orders .invoice-list .generic-list {
+    top: 1px;
+}
+
+.invoice-item {
+    padding: 10px;
+
+    background: map-get($colors, light-50);
+    border-bottom: 1px solid map-get($colors, light-700);
+
+    color: map-get($colors, dark-200);
+
+    &:hover {
+        background: $hover-color;
+    }
+
+    &.active {
+        @include linear-gradient(map-get($colors, primary-400), map-get($colors, primary-600));
+    }
+
+    &.active,
+    &:hover {
+        color: map-get($colors, light-50);
+    }
+}
+
+.invoice-item__row {
+    margin-bottom: 7px;
+
+    &.invoice-item__row--single {
+        width: 100%;
+        overflow: hidden;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.invoice-item__status {
+    display: inline-block;
+    float: left;
+    width: 150px;
+    padding: 5px 10px 3px 10px;
+    overflow: hidden;
+
+    border-radius: 2px;
+
+    font-size: 12px;
+    line-height: 14px;
+    color: map-get($colors, light-50);
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+
+    &.invoice-item__status--green {
+        background: map-get($colors, success-100);
+    }
+
+    &.invoice-item__status--blue {
+        background: map-get($colors, primary-400);
+    }
+
+    &.invoice-item__status--orange {
+        background: map-get($colors, warning-500);
+    }
+
+    &.invoice-item__status--red {
+        background: map-get($colors, danger-400);
+    }
+
+    &.invoice-item__status--gray {
+        background: map-get($colors, light-800);
+    }
+}
+
+.invoice-item__order-id {
+    float: right;
+    overflow: hidden;
+
+    @include museo700();
+    font-size: 17px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.invoice-item__user {
+    float: left;
+
+    @include museo500();
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.invoice-item__order-date {
+    float: right;
+    width: 75px;
+
+    font-size: 12px;
+    line-height: 20px;
+    text-align: right;
+}
+
+.invoice-item__sub-order-id {
+    margin-right: 5px;
+
+    @include museo500();
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.invoice-item__project {
+    font-size: 12px;
+    line-height: 16px;
+}

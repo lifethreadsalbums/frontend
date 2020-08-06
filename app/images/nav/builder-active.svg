@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0.97826087" y="0.97826087" width="11" height="11"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="11" height="11" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <path d="M10.9600683,14.0765378 C10.8339138,14.1238457 10.7077612,14.127788 10.5816067,14.0883647 C10.4554523,14.0489415 10.3608378,13.9661538 10.2977606,13.8399994 L9.18602992,11.4509611 L7.93237615,12.4680764 C7.8377603,12.5311536 7.72343453,12.5626918 7.58939541,12.5626918 C7.45535628,12.5626918 7.34103051,12.5153845 7.24641466,12.4207687 C7.15179881,12.3261528 7.10449159,12.2078848 7.10449159,12.065961 L7.10449159,4.49673074 C7.10449159,4.35480696 7.15179881,4.23653892 7.24641466,4.14192307 C7.34103051,4.04730722 7.45535628,4 7.58939541,4 C7.72343453,4 7.8377603,4.03942268 7.93237615,4.11826922 L7.93237615,4.09461538 L13.7275681,8.96730737 C13.8379532,9.06192322 13.9010295,9.17624899 13.9167988,9.31028812 C13.9325681,9.44432724 13.8970877,9.56259528 13.8103565,9.66509579 C13.7236253,9.76759629 13.6250686,9.82673031 13.5146835,9.84249962 L11.9298759,10.1736534 L13.0179527,12.5390379 C13.08103,12.6809617 13.0889145,12.8149988 13.0416066,12.9411533 C12.9942987,13.0673077 12.9075688,13.1619222 12.7814143,13.2249994 L10.9600683,14.0765378 Z" id="path-3"></path>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="6.81594636" height="10.1152443" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-1" transform="translate(-215.000000, -19.000000)">
+            <g id="Group-12" transform="translate(215.000000, 19.000000)">
+                <use id="Rectangle-11" stroke="#E8E8E8" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
+                <rect id="Rectangle-11-Copy" fill="#E8E8E8" x="0" y="0" width="3" height="3"></rect>
+                <rect id="Rectangle-11-Copy-2" fill="#E8E8E8" x="10" y="0" width="3" height="3"></rect>
+                <rect id="Rectangle-11-Copy-3" fill="#E8E8E8" x="0" y="10" width="3" height="3"></rect>
+                <use id="" stroke="#E8E8E8" mask="url(#mask-4)" stroke-width="2" fill="#E8E8E8" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>
