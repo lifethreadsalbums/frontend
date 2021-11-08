@@ -257,7 +257,7 @@ angular.module('pace.order')
                     if (product.isReprint) url += '-reprint';
 
                     ProductFormService.prepareProductFormTemplate(model.productPrototype, product.isReprint);
-                    
+
                     loadTemplate(url);
                     var cache = optionCache[url];
 
@@ -280,13 +280,16 @@ angular.module('pace.order')
                         model.productOptions[code] = option;
                         model.productOptionValues[code] = {};
 
-                        angular.forEach(option.prototypeProductOptionValues, function(value) {
+                        angular.forEach(option.prototypeProductOptionValues, function(value, index) {
+                        if(value.productOptionValue.code == "atmosphere" || value.productOptionValue.code == "16x12"){
+                                option.prototypeProductOptionValues.splice(index, 1);
+                        } else {
                             var childrenInfo = model.productPrototype.getPrototypeProductOptionValueChildren(code, value.productOptionValue.code);
                             if (childrenInfo)
                                 value.children = childrenInfo.children;
                             model.productOptionValues[code][value.productOptionValue.code] = value.productOptionValue.displayName;
                             value.displayOrder = value.displayName;
-                        });
+                        }});
 
                         if (!option.isRequired) {
                             option.prototypeProductOptionValues.unshift({
@@ -385,9 +388,9 @@ angular.module('pace.order')
                     if (enabled) {
                         //$scope.$broadcast('option-enabled', code);
                         $timeout(function() {
-                            $scope.$broadcast('option-enabled', code);    
+                            $scope.$broadcast('option-enabled', code);
                         });
-                        
+
                     }
 
                     if (!enabled) {
