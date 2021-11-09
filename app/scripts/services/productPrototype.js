@@ -63,6 +63,8 @@ angular.module('paceApp')
                 });
             if (childOption) {
                 var children = _.filter(childOption.prototypeProductOptionValues, function(val) {
+                    //hiding atmosphere and size 16x12 in the frontend as a quick fix
+                    //to-do remove them from the backend
                     return val.parent && val.parent.code===valueCode && (val.code != "16x12" && val.code != "atmosphere") ;
                 });
                 return { option: childOption, children: children };

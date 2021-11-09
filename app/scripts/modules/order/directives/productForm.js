@@ -281,6 +281,8 @@ angular.module('pace.order')
                         model.productOptionValues[code] = {};
 
                         angular.forEach(option.prototypeProductOptionValues, function(value, index) {
+                        //hiding atmosphere and size 16x12 in the frontend as a quick fix
+                        //to-do remove them from the backend
                         if(value.productOptionValue.code == "atmosphere" || value.productOptionValue.code == "16x12"){
                                 option.prototypeProductOptionValues.splice(index, 1);
                         } else {
