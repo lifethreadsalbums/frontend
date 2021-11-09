@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('paceApp')
-    .constant('ProductPageType', 
-        { 
+    .constant('ProductPageType',
+        {
             PageBased: 'PageBased',
             SpreadBased: 'SpreadBased'
         }
@@ -21,14 +21,14 @@ angular.module('paceApp')
                             cache.put(apiUrl + 'api/productPrototype?default=true', prototype);
                         }
                         cache.put(apiUrl + 'api/productPrototype/' + prototype.id, prototype);
-                        cache.put(apiUrl + 'api/productPrototype?code=' + prototype.code, prototype);   
+                        cache.put(apiUrl + 'api/productPrototype?code=' + prototype.code, prototype);
                     }
                 }
                 return response.resource;
             }
         };
 
-        var ProductPrototype = $resource( apiUrl + 'api/productPrototype/:id', { }, 
+        var ProductPrototype = $resource( apiUrl + 'api/productPrototype/:id', { },
         {
             query: { method:'GET', isArray:true, cache:cache, interceptor:interceptor },
             get: { method:'GET', isArray:false, cache:cache },
@@ -63,7 +63,9 @@ angular.module('paceApp')
                 });
             if (childOption) {
                 var children = _.filter(childOption.prototypeProductOptionValues, function(val) {
-                    return val.parent && val.parent.code===valueCode;
+                    //hiding atmosphere and size 16x12 in the frontend as a quick fix
+                    //to-do remove them from the backend
+                    return val.parent && val.parent.code===valueCode && (val.code != "16x12" && val.code != "atmosphere") ;
                 });
                 return { option: childOption, children: children };
             }
