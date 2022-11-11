@@ -7,8 +7,8 @@ angular.module('pace.build')
         function ($scope, items, section, sectionItem, $state, product, secondaryOption, ProductPrototype,
             nextSection, productPrototype, optionVisibilityFilter, BuildService, $rootScope, MessageService, sections,
             userSettings, AuthService, ProductService, $timeout) {
-        
-        var prevState = {}, 
+
+        var prevState = {},
             lastItem = section.children.indexOf(sectionItem)===section.children.length-1;
 
         var optionCode = sectionItem.prototypeProductOption.effectiveCode,
@@ -33,7 +33,7 @@ angular.module('pace.build')
         }
 
         var isProductCategoryOption = sectionItem.prototypeProductOption.systemAttribute==='ProductCategory';
-        if (isProductCategoryOption) 
+        if (isProductCategoryOption)
             $scope.autoSaver.setEnabled(false);
         else
             $scope.autoSaver.setEnabled(true);
@@ -43,8 +43,11 @@ angular.module('pace.build')
                 var childInfo = productPrototype.getPrototypeProductOptionValueChildren($scope.optionCode, item.code);
                 if (!childInfo || childInfo.children.length===0) return true;
 
+                if(item.code === "pearl" || item.code === "velvet")
+                return false;
+
                 var children = optionVisibilityFilter(childInfo.children, product, sectionItem.prototypeProductOption.effectiveCode);
-                return (children.length>0); 
+                return (children.length>0);
             });
             return items;
         }
@@ -63,11 +66,11 @@ angular.module('pace.build')
 
             if (!sortType || sortType==='Default') return items;
 
-            items = _.sortBy(items, function(item) { 
+            items = _.sortBy(items, function(item) {
                 if (item.layoutSize) {
                     return item.layoutSize.width * item.layoutSize.height;
                 }
-                return item.productOptionValue.displayName 
+                return item.productOptionValue.displayName
             });
             if (sortType==='AlphabeticDescending') {
                 items = items.reverse();
@@ -101,7 +104,7 @@ angular.module('pace.build')
         function doNesting(items, optionCode) {
             var val = product.options[optionCode],
                 optionValue = findOptionValue(items, val);
-                
+
             $scope.items = filterItems(items);
             $scope.optionCode = optionCode;
             $scope.model.currentOptionCode = optionCode;
@@ -120,7 +123,7 @@ angular.module('pace.build')
             var yesCallback = function() {
                     product.options[$scope.optionCode] = category;
 
-                    $rootScope.buildSpinner = true;    
+                    $rootScope.buildSpinner = true;
                     ProductPrototype.getDefault(function(productPrototype) {
                         product.prototypeId = productPrototype.id;
                         product.$save(function(value) {
@@ -139,7 +142,7 @@ angular.module('pace.build')
 
         function checkForPrototypeChanges() {
             var productPrototypeChanged = product.options._productPrototype &&
-                product.options._productPrototype!==productPrototype.code && 
+                product.options._productPrototype!==productPrototype.code &&
                 (productPrototype.tag||'').indexOf(product.options._productPrototype)===-1;
 
             if (product.id && productPrototypeChanged) {
@@ -200,12 +203,12 @@ angular.module('pace.build')
                     userSettings.$save();
                 }
             }
-            
+
             var firstTimeSelection = !product.options[$scope.optionCode];
 
             product.options = angular.copy($scope.model.previewOptions);
             ProductService.setProductOption(product, productPrototype, $scope.optionCode, item.code);
-            
+
             var childInfo = productPrototype.getPrototypeProductOptionValueChildren($scope.optionCode, item.code);
 
             if (childInfo && childInfo.children.length>0) {
@@ -218,26 +221,26 @@ angular.module('pace.build')
             $scope.fillDefaultValues();
             if (!product.options[secondaryOption.optionCode] && secondaryOption.items.length>0) {
                 //preselect first item
-                ProductService.setProductOption(product, productPrototype, 
+                ProductService.setProductOption(product, productPrototype,
                     secondaryOption.optionCode, secondaryOption.items[0].code);
                 $scope.fillDefaultValues();
             }
             if ($scope.model.viewCtrl) $scope.model.viewCtrl.refresh();
 
             $scope.model.previewOptions = angular.copy(product.options);
-            
+
             checkForPrototypeChanges();
-            refreshNextButton();    
+            refreshNextButton();
 
             if (item.productOptionValue.params && item.productOptionValue.params.autoNext) {
                 $timeout(function() {
                      $scope.$parent.next();
                 });
-            }        
+            }
         };
 
         $scope.$on('build-next-click', function() {
-            if (isProductCategoryOption && selectedCategory && 
+            if (isProductCategoryOption && selectedCategory &&
                 previousCategory!==product.options[$scope.optionCode]) {
                 changeCategory(selectedCategory);
                 return;
@@ -261,9 +264,9 @@ angular.module('pace.build')
             $state.go('^');
         });
 
-        
+
         doNesting(items, $scope.optionCode);
-       
+
         //preselect first item
         var systemAttribute = sectionItem.prototypeProductOption.systemAttribute;
         if (!product.id && userSettings && userSettings.settings && userSettings.settings.coverBuilderCategory && systemAttribute==='ProductCategory') {
@@ -280,5 +283,5 @@ angular.module('pace.build')
             var item = _.findWhere($scope.items, {code: prototypeProductOption.effectiveParams.defaultValue});
             if (item) $scope.selectItem(item);
         }
-        
+
     }]);
