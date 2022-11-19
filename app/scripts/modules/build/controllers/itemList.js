@@ -40,11 +40,11 @@ angular.module('pace.build')
 
         function filterItems(items) {
             var items = _.filter(items, function(item) {
+                if(item.code === "pearl" || item.code === "velvet"){
+                  return false;
+                }
                 var childInfo = productPrototype.getPrototypeProductOptionValueChildren($scope.optionCode, item.code);
                 if (!childInfo || childInfo.children.length===0) return true;
-
-                if(item.code === "pearl" || item.code === "velvet")
-                return false;
 
                 var children = optionVisibilityFilter(childInfo.children, product, sectionItem.prototypeProductOption.effectiveCode);
                 return (children.length>0);
