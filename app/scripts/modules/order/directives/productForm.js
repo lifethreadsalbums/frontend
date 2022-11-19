@@ -283,7 +283,7 @@ angular.module('pace.order')
                         angular.forEach(option.prototypeProductOptionValues, function(value, index) {
                         //hiding atmosphere and size 16x12 in the frontend as a quick fix
                         //to-do remove them from the backend
-                        if(value.productOptionValue.code == "atmosphere" || value.productOptionValue.code == "16x12"){
+                        if(value.productOptionValue.code == "atmosphere" || value.productOptionValue.code == "16x12" || || value.productOptionValue.code == "pearl" || || value.productOptionValue.code == "velvet"){
                                 option.prototypeProductOptionValues.splice(index, 1);
                         } else {
                             var childrenInfo = model.productPrototype.getPrototypeProductOptionValueChildren(code, value.productOptionValue.code);
