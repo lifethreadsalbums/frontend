@@ -20,6 +20,11 @@ angular.module('pace.login')
             };
 
             function onLoginSuccess(value) {
+              var date1 = new Date('01.05.2023');
+
+                if(date1.getTime() > new Date().getTime()) {
+                      MessageService.ok("Please note: Pearl & Velvet papers are no longer available. All albums will be printed on lustre paper");
+                }
             	var user = value.user,
 					billingAddress = user.billingAddress,
 					taxCountryId = 2,
